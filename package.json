@@ -11,13 +11,14 @@
     "commit": "git-cz"
   },
   "config": {
-    "commitizen":{
+    "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "styled-components": "^6.1.8"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
