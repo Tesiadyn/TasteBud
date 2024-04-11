@@ -22,7 +22,7 @@ const Comments = () => {
   return (
     <Container>
       <Wrapper>
-        <Card to={`/products/1`}>
+        <Card to={`/product/1`}>
           <CardImgDiv />
           <CardInfoDiv>
             <CardInfos>
