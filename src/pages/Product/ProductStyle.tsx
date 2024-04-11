@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const Container = styled.div`
     width: 1440px;
@@ -45,4 +46,10 @@ export const ProductInfoAlc = styled.p`
 export const ProductInfoMl = styled.p`
 
 `
-
+export const PostCommentBtn = styled(Link)`
+    width: 80px;
+    height: 40px;
+    background-color: #f7f7f7;
+    padding: 10px;
+    text-decoration: none;
+`

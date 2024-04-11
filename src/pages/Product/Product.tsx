@@ -1,4 +1,4 @@
-import { Container, ProductImgDiv, ProductInfoAlc, ProductInfoCategory, ProductInfoDiv, ProductInfoDivider, ProductInfoFactory, ProductInfoTitle, ProductInfoYear, Wrapper, ProductInfoMl, ProductImg } from "./ProductStyle";
+import { Container, ProductImgDiv, ProductInfoAlc, ProductInfoCategory, ProductInfoDiv, ProductInfoDivider, ProductInfoFactory, ProductInfoTitle, ProductInfoYear, Wrapper, ProductInfoMl, ProductImg, PostCommentBtn } from "./ProductStyle";
 import Morlach from "../../assets/Morlach-16y.png"
 
 const Product = () => {
@@ -28,7 +28,9 @@ const Product = () => {
             <ProductInfoMl>
               容量: 700ml
             </ProductInfoMl>
+            <PostCommentBtn to={`./post`}>發表評論</PostCommentBtn>
           </ProductInfoDiv>
+          
         </Wrapper>
       </Container>
     )
