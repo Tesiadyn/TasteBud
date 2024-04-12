@@ -6,8 +6,9 @@ import Layout from "./pages/Layout/Layout.tsx";
 import Comments from "./pages/Comments/Comments.tsx";
 import Login from "./pages/Login/Login.tsx";
 import Member from "./pages/Member/Member.tsx";
-import Product from "./pages/Product/index.tsx";
+import Product from "./pages/Product/Product.tsx";
 import Events from "./pages/Events/Events.tsx"
+import Post from "./pages/Post/Post.tsx";
 
 const App = () => {
   return (
@@ -21,7 +22,8 @@ const App = () => {
             <Route path="events" element={<Events />} />
             <Route path="login" element={<Login />} />
             <Route path="member" element={<Member />} />
-            <Route path="product" element={<Product />} />
+            <Route path="product/:id" element={<Product />} />
+            <Route path="product/:id/post" element={<Post />} />
           </Route>
         </Routes>
       </BrowserRouter>
