@@ -13,6 +13,7 @@ import {
   startAt,
   endAt,
   doc,
+  setDoc
 } from "firebase/firestore";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
@@ -130,11 +131,24 @@ const Post: React.FC = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Selected nodes:", selectedNodes);
+  const handleSubmit = async () => {
+    const auth = getAuth();
+    try {
+      // 获取当前用户的UID
+      const currentUser = auth.currentUser;
+      if (currentUser) {
+        const uid = currentUser.uid;
 
-    
+        // 将用户的选择数据存储到Firestore中的用户文档中
+        const userDocRef = doc(db, "Member", uid);
+        await setDoc(userDocRef, {
+          selectedNodes: selectedNodes
+        });
+        console.log("User document updated for UID: ", uid);
+      }
+    } catch (error) {
+      console.error("Error updating user document: ", error);
+    }
   };
 
 /* -------------------------------- autologin ------------------------------- */
