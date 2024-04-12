@@ -1,4 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { initializeApp } from "firebase/app";
+import { arrayUnion, getFirestore, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+  Timestamp,
+  serverTimestamp,
+  startAt,
+  endAt,
+  doc,
+} from "firebase/firestore";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyANQJ8ETExnabZR0g56IJT8Jdw1uWeLds4",
+  authDomain: "tastebud-2dd90.firebaseapp.com",
+  projectId: "tastebud-2dd90",
+  storageBucket: "tastebud-2dd90.appspot.com",
+  messagingSenderId: "59077764864",
+  appId: "1:59077764864:web:eadf0ff6c497f8246d75e5"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 export interface FlavourNode {
   id: number;
@@ -89,6 +117,8 @@ const CheckboxInput: React.FC<CheckboxInputProps> = ({
 
 const Post: React.FC = () => {
   const [selectedNodes, setSelectedNodes] = useState<number[]>([]);
+  const [useruid, setUseruid] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
   const handleNodeSelect = (nodeId: number) => {
     setSelectedNodes((prevSelectedNodes) => {
@@ -100,10 +130,31 @@ const Post: React.FC = () => {
     });
   };
 
-  const handleSubmit = () => {
- 
+  const handleSubmit = (e) => {
+    e.preventDefault();
     console.log("Selected nodes:", selectedNodes);
+
+    
   };
+
+/* -------------------------------- autologin ------------------------------- */
+useEffect(() => {
+  const auth = getAuth();
+  const email = "test@test.com";
+  const password = "112233";
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userIdent) => {
+      const user = userIdent.user;
+      console.log("logged in as :", user.email);
+      const userInfo = auth.currentUser;
+      setUseruid(userInfo.uid);
+      setUserEmail(userInfo.email);
+    })
+    .catch((err) => {
+      console.error("Login failed:", err.message);
+    });
+}, []);
 
   return (
     <div>
