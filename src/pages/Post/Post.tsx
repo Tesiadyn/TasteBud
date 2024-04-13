@@ -1,20 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
-import { arrayUnion, getFirestore, updateDoc } from "firebase/firestore";
-import {
-  collection,
-  addDoc,
-  getDocs,
-  onSnapshot,
-  query,
-  where,
-  Timestamp,
-  serverTimestamp,
-  startAt,
-  endAt,
-  doc,
-  setDoc,
-} from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const firebaseConfig = {
@@ -118,8 +105,6 @@ const CheckboxInput: React.FC<CheckboxInputProps> = ({
 
 const Post: React.FC = () => {
   const [selectedNodes, setSelectedNodes] = useState<number[]>([]);
-  const [useruid, setUseruid] = useState("");
-  const [userEmail, setUserEmail] = useState("");
 
   const handleNodeSelect = (nodeId: number) => {
     setSelectedNodes((prevSelectedNodes) => {
@@ -161,9 +146,6 @@ const Post: React.FC = () => {
       .then((userIdent) => {
         const user = userIdent.user;
         console.log("logged in as :", user.email);
-        const userInfo = auth.currentUser;
-        setUseruid(userInfo.uid);
-        setUserEmail(userInfo.email);
       })
       .catch((err) => {
         console.error("Login failed:", err.message);
