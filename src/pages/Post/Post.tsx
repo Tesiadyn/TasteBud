@@ -13,12 +13,19 @@ import {
   startAt,
   endAt,
   doc,
-  setDoc
+  setDoc,
 } from "firebase/firestore";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import firebaseConfigJson from '../../config/default.json';
 
-const firebaseConfig = JSON.parse(JSON.stringify(firebaseConfigJson))
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+};
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
@@ -135,7 +142,7 @@ const Post: React.FC = () => {
         // 将用户的选择数据存储到Firestore中的用户文档中
         const userDocRef = doc(db, "Member", uid);
         await setDoc(userDocRef, {
-          selectedNodes: selectedNodes
+          selectedNodes: selectedNodes,
         });
         console.log("User document updated for UID: ", uid);
       }
@@ -144,24 +151,24 @@ const Post: React.FC = () => {
     }
   };
 
-/* -------------------------------- autologin ------------------------------- */
-useEffect(() => {
-  const auth = getAuth();
-  const email = "test@test.com";
-  const password = "112233";
+  /* -------------------------------- autologin ------------------------------- */
+  useEffect(() => {
+    const auth = getAuth();
+    const email = "test@test.com";
+    const password = "112233";
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userIdent) => {
-      const user = userIdent.user;
-      console.log("logged in as :", user.email);
-      const userInfo = auth.currentUser;
-      setUseruid(userInfo.uid);
-      setUserEmail(userInfo.email);
-    })
-    .catch((err) => {
-      console.error("Login failed:", err.message);
-    });
-}, []);
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userIdent) => {
+        const user = userIdent.user;
+        console.log("logged in as :", user.email);
+        const userInfo = auth.currentUser;
+        setUseruid(userInfo.uid);
+        setUserEmail(userInfo.email);
+      })
+      .catch((err) => {
+        console.error("Login failed:", err.message);
+      });
+  }, []);
 
   return (
     <div>
