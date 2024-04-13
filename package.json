@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "config": "^3.3.11",
+    "d3": "^7.9.0",
     "firebase": "^10.11.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
