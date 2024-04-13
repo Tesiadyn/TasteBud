@@ -18,7 +18,6 @@ import {
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyANQJ8ETExnabZR0g56IJT8Jdw1uWeLds4",
   authDomain: "tastebud-2dd90.firebaseapp.com",
   projectId: "tastebud-2dd90",
   storageBucket: "tastebud-2dd90.appspot.com",
