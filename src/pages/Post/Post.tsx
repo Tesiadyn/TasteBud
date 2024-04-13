@@ -16,16 +16,9 @@ import {
   setDoc
 } from "firebase/firestore";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import firebaseConfigJson from '../../config/default.json';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyANQJ8ETExnabZR0g56IJT8Jdw1uWeLds4",
-  authDomain: "tastebud-2dd90.firebaseapp.com",
-  projectId: "tastebud-2dd90",
-  storageBucket: "tastebud-2dd90.appspot.com",
-  messagingSenderId: "59077764864",
-  appId: "1:59077764864:web:eadf0ff6c497f8246d75e5"
-};
-
+const firebaseConfig = JSON.parse(JSON.stringify(firebaseConfigJson))
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
