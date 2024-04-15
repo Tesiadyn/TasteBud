@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import {
   getFirestore,
@@ -46,8 +46,16 @@ const data = [
   },
 ];
 
-const CheckboxTree = ({ data }) => {
-  const renderTreeNode = (node) => {
+interface TreeNode {
+  name: string;
+  children?: TreeNode[];
+}
+interface Props{
+  data: TreeNode[];
+}
+
+const CheckboxTree: React.FC<Props> = ({ data }) => {
+  const renderTreeNode = (node: TreeNode) => {
     if (node.children && node.children.length > 0) {
       return (
         <ul>
