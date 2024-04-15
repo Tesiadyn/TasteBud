@@ -59,6 +59,7 @@ const Member = () => {
         querySnapshot.docs.forEach((doc) => {
           console.log("Document Data:", doc.data().wheelData);
           const parsedData = JSON.parse(doc.data().wheelData);
+
           console.log(parsedData);
 
           setData(parsedData);

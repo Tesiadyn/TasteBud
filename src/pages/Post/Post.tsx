@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
 import {
   getFirestore,
@@ -52,11 +52,77 @@ interface TreeNode {
   children?: TreeNode[];
 }
 
-interface Props{
+interface Props {
   data: TreeNode[];
 }
 
 const CheckboxTree: React.FC<Props> = ({ data }) => {
+  const [treeData, setTreeData] = useState<TreeNode[]>(data);
+
+  const updateNodeValue = (nodeName: string, incrementValue: number) => {
+    setTreeData((prevData) =>
+      prevData.map((node) => {
+        const updatedNode = { ...node };
+        if (node.name === nodeName) {
+          updatedNode.value = (node.value || 0) + incrementValue;
+        } else if (node.children) {
+          updatedNode.children = updateNodeValueInTree(
+            node.children,
+            nodeName,
+            incrementValue
+          );
+        }
+        return updatedNode;
+      })
+    );
+  };
+
+  const updateNodeValueInTree = (
+    nodes: TreeNode[],
+    nodeName: string,
+    incrementValue: number
+  ): TreeNode[] => {
+    return nodes.map((node) => {
+      const updatedNode = { ...node };
+      if (node.name === nodeName) {
+        updatedNode.value = (node.value || 0) + incrementValue;
+        console.log(updatedNode);
+      } else if (node.children) {
+        updatedNode.children = updateNodeValueInTree(
+          node.children,
+          nodeName,
+          incrementValue
+        );
+      }
+      console.log(updatedNode);
+
+      return updatedNode;
+    });
+  };
+
+  const handleButtonClick = () => {
+    console.log("running...");
+
+    const selectedNodes: string[] = [];
+    const updateNodeValuesFromCheckboxes = (nodes: TreeNode[]) => {
+      nodes.forEach((node) => {
+        if (node.children) {
+          updateNodeValuesFromCheckboxes(node.children); // 递归调用处理子节点
+        }
+        const checkbox = document.getElementById(node.name);
+        if (checkbox && (checkbox as HTMLInputElement).checked) {
+          selectedNodes.push(node.name);
+        }
+      });
+    };
+
+    updateNodeValuesFromCheckboxes(data);
+
+    selectedNodes.forEach((nodeName) => {
+      updateNodeValueInTree(data, nodeName, 1); // 更新节点值
+    });
+  };
+
   const renderTreeNode = (node: TreeNode) => {
     if (node.children && node.children.length > 0) {
       return (
@@ -72,7 +138,7 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
     } else {
       return (
         <label>
-          <input type="checkbox" />
+          <input type="checkbox" id={node.name} />
         </label>
       );
     }
@@ -80,6 +146,7 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
 
   return (
     <div>
+      <button onClick={handleButtonClick}>Update Value</button>
       {data.map((node, index) => (
         <div key={index}>
           <p>{node.name}</p>
@@ -129,8 +196,6 @@ const Post: React.FC = () => {
 
         querySnapshot.docs.forEach((doc) => {
           const parsedData = JSON.parse(doc.data().wheelData);
-          console.log(parsedData);
-          
         });
       } catch (err: any) {
         console.error("Login failed:", err.message);
