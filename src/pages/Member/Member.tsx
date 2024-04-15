@@ -51,14 +51,14 @@ const Member = () => {
         const userUid = user.uid;
 
         const q = query(
-          collection(db, "Member"),
+          collection(db, "Members"),
           where("__name__", "==", userUid)
         );
         const querySnapshot = await getDocs(q);
 
         querySnapshot.docs.forEach((doc) => {
-          console.log("Document Data:", doc.data().WheelData);
-          const parsedData = JSON.parse(doc.data().WheelData);
+          console.log("Document Data:", doc.data().wheelData);
+          const parsedData = JSON.parse(doc.data().wheelData);
           console.log(parsedData);
 
           setData(parsedData);
