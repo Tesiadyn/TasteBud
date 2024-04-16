@@ -6,68 +6,67 @@ import {
   collection,
   where,
   getDocs,
-  doc,
-  updateDoc,
 } from "firebase/firestore";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 interface TreeNode {
   id: number;
   name: string;
-  value?: number;
+  value: number;
   children?: TreeNode[];
 }
 
 interface Props {
-  data: TreeNode[];
+  data: TreeNode;
 }
 
 const CheckboxTree: React.FC<Props> = ({ data }) => {
-  const [treeData, setTreeData] = useState<TreeNode[]>(data);
+  // const [treeData, setTreeData] = useState<TreeNode[]>([data]);
 
-  useEffect(() => {
-    const updateWheelDataInFirestore = async () => {
-      if (treeData !== data) {
-        try {
-          const user = userIdent.user;
-          const userUid = user.uid;
-          const db = getFirestore();
+  // useEffect(() => {
+  //   const updateWheelDataInFirestore = async () => {
+  //     if (treeData !== data) {
+  //       try {
+  //         const user = userIdent.user;
+  //         const userUid = user.uid;
+  //         const db = getFirestore();
 
-          const docRef = doc(db, "Members", userUid);
-          await updateDoc(docRef, {
-            wheelData: JSON.stringify(treeData),
-          });
-          console.log("Data updated in Firestore");
-        } catch (err) {
-          console.error("Error updating data:", err);
-        }
-      }
-    };
+  //         const docRef = doc(db, "Members", userUid);
+  //         await updateDoc(docRef, {
+  //           wheelData: JSON.stringify(treeData),
+  //         });
+  //         console.log("Data updated in Firestore");
+  //       } catch (err) {
+  //         console.error("Error updating data:", err);
+  //       }
+  //     }
+  //   };
 
-    updateWheelDataInFirestore();
-  }, [treeData, data]);
-  const updateNodeValue = (nodeName: string, incrementValue: number) => {
-    setTreeData((prevData) =>
-      prevData.map((node) => {
-        if (node.name === nodeName) {
-          return {
-            ...node,
-            value: (node.value || 0) + incrementValue,
-          };
-        } else if (node.children) {
-          return {
-            ...node,
-            children: updateNodeValueInTree(
-              node.children,
-              nodeName,
-              incrementValue
-            ),
-          };
-        }
-        return node;
-      })
-    );
-  };
+  //   updateWheelDataInFirestore();
+  // }, [treeData, data]);
+  // const updateNodeValue = (nodeName: string, incrementValue: number) => {
+
+  //   setTreeData((prevData) =>
+  //     prevData.map((node) => {
+  //       if (node.name === nodeName) {
+  //         return {
+  //           ...node,
+  //           value: (node.value || 0) + incrementValue,
+  //         };
+  //       } else if (node.children) {
+  //         return {
+  //           ...node,
+  //           children: updateNodeValueInTree(
+  //             node.children,
+  //             nodeName,
+  //             incrementValue
+  //           ),
+  //         };
+  //       }
+  //       return node;
+  //     })
+  //   );
+  // };
   const updateNodeValueInTree = (
     nodes: TreeNode[],
     nodeName: string,
@@ -113,15 +112,13 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
         updateNodeValueInData(updatedData.children || [], checkbox.id);
       }
     });
-
-    setTreeData(updatedData);
   };
 
   const renderTreeNode = (node: TreeNode) => {
     if (node.children && node.children.length > 0) {
       return (
         <ul>
-          {node.children.map((child, index) => (
+          {node.children.map((child) => (
             <li key={child.id}>
               {child.name}
               {renderTreeNode(child)}
@@ -155,7 +152,11 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
 };
 
 const Post: React.FC = () => {
-  const [parsedNodeData, setParsedNodeData] = useState<TreeNode[]>([]);
+  const [parsedNodeData, setParsedNodeData] = useState<TreeNode>({
+    id: 0,
+    name: "",
+    value: 0,
+  });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -199,6 +200,8 @@ const Post: React.FC = () => {
         querySnapshot.docs.forEach((doc) => {
           const parsedData = JSON.parse(doc.data().wheelData);
           setParsedNodeData(parsedData);
+          console.log(parsedData);
+
           setIsLoading(false);
         });
       } catch (err: any) {
