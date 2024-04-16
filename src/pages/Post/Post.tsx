@@ -86,7 +86,7 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
       const updatedNode = { ...node };
       if (node.name === nodeName) {
         updatedNode.value = (node.value || 0) + incrementValue;
-        console.log(updatedNode);
+
       } else if (node.children) {
         updatedNode.children = updateNodeValueInTree(
           node.children,
@@ -107,7 +107,7 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
     const updateNodeValuesFromCheckboxes = (nodes: TreeNode[]) => {
       nodes.forEach((node) => {
         if (node.children) {
-          updateNodeValuesFromCheckboxes(node.children); // 递归调用处理子节点
+          updateNodeValuesFromCheckboxes(node.children); 
         }
         const checkbox = document.getElementById(node.name);
         if (checkbox && (checkbox as HTMLInputElement).checked) {
@@ -119,7 +119,7 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
     updateNodeValuesFromCheckboxes(data);
 
     selectedNodes.forEach((nodeName) => {
-      updateNodeValueInTree(data, nodeName, 1); // 更新节点值
+      updateNodeValueInTree(data, nodeName, 1); 
     });
   };
 
