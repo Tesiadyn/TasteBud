@@ -6,6 +6,8 @@ import {
   collection,
   where,
   getDocs,
+  doc,
+  updateDoc,
 } from "firebase/firestore";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
@@ -23,6 +25,27 @@ interface Props {
 const CheckboxTree: React.FC<Props> = ({ data }) => {
   const [treeData, setTreeData] = useState<TreeNode[]>(data);
 
+  useEffect(() => {
+    const updateWheelDataInFirestore = async () => {
+      if (treeData !== data) {
+        try {
+          const user = userIdent.user;
+          const userUid = user.uid;
+          const db = getFirestore();
+
+          const docRef = doc(db, "Members", userUid);
+          await updateDoc(docRef, {
+            wheelData: JSON.stringify(treeData),
+          });
+          console.log("Data updated in Firestore");
+        } catch (err) {
+          console.error("Error updating data:", err);
+        }
+      }
+    };
+
+    updateWheelDataInFirestore();
+  }, [treeData, data]);
   const updateNodeValue = (nodeName: string, incrementValue: number) => {
     setTreeData((prevData) =>
       prevData.map((node) => {
@@ -41,13 +64,10 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
             ),
           };
         }
-        console.log(node);
-
         return node;
       })
     );
   };
-
   const updateNodeValueInTree = (
     nodes: TreeNode[],
     nodeName: string,
@@ -69,33 +89,35 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
       return updatedNode;
     });
   };
-
   const handleButtonClick = () => {
     console.log("running...");
 
-    const selectedNodes: string[] = [];
-    const updateNodeValuesFromCheckboxes = (nodes: TreeNode[]) => {
+    const updatedData = JSON.parse(JSON.stringify(data));
+    console.log(updatedData);
+
+    const updateNodeValueInData = (nodes: TreeNode[], nodeName: string) => {
       nodes.forEach((node) => {
-        if (node.children) {
-          updateNodeValuesFromCheckboxes(node.children);
-        }
-        const checkbox = document.getElementById(node.name);
-        if (checkbox && (checkbox as HTMLInputElement).checked) {
-          selectedNodes.push(node.name);
+        if (node.name === nodeName) {
+          node.value = (node.value || 0) + 1;
+        } else if (node.children) {
+          updateNodeValueInData(node.children, nodeName);
         }
       });
     };
 
-    updateNodeValuesFromCheckboxes(data);
-
-    selectedNodes.forEach((nodeName) => {
-      updateNodeValueInTree(data, nodeName, 1);
+    const checkboxes = document.querySelectorAll<HTMLInputElement>(
+      'input[type="checkbox"]'
+    );
+    checkboxes.forEach((checkbox) => {
+      if (checkbox.checked) {
+        updateNodeValueInData(updatedData.children || [], checkbox.id);
+      }
     });
+
+    setTreeData(updatedData);
   };
 
   const renderTreeNode = (node: TreeNode) => {
-    console.log("Rendering node:", node.name);
-
     if (node.children && node.children.length > 0) {
       return (
         <ul>
@@ -115,7 +137,6 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
       );
     }
   };
-  console.log("Rendering CheckboxTree component");
   return (
     <div>
       <button onClick={handleButtonClick}>Update Value</button>
@@ -162,6 +183,8 @@ const Post: React.FC = () => {
           email,
           password
         );
+        console.log(userIdent);
+
         const user = userIdent.user;
         console.log("logged in as :", user.email);
 
