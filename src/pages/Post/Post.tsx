@@ -9,44 +9,8 @@ import {
 } from "firebase/firestore";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-const data = [
-  {
-    name: "Aroma",
-    children: [
-      {
-        name: "sap",
-        children: [
-          { name: "FreshWood", value: 0 },
-          { name: "WetWood", value: 0 },
-        ],
-      },
-      {
-        name: "Cedar",
-        children: [
-          { name: "Sawdust", value: 0 },
-          { name: "Carton", value: 0 },
-          { name: "SharpenedPencil", value: 0 },
-        ],
-      },
-      {
-        name: "Oak",
-        children: [
-          { name: "Resin", value: 0 },
-          { name: "Varnish", value: 0 },
-        ],
-      },
-      {
-        name: "Pine",
-        children: [
-          { name: "Turpentine", value: 0 },
-          { name: "Retsina", value: 0 },
-        ],
-      },
-    ],
-  },
-];
-
 interface TreeNode {
+  id: number;
   name: string;
   value?: number;
   children?: TreeNode[];
@@ -62,17 +26,24 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
   const updateNodeValue = (nodeName: string, incrementValue: number) => {
     setTreeData((prevData) =>
       prevData.map((node) => {
-        const updatedNode = { ...node };
         if (node.name === nodeName) {
-          updatedNode.value = (node.value || 0) + incrementValue;
+          return {
+            ...node,
+            value: (node.value || 0) + incrementValue,
+          };
         } else if (node.children) {
-          updatedNode.children = updateNodeValueInTree(
-            node.children,
-            nodeName,
-            incrementValue
-          );
+          return {
+            ...node,
+            children: updateNodeValueInTree(
+              node.children,
+              nodeName,
+              incrementValue
+            ),
+          };
         }
-        return updatedNode;
+        console.log(node);
+
+        return node;
       })
     );
   };
@@ -86,7 +57,6 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
       const updatedNode = { ...node };
       if (node.name === nodeName) {
         updatedNode.value = (node.value || 0) + incrementValue;
-
       } else if (node.children) {
         updatedNode.children = updateNodeValueInTree(
           node.children,
@@ -107,7 +77,7 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
     const updateNodeValuesFromCheckboxes = (nodes: TreeNode[]) => {
       nodes.forEach((node) => {
         if (node.children) {
-          updateNodeValuesFromCheckboxes(node.children); 
+          updateNodeValuesFromCheckboxes(node.children);
         }
         const checkbox = document.getElementById(node.name);
         if (checkbox && (checkbox as HTMLInputElement).checked) {
@@ -119,16 +89,18 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
     updateNodeValuesFromCheckboxes(data);
 
     selectedNodes.forEach((nodeName) => {
-      updateNodeValueInTree(data, nodeName, 1); 
+      updateNodeValueInTree(data, nodeName, 1);
     });
   };
 
   const renderTreeNode = (node: TreeNode) => {
+    console.log("Rendering node:", node.name);
+
     if (node.children && node.children.length > 0) {
       return (
         <ul>
           {node.children.map((child, index) => (
-            <li key={index}>
+            <li key={child.id}>
               {child.name}
               {renderTreeNode(child)}
             </li>
@@ -143,21 +115,28 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
       );
     }
   };
-
+  console.log("Rendering CheckboxTree component");
   return (
     <div>
       <button onClick={handleButtonClick}>Update Value</button>
-      {data.map((node, index) => (
-        <div key={index}>
-          <p>{node.name}</p>
-          {renderTreeNode(node)}
-        </div>
-      ))}
+      {data && data.children && data.children.length > 0 ? (
+        data.children.map((node, index) => (
+          <div key={index}>
+            <p>{node.name}</p>
+            {renderTreeNode(node)}
+          </div>
+        ))
+      ) : (
+        <div>No data available</div>
+      )}
     </div>
   );
 };
 
 const Post: React.FC = () => {
+  const [parsedNodeData, setParsedNodeData] = useState<TreeNode[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const fetchWheelData = async () => {
       /* ----------------------------- firebase config ---------------------------- */
@@ -196,15 +175,22 @@ const Post: React.FC = () => {
 
         querySnapshot.docs.forEach((doc) => {
           const parsedData = JSON.parse(doc.data().wheelData);
+          setParsedNodeData(parsedData);
+          setIsLoading(false);
         });
       } catch (err: any) {
         console.error("Login failed:", err.message);
+        setIsLoading(false);
       }
     };
 
     fetchWheelData();
   }, []);
 
-  return <CheckboxTree data={data} />;
+  return (
+    <div>
+      {isLoading ? <p>Loading...</p> : <CheckboxTree data={parsedNodeData} />}
+    </div>
+  );
 };
 export default Post;
