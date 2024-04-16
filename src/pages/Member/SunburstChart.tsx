@@ -4,7 +4,18 @@ import * as d3 from "d3";
 const SIZE = 975;
 const RADIUS = SIZE / 2;
 
-export const SunburstChart = ({ data }) => {
+// interface Data {
+//   name: string;
+//   value: number;
+//   children?: TreeNode[];
+// }
+interface Data {
+  name: string;
+  value?: number;
+  children?: Data[];
+}
+
+export const SunburstChart: React.FC<{ data: Data }> = ({ data }) => {
   const svgRef = React.useRef<SVGSVGElement>(null);
   const [viewBox, setViewBox] = React.useState("0,0,0,0");
 
@@ -12,12 +23,15 @@ export const SunburstChart = ({ data }) => {
     d3.partition<Data>().size([2 * Math.PI, RADIUS])(
       d3
         .hierarchy(data)
-        .sum((d) => d.value)
-        .sort((a, b) => b.value - a.value)
+        .sum((d) => d.value ?? 0)
+        .sort((a, b) => b.value! - a.value!)
     );
 
   const color = d3.scaleOrdinal(
-    d3.quantize(d3.interpolateRainbow, data.children.length + 1)
+    d3.quantize(
+      d3.interpolateRainbow,
+      (data.children && data.children.length) || 1 + 1
+    )
   );
 
   const format = d3.format(",d");
@@ -46,7 +60,8 @@ export const SunburstChart = ({ data }) => {
   }, []);
 
   const getColor = (d: d3.HierarchyRectangularNode<Data>) => {
-    while (d.depth > 1) d = d.parent;
+    let node = d;
+    while (node.depth > 1 && node.parent) node = node.parent;
     return color(d.data.name);
   };
 
@@ -64,18 +79,25 @@ export const SunburstChart = ({ data }) => {
         {root
           .descendants()
           .filter((d) => d.depth)
-          .map((d, i) => (
-            <path key={`${d.data.name}-${i}`} fill={getColor(d)} d={arc(d)}>
-              <text>
-                {d
-                  .ancestors()
-                  .map((d) => d.data.name)
-                  .reverse()
-                  .join("/")}
-                \n${format(d.value)}
-              </text>
-            </path>
-          ))}
+          .map((d, i) => {
+            const path = arc(d);
+            if (!path) return null; // 如果路徑無效，返回 null
+            return (
+              <g key={`${d.data.name}-${i}`}>
+                <path fill={getColor(d)} d={path} />
+                <text>
+                  <textPath href={`#${d.data.name}-${i}`}>
+                    {d
+                      .ancestors()
+                      .map((d) => d.data.name)
+                      .reverse()
+                      .join("/")}
+                    \n${format(d.value!)}
+                  </textPath>
+                </text>
+              </g>
+            );
+          })}
       </g>
       <g
         pointerEvents="none"

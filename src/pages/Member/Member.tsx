@@ -10,14 +10,20 @@ import {
 } from "firebase/firestore";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-interface TreeNode {
+// interface TreeNode {
+//   name: string;
+//   value?: number;
+//   children?: TreeNode[];
+// }
+
+interface Data {
   name: string;
   value?: number;
-  children?: TreeNode[];
+  children?: Data[];
 }
 
 const Member = () => {
-  const [data, setData] = useState<TreeNode | null>(null);
+  const [data, setData] = useState<Data | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -78,7 +84,7 @@ const Member = () => {
     return <div>Loading...</div>;
   }
 
-  return <SunburstChart data={data} />;
+  return data ? <SunburstChart data={data} /> : null;
 };
 
 export default Member;
