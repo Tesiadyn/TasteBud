@@ -9,52 +9,48 @@ import Member from "./pages/Member/Member.tsx";
 import Product from "./pages/Product/Product.tsx";
 import Events from "./pages/Events/Events.tsx";
 import Post from "./pages/Post/Post.tsx";
-import { useEffect, useState, useContext, createContext } from "react";
-import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { User } from "./pages/User.tsx";
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const autoLogin = async () => {
-      /* ----------------------------- firebase config ---------------------------- */
-      const firebaseConfig = {
-        apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-        authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-        projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-        storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-        messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-        appId: import.meta.env.VITE_FIREBASE_APP_ID,
-      };
-      /* ------------------------------ firebase init ----------------------------- */
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
+  // useEffect(() => {
+  //   const autoLogin = async () => {
+  //     /* ----------------------------- firebase config ---------------------------- */
+  //     const firebaseConfig = {
+  //       apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  //       authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  //       projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  //       storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  //       messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  //       appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  //     };
+  //     /* ------------------------------ firebase init ----------------------------- */
+  //     const app = initializeApp(firebaseConfig);
+  //     const auth = getAuth(app);
 
-      const email = "test@test.com";
-      const password = "112233";
-      try {
-        const userIdent = await signInWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-        const user = userIdent.user;
-        console.log(user);
+  //     const email = "test@test.com";
+  //     const password = "112233";
+  //     try {
+  //       const userIdent = await signInWithEmailAndPassword(
+  //         auth,
+  //         email,
+  //         password
+  //       );
+  //       const user = userIdent.user;
+  //       console.log(user);
 
-        const userUid = user.uid;
-        console.log(userUid);
+  //       const userUid = user.uid;
+  //       console.log(userUid);
 
-        console.log("logged in as :", user.email);
-        setIsLoading(false);
-      } catch (err: any) {
-        console.error("Login failed:", err.message);
-        setIsLoading(false);
-      }
-    };
-    autoLogin();
-  }, []);
+  //       console.log("logged in as :", user.email);
+  //       setIsLoading(false);
+  //     } catch (err: any) {
+  //       console.error("Login failed:", err.message);
+  //       setIsLoading(false);
+  //     }
+  //   };
+  //   autoLogin();
+  // }, []);
 
   return (
     <>
