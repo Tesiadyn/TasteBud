@@ -1,7 +1,7 @@
 import React from "react";
 import * as d3 from "d3";
 
-const SIZE = 975;
+const SIZE = 500;
 const RADIUS = SIZE / 2;
 
 // interface Data {
@@ -81,7 +81,7 @@ export const SunburstChart: React.FC<{ data: Data }> = ({ data }) => {
           .filter((d) => d.depth)
           .map((d, i) => {
             const path = arc(d);
-            if (!path) return null; // 如果路徑無效，返回 null
+            if (!path) return null;
             return (
               <g key={`${d.data.name}-${i}`}>
                 <path fill={getColor(d)} d={path} />
