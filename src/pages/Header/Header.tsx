@@ -10,18 +10,18 @@ import {
   SearchBar,
   SearchButton,
   SearchInput,
-  
 } from "./HeaderStyle";
 import LogoImage from "../../assets/Logo.png";
 import ProfileIcon from "../../assets/Profile.png";
 
-
 const Header = () => {
   return (
     <Container>
-      <LogoDiv>
-        <LogoImg src={LogoImage} />
-      </LogoDiv>
+      <PageLink to="/">
+        <LogoDiv>
+          <LogoImg src={LogoImage} />
+        </LogoDiv>
+      </PageLink>
       <LinksDiv>
         <PageLink to="/articles">
           <LinkItem>知識專欄</LinkItem>
@@ -38,9 +38,9 @@ const Header = () => {
         <SearchButton />
       </SearchBar>
       <PageLink to="/member">
-      <ProfileDiv>
-        <ProfileImg src={ProfileIcon}/>
-      </ProfileDiv>
+        <ProfileDiv>
+          <ProfileImg src={ProfileIcon} />
+        </ProfileDiv>
       </PageLink>
     </Container>
   );
