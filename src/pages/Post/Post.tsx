@@ -6,8 +6,27 @@ import {
   collection,
   where,
   getDocs,
+  doc,
+  updateDoc,
 } from "firebase/firestore";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+/* ----------------------------- firebase config ---------------------------- */
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+};
+/* ------------------------------ firebase init ----------------------------- */
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore();
+
+const email = "test@test.com";
+const password = "112233";
 
 interface TreeNode {
   id: number;
@@ -21,52 +40,8 @@ interface Props {
 }
 
 const CheckboxTree: React.FC<Props> = ({ data }) => {
-  // const [treeData, setTreeData] = useState<TreeNode[]>([data]);
+  const [updatedData, setUpdatedData] = useState<TreeNode | null>(null);
 
-  // useEffect(() => {
-  //   const updateWheelDataInFirestore = async () => {
-  //     if (treeData !== data) {
-  //       try {
-  //         const user = userIdent.user;
-  //         const userUid = user.uid;
-  //         const db = getFirestore();
-
-  //         const docRef = doc(db, "Members", userUid);
-  //         await updateDoc(docRef, {
-  //           wheelData: JSON.stringify(treeData),
-  //         });
-  //         console.log("Data updated in Firestore");
-  //       } catch (err) {
-  //         console.error("Error updating data:", err);
-  //       }
-  //     }
-  //   };
-
-  //   updateWheelDataInFirestore();
-  // }, [treeData, data]);
-  // const updateNodeValue = (nodeName: string, incrementValue: number) => {
-
-  //   setTreeData((prevData) =>
-  //     prevData.map((node) => {
-  //       if (node.name === nodeName) {
-  //         return {
-  //           ...node,
-  //           value: (node.value || 0) + incrementValue,
-  //         };
-  //       } else if (node.children) {
-  //         return {
-  //           ...node,
-  //           children: updateNodeValueInTree(
-  //             node.children,
-  //             nodeName,
-  //             incrementValue
-  //           ),
-  //         };
-  //       }
-  //       return node;
-  //     })
-  //   );
-  // };
   const updateNodeValueInTree = (
     nodes: TreeNode[],
     nodeName: string,
@@ -83,16 +58,14 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
           incrementValue
         );
       }
-      console.log(updatedNode);
 
       return updatedNode;
     });
   };
   const handleButtonClick = () => {
-    console.log("running...");
+    console.log("handleButtonClick running...");
 
-    const updatedData = JSON.parse(JSON.stringify(data));
-    console.log(updatedData);
+    const parsedData = JSON.parse(JSON.stringify(data));
 
     const updateNodeValueInData = (nodes: TreeNode[], nodeName: string) => {
       nodes.forEach((node) => {
@@ -109,10 +82,37 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
     );
     checkboxes.forEach((checkbox) => {
       if (checkbox.checked) {
-        updateNodeValueInData(updatedData.children || [], checkbox.id);
+        updateNodeValueInData(parsedData.children || [], checkbox.id);
       }
     });
+    console.log(parsedData);
+    setUpdatedData(parsedData);
   };
+
+  useEffect(() => {
+    const updateFirestoreData = async () => {
+      if (updatedData) {
+        try {
+          const userIdent = await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+          const user = userIdent.user;
+          const userUid = user.uid;
+
+          const docRef = doc(db, "Members", userUid);
+          await updateDoc(docRef, {
+            wheelData: JSON.stringify(updatedData),
+          });
+          console.log(`Data updated in Firestore in uid : ${userUid}`);
+        } catch (err) {
+          console.error("Error when updating data:", err);
+        }
+      }
+    };
+    updateFirestoreData();
+  }, [updatedData]);
 
   const renderTreeNode = (node: TreeNode) => {
     if (node.children && node.children.length > 0) {
@@ -161,30 +161,12 @@ const Post: React.FC = () => {
 
   useEffect(() => {
     const fetchWheelData = async () => {
-      /* ----------------------------- firebase config ---------------------------- */
-      const firebaseConfig = {
-        apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-        authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-        projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-        storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-        messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-        appId: import.meta.env.VITE_FIREBASE_APP_ID,
-      };
-      /* ------------------------------ firebase init ----------------------------- */
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
-      const db = getFirestore();
-
-      const email = "test@test.com";
-      const password = "112233";
-
       try {
         const userIdent = await signInWithEmailAndPassword(
           auth,
           email,
           password
         );
-        console.log(userIdent);
 
         const user = userIdent.user;
         console.log("logged in as :", user.email);
@@ -200,7 +182,7 @@ const Post: React.FC = () => {
         querySnapshot.docs.forEach((doc) => {
           const parsedData = JSON.parse(doc.data().wheelData);
           setParsedNodeData(parsedData);
-          console.log(parsedData);
+          // console.log(parsedData);
 
           setIsLoading(false);
         });
