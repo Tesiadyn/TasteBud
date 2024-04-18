@@ -11,9 +11,21 @@ import {
   SearchButton,
   SearchInput,
   Wrapper,
+  LogOutBtn,
 } from "./HeaderStyle";
 import LogoImage from "../../assets/Logo.png";
 import ProfileIcon from "../../assets/Profile.png";
+import { auth } from "../../utilities/firebase";
+import { signOut } from "firebase/auth";
+
+const handleLogout = async () => {
+  try {
+    await signOut(auth);
+    console.log("user logged out");
+  } catch (err: any) {
+    console.error("Error when logging out: ", err.message);
+  }
+};
 
 const Header = () => {
   return (
@@ -39,6 +51,7 @@ const Header = () => {
           <SearchInput />
           <SearchButton />
         </SearchBar>
+        <LogOutBtn onClick={handleLogout}>登出</LogOutBtn>
         <PageLink to="/member">
           <ProfileDiv>
             <ProfileImg src={ProfileIcon} />
