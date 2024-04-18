@@ -45,7 +45,7 @@ const Events = () => {
       </HeroboxDiv>
       <Wrapper>
         <EventCardsSection>
-          <PageLink to="/newEvents">
+          <PageLink to="/newEvent">
             <NewEventButton>新活動</NewEventButton>
           </PageLink>
           <EventCardSectionTitle>艾雷島</EventCardSectionTitle>
