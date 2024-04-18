@@ -1,140 +1,203 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { initializeApp } from "firebase/app";
+import {
+  getFirestore,
+  query,
+  collection,
+  where,
+  getDocs,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-export interface FlavourNode {
+/* ----------------------------- firebase config ---------------------------- */
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+};
+/* ------------------------------ firebase init ----------------------------- */
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore();
+
+const email = "test@test.com";
+const password = "112233";
+
+interface TreeNode {
   id: number;
   name: string;
-  selectedCount: number;
-  children: FlavourNode[];
+  value: number;
+  children?: TreeNode[];
 }
 
-export interface FlavourNodeProps {
-  node: FlavourNode;
-  onNodeSelect: (nodeId: number) => void;
+interface Props {
+  data: TreeNode;
 }
 
-interface CheckboxInputProps {
-  label: string;
-  defaultChecked?: boolean;
-  onChange: (checked: boolean) => void;
-}
+const CheckboxTree: React.FC<Props> = ({ data }) => {
+  const [updatedData, setUpdatedData] = useState<TreeNode | null>(null);
 
-export const sampleFlavourData: FlavourNode[] = [
-  {
-    id: 0,
-    name: "Aroma",
-    selectedCount: 0,
-    children: [
-      {
-        id: 1,
-        name: "sap",
-        selectedCount: 0,
-        children: [
-          { id: 5, name: "FreshWood", selectedCount: 0, children: [] },
-          { id: 6, name: "WetWood", selectedCount: 0, children: [] },
-        ],
-      },
-      {
-        id: 2,
-        name: "Cedar",
-        selectedCount: 0,
-        children: [
-          { id: 7, name: "Sawdust", selectedCount: 0, children: [] },
-          { id: 8, name: "Carton", selectedCount: 0, children: [] },
-          { id: 9, name: "SharpenedPencil", selectedCount: 0, children: [] },
-        ],
-      },
-      {
-        id: 3,
-        name: "Oak",
-        selectedCount: 0,
-        children: [
-          { id: 10, name: "Resin", selectedCount: 0, children: [] },
-          { id: 11, name: "Varnish", selectedCount: 0, children: [] },
-        ],
-      },
-      {
-        id: 4,
-        name: "Pine",
-        selectedCount: 0,
-        children: [
-          { id: 12, name: "Turpentine", selectedCount: 0, children: [] },
-          { id: 13, name: "Retsina", selectedCount: 0, children: [] },
-        ],
-      },
-    ],
-  },
-];
-const CheckboxInput: React.FC<CheckboxInputProps> = ({
-  label,
-  defaultChecked = false,
-  onChange,
-}) => {
-  const [checked, setChecked] = useState(defaultChecked);
+  const updateNodeValueInTree = (
+    nodes: TreeNode[],
+    nodeName: string,
+    incrementValue: number
+  ): TreeNode[] => {
+    return nodes.map((node) => {
+      const updatedNode = { ...node };
+      if (node.name === nodeName) {
+        updatedNode.value = (node.value || 0) + incrementValue;
+      } else if (node.children) {
+        updatedNode.children = updateNodeValueInTree(
+          node.children,
+          nodeName,
+          incrementValue
+        );
+      }
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const isChecked = event.target.checked;
-    setChecked(isChecked);
-    if (onChange) {
-      onChange(isChecked);
-    }
+      return updatedNode;
+    });
+  };
+  const handleButtonClick = () => {
+    console.log("handleButtonClick running...");
+
+    const parsedData = JSON.parse(JSON.stringify(data));
+
+    const updateNodeValueInData = (nodes: TreeNode[], nodeName: string) => {
+      nodes.forEach((node) => {
+        if (node.name === nodeName) {
+          node.value = (node.value || 0) + 1;
+        } else if (node.children) {
+          updateNodeValueInData(node.children, nodeName);
+        }
+      });
+    };
+
+    const checkboxes = document.querySelectorAll<HTMLInputElement>(
+      'input[type="checkbox"]'
+    );
+    checkboxes.forEach((checkbox) => {
+      if (checkbox.checked) {
+        updateNodeValueInData(parsedData.children || [], checkbox.id);
+      }
+    });
+    console.log(parsedData);
+    setUpdatedData(parsedData);
   };
 
+  useEffect(() => {
+    const updateFirestoreData = async () => {
+      if (updatedData) {
+        try {
+          const userIdent = await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+          const user = userIdent.user;
+          const userUid = user.uid;
+
+          const docRef = doc(db, "Members", userUid);
+          await updateDoc(docRef, {
+            wheelData: JSON.stringify(updatedData),
+          });
+          console.log(`Data updated in Firestore in uid : ${userUid}`);
+        } catch (err) {
+          console.error("Error when updating data:", err);
+        }
+      }
+    };
+    updateFirestoreData();
+  }, [updatedData]);
+
+  const renderTreeNode = (node: TreeNode) => {
+    if (node.children && node.children.length > 0) {
+      return (
+        <ul>
+          {node.children.map((child) => (
+            <li key={child.id}>
+              {child.name}
+              {renderTreeNode(child)}
+            </li>
+          ))}
+        </ul>
+      );
+    } else {
+      return (
+        <label>
+          <input type="checkbox" id={node.name} />
+        </label>
+      );
+    }
+  };
   return (
-    <label>
-      <input type="checkbox" checked={checked} onChange={handleChange} />
-      {label}
-    </label>
+    <div>
+      <button onClick={handleButtonClick}>Update Value</button>
+      {data && data.children && data.children.length > 0 ? (
+        data.children.map((node, index) => (
+          <div key={index}>
+            <p>{node.name}</p>
+            {renderTreeNode(node)}
+          </div>
+        ))
+      ) : (
+        <div>No data available</div>
+      )}
+    </div>
   );
 };
 
 const Post: React.FC = () => {
-  const [selectedNodes, setSelectedNodes] = useState<number[]>([]);
+  const [parsedNodeData, setParsedNodeData] = useState<TreeNode>({
+    id: 0,
+    name: "",
+    value: 0,
+  });
+  const [isLoading, setIsLoading] = useState(true);
 
-  const handleNodeSelect = (nodeId: number) => {
-    setSelectedNodes((prevSelectedNodes) => {
-      if (prevSelectedNodes.includes(nodeId)) {
-        return prevSelectedNodes.filter((id) => id !== nodeId);
-      } else {
-        return [...prevSelectedNodes, nodeId];
+  useEffect(() => {
+    const fetchWheelData = async () => {
+      try {
+        const userIdent = await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+
+        const user = userIdent.user;
+        console.log("logged in as :", user.email);
+
+        const userUid = user.uid;
+
+        const q = query(
+          collection(db, "Members"),
+          where("__name__", "==", userUid)
+        );
+        const querySnapshot = await getDocs(q);
+
+        querySnapshot.docs.forEach((doc) => {
+          const parsedData = JSON.parse(doc.data().wheelData);
+          setParsedNodeData(parsedData);
+          // console.log(parsedData);
+
+          setIsLoading(false);
+        });
+      } catch (err: any) {
+        console.error("Login failed:", err.message);
+        setIsLoading(false);
       }
-    });
-  };
+    };
 
-  const handleSubmit = () => {
- 
-    console.log("Selected nodes:", selectedNodes);
-  };
+    fetchWheelData();
+  }, []);
 
   return (
     <div>
-      {sampleFlavourData.map((node) => (
-        <div key={node.id}>
-          <CheckboxInput
-            label={node.name}
-            defaultChecked={node.selectedCount > 0}
-            onChange={() => handleNodeSelect(node.id)}
-          />
-          {node.children.map((child) => (
-            <div key={child.id} style={{ marginLeft: "20px" }}>
-              <CheckboxInput
-                label={child.name}
-                defaultChecked={child.selectedCount > 0}
-                onChange={() => handleNodeSelect(child.id)}
-              />
-              {child.children.map((grandChild) => (
-                <div key={grandChild.id} style={{ marginLeft: "40px" }}>
-                  <CheckboxInput
-                    label={grandChild.name}
-                    defaultChecked={grandChild.selectedCount > 0}
-                    onChange={() => handleNodeSelect(grandChild.id)}
-                  />
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      ))}
-      <button onClick={handleSubmit}>Submit</button>
+      {isLoading ? <p>Loading...</p> : <CheckboxTree data={parsedNodeData} />}
     </div>
   );
 };
