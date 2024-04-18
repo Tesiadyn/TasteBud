@@ -9,7 +9,7 @@ import Member from "./pages/Member/Member.tsx";
 import Product from "./pages/Product/Product.tsx";
 import Events from "./pages/Events/Events.tsx";
 import Post from "./pages/Post/Post.tsx";
-import SignUp from "./Signup/SignUp.tsx";
+import SignUp from "./pages/Signup/SignUp.tsx";
 
 const App = () => {
   // const [isLoading, setIsLoading] = useState(true);
