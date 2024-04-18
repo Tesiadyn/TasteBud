@@ -23,6 +23,7 @@ import {
   CommentsCardInfoDiv,
   CommentsCardText,
   CommentsCardTitle,
+  CommentsSectionTitle,
   ArticleCardImgDiv,
   CommentsCardAuthorDiv,
 } from "./HomeStyle";
@@ -43,7 +44,7 @@ const Home = () => {
       </PromoBanner>
       <ArticlesSection>
         <ArticleSectionTitle>知識專欄</ArticleSectionTitle>
-        <SectionTitleDivider></SectionTitleDivider>
+        <SectionTitleDivider />
         <ArticleCardsWrapper>
           <ArticleCard>
             <ArticleCardImgDiv>
@@ -84,6 +85,8 @@ const Home = () => {
         </ArticleCardsWrapper>
       </ArticlesSection>
       <CommentsSection>
+        <CommentsSectionTitle>最新評論</CommentsSectionTitle>
+        <SectionTitleDivider />
         <CommentsCardsWrapper>
           <CommentsCard>
             <CommentsCardImgDiv>

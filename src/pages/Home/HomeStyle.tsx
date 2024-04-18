@@ -45,6 +45,7 @@ export const SectionTitleDivider = styled.div`
   height: 1px;
   width: 80%;
   background-color: #070707;
+  margin: 50px auto;
 `;
 export const ArticleCardsWrapper = styled.div`
   width: 80%;
@@ -72,10 +73,12 @@ export const ArticleCardTitle = styled.h1`
 export const ArticleCardText = styled.p``;
 export const CommentsSection = styled.section`
   width: 80%;
-  height: 400px;
   margin: 0 auto;
-  background-color: #695c5c;
 `;
+export const CommentsSectionTitle = styled.h1`
+  text-align: center;
+`;
+
 export const CommentsCardsWrapper = styled.div`
   height: 100%;
   display: flex;

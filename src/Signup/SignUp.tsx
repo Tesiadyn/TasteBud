@@ -1,22 +1,23 @@
 import {
   Container,
   Wrapper,
-  LoginSection,
-  LoginSectionTitle,
-  InputDiv,
-  LoginForm,
+  SignUpButton,
   EmailInput,
-  InputLabel,
   PasswordInput,
-  LoginButton,
-} from "./LoginStyle";
-const Login = () => {
+  SignUpForm,
+  SignUpSection,
+  SignUpSectionTitle,
+  InputLabel,
+  InputDiv,
+} from "./SignUpStyle";
+
+const SignUp = () => {
   return (
     <Container>
       <Wrapper>
-        <LoginSection>
-          <LoginSectionTitle>Login</LoginSectionTitle>
-          <LoginForm>
+        <SignUpSection>
+          <SignUpSectionTitle>Sign Up</SignUpSectionTitle>
+          <SignUpForm>
             <InputDiv>
               <InputLabel>Email</InputLabel>
               <EmailInput />
@@ -25,12 +26,12 @@ const Login = () => {
               <InputLabel>Password</InputLabel>
               <PasswordInput />
             </InputDiv>
-            <LoginButton>註冊</LoginButton>
-          </LoginForm>
-        </LoginSection>
+            <SignUpButton>註冊</SignUpButton>
+          </SignUpForm>
+        </SignUpSection>
       </Wrapper>
     </Container>
   );
 };
 
-export default Login;
+export default SignUp;
