@@ -23,6 +23,8 @@ import {
   EventCardDateDiv,
   EventCardCapacityDiv,
   EventCards,
+  PageLink,
+  NewEventButton,
 } from "./EventsStyle";
 import EventPic1 from "../../assets/event-picture-1.jpg";
 import EventPic2 from "../../assets/event-picture-2.jpg";
@@ -43,6 +45,9 @@ const Events = () => {
       </HeroboxDiv>
       <Wrapper>
         <EventCardsSection>
+          <PageLink to="/newEvents">
+            <NewEventButton>新活動</NewEventButton>
+          </PageLink>
           <EventCardSectionTitle>艾雷島</EventCardSectionTitle>
           <EventCards>
             <EventCard>
