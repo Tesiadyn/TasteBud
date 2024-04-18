@@ -49,3 +49,7 @@ export const ProfileDiv = styled.div`
   cursor: pointer;
 `;
 export const ProfileImg = styled.img``;
+
+export const LogOutBtn = styled.button`
+  
+`
