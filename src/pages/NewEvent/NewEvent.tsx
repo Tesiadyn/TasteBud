@@ -19,6 +19,7 @@ const NewEvent = () => {
   const [maxParticipants, setMaxParticipants] = useState(0);
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [text, setText] = useState("");
+  const [date, setDate] = useState("");
 
   const uploadCoverImg = async (file: File) => {
     const storageRef = ref(storage, `coverImages/${file.name}`);
@@ -62,6 +63,7 @@ const NewEvent = () => {
         coverImage: coverImageUrl,
         maxParticipants,
         text,
+        date,
       };
       const docRef = await addDoc(collection(firestore, "Events"), eventData);
       console.log("Doc written with ID : ", docRef.id);
@@ -89,6 +91,13 @@ const NewEvent = () => {
               placeholder="請輸入活動內容"
               type="text"
               onChange={(e) => setText(e.target.value)}
+            />
+            <InputLabel htmlFor="text">活動日期</InputLabel>
+            <InputField
+              id="text"
+              placeholder="請輸入活動日期"
+              type="date"
+              onChange={(e) => setDate(e.target.value)}
             />
             <InputLabel htmlFor="location">地點</InputLabel>
             <InputField
