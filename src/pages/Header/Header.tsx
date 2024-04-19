@@ -40,7 +40,7 @@ const Header = () => {
           <PageLink to="/articles">
             <LinkItem>知識專欄</LinkItem>
           </PageLink>
-          <PageLink to="/comments">
+          <PageLink to="/products">
             <LinkItem>酒款評鑑</LinkItem>
           </PageLink>
           <PageLink to="/events">
