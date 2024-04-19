@@ -80,7 +80,7 @@ const Events = () => {
       </HeroboxDiv>
       <Wrapper>
         <EventCardsSection>
-          <PageLink to="/newEvent">
+          <PageLink to="/a">
             <NewEventButton>新活動</NewEventButton>
           </PageLink>
           <EventCardSectionTitle>艾雷島</EventCardSectionTitle>
@@ -155,27 +155,29 @@ const Events = () => {
               </EventCard>
             </PageLink>
             {eventData.map((data, index) => (
-              <EventCard key={index}>
-                <EventCardImgDiv>
-                  <EventCardImg src={data.coverImage} />
-                </EventCardImgDiv>
-                <EventCardTitle>{data.title}</EventCardTitle>
-                <EventCardTags>
-                  <EventCardTag></EventCardTag>
-                </EventCardTags>
-                <EventCardInfos>
-                  <EventCardDateDiv>
-                    <EventCardDateIcon src={DateIcon}></EventCardDateIcon>
-                    <EventCardDateText>6/1</EventCardDateText>
-                  </EventCardDateDiv>
-                  <EventCardCapacityDiv>
-                    <EventCardCapacityIcon
-                      src={CapacityIcon}
-                    ></EventCardCapacityIcon>
-                    <EventCardCapacityText>{data.text}</EventCardCapacityText>
-                  </EventCardCapacityDiv>
-                </EventCardInfos>
-              </EventCard>
+              <PageLink to={`/event/${data.eventUid}`}>
+                <EventCard key={index}>
+                  <EventCardImgDiv>
+                    <EventCardImg src={data.coverImage} />
+                  </EventCardImgDiv>
+                  <EventCardTitle>{data.title}</EventCardTitle>
+                  <EventCardTags>
+                    <EventCardTag></EventCardTag>
+                  </EventCardTags>
+                  <EventCardInfos>
+                    <EventCardDateDiv>
+                      <EventCardDateIcon src={DateIcon}></EventCardDateIcon>
+                      <EventCardDateText>6/1</EventCardDateText>
+                    </EventCardDateDiv>
+                    <EventCardCapacityDiv>
+                      <EventCardCapacityIcon
+                        src={CapacityIcon}
+                      ></EventCardCapacityIcon>
+                      <EventCardCapacityText>{data.text}</EventCardCapacityText>
+                    </EventCardCapacityDiv>
+                  </EventCardInfos>
+                </EventCard>
+              </PageLink>
             ))}
           </EventCards>
         </EventCardsSection>
