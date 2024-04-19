@@ -82,7 +82,6 @@ export const EventCardInfos = styled.div`
 `;
 export const EventCardDateDiv = styled.div`
   display: flex;
-
 `;
 export const EventCardDateIcon = styled.img``;
 export const EventCardDateText = styled.p`
@@ -90,7 +89,6 @@ export const EventCardDateText = styled.p`
 `;
 export const EventCardCapacityDiv = styled.div`
   display: flex;
-
 `;
 export const EventCardCapacityIcon = styled.img``;
 export const EventCardCapacityText = styled.p`
@@ -99,4 +97,9 @@ export const EventCardCapacityText = styled.p`
 export const PageLink = styled(Link)`
   cursor: pointer;
   text-decoration: none;
+`;
+export const NewEventButton = styled.button`
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
 `;

@@ -3,13 +3,14 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home.tsx";
 import Articles from "./pages/Articles/Articles.tsx";
 import Layout from "./pages/Layout/Layout.tsx";
-import Comments from "./pages/Comments/Comments.tsx";
+import Products from "./pages/Comments/Products.tsx";
 import Login from "./pages/Login/Login.tsx";
 import Member from "./pages/Member/Member.tsx";
 import Product from "./pages/Product/Product.tsx";
 import Events from "./pages/Events/Events.tsx";
 import Post from "./pages/Post/Post.tsx";
 import SignUp from "./pages/Signup/SignUp.tsx";
+import NewEvent from "./pages/NewEvent/NewEvent.tsx";
 
 const App = () => {
   // const [isLoading, setIsLoading] = useState(true);
@@ -60,13 +61,14 @@ const App = () => {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="articles" element={<Articles />} />
-            <Route path="comments" element={<Comments />} />
+            <Route path="products" element={<Products />} />
             <Route path="events" element={<Events />} />
             <Route path="login" element={<Login />} />
             <Route path="member" element={<Member />} />
             <Route path="product/:id" element={<Product />} />
             <Route path="product/:id/post" element={<Post />} />
             <Route path="signup" element={<SignUp />} />
+            <Route path="newEvent" element={<NewEvent />} />
           </Route>
         </Routes>
       </BrowserRouter>
