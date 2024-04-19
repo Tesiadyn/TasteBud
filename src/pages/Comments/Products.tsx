@@ -48,7 +48,7 @@ const Products = () => {
     <Container>
       <Wrapper>
         {productsData.map((product, index) => (
-          <Card key={index} to={`/products/${product.productUid}`}>
+          <Card key={index} to={`/product/${product.productUid}`}>
             <CardImgDiv $bgImage={product.picture} />
             <CardInfoDiv>
               <CardInfos>
