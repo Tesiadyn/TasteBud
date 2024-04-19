@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home.tsx";
 import Articles from "./pages/Articles/Articles.tsx";
 import Layout from "./pages/Layout/Layout.tsx";
-import Products from "./pages/Comments/Products.tsx";
+import Products from "./pages/Products/Products.tsx";
 import Login from "./pages/Login/Login.tsx";
 import Member from "./pages/Member/Member.tsx";
 import Product from "./pages/Product/Product.tsx";
