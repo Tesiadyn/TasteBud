@@ -43,6 +43,7 @@ interface EventData {
   text: string;
   title: string;
   date: string;
+  eventUid: string;
 }
 
 const Events = () => {
@@ -84,69 +85,75 @@ const Events = () => {
           </PageLink>
           <EventCardSectionTitle>艾雷島</EventCardSectionTitle>
           <EventCards>
-            <EventCard>
-              <EventCardImgDiv>
-                <EventCardImg src={EventPic1} />
-              </EventCardImgDiv>
-              <EventCardTitle>奧地利貴腐甜酒品飲會</EventCardTitle>
-              <EventCardTags>
-                <EventCardTag></EventCardTag>
-              </EventCardTags>
-              <EventCardInfos>
-                <EventCardDateDiv>
-                  <EventCardDateIcon src={DateIcon}></EventCardDateIcon>
-                  <EventCardDateText>6/1</EventCardDateText>
-                </EventCardDateDiv>
-                <EventCardCapacityDiv>
-                  <EventCardCapacityIcon
-                    src={CapacityIcon}
-                  ></EventCardCapacityIcon>
-                  <EventCardCapacityText>75人</EventCardCapacityText>
-                </EventCardCapacityDiv>
-              </EventCardInfos>
-            </EventCard>
-            <EventCard>
-              <EventCardImgDiv>
-                <EventCardImg src={EventPic2} />
-              </EventCardImgDiv>
-              <EventCardTitle>蘇格蘭威士忌買桶入門 講座品酒會</EventCardTitle>
-              <EventCardTags>
-                <EventCardTag></EventCardTag>
-              </EventCardTags>
-              <EventCardInfos>
-                <EventCardDateDiv>
-                  <EventCardDateIcon src={DateIcon}></EventCardDateIcon>
-                  <EventCardDateText>6/9</EventCardDateText>
-                </EventCardDateDiv>
-                <EventCardCapacityDiv>
-                  <EventCardCapacityIcon
-                    src={CapacityIcon}
-                  ></EventCardCapacityIcon>
-                  <EventCardCapacityText>50人</EventCardCapacityText>
-                </EventCardCapacityDiv>
-              </EventCardInfos>
-            </EventCard>
-            <EventCard>
-              <EventCardImgDiv>
-                <EventCardImg src={EventPic3} />
-              </EventCardImgDiv>
-              <EventCardTitle>J WOW Cafe/Bistro餐酒會</EventCardTitle>
-              <EventCardTags>
-                <EventCardTag></EventCardTag>
-              </EventCardTags>
-              <EventCardInfos>
-                <EventCardDateDiv>
-                  <EventCardDateIcon src={DateIcon}></EventCardDateIcon>
-                  <EventCardDateText>6/15</EventCardDateText>
-                </EventCardDateDiv>
-                <EventCardCapacityDiv>
-                  <EventCardCapacityIcon
-                    src={CapacityIcon}
-                  ></EventCardCapacityIcon>
-                  <EventCardCapacityText>15人</EventCardCapacityText>
-                </EventCardCapacityDiv>
-              </EventCardInfos>
-            </EventCard>
+            <PageLink to="/a">
+              <EventCard>
+                <EventCardImgDiv>
+                  <EventCardImg src={EventPic1} />
+                </EventCardImgDiv>
+                <EventCardTitle>奧地利貴腐甜酒品飲會</EventCardTitle>
+                <EventCardTags>
+                  <EventCardTag></EventCardTag>
+                </EventCardTags>
+                <EventCardInfos>
+                  <EventCardDateDiv>
+                    <EventCardDateIcon src={DateIcon}></EventCardDateIcon>
+                    <EventCardDateText>6/1</EventCardDateText>
+                  </EventCardDateDiv>
+                  <EventCardCapacityDiv>
+                    <EventCardCapacityIcon
+                      src={CapacityIcon}
+                    ></EventCardCapacityIcon>
+                    <EventCardCapacityText>75人</EventCardCapacityText>
+                  </EventCardCapacityDiv>
+                </EventCardInfos>
+              </EventCard>
+            </PageLink>
+            <PageLink to="/a">
+              <EventCard>
+                <EventCardImgDiv>
+                  <EventCardImg src={EventPic2} />
+                </EventCardImgDiv>
+                <EventCardTitle>蘇格蘭威士忌買桶入門 講座品酒會</EventCardTitle>
+                <EventCardTags>
+                  <EventCardTag></EventCardTag>
+                </EventCardTags>
+                <EventCardInfos>
+                  <EventCardDateDiv>
+                    <EventCardDateIcon src={DateIcon}></EventCardDateIcon>
+                    <EventCardDateText>6/9</EventCardDateText>
+                  </EventCardDateDiv>
+                  <EventCardCapacityDiv>
+                    <EventCardCapacityIcon
+                      src={CapacityIcon}
+                    ></EventCardCapacityIcon>
+                    <EventCardCapacityText>50人</EventCardCapacityText>
+                  </EventCardCapacityDiv>
+                </EventCardInfos>
+              </EventCard>
+            </PageLink>
+            <PageLink to="/a">
+              <EventCard>
+                <EventCardImgDiv>
+                  <EventCardImg src={EventPic3} />
+                </EventCardImgDiv>
+                <EventCardTitle>J WOW Cafe/Bistro餐酒會</EventCardTitle>
+                <EventCardTags>
+                  <EventCardTag></EventCardTag>
+                </EventCardTags>
+                <EventCardInfos>
+                  <EventCardDateDiv>
+                    <EventCardDateIcon src={DateIcon}></EventCardDateIcon>
+                    <EventCardDateText>6/15</EventCardDateText>
+                  </EventCardDateDiv>
+                  <EventCardCapacityDiv>
+                    <EventCardCapacityIcon
+                      src={CapacityIcon}
+                    ></EventCardCapacityIcon>
+                    <EventCardCapacityText>15人</EventCardCapacityText>
+                  </EventCardCapacityDiv>
+                </EventCardInfos>
+              </EventCard>
+            </PageLink>
             {eventData.map((data, index) => (
               <EventCard key={index}>
                 <EventCardImgDiv>
