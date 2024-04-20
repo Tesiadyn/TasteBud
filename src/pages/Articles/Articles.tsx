@@ -11,6 +11,7 @@ import {
   ArticleImg,
   ArticleInfoTags,
   ArticleCard,
+  ArticleInfoTag,
   ArticleInfoDiv,
   ArticleInfoTitle,
   ArticleInfoText,
@@ -72,23 +73,22 @@ const Articles = () => {
           </TagsDiv>
         </TagsSection>
         <ArticlesSection>
-          <ArticleCard>
-            <ArticleImgDiv>
-              <ArticleImg src={ArticlePic} />
-            </ArticleImgDiv>
-            <ArticleInfoDiv>
-              <ArticleInfoTags>
-                <ArticleInfoTags>4</ArticleInfoTags>
-                <ArticleInfoTags>5</ArticleInfoTags>
-                <ArticleInfoTags>6</ArticleInfoTags>
-              </ArticleInfoTags>
-              <ArticleInfoTitle>橡木桶對威士忌的重要性</ArticleInfoTitle>
-              <ArticleInfoText>
-                橡木桶的名字來自於再注入威士忌前本來所陳釀的究竟是什麼酒，本是釀製波本威士忌的稱為波本桶，本是釀製雪莉酒的稱作雪莉桶。
-                使用波本桶所熟成的威士忌，即使超過十年還是淡淡的金黃色...(閱讀全文)
-              </ArticleInfoText>
-            </ArticleInfoDiv>
-          </ArticleCard>
+          {articleData.map((data, index) => (
+            <ArticleCard key={index}>
+              <ArticleImgDiv>
+                <ArticleImg src={data.picture} />
+              </ArticleImgDiv>
+              <ArticleInfoDiv>
+                <ArticleInfoTags>
+                  {data.tags.map((tag, index) => (
+                    <ArticleInfoTag key={index}>{tag}</ArticleInfoTag>
+                  ))}
+                </ArticleInfoTags>
+                <ArticleInfoTitle>{data.title}</ArticleInfoTitle>
+                <ArticleInfoText>{data.text}</ArticleInfoText>
+              </ArticleInfoDiv>
+            </ArticleCard>
+          ))}
           <ArticleCard>
             <ArticleImgDiv>
               <ArticleImg src={ArticlePic} />
