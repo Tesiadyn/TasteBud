@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 1440px;
+  width: 100%;
+`;
+export const Wrapper = styled.div`
+  margin: 0 auto;
+  width: 1280px;
 `;
 export const PromoBanner = styled.div`
   width: 100%;
