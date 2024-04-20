@@ -18,8 +18,39 @@ import {
   PageSubtitle,
 } from "./ArticlesStyle";
 import ArticlePic from "../../assets/article-picture-1.jpg";
+import { firestore } from "../../utilities/firebase";
+import { collection, getDocs, query } from "firebase/firestore";
+import { useEffect, useState } from "react";
+
+interface ArticleData {
+  picture: string;
+  text: string;
+  title: string;
+  tags: (string | null)[];
+}
 
 const Articles = () => {
+  const [articleData, setArticleData] = useState<Array<ArticleData>>([]);
+
+  useEffect(() => {
+    const fetchArticleData = async () => {
+      const db = firestore;
+      try {
+        const q = query(collection(db, "Articles"));
+        const querySnapShot = await getDocs(q);
+        const newData = querySnapShot.docs.map((doc) => {
+          const articleDataFromDoc = doc.data() as ArticleData;
+          return articleDataFromDoc;
+        });
+        setArticleData(newData);
+      } catch (err) {
+        console.error("Error when fetch events data : ", err);
+      }
+    };
+    fetchArticleData();
+  }, []);
+  console.log(articleData);
+
   return (
     <Container>
       <Wrapper>
