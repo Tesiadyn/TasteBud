@@ -17,6 +17,7 @@ import {
   ArticleInfoText,
   PageTitle,
   PageSubtitle,
+  PageLink,
 } from "./ArticlesStyle";
 import ArticlePic from "../../assets/article-picture-1.jpg";
 import { firestore } from "../../utilities/firebase";
@@ -28,6 +29,7 @@ interface ArticleData {
   text: string;
   title: string;
   tags: (string | null)[];
+  articleUid: string;
 }
 
 const Articles = () => {
@@ -74,21 +76,23 @@ const Articles = () => {
         </TagsSection>
         <ArticlesSection>
           {articleData.map((data, index) => (
-            <ArticleCard key={index}>
-              <ArticleImgDiv>
-                <ArticleImg src={data.picture} />
-              </ArticleImgDiv>
-              <ArticleInfoDiv>
-                <ArticleInfoTags>
-                  {data.tags.map((tag, index) => (
-                    <ArticleInfoTag key={index}>{tag}</ArticleInfoTag>
-                  ))}
-                </ArticleInfoTags>
-                <ArticleInfoTitle>{data.title}</ArticleInfoTitle>
-                <ArticleInfoText>{data.text}</ArticleInfoText>
-              </ArticleInfoDiv>
-            </ArticleCard>
+            <PageLink to={`/article/${data.articleUid}`}>
+              <ArticleCard key={index}>
+                <ArticleImgDiv>
+                  <ArticleImg src={data.picture} />
+                </ArticleImgDiv>
+                <ArticleInfoDiv>
+                  <ArticleInfoTags>
+                    {data.tags.map((tag, index) => (
+                      <ArticleInfoTag key={index}>{tag}</ArticleInfoTag>
+                    ))}
+                  </ArticleInfoTags>
+                  <ArticleInfoTitle>{data.title}</ArticleInfoTitle>
+                </ArticleInfoDiv>
+              </ArticleCard>
+            </PageLink>
           ))}
+
           <ArticleCard>
             <ArticleImgDiv>
               <ArticleImg src={ArticlePic} />
@@ -106,6 +110,7 @@ const Articles = () => {
               </ArticleInfoText>
             </ArticleInfoDiv>
           </ArticleCard>
+
           <ArticleCard>
             <ArticleImgDiv>
               <ArticleImg src={ArticlePic} />

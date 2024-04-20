@@ -1,5 +1,9 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
+export const PageLink = styled(Link)`
+  text-decoration: none;
+`;
 export const Container = styled.div`
   width: 100%;
   background-color: #7c7e80;
@@ -54,6 +58,7 @@ export const ArticleCard = styled.div`
 `;
 export const ArticleImgDiv = styled.div`
   height: 100%;
+  width: 50px;
 `;
 export const ArticleImg = styled.img`
   height: 100%;
@@ -62,6 +67,8 @@ export const ArticleInfoDiv = styled.div``;
 export const ArticleInfoTags = styled.ul`
   display: flex;
 `;
-export const ArticleInfoTag = styled.li``;
+export const ArticleInfoTag = styled.li`
+  list-style: none;
+`;
 export const ArticleInfoTitle = styled.h2``;
 export const ArticleInfoText = styled.p``;
