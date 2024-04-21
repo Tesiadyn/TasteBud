@@ -6,9 +6,11 @@ import {
   getDocs,
   doc,
   updateDoc,
+  addDoc,
 } from "firebase/firestore";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { firestore, auth } from "../../utilities/firebase";
+import { useParams } from "react-router-dom";
 /* ------------------------------ firebase init ----------------------------- */
 const db = firestore;
 
@@ -28,6 +30,8 @@ interface Props {
 
 const CheckboxTree: React.FC<Props> = ({ data }) => {
   const [updatedData, setUpdatedData] = useState<TreeNode | null>(null);
+  const [commentText, setCommentText] = useState("");
+  const { id } = useParams();
 
   const updateNodeValueInTree = (
     nodes: TreeNode[],
@@ -49,6 +53,28 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
       return updatedNode;
     });
   };
+  const addCommentDoc = async (parsedData: object) => {
+    try {
+      const user = auth.currentUser;
+      const productUid = id?.toString();
+      console.log(productUid);
+      
+      const authorUid = user?.uid;
+      const wheelData = parsedData;
+      const commentData = {
+        authorUid,
+        commentText,
+        productUid,
+        wheelData,
+      };
+      console.log(commentData);
+      const commentRef = await addDoc(collection(db, "Comments"), commentData);
+      console.log("Document written with ID: ", commentRef.id);
+    } catch (err) {
+      console.error("Error when writing new doc : ", err);
+    }
+  };
+
   const handleButtonClick = () => {
     console.log("handleButtonClick running...");
 
@@ -73,6 +99,8 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
       }
     });
     console.log(parsedData);
+
+    addCommentDoc(parsedData);
     setUpdatedData(parsedData);
   };
 
@@ -122,19 +150,28 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
     }
   };
   return (
-    <div>
+    <>
       <button onClick={handleButtonClick}>Update Value</button>
       {data && data.children && data.children.length > 0 ? (
-        data.children.map((node, index) => (
-          <div key={index}>
-            <p>{node.name}</p>
-            {renderTreeNode(node)}
-          </div>
-        ))
+        <>
+          {data.children.map((node, index) => (
+            <div key={index}>
+              <p>{node.name}</p>
+              {renderTreeNode(node)}
+            </div>
+          ))}
+
+          <label>
+            <input
+              type="text"
+              onChange={(e) => setCommentText(e.target.value)}
+            />
+          </label>
+        </>
       ) : (
         <div>No data available</div>
       )}
-    </div>
+    </>
   );
 };
 
@@ -183,9 +220,15 @@ const Post: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      {isLoading ? <p>Loading...</p> : <CheckboxTree data={parsedNodeData} />}
-    </div>
+    <>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          <CheckboxTree data={parsedNodeData} />
+        </>
+      )}
+    </>
   );
 };
 export default Post;
