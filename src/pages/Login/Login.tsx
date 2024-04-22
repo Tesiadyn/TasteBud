@@ -9,25 +9,50 @@ import {
   InputLabel,
   PasswordInput,
   LoginButton,
+  PageLink,
 } from "./LoginStyle";
+import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+
 const Login = () => {
+
+  const auth = getAuth();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const emailInput = e.currentTarget.elements.namedItem("email") as HTMLInputElement | null;
+    const passwordInput = e.currentTarget.elements.namedItem("password") as HTMLInputElement | null;
+    const email = emailInput?.value || '';
+    const password = passwordInput?.value || '';
+    
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user); 
+      })
+      .catch((err) => {
+        console.error("Error when signing in : ", err.message)
+      });
+  };
+
   return (
     <Container>
       <Wrapper>
         <LoginSection>
           <LoginSectionTitle>Login</LoginSectionTitle>
-          <LoginForm>
+          <LoginForm onSubmit={handleSubmit}>
             <InputDiv>
-              <InputLabel>Email</InputLabel>
-              <EmailInput />
+              <InputLabel htmlFor="email">Email</InputLabel>
+              <EmailInput type="email" id="email" name="email" />
             </InputDiv>
             <InputDiv>
-              <InputLabel>Password</InputLabel>
-              <PasswordInput />
+              <InputLabel htmlFor="password">Password</InputLabel>
+              <PasswordInput type="password" id="password" name="password" />
             </InputDiv>
-            <LoginButton>註冊</LoginButton>
+            <LoginButton type="submit">登入</LoginButton>
           </LoginForm>
         </LoginSection>
+        <PageLink to="/signup">
+          <div>註冊</div>
+        </PageLink>
       </Wrapper>
     </Container>
   );

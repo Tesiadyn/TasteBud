@@ -8,15 +8,14 @@ import {
   updateDoc,
   addDoc,
 } from "firebase/firestore";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { firestore, auth } from "../../utilities/firebase";
+
+import { firestore } from "../../utilities/firebase";
 import { useParams } from "react-router-dom";
+import { getAuth } from "firebase/auth";
+
 /* ------------------------------ firebase init ----------------------------- */
 const db = firestore;
-
-const email = "test@test.com";
-const password = "112233";
-
+const auth = getAuth();
 interface TreeNode {
   id: number;
   name: string;
@@ -58,7 +57,7 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
       const user = auth.currentUser;
       const productUid = id?.toString();
       console.log(productUid);
-      
+
       const authorUid = user?.uid;
       const wheelData = parsedData;
       const commentData = {
@@ -108,19 +107,15 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
     const updateFirestoreData = async () => {
       if (updatedData) {
         try {
-          const userIdent = await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-          );
-          const user = userIdent.user;
-          const userUid = user.uid;
-
-          const docRef = doc(db, "Members", userUid);
-          await updateDoc(docRef, {
-            wheelData: JSON.stringify(updatedData),
-          });
-          console.log(`Data updated in Firestore in uid : ${userUid}`);
+          const user = auth?.currentUser;
+          const userUid = user?.uid;
+          if (userUid) {
+            const docRef = doc(db, "Members", userUid);
+            await updateDoc(docRef, {
+              wheelData: JSON.stringify(updatedData),
+            });
+            console.log(`Data updated in Firestore in uid : ${userUid}`);
+          }
         } catch (err) {
           console.error("Error when updating data:", err);
         }
@@ -186,16 +181,10 @@ const Post: React.FC = () => {
   useEffect(() => {
     const fetchWheelData = async () => {
       try {
-        const userIdent = await signInWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
+        const user = auth.currentUser;
+        console.log("logged in as :", user?.email);
 
-        const user = userIdent.user;
-        console.log("logged in as :", user.email);
-
-        const userUid = user.uid;
+        const userUid = user?.uid;
 
         const q = query(
           collection(db, "Members"),
