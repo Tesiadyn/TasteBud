@@ -14,12 +14,10 @@ import {
   ArticleInfoTag,
   ArticleInfoDiv,
   ArticleInfoTitle,
-  ArticleInfoText,
   PageTitle,
   PageSubtitle,
   PageLink,
 } from "./ArticlesStyle";
-import ArticlePic from "../../assets/article-picture-1.jpg";
 import { firestore } from "../../utilities/firebase";
 import { collection, getDocs, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
