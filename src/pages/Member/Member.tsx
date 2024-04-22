@@ -1,20 +1,9 @@
 import { SunburstChart } from "./SunburstChart";
 import { useEffect, useState } from "react";
-import { initializeApp } from "firebase/app";
-import {
-  getFirestore,
-  query,
-  collection,
-  where,
-  getDocs,
-} from "firebase/firestore";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-
-// interface TreeNode {
-//   name: string;
-//   value?: number;
-//   children?: TreeNode[];
-// }
+import { query, collection, where, getDocs } from "firebase/firestore";
+import { firestore } from "../../utilities/firebase";
+import { useNavigate } from "react-router-dom";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 interface Data {
   name: string;
@@ -26,59 +15,43 @@ const Member = () => {
   const [data, setData] = useState<Data | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchWheelData = async () => {
-      /* ----------------------------- firebase config ---------------------------- */
-      const firebaseConfig = {
-        apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-        authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-        projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-        storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-        messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-        appId: import.meta.env.VITE_FIREBASE_APP_ID,
-      };
-      /* ------------------------------ firebase init ----------------------------- */
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
-      const db = getFirestore();
+  const navigate = useNavigate();
 
-      const email = "test@test.com";
-      const password = "112233";
-
-      try {
-        const userIdent = await signInWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-        const user = userIdent.user;
-        console.log("logged in as :", user.email);
-
-        const userUid = user.uid;
-
-        const q = query(
-          collection(db, "Members"),
-          where("__name__", "==", userUid)
-        );
-        const querySnapshot = await getDocs(q);
-
-        querySnapshot.docs.forEach((doc) => {
-          console.log("Document Data:", doc.data().wheelData);
-          const parsedData = JSON.parse(doc.data().wheelData);
-
-          console.log(parsedData);
-
-          setData(parsedData);
-          setLoading(false);
-        });
-      } catch (err: any) {
-        console.error("Login failed:", err.message);
-        setLoading(false);
+  useEffect(()=>{
+    const auth = getAuth();
+    console.log(auth);
+    
+    const unsubscribe = onAuthStateChanged(auth,(user)=>{
+      if(user){
+        fetchWheelData(user.uid);
+      } else{
+        navigate("/login");
       }
-    };
+    })
+    return unsubscribe;
+  },[navigate])
+ 
+  const fetchWheelData = async (userUid: string) => {
+    setLoading(true);
+    const db = firestore;
+    try {
+      const q = query(
+        collection(db, "Members"),
+        where("__name__", "==", userUid)
+      );
+      const querySnapshot = await getDocs(q);
 
-    fetchWheelData();
-  }, []);
+      querySnapshot.docs.forEach((doc) => {
+        const parsedData = JSON.parse(doc.data().wheelData);
+
+        setData(parsedData);
+        setLoading(false);
+      });
+    } catch (err: any) {
+      console.error("Login failed:", err.message);
+      setLoading(false);
+    }
+  };
 
   if (loading) {
     return <div>Loading...</div>;
