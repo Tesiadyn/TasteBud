@@ -18,6 +18,7 @@ import { useParams } from "react-router-dom";
 import { firestore } from "../../utilities/firebase";
 import { query, where, getDocs, collection } from "firebase/firestore";
 
+
 interface ProductData {
   bottler: string;
   caskType: string;
@@ -28,24 +29,41 @@ interface ProductData {
   title: string;
   productUid: string;
 }
+interface CommentData{
+  authorUid: string;
+  commentText: string;
+  productUid: string;
+  wheelData: object;
+}
 
 const Product = () => {
   const { id } = useParams();
   const [productData, setProductData] = useState<ProductData | null>(null);
+  const [commentData, setCommentData] = useState<CommentData | null>(null);
   const db = firestore;
 
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        const q = query(
+        const productQuery = query(
           collection(db, "Products"),
           where("productUid", "==", id)
         );
-        const querySnapshot = await getDocs(q);
-        const productData = querySnapshot.docs.map(
+        const commentQuery = query(
+          collection(db, "Comments"),
+          where("productUid", "==", id)
+        )
+        const commentQuerySnapshot = await getDocs(commentQuery);
+        const productQuerySnapshot = await getDocs(productQuery);
+        const productData = productQuerySnapshot.docs.map(
           (doc) => doc.data() as ProductData
         );
         setProductData(productData[0]);
+        const commentData = commentQuerySnapshot.docs.map(
+          (doc) => doc.data() as CommentData
+        );
+        setCommentData(commentData[0]);
+        
       } catch (err) {
         console.error("Error when fatching product data : ", err);
       }
@@ -54,6 +72,7 @@ const Product = () => {
   }, []);
 
   return (
+    <>
     <Container>
       <Wrapper>
         <ProductImgDiv>
@@ -77,6 +96,11 @@ const Product = () => {
         </ProductInfoDiv>
       </Wrapper>
     </Container>
+    <ProductInfoDivider />
+    {commentData?.authorUid}
+    {commentData?.productUid}
+    {commentData?.commentText}
+    </>
   );
 };
 
