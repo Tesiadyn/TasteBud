@@ -41,6 +41,7 @@ interface EventData {
   title: string;
   date: string;
   eventUid: string;
+  tags: (string | null)[];
 }
 
 const Events = () => {
@@ -80,17 +81,19 @@ const Events = () => {
           <PageLink to="/newEvent">
             <NewEventButton>新活動</NewEventButton>
           </PageLink>
-          <EventCardSectionTitle>艾雷島</EventCardSectionTitle>
-          <EventCards>  
+          <EventCardSectionTitle>最新活動</EventCardSectionTitle>
+          <EventCards>
             {eventData.map((data, index) => (
               <PageLink key={index} to={`/event/${data.eventUid}`}>
-                <EventCard >
+                <EventCard>
                   <EventCardImgDiv>
                     <EventCardImg src={data.coverImage} />
                   </EventCardImgDiv>
                   <EventCardTitle>{data.title}</EventCardTitle>
                   <EventCardTags>
-                    <EventCardTag></EventCardTag>
+                    {data.tags?.map((tag, index) => (
+                      <EventCardTag key={index}>{tag}</EventCardTag>
+                    ))}
                   </EventCardTags>
                   <EventCardInfos>
                     <EventCardDateDiv>
@@ -101,7 +104,7 @@ const Events = () => {
                       <EventCardCapacityIcon
                         src={CapacityIcon}
                       ></EventCardCapacityIcon>
-                      <EventCardCapacityText>{data.text}</EventCardCapacityText>
+                      <EventCardCapacityText>{data.maxParticipants}</EventCardCapacityText>
                     </EventCardCapacityDiv>
                   </EventCardInfos>
                 </EventCard>
