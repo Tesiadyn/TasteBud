@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 export const PageLink = styled(Link)`
   text-decoration: none;
+  width: 80%;
 `;
 export const Container = styled.div`
   width: 100%;
@@ -10,7 +11,7 @@ export const Container = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  width: 1440px;
+  width: 1280px;
   margin: 0 auto;
 `;
 export const PageTitle = styled.h1`
@@ -52,18 +53,21 @@ export const ArticlesSection = styled.section`
 export const ArticleCard = styled.div`
   background-color: #718c8a;
   height: 200px;
-  width: 50%;
+  width: 80%;
   display: flex;
-  margin: 25px 0;
+  margin: 25px auto;
 `;
 export const ArticleImgDiv = styled.div`
   height: 100%;
-  width: 50px;
+  width: 40%;
 `;
 export const ArticleImg = styled.img`
   height: 100%;
+  width: 100%;
 `;
-export const ArticleInfoDiv = styled.div``;
+export const ArticleInfoDiv = styled.div`
+  width: 60%;
+`;
 export const ArticleInfoTags = styled.ul`
   display: flex;
 `;
