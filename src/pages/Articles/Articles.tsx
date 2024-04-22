@@ -61,13 +61,28 @@ const Articles = () => {
           <TagsDiv>
             <Tags>
               <Tag>
-                <TagText>Tag1</TagText>
+                <TagText>歷史</TagText>
               </Tag>
               <Tag>
-                <TagText>Tag2</TagText>
+                <TagText>製程</TagText>
               </Tag>
               <Tag>
-                <TagText>Tag3</TagText>
+                <TagText>單一麥芽</TagText>
+              </Tag>
+              <Tag>
+                <TagText>調和</TagText>
+              </Tag>
+              <Tag>
+                <TagText>蘇格蘭</TagText>
+              </Tag>
+              <Tag>
+                <TagText>愛爾蘭</TagText>
+              </Tag>
+              <Tag>
+                <TagText>美國</TagText>
+              </Tag>
+              <Tag>
+                <TagText>其他</TagText>
               </Tag>
             </Tags>
           </TagsDiv>
