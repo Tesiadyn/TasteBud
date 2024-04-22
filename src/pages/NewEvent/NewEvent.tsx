@@ -8,10 +8,11 @@ import {
   InputField,
   SubmitButton,
 } from "./NewEventStyle";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, updateDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { auth, firestore, storage } from "../../utilities/firebase";
 import { useState } from "react";
+
 
 const NewEvent = () => {
   const [title, setTitle] = useState("");
@@ -47,6 +48,7 @@ const NewEvent = () => {
       const user = auth.currentUser;
       if (!user) {
         console.error("User not authenticated.");
+        return;
       }
 
       const organizerUid = user?.uid;
@@ -66,6 +68,9 @@ const NewEvent = () => {
         date,
       };
       const docRef = await addDoc(collection(firestore, "Events"), eventData);
+      const eventUid = docRef.id;
+      const updatedEventData = {...eventData, eventUid};
+      await updateDoc(docRef, updatedEventData);
       console.log("Doc written with ID : ", docRef.id);
     } catch (err) {
       console.error("Error adding event data : ", err);
