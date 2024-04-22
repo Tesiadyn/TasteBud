@@ -13,7 +13,6 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { auth, firestore, storage } from "../../utilities/firebase";
 import { useState } from "react";
 
-
 const NewEvent = () => {
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
@@ -21,6 +20,7 @@ const NewEvent = () => {
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [text, setText] = useState("");
   const [date, setDate] = useState("");
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const uploadCoverImg = async (file: File) => {
     const storageRef = ref(storage, `coverImages/${file.name}`);
@@ -40,7 +40,14 @@ const NewEvent = () => {
       );
     });
   };
-
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    if (checked) {
+      setSelectedTags((prevTags) => [...prevTags, name]);
+    } else {
+      setSelectedTags((prevTags) => prevTags.filter((tag) => tag !== name));
+    }
+  };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -52,7 +59,7 @@ const NewEvent = () => {
       }
 
       const organizerUid = user?.uid;
-
+      const tags = selectedTags;
       let coverImageUrl = "";
       if (coverImage) {
         coverImageUrl = await uploadCoverImg(coverImage);
@@ -66,17 +73,19 @@ const NewEvent = () => {
         maxParticipants,
         text,
         date,
+        tags
       };
       const docRef = await addDoc(collection(firestore, "Events"), eventData);
       const eventUid = docRef.id;
-      const updatedEventData = {...eventData, eventUid};
+      const updatedEventData = { ...eventData, eventUid };
       await updateDoc(docRef, updatedEventData);
       console.log("Doc written with ID : ", docRef.id);
     } catch (err) {
       console.error("Error adding event data : ", err);
     }
   };
-
+  console.log(selectedTags);
+  
   return (
     <Container>
       <Wrapper>
@@ -126,6 +135,105 @@ const NewEvent = () => {
               type="file"
               onChange={(e) => setCoverImage(e.target.files?.[0] || null)}
             />
+            <InputLabel>
+              <input
+                type="checkbox"
+                name="singleMalt"
+                onChange={handleCheckboxChange}
+                checked={selectedTags.includes("singleMalt")}
+              />
+              單一麥芽
+            </InputLabel>
+            <InputLabel>
+              <input
+                type="checkbox"
+                name="blended"
+                onChange={handleCheckboxChange}
+                checked={selectedTags.includes("blended")}
+              />
+              調和
+            </InputLabel>
+            <InputLabel>
+              <input
+                type="checkbox"
+                name="newbie"
+                onChange={handleCheckboxChange}
+                checked={selectedTags.includes("newbie")}
+              />
+              新手友善
+            </InputLabel>
+            <InputLabel>
+              <input
+                type="checkbox"
+                name="theme"
+                onChange={handleCheckboxChange}
+                checked={selectedTags.includes("theme")}
+              />
+              主題品酒
+            </InputLabel>
+            <InputLabel>
+              <input
+                type="checkbox"
+                name="north"
+                onChange={handleCheckboxChange}
+                checked={selectedTags.includes("north")}
+              />
+              北部
+            </InputLabel>
+            <InputLabel>
+              <input
+                type="checkbox"
+                name="middle"
+                onChange={handleCheckboxChange}
+                checked={selectedTags.includes("middle")}
+              />
+              中部
+            </InputLabel>
+            <InputLabel>
+              <input
+                type="checkbox"
+                name="south"
+                onChange={handleCheckboxChange}
+              
+              />
+              南部
+            </InputLabel>
+            <InputLabel>
+              <input
+                type="checkbox"
+                name="scotland"
+                onChange={handleCheckboxChange}
+                checked={selectedTags.includes("scotland")}
+              />
+              蘇格蘭
+            </InputLabel>
+            <InputLabel>
+              <input
+                type="checkbox"
+                name="kentucky"
+                onChange={handleCheckboxChange}
+                checked={selectedTags.includes("kentucky")}
+              />
+              肯塔基
+            </InputLabel>
+            <InputLabel>
+              <input
+                type="checkbox"
+                name="ireland"
+                onChange={handleCheckboxChange}
+                checked={selectedTags.includes("ireland")}
+              />
+              愛爾蘭
+            </InputLabel>
+            <InputLabel>
+              <input
+                type="checkbox"
+                name="other"
+                onChange={handleCheckboxChange}
+                checked={selectedTags.includes("other")}
+              />
+              其他產區
+            </InputLabel>
             <SubmitButton>舉辦新活動</SubmitButton>
           </InputForm>
         </FormSection>
