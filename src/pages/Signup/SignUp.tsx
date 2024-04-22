@@ -60,87 +60,67 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
       commentsUid: "",
       email: email,
       organizedEvents: [],
-      wheelData: {
-        id: 0,
-        name: "flare",
-        children: [
-          {
-            id: 1,
-            name: "Aroma",
-            children: [
-              {
-                id: 2,
-                name: "sap",
-                children: [
-                  {
-                    id: 6,
-                    name: "FreshWood",
-                    value: 0,
-                  },
-                  {
-                    id: 7,
-                    name: "WetWood",
-                    value: 0,
-                  },
-                ],
-              },
-              {
-                id: 3,
-                name: "Cedar",
-                children: [
-                  {
-                    id: 8,
-                    name: "Sawdust",
-                    value: 0,
-                  },
-                  {
-                    id: 9,
-                    name: "Carton",
-                    value: 0,
-                  },
-                  {
-                    id: 10,
-                    name: "SharpenedPencil",
-                    value: 0,
-                  },
-                ],
-              },
-              {
-                id: 4,
-                name: "Oak",
-                children: [
-                  {
-                    id: 11,
-                    name: "Resin",
-                    value: 0,
-                  },
-                  {
-                    id: 12,
-                    name: "Varnish",
-                    value: 0,
-                  },
-                ],
-              },
-              {
-                id: 5,
-                name: "Pine",
-                children: [
-                  {
-                    id: 13,
-                    name: "Turpentine",
-                    value: 0,
-                  },
-                  {
-                    id: 14,
-                    name: "Retsina",
-                    value: 0,
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
+      wheelData: `{
+        "id": 0,
+        "name": "flare",
+        "children": [{
+            "id": 1,
+            "name": "Aroma",
+            "children": [{
+                "id": 2,
+                "name": "sap",
+                "children": [{
+                    "id": 6,
+                    "name": "FreshWood",
+                    "value": 0
+                }, {
+                    "id": 7,
+                    "name": "WetWood",
+                    "value": 0
+                }]
+            }, {
+                "id": 3,
+                "name": "Cedar",
+                "children": [{
+                    "id": 8,
+                    "name": "Sawdust",
+                    "value": 0
+                }, {
+                    "id": 9,
+                    "name": "Carton",
+                    "value": 0
+                }, {
+                    "id": 10,
+                    "name": "SharpenedPencil",
+                    "value": 0
+                }]
+            }, {
+                "id": 4,
+                "name": "Oak",
+                "children": [{
+                    "id": 11,
+                    "name": "Resin",
+                    "value": 0
+                }, {
+                    "id": 12,
+                    "name": "Varnish",
+                    "value": 0
+                }]
+            }, {
+                "id": 5,
+                "name": "Pine",
+                "children": [{
+                    "id": 13,
+                    "name": "Turpentine",
+                    "value": 0
+                }, {
+                    "id": 14,
+                    "name": "Retsina",
+                    "value": 0
+                }]
+            }]
+        }]
+    }`
     };
     await setDoc(doc(firestore, "Members", userUid), memberData);
   };
