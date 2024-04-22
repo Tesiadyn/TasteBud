@@ -14,12 +14,10 @@ import {
   ArticleInfoTag,
   ArticleInfoDiv,
   ArticleInfoTitle,
-  ArticleInfoText,
   PageTitle,
   PageSubtitle,
   PageLink,
 } from "./ArticlesStyle";
-import ArticlePic from "../../assets/article-picture-1.jpg";
 import { firestore } from "../../utilities/firebase";
 import { collection, getDocs, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
@@ -76,8 +74,8 @@ const Articles = () => {
         </TagsSection>
         <ArticlesSection>
           {articleData.map((data, index) => (
-            <PageLink to={`/article/${data.articleUid}`}>
-              <ArticleCard key={index}>
+            <PageLink key={index} to={`/article/${data.articleUid}`}>
+              <ArticleCard>
                 <ArticleImgDiv>
                   <ArticleImg src={data.picture} />
                 </ArticleImgDiv>
@@ -92,42 +90,6 @@ const Articles = () => {
               </ArticleCard>
             </PageLink>
           ))}
-
-          <ArticleCard>
-            <ArticleImgDiv>
-              <ArticleImg src={ArticlePic} />
-            </ArticleImgDiv>
-            <ArticleInfoDiv>
-              <ArticleInfoTags>
-                <ArticleInfoTags>4</ArticleInfoTags>
-                <ArticleInfoTags>5</ArticleInfoTags>
-                <ArticleInfoTags>6</ArticleInfoTags>
-              </ArticleInfoTags>
-              <ArticleInfoTitle>橡木桶對威士忌的重要性</ArticleInfoTitle>
-              <ArticleInfoText>
-                橡木桶的名字來自於再注入威士忌前本來所陳釀的究竟是什麼酒，本是釀製波本威士忌的稱為波本桶，本是釀製雪莉酒的稱作雪莉桶。
-                使用波本桶所熟成的威士忌，即使超過十年還是淡淡的金黃色...(閱讀全文)
-              </ArticleInfoText>
-            </ArticleInfoDiv>
-          </ArticleCard>
-
-          <ArticleCard>
-            <ArticleImgDiv>
-              <ArticleImg src={ArticlePic} />
-            </ArticleImgDiv>
-            <ArticleInfoDiv>
-              <ArticleInfoTags>
-                <ArticleInfoTags>4</ArticleInfoTags>
-                <ArticleInfoTags>5</ArticleInfoTags>
-                <ArticleInfoTags>6</ArticleInfoTags>
-              </ArticleInfoTags>
-              <ArticleInfoTitle>橡木桶對威士忌的重要性</ArticleInfoTitle>
-              <ArticleInfoText>
-                橡木桶的名字來自於再注入威士忌前本來所陳釀的究竟是什麼酒，本是釀製波本威士忌的稱為波本桶，本是釀製雪莉酒的稱作雪莉桶。
-                使用波本桶所熟成的威士忌，即使超過十年還是淡淡的金黃色...(閱讀全文)
-              </ArticleInfoText>
-            </ArticleInfoDiv>
-          </ArticleCard>
         </ArticlesSection>
       </Wrapper>
     </Container>

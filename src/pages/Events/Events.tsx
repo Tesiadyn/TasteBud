@@ -26,9 +26,6 @@ import {
   PageLink,
   NewEventButton,
 } from "./EventsStyle";
-import EventPic1 from "../../assets/event-picture-1.jpg";
-import EventPic2 from "../../assets/event-picture-2.jpg";
-import EventPic3 from "../../assets/event-picture-3.jpg";
 import CapacityIcon from "../../assets/capacityIcon.png";
 import DateIcon from "../../assets/dateIcon.png";
 import { firestore } from "../../utilities/firebase";
