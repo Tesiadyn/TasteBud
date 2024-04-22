@@ -9,30 +9,20 @@ import {
   ArticleCard,
   ArticleCardInfoDiv,
   ArticleCardTitle,
-  ArticleCardText,
   ArticleCardImg,
   ArticleSection,
-  CommentsSection,
-  CommentsCardsWrapper,
-  CommentsCard,
-  CommentsCardAuthorId,
-  CommentsCardAuthorImg,
-  CommentsCardImg,
-  CommentsCardAuthorImgDiv,
-  CommentsCardImgDiv,
-  CommentsCardInfoDiv,
-  CommentsCardText,
-  CommentsCardTitle,
-  CommentsSectionTitle,
+  ProductSection,
+  ProductCardsWrapper,
+  ProductCard,
+  ProductCardImg,
+  ProductCardImgDiv,
+  ProductCardInfoDiv,
+  ProductCardTitle,
+  ProductSectionTitle,
   ArticleCardImgDiv,
-  CommentsCardAuthorDiv,
   Wrapper,
+  PageLink,
 } from "./HomeStyle";
-import ArticlePic1 from "../../assets/article-picture-1.jpg";
-import ArticlePic2 from "../../assets/article-picture-2.jpg";
-import ArticlePic3 from "../../assets/article-picture-3.jpg";
-import CommentsPic2 from "../../assets/event-picture-2.jpg";
-import AuthorPic1 from "../../assets/Profile.png";
 import { useEffect, useState } from "react";
 import { firestore } from "../../utilities/firebase.tsx";
 import { collection, getDocs, query } from "firebase/firestore";
@@ -113,80 +103,37 @@ const Home = () => {
           <SectionTitleDivider />
           <ArticleCardsWrapper>
             {articleData.map((data) => (
-              <ArticleCard>
-                <ArticleCardImgDiv>
-                  <ArticleCardImg src={data.picture} />
-                </ArticleCardImgDiv>
-                <ArticleCardInfoDiv>
-                  <ArticleCardTitle>{data.title}</ArticleCardTitle>
-                </ArticleCardInfoDiv>
-              </ArticleCard>
+              <PageLink to={`/article/${data.articleUid}`} className="article">
+                <ArticleCard>
+                  <ArticleCardImgDiv>
+                    <ArticleCardImg src={data.picture} />
+                  </ArticleCardImgDiv>
+                  <ArticleCardInfoDiv>
+                    <ArticleCardTitle>{data.title}</ArticleCardTitle>
+                  </ArticleCardInfoDiv>
+                </ArticleCard>
+              </PageLink>
             ))}
-            <ArticleCard>
-              <ArticleCardImgDiv>
-                <ArticleCardImg src={ArticlePic1} />
-              </ArticleCardImgDiv>
-              <ArticleCardInfoDiv>
-                <ArticleCardTitle>標題</ArticleCardTitle>
-                <ArticleCardText>內文</ArticleCardText>
-              </ArticleCardInfoDiv>
-            </ArticleCard>
-            <ArticleCard>
-              <ArticleCardImgDiv>
-                <ArticleCardImg src={ArticlePic2} />
-              </ArticleCardImgDiv>
-              <ArticleCardInfoDiv>
-                <ArticleCardTitle>標題</ArticleCardTitle>
-                <ArticleCardText>內文</ArticleCardText>
-              </ArticleCardInfoDiv>
-            </ArticleCard>
-            <ArticleCard>
-              <ArticleCardImgDiv>
-                <ArticleCardImg src={ArticlePic3} />
-              </ArticleCardImgDiv>
-              <ArticleCardInfoDiv>
-                <ArticleCardTitle>標題</ArticleCardTitle>
-                <ArticleCardText>內文</ArticleCardText>
-              </ArticleCardInfoDiv>
-            </ArticleCard>
           </ArticleCardsWrapper>
         </ArticleSection>
-        <CommentsSection>
-          <CommentsSectionTitle>最新評論</CommentsSectionTitle>
+        <ProductSection>
+          <ProductSectionTitle>最新評論</ProductSectionTitle>
           <SectionTitleDivider />
-          <CommentsCardsWrapper>
+          <ProductCardsWrapper>
             {productsData.map((data) => (
-              <CommentsCard>
-                <CommentsCardImgDiv>
-                  <CommentsCardImg src={data.picture} />
-                </CommentsCardImgDiv>
-                <CommentsCardInfoDiv>
-                  <CommentsCardTitle>{data.title}</CommentsCardTitle>
-                </CommentsCardInfoDiv>
-              </CommentsCard>
+              <PageLink to={`/product/${data.productUid}`}>
+                <ProductCard>
+                  <ProductCardImgDiv>
+                    <ProductCardImg src={data.picture} />
+                  </ProductCardImgDiv>
+                  <ProductCardInfoDiv>
+                    <ProductCardTitle>{data.title}</ProductCardTitle>
+                  </ProductCardInfoDiv>
+                </ProductCard>
+              </PageLink>
             ))}
-            <CommentsCard>
-              <CommentsCardImgDiv>
-                <CommentsCardImg src={CommentsPic2} />
-              </CommentsCardImgDiv>
-              <CommentsCardInfoDiv>
-                <CommentsCardTitle>
-                  Laphroaig Cairdeas 2023 White Port & Madeira
-                </CommentsCardTitle>
-                <CommentsCardText>
-                  口感中後段及尾韻表現豐富，明顯喝得出高年份老酒的底蘊，加上恰到好處的煙燻味點綴，整體加分不少，能夠在調和威士忌喝出層次感，可說是....
-                  (閱讀全文)
-                </CommentsCardText>
-              </CommentsCardInfoDiv>
-              <CommentsCardAuthorDiv>
-                <CommentsCardAuthorImgDiv>
-                  <CommentsCardAuthorImg src={AuthorPic1} />
-                </CommentsCardAuthorImgDiv>
-                <CommentsCardAuthorId>123775+++</CommentsCardAuthorId>
-              </CommentsCardAuthorDiv>
-            </CommentsCard>
-          </CommentsCardsWrapper>
-        </CommentsSection>
+          </ProductCardsWrapper>
+        </ProductSection>
       </Wrapper>
     </Container>
   );

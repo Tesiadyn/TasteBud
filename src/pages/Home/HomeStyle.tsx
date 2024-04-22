@@ -1,4 +1,13 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
+export const PageLink = styled(Link)`
+  text-decoration: none;
+  &.article {
+    width: 40%;
+    margin: 30px 0;
+  }
+`;
 
 export const Container = styled.div`
   width: 100%;
@@ -44,22 +53,22 @@ export const ArticleSection = styled.section`
 `;
 export const ArticleSectionTitle = styled.h1`
   font-size: 32px;
+  text-align: center;
 `;
 export const SectionTitleDivider = styled.div`
   height: 1px;
   width: 80%;
   background-color: #070707;
-  margin: 50px auto;
+  margin: 20px auto;
 `;
 export const ArticleCardsWrapper = styled.div`
-  width: 80%;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 `;
 export const ArticleCard = styled.div`
-  width: 40%;
+  width: 100%;
   height: 100px;
-  margin: 30px auto 0;
   background-color: #b9b9b9;
   display: flex;
 `;
@@ -70,43 +79,48 @@ export const ArticleCardImg = styled.img`
   height: 100px;
   width: 100%;
 `;
-export const ArticleCardInfoDiv = styled.div``;
+export const ArticleCardInfoDiv = styled.div`
+  width: 70%;
+`;
 export const ArticleCardTitle = styled.h1`
   margin: 0;
+  font-size: 24px;
+  color: #000;
 `;
 export const ArticleCardText = styled.p``;
-export const CommentsSection = styled.section`
+export const ProductSection = styled.section`
   width: 80%;
   margin: 0 auto;
 `;
-export const CommentsSectionTitle = styled.h1`
+export const ProductSectionTitle = styled.h1`
   text-align: center;
 `;
 
-export const CommentsCardsWrapper = styled.div`
+export const ProductCardsWrapper = styled.div`
   height: 100%;
   display: flex;
   gap: 30px;
 `;
-export const CommentsCard = styled.div`
-  width: 50%;
-  height: 100%;
+export const ProductCard = styled.div`
+  width: 100%;
   background-color: #37757e;
 `;
-export const CommentsCardImgDiv = styled.div`
+export const ProductCardImgDiv = styled.div`
   width: 100%;
   height: 50%;
 `;
-export const CommentsCardImg = styled.img`
+export const ProductCardImg = styled.img`
   width: 100%;
   height: 100%;
 `;
-export const CommentsCardInfoDiv = styled.div``;
-export const CommentsCardTitle = styled.h1``;
-export const CommentsCardText = styled.p``;
-export const CommentsCardAuthorDiv = styled.div`
+export const ProductCardInfoDiv = styled.div``;
+export const ProductCardTitle = styled.h1`
+  color: #000;
+`;
+export const ProductCardText = styled.p``;
+export const ProductCardAuthorDiv = styled.div`
   display: flex;
 `;
-export const CommentsCardAuthorImgDiv = styled.div``;
-export const CommentsCardAuthorImg = styled.img``;
-export const CommentsCardAuthorId = styled.p``;
+export const ProductCardAuthorImgDiv = styled.div``;
+export const ProductCardAuthorImg = styled.img``;
+export const ProductCardAuthorId = styled.p``;

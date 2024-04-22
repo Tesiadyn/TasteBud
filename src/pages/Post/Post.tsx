@@ -1,29 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { initializeApp } from "firebase/app";
 import {
-  getFirestore,
   query,
   collection,
   where,
   getDocs,
   doc,
   updateDoc,
+  addDoc,
 } from "firebase/firestore";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-
-/* ----------------------------- firebase config ---------------------------- */
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-};
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { firestore, auth } from "../../utilities/firebase";
+import { useParams } from "react-router-dom";
 /* ------------------------------ firebase init ----------------------------- */
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore();
+const db = firestore;
 
 const email = "test@test.com";
 const password = "112233";
@@ -41,6 +30,8 @@ interface Props {
 
 const CheckboxTree: React.FC<Props> = ({ data }) => {
   const [updatedData, setUpdatedData] = useState<TreeNode | null>(null);
+  const [commentText, setCommentText] = useState("");
+  const { id } = useParams();
 
   const updateNodeValueInTree = (
     nodes: TreeNode[],
@@ -62,6 +53,28 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
       return updatedNode;
     });
   };
+  const addCommentDoc = async (parsedData: object) => {
+    try {
+      const user = auth.currentUser;
+      const productUid = id?.toString();
+      console.log(productUid);
+      
+      const authorUid = user?.uid;
+      const wheelData = parsedData;
+      const commentData = {
+        authorUid,
+        commentText,
+        productUid,
+        wheelData,
+      };
+      console.log(commentData);
+      const commentRef = await addDoc(collection(db, "Comments"), commentData);
+      console.log("Document written with ID: ", commentRef.id);
+    } catch (err) {
+      console.error("Error when writing new doc : ", err);
+    }
+  };
+
   const handleButtonClick = () => {
     console.log("handleButtonClick running...");
 
@@ -86,6 +99,8 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
       }
     });
     console.log(parsedData);
+
+    addCommentDoc(parsedData);
     setUpdatedData(parsedData);
   };
 
@@ -135,19 +150,28 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
     }
   };
   return (
-    <div>
+    <>
       <button onClick={handleButtonClick}>Update Value</button>
       {data && data.children && data.children.length > 0 ? (
-        data.children.map((node, index) => (
-          <div key={index}>
-            <p>{node.name}</p>
-            {renderTreeNode(node)}
-          </div>
-        ))
+        <>
+          {data.children.map((node, index) => (
+            <div key={index}>
+              <p>{node.name}</p>
+              {renderTreeNode(node)}
+            </div>
+          ))}
+
+          <label>
+            <input
+              type="text"
+              onChange={(e) => setCommentText(e.target.value)}
+            />
+          </label>
+        </>
       ) : (
         <div>No data available</div>
       )}
-    </div>
+    </>
   );
 };
 
@@ -196,9 +220,15 @@ const Post: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      {isLoading ? <p>Loading...</p> : <CheckboxTree data={parsedNodeData} />}
-    </div>
+    <>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          <CheckboxTree data={parsedNodeData} />
+        </>
+      )}
+    </>
   );
 };
 export default Post;
