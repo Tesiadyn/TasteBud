@@ -33,11 +33,100 @@ interface EventData {
   text: string;
   title: string;
 }
-
-const Event = () => {
+interface EditEventFormProps {
+  eventId?: string;
+  initTitle?: string;
+  initLocation?: string;
+  initParticipants?: number;
+  initText?: string;
+  initDate?: string;
+  onFormClose?: () => void;
+}
+const EditEventForm = ({
+  initTitle = "",
+  initLocation = "",
+  initParticipants = 0,
+  initText = "",
+  initDate = "",
+  onFormClose,
+}: EditEventFormProps) => {
+  const [title, setTitle] = useState(initTitle);
+  const [location, setLocation] = useState(initLocation);
+  const [maxParticipants, setMaxParticipants] =
+    useState<number>(initParticipants);
+  const [text, setText] = useState(initText);
+  const [date, setDate] = useState(initDate);
   const { id } = useParams();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      if (!id) {
+        console.error("Id is undefined.");
+        return;
+      }
+      const eventRef = doc(firestore, "Events", id);
+      await updateDoc(eventRef, {
+        date: date,
+        location: location,
+        title: title,
+        text: text,
+        maxParticipants: maxParticipants,
+      });
+      console.log("Event data updated.");
+      onFormClose && onFormClose();
+    } catch (err) {
+      console.error("Error when submitting edited event data");
+    }
+  };
+  return (
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="title">標題</label>
+      <input
+        id="title"
+        type="text"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <label htmlFor="location">地點</label>
+      <input
+        id="location"
+        type="text"
+        value={location}
+        onChange={(e) => setLocation(e.target.value)}
+      />
+      <label htmlFor="maxParticipants">名額人數</label>
+      <input
+        id="maxParticipants"
+        type="number"
+        value={maxParticipants}
+        onChange={(e) => setMaxParticipants(parseInt(e.target.value))}
+      />
+      <label htmlFor="text">活動內容</label>
+      <input
+        id="text"
+        type="text"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <label htmlFor="edit-title">日期</label>
+      <input
+        id="edit-title"
+        type="date"
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
+      />
+
+      <button type="submit">編輯完成</button>
+    </form>
+  );
+};
+const Event = () => {
+  const [isEditing, setIsEditing] = useState(false);
   const [eventData, setEventData] = useState<EventData | null>(null);
   const [isAuthor, setIsAuthor] = useState(false);
+  const { id } = useParams();
   const db = firestore;
   const auth = getAuth();
   useEffect(() => {
@@ -128,7 +217,12 @@ const Event = () => {
     };
     handleDeleteEvent();
   };
-
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+  const handleCloseForm = () => {
+    setIsEditing(false);
+  };
   return (
     <Container>
       <Wrapper>
@@ -141,6 +235,24 @@ const Event = () => {
           ) : (
             <h1>You are not author</h1>
           )}
+          {isAuthor && (
+            <>
+              <button onClick={handleEditClick}>編輯</button>
+            </>
+          )}
+          {isEditing && (
+            <>
+              <EditEventForm
+                eventId={id}
+                initTitle={eventData?.title}
+                initLocation={eventData?.location}
+                initParticipants={eventData?.maxParticipants}
+                initText={eventData?.text}
+                initDate={eventData?.date}
+                onFormClose={handleCloseForm}
+              />
+            </>
+          )}
           <EventImgDiv>
             <EventImg src={eventData?.coverImage} />
           </EventImgDiv>
@@ -150,6 +262,7 @@ const Event = () => {
           <EventText className="maxParticipants">
             {eventData?.maxParticipants}
           </EventText>
+          <EventText>{eventData?.date}</EventText>
         </EventSection>
       </Wrapper>
     </Container>

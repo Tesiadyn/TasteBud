@@ -18,7 +18,6 @@ import { useParams } from "react-router-dom";
 import { firestore } from "../../utilities/firebase";
 import { query, where, getDocs, collection } from "firebase/firestore";
 
-
 interface ProductData {
   bottler: string;
   caskType: string;
@@ -29,7 +28,7 @@ interface ProductData {
   title: string;
   productUid: string;
 }
-interface CommentData{
+interface CommentData {
   authorUid: string;
   commentText: string;
   productUid: string;
@@ -39,7 +38,7 @@ interface CommentData{
 const Product = () => {
   const { id } = useParams();
   const [productData, setProductData] = useState<ProductData | null>(null);
-  const [commentData, setCommentData] = useState<CommentData | null>(null);
+  const [commentData, setCommentData] = useState<CommentData[]>([]);
   const db = firestore;
 
   useEffect(() => {
@@ -52,7 +51,7 @@ const Product = () => {
         const commentQuery = query(
           collection(db, "Comments"),
           where("productUid", "==", id)
-        )
+        );
         const commentQuerySnapshot = await getDocs(commentQuery);
         const productQuerySnapshot = await getDocs(productQuery);
         const productData = productQuerySnapshot.docs.map(
@@ -62,8 +61,7 @@ const Product = () => {
         const commentData = commentQuerySnapshot.docs.map(
           (doc) => doc.data() as CommentData
         );
-        setCommentData(commentData[0]);
-        
+        setCommentData(commentData);
       } catch (err) {
         console.error("Error when fatching product data : ", err);
       }
@@ -73,33 +71,39 @@ const Product = () => {
 
   return (
     <>
-    <Container>
-      <Wrapper>
-        <ProductImgDiv>
-          <ProductImg alt="Morlach" src={productData?.picture} />
-        </ProductImgDiv>
-        <ProductInfoDiv>
-          <ProductInfoTitle>{productData?.title}</ProductInfoTitle>
-          <ProductInfoDivider />
-          <ProductInfoCategory>
-            桶型: {productData?.caskType}
-          </ProductInfoCategory>
-          <ProductInfoFactory>
-            廠商: {productData?.distillery}
-          </ProductInfoFactory>
-          <ProductInfoBottler>
-            裝瓶商: {productData?.bottler}
-          </ProductInfoBottler>
-          <ProductInfoAlc>酒精度: {productData?.strength}</ProductInfoAlc>
-          <ProductInfoMl>容量: {productData?.size} ml</ProductInfoMl>
-          <PostCommentBtn to={`./post`}>發表評論</PostCommentBtn>
-        </ProductInfoDiv>
-      </Wrapper>
-    </Container>
-    <ProductInfoDivider />
-    {commentData?.authorUid}
-    {commentData?.productUid}
-    {commentData?.commentText}
+      <Container>
+        <Wrapper>
+          <ProductImgDiv>
+            <ProductImg alt="Morlach" src={productData?.picture} />
+          </ProductImgDiv>
+          <ProductInfoDiv>
+            <ProductInfoTitle>{productData?.title}</ProductInfoTitle>
+            <ProductInfoDivider />
+            <ProductInfoCategory>
+              桶型: {productData?.caskType}
+            </ProductInfoCategory>
+            <ProductInfoFactory>
+              廠商: {productData?.distillery}
+            </ProductInfoFactory>
+            <ProductInfoBottler>
+              裝瓶商: {productData?.bottler}
+            </ProductInfoBottler>
+            <ProductInfoAlc>酒精度: {productData?.strength}</ProductInfoAlc>
+            <ProductInfoMl>容量: {productData?.size} ml</ProductInfoMl>
+            <PostCommentBtn to={`./post`}>發表評論</PostCommentBtn>
+          </ProductInfoDiv>
+        </Wrapper>
+      </Container>
+      <ProductInfoDivider />
+      <div>
+        {commentData.map((comment, index) => (
+          <div key={index}>
+            {comment.authorUid}
+            {comment.productUid}
+            {comment.commentText}
+          </div>
+        ))}
+      </div>
     </>
   );
 };
