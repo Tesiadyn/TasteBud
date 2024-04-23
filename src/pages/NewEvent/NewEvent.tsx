@@ -47,8 +47,8 @@ const NewEvent = () => {
     } else {
       setSelectedTags((prevTags) => prevTags.filter((tag) => tag !== name));
     }
-  };
-  const handleSubmit = async (e: React.FormEvent) => {
+  };  const handleSubmit =
+ async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
