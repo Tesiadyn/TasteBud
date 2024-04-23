@@ -9,6 +9,7 @@ import {
   getDoc,
   deleteDoc,
   updateDoc,
+  arrayUnion
 } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import {
@@ -129,6 +130,8 @@ const Event = () => {
   const { id } = useParams();
   const db = firestore;
   const auth = getAuth();
+  const currentUser = auth.currentUser;
+  const currentUserUid = currentUser?.uid;
   useEffect(() => {
     const fetchEventData = async () => {
       try {
@@ -162,20 +165,18 @@ const Event = () => {
     checkIsAuthor();
   }, []);
 
-  const handleClick = () => {
-    const currentUser = auth.currentUser;
-    if (!currentUser || !id) {
-      console.error("Not logged in.");
-      return;
-    }
-    const currentUserUid = currentUser.uid;
+  const handleDeleteClick = () => {
     const handleDeleteEvent = async () => {
+      if (!currentUserUid || !id || !firestore) {
+        console.error("Not logged in.");
+        return;
+      }
       try {
         /* ---------------------------- delete event doc ---------------------------- */
         const eventRef = doc(firestore, "Events", id);
         const organizerRef = doc(firestore, "Members", currentUserUid);
         await deleteDoc(eventRef);
-        console.log("Evnet deleted");
+        console.log("Event deleted");
         /* -------------------------- update organizer doc -------------------------- */
         const organizerSnapshot = await getDoc(organizerRef);
         if (organizerSnapshot.exists()) {
@@ -223,17 +224,38 @@ const Event = () => {
   const handleCloseForm = () => {
     setIsEditing(false);
   };
+  const handleParticipateClick = () => {
+    const updateParticipateDoc = async () => {
+      if (!firestore || !currentUserUid){
+        console.error("firestore or currentUserUid is undefined.");
+        return;
+      }
+      try {
+        const userDocRef = doc(firestore, "Members", currentUserUid);
+        await updateDoc(userDocRef,{
+          attendedEvents: arrayUnion(id),
+        })
+        
+      } catch (err: any) {
+        console.error("Error when updating participate doc : ", err.message);
+      }
+    };
+    updateParticipateDoc();
+  };
   return (
     <Container>
       <Wrapper>
         <EventSection>
           {isAuthor ? (
             <>
-              <button onClick={handleClick}>Delete</button>
+              <button onClick={handleDeleteClick}>Delete</button>
               <h1>You are author</h1>
             </>
           ) : (
-            <h1>You are not author</h1>
+            <>
+              <h1>You are not author</h1>
+              <button onClick={handleParticipateClick}>參加</button>
+            </>
           )}
           {isAuthor && (
             <>
