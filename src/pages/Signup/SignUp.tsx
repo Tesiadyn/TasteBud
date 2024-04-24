@@ -17,6 +17,8 @@ import {
 } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
 
+// TODO :  flavourWheel options
+
 const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   console.log("handleSubmit running...");

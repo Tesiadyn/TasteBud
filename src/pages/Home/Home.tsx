@@ -27,6 +27,8 @@ import { useEffect, useState } from "react";
 import { firestore } from "../../utilities/firebase.tsx";
 import { collection, getDocs, query } from "firebase/firestore";
 
+// TODO : Herobox article
+
 interface ArticleData {
   picture: string;
   text: string;

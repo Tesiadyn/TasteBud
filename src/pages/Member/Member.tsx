@@ -5,6 +5,8 @@ import { firestore } from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
+// TODO: display event date with event title & link
+
 interface WheelData {
   name: string;
   value?: number;
@@ -16,6 +18,7 @@ interface UserData {
   organizedEvents: (string | null)[];
   attendedEvents: (string | null)[];
 }
+
 const Member = () => {
   const [wheelData, setWheelData] = useState<WheelData | null>(null);
   const [userData, setUserData] = useState<UserData | null>(null);
@@ -34,6 +37,7 @@ const Member = () => {
       const doc = querySnapshot.docs[0];
       const docFromFirestore = doc.data() as UserData;
       setUserData(docFromFirestore);
+
     } catch (err: any) {
       console.error("Error when fetching user data : ", err.message);
     }
@@ -85,12 +89,8 @@ const Member = () => {
       {wheelData ? <SunburstChart data={wheelData} /> : null}
       <h2>Email</h2>
       {userData?.email}
-      {userData?.attendedEvents.map((event) => (
-        <>
-          <h2>我參加的活動</h2>
-          {event}
-        </>
-      ))}
+      <h2>我參加的活動</h2>
+      {userData?.attendedEvents.map((event) => event)}
       <h2>我的UID</h2>
       {userData?.uid}
     </>

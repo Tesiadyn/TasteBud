@@ -13,6 +13,8 @@ import {
 } from "./LoginStyle";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 
+// TODO: redirect after login & notification for user
+
 const Login = () => {
 
   const auth = getAuth();
