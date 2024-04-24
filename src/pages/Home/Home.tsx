@@ -102,8 +102,8 @@ const Home = () => {
           <ArticleSectionTitle>知識專欄</ArticleSectionTitle>
           <SectionTitleDivider />
           <ArticleCardsWrapper>
-            {articleData.map((data) => (
-              <PageLink to={`/article/${data.articleUid}`} className="article">
+            {articleData.map((data, index) => (
+              <PageLink key={index} to={`/article/${data.articleUid}`} className="article">
                 <ArticleCard>
                   <ArticleCardImgDiv>
                     <ArticleCardImg src={data.picture} />
@@ -120,8 +120,8 @@ const Home = () => {
           <ProductSectionTitle>最新評論</ProductSectionTitle>
           <SectionTitleDivider />
           <ProductCardsWrapper>
-            {productsData.map((data) => (
-              <PageLink to={`/product/${data.productUid}`}>
+            {productsData.map((data, index) => (
+              <PageLink key={index} to={`/product/${data.productUid}`}>
                 <ProductCard>
                   <ProductCardImgDiv>
                     <ProductCardImg src={data.picture} />
