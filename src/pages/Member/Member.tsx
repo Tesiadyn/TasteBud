@@ -10,12 +10,56 @@ interface WheelData {
   value?: number;
   children?: WheelData[];
 }
-
+interface UserData {
+  uid: string;
+  email: string;
+  organizedEvents: (string | null)[];
+  attendedEvents: (string | null)[];
+}
 const Member = () => {
   const [wheelData, setWheelData] = useState<WheelData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
+  const db = firestore;
+
+  const fetchUserData = async (userUid: string) => {
+    try {
+      const q = query(
+        collection(db, "Members"),
+        where("__name__", "==", userUid)
+      );
+      const querySnapshot = await getDocs(q);
+      const doc = querySnapshot.docs[0];
+      const docFromFirestore = doc.data() as UserData;
+      setUserData(docFromFirestore);
+    } catch (err: any) {
+      console.error("Error when fetching user data : ", err.message);
+    }
+  };
+
+  const fetchWheelData = async (userUid: string) => {
+    setIsLoading(true);
+
+    try {
+      const q = query(
+        collection(db, "Members"),
+        where("__name__", "==", userUid)
+      );
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        const doc = querySnapshot.docs[0];
+        const parsedData = JSON.parse(doc.data().wheelData);
+        setWheelData(parsedData);
+      }
+      setIsLoading(false);
+    } catch (err: any) {
+      console.error("Login failed:", err.message);
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     const auth = getAuth();
@@ -24,6 +68,7 @@ const Member = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         fetchWheelData(user.uid);
+        fetchUserData(user.uid);
       } else {
         navigate("/login");
       }
@@ -31,33 +76,24 @@ const Member = () => {
     return unsubscribe;
   }, [navigate]);
 
-  const fetchWheelData = async (userUid: string) => {
-    setLoading(true);
-    const db = firestore;
-    try {
-      const q = query(
-        collection(db, "Members"),
-        where("__name__", "==", userUid)
-      );
-      const querySnapshot = await getDocs(q);
-
-      querySnapshot.docs.forEach((doc) => {
-        const parsedData = JSON.parse(doc.data().wheelData);
-
-        setWheelData(parsedData);
-        setLoading(false);
-      });
-    } catch (err: any) {
-      console.error("Login failed:", err.message);
-      setLoading(false);
-    }
-  };
-
-  if (loading) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  return wheelData ? <SunburstChart data={wheelData} /> : null;
+  return (
+    <>
+      {wheelData ? <SunburstChart data={wheelData} /> : null}
+      <h2>Email</h2>
+      {userData?.email}
+      {userData?.attendedEvents.map((event) => (
+        <>
+          <h2>我參加的活動</h2>
+          {event}
+        </>
+      ))}
+      <h2>我的UID</h2>
+      {userData?.uid}
+    </>
+  );
 };
-
 export default Member;
