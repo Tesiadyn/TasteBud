@@ -12,11 +12,11 @@ import {
   PageLink,
 } from "./LoginStyle";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
-
+import { useNavigate } from "react-router-dom";
 // TODO: redirect after login & notification for user
 
 const Login = () => {
-
+  const navigate = useNavigate();
   const auth = getAuth();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,6 +29,7 @@ const Login = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user); 
+        navigate("/member");
       })
       .catch((err) => {
         console.error("Error when signing in : ", err.message)
