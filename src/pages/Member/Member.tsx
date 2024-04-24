@@ -5,32 +5,32 @@ import { firestore } from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-interface Data {
+interface WheelData {
   name: string;
   value?: number;
-  children?: Data[];
+  children?: WheelData[];
 }
 
 const Member = () => {
-  const [data, setData] = useState<Data | null>(null);
+  const [wheelData, setWheelData] = useState<WheelData | null>(null);
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
-  useEffect(()=>{
+  useEffect(() => {
     const auth = getAuth();
     console.log(auth);
-    
-    const unsubscribe = onAuthStateChanged(auth,(user)=>{
-      if(user){
+
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
         fetchWheelData(user.uid);
-      } else{
+      } else {
         navigate("/login");
       }
-    })
+    });
     return unsubscribe;
-  },[navigate])
- 
+  }, [navigate]);
+
   const fetchWheelData = async (userUid: string) => {
     setLoading(true);
     const db = firestore;
@@ -44,7 +44,7 @@ const Member = () => {
       querySnapshot.docs.forEach((doc) => {
         const parsedData = JSON.parse(doc.data().wheelData);
 
-        setData(parsedData);
+        setWheelData(parsedData);
         setLoading(false);
       });
     } catch (err: any) {
@@ -57,7 +57,7 @@ const Member = () => {
     return <div>Loading...</div>;
   }
 
-  return data ? <SunburstChart data={data} /> : null;
+  return wheelData ? <SunburstChart data={wheelData} /> : null;
 };
 
 export default Member;
