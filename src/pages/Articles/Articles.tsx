@@ -4,7 +4,6 @@ import {
   TagsSection,
   Wrapper,
   Tags,
-  TagText,
   Tag,
   ArticlesSection,
   ArticleImgDiv,
@@ -30,10 +29,25 @@ interface ArticleData {
   articleUid: string;
 }
 
+const tagsList = [
+  "歷史",
+  "製程",
+  "單一麥芽",
+  "調和",
+  "蘇格蘭",
+  "愛爾蘭",
+  "美國",
+  "其他",
+  "名詞",
+  "入門",
+];
+
 const Articles = () => {
   const [articleData, setArticleData] = useState<Array<ArticleData>>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   useEffect(() => {
+    // fetch all articles when user enters 
     const fetchArticleData = async () => {
       const db = firestore;
       try {
@@ -50,7 +64,67 @@ const Articles = () => {
     };
     fetchArticleData();
   }, []);
-  console.log(articleData);
+  // console.log(articleData);
+  // const handleTagClick = (e:React.MouseEvent<HTMLButtonElement>) => {
+  //   const searchTagArticle = async (target:string) => {
+  //     try{
+  //       const articleRef = collection(firestore, "Articles");
+  //       const articleQuery = query(
+  //         articleRef,
+  //         where("tags", "array-contains", target)
+  //       );
+  //       const articleSnapshot = await getDocs(articleQuery);
+  //       const resultArticles = articleSnapshot.docs.map((doc)=>{
+  //         const articleDataFromDoc = doc.data() as ArticleData;
+  //         return articleDataFromDoc ;
+  //       })
+  //       setArticleData(resultArticles);
+  //     } catch (err:any) {
+  //       console.error("Error when getting article data : ", err.message)
+  //     }
+  //   }
+  //   const getTagValue = async (e:React.MouseEvent<HTMLButtonElement>) => {
+  //     try{
+  //       const target = e.currentTarget.value;
+  //       searchTagArticle(target);
+  //     } catch (err:any){
+  //       console.error("Error when searching Tag related article : ", err.message)
+  //     }
+  //   }
+  //   getTagValue(e);
+
+  //  }
+  // const handleTagClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  //   try {
+  //     const target = e.currentTarget.value;
+  //     const articleRef = collection(firestore, "Articles");
+  //     const articleQuery = query(articleRef, where("tags", "array-contains", target));
+  //     const articleSnapshot = await getDocs(articleQuery);
+  //     const resultArticles = articleSnapshot.docs.map((doc) => {
+  //       const articleDataFromDoc = doc.data() as ArticleData;
+  //       return articleDataFromDoc;
+  //     });
+  //     setArticleData(resultArticles);
+  //   } catch (err: any) {
+  //     console.error("Error when getting article data : ", err.message);
+  //   }
+  // };
+  const filterArticlesByTags = (articles: ArticleData[], tags:string[]) => {
+    if (tags.length === 0) return articles;
+    return articles.filter((article) =>
+      article.tags.some((tag) => tags.includes(tag!))
+    );
+  };
+
+  const filteredArticles: ArticleData[] = filterArticlesByTags(articleData, selectedTags);
+
+  const handleTagClick = (tag: string) => {
+    setSelectedTags((prevTags) =>
+      prevTags.includes(tag)
+        ? prevTags.filter((t) => t !== tag)
+        : [...prevTags, tag]
+    );
+  };
 
   return (
     <Container>
@@ -60,35 +134,16 @@ const Articles = () => {
         <TagsSection>
           <TagsDiv>
             <Tags>
-              <Tag>
-                <TagText>歷史</TagText>
-              </Tag>
-              <Tag>
-                <TagText>製程</TagText>
-              </Tag>
-              <Tag>
-                <TagText>單一麥芽</TagText>
-              </Tag>
-              <Tag>
-                <TagText>調和</TagText>
-              </Tag>
-              <Tag>
-                <TagText>蘇格蘭</TagText>
-              </Tag>
-              <Tag>
-                <TagText>愛爾蘭</TagText>
-              </Tag>
-              <Tag>
-                <TagText>美國</TagText>
-              </Tag>
-              <Tag>
-                <TagText>其他</TagText>
-              </Tag>
+              {tagsList.map((tag, index) => (
+                <Tag onClick={() => handleTagClick(tag)} value={tag} key={index}>
+                  {tag}
+                </Tag>
+              ))}
             </Tags>
           </TagsDiv>
         </TagsSection>
         <ArticlesSection>
-          {articleData.map((data, index) => (
+          {filteredArticles.map((data, index) => (
             <PageLink key={index} to={`/article/${data.articleUid}`}>
               <ArticleCard>
                 <ArticleImgDiv>

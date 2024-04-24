@@ -31,15 +31,16 @@ export const TagsSection = styled.section`
 export const TagsDiv = styled.div`
   display: flex;
 `;
-export const Tags = styled.ul`
+export const Tags = styled.div`
   display: flex;
   list-style: none;
 `;
-export const Tag = styled.li`
+export const Tag = styled.button`
   width: 50px;
   text-align: center;
   background-color: #592b2b;
   margin-left: 20px;
+  color: #f7f7f7;
 `;
 export const TagText = styled.span`
   color: #f7f7f7;
