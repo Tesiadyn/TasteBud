@@ -18,7 +18,7 @@ import {
   PageLink,
 } from "./ArticlesStyle";
 import { firestore } from "../../utilities/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 interface ArticleData {
@@ -44,8 +44,10 @@ const tagsList = [
 
 const Articles = () => {
   const [articleData, setArticleData] = useState<Array<ArticleData>>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   useEffect(() => {
+    // fetch all articles when user enters 
     const fetchArticleData = async () => {
       const db = firestore;
       try {
@@ -92,22 +94,38 @@ const Articles = () => {
   //   getTagValue(e);
 
   //  }
-  const handleTagClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    try {
-      const target = e.currentTarget.value;
-      const articleRef = collection(firestore, "Articles");
-      const articleQuery = query(articleRef, where("tags", "array-contains", target));
-      const articleSnapshot = await getDocs(articleQuery);
-      const resultArticles = articleSnapshot.docs.map((doc) => {
-        const articleDataFromDoc = doc.data() as ArticleData;
-        return articleDataFromDoc;
-      });
-      setArticleData(resultArticles);
-    } catch (err: any) {
-      console.error("Error when getting article data : ", err.message);
-    }
+  // const handleTagClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  //   try {
+  //     const target = e.currentTarget.value;
+  //     const articleRef = collection(firestore, "Articles");
+  //     const articleQuery = query(articleRef, where("tags", "array-contains", target));
+  //     const articleSnapshot = await getDocs(articleQuery);
+  //     const resultArticles = articleSnapshot.docs.map((doc) => {
+  //       const articleDataFromDoc = doc.data() as ArticleData;
+  //       return articleDataFromDoc;
+  //     });
+  //     setArticleData(resultArticles);
+  //   } catch (err: any) {
+  //     console.error("Error when getting article data : ", err.message);
+  //   }
+  // };
+  const filterArticlesByTags = (articles: ArticleData[], tags:string[]) => {
+    if (tags.length === 0) return articles;
+    return articles.filter((article) =>
+      article.tags.some((tag) => tags.includes(tag!))
+    );
   };
-  
+
+  const filteredArticles: ArticleData[] = filterArticlesByTags(articleData, selectedTags);
+
+  const handleTagClick = (tag: string) => {
+    setSelectedTags((prevTags) =>
+      prevTags.includes(tag)
+        ? prevTags.filter((t) => t !== tag)
+        : [...prevTags, tag]
+    );
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -117,7 +135,7 @@ const Articles = () => {
           <TagsDiv>
             <Tags>
               {tagsList.map((tag, index) => (
-                <Tag onClick={handleTagClick} value={tag} key={index}>
+                <Tag onClick={() => handleTagClick(tag)} value={tag} key={index}>
                   {tag}
                 </Tag>
               ))}
@@ -125,7 +143,7 @@ const Articles = () => {
           </TagsDiv>
         </TagsSection>
         <ArticlesSection>
-          {articleData.map((data, index) => (
+          {filteredArticles.map((data, index) => (
             <PageLink key={index} to={`/article/${data.articleUid}`}>
               <ArticleCard>
                 <ArticleImgDiv>
