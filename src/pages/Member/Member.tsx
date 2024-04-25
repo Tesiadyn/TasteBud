@@ -18,11 +18,24 @@ interface UserData {
   organizedEvents: (string | null)[];
   attendedEvents: (string | null)[];
 }
+interface EventData {
+  coverImage: string;
+  date: string;
+  eventUid: string;
+  location: string;
+  maxParticipants: number;
+  organizerUid: string;
+  participantsUid: (string | null)[];
+  tags: (string | null)[];
+  text: string;
+  title: string;
+}
 
 const Member = () => {
   const [wheelData, setWheelData] = useState<WheelData | null>(null);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [eventData, setEventData] = useState<Array<EventData>>([]);
 
   const navigate = useNavigate();
   const db = firestore;
@@ -63,15 +76,27 @@ const Member = () => {
       setIsLoading(false);
     }
   };
-
+  const fetchEventsData = async (userUid: string) => {
+    const eventsRef = collection(db, "Events");
+    const q = query(
+      eventsRef,
+      where("participantsUid", "array-contains", userUid)
+    );
+    const querySnapshot = await getDocs(q);
+    const newData = querySnapshot.docs.map((doc) => {
+      const eventDataFromFirestore = doc.data() as EventData;
+      return eventDataFromFirestore;
+    });
+    setEventData(newData);
+  };
   useEffect(() => {
-    const auth = getAuth();
-    console.log(auth);
+    const user = getAuth();
 
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(user, (user) => {
       if (user) {
-        fetchWheelData(user.uid);
         fetchUserData(user.uid);
+        fetchWheelData(user.uid);
+        fetchEventsData(user.uid);
       } else {
         navigate("/login");
       }
@@ -89,7 +114,13 @@ const Member = () => {
       <h2>Email</h2>
       {userData?.email}
       <h2>我參加的活動</h2>
-      {userData?.attendedEvents.map((event) => event)}
+      {eventData.map((event) => (
+        <>
+          <h1>活動標題{event.title}</h1>
+          <h1>活動日期{event.date}</h1>
+          <h1>活動地點{event.location}</h1>
+        </>
+      ))}
       <h2>我的UID</h2>
       {userData?.userUid}
     </>
