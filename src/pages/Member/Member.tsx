@@ -13,7 +13,7 @@ interface WheelData {
   children?: WheelData[];
 }
 interface UserData {
-  uid: string;
+  userUid: string;
   email: string;
   organizedEvents: (string | null)[];
   attendedEvents: (string | null)[];
@@ -37,7 +37,6 @@ const Member = () => {
       const doc = querySnapshot.docs[0];
       const docFromFirestore = doc.data() as UserData;
       setUserData(docFromFirestore);
-
     } catch (err: any) {
       console.error("Error when fetching user data : ", err.message);
     }
