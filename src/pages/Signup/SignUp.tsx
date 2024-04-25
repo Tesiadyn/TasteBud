@@ -2,8 +2,7 @@ import {
   Container,
   Wrapper,
   SignUpButton,
-  EmailInput,
-  PasswordInput,
+  Input,
   SignUpForm,
   SignUpSection,
   SignUpSectionTitle,
@@ -154,11 +153,15 @@ const SignUp = () => {
           <SignUpForm onSubmit={handleSubmit}>
             <InputDiv>
               <InputLabel htmlFor="email">Email</InputLabel>
-              <EmailInput id="email" type="email" name="email" />
+              <Input id="email" type="email" name="email" />
+            </InputDiv>
+            <InputDiv>
+              <InputLabel htmlFor="userName">UserName</InputLabel>
+              <Input id="userName" type="text" name="userName" />
             </InputDiv>
             <InputDiv>
               <InputLabel htmlFor="password">Password</InputLabel>
-              <PasswordInput id="password" type="password" name="password" />
+              <Input id="password" type="password" name="password" />
             </InputDiv>
             <SignUpButton type="submit">註冊</SignUpButton>
           </SignUpForm>

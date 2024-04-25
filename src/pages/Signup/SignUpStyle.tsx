@@ -22,14 +22,11 @@ export const InputDiv = styled.div`
 export const SignUpForm = styled.form`
   width: 30%;
 `;
-export const EmailInput = styled.input`
-  width: 80%;
+export const Input = styled.input`
+  width: 70%;
 `;
 export const InputLabel = styled.label`
-  width: 20%;
-`;
-export const PasswordInput = styled.input`
-  width: 80%;
+  width: 30%;
 `;
 export const SignUpButton = styled.button`
   width: 100%;
