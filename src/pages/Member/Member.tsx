@@ -92,7 +92,7 @@ const Member = () => {
       <h2>我參加的活動</h2>
       {userData?.attendedEvents.map((event) => event)}
       <h2>我的UID</h2>
-      {userData?.uid}
+      {userData?.userUid}
     </>
   );
 };

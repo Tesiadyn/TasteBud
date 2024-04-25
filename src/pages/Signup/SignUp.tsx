@@ -77,6 +77,7 @@ const SignUp = () => {
         attendedEvents: [],
         commentsUid: "",
         email: email,
+        userUid: userUid,
         organizedEvents: [],
         wheelData: `{
           "id": 0,
