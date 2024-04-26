@@ -57,12 +57,16 @@ const SignUp = () => {
           "password"
         ) as HTMLInputElement | null;
         const password = passwordInput?.value;
+        const userNameInput = e.currentTarget.elements.namedItem(
+          "userName"
+        ) as HTMLInputElement | null;
+        const userName = userNameInput?.value;
         if (email && password) {
           const userObj = await register(email, password);
           if (userObj && userObj.user) {
             const userUid = userObj?.user.uid;
             console.log(userUid);
-            writingMemberDoc(email, userUid);
+            writingMemberDoc(email, userUid, userName!);
             navigate("/login");
           }
         }
@@ -71,11 +75,12 @@ const SignUp = () => {
       }
     };
 
-    const writingMemberDoc = async (email: string, userUid: string) => {
+    const writingMemberDoc = async (email: string, userUid: string, userName: string) => {
       const memberData = {
         attendedEvents: [],
         commentsUid: "",
         email: email,
+        userName: userName,
         userUid: userUid,
         organizedEvents: [],
         wheelData: `{
