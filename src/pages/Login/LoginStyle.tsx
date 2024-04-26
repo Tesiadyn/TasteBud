@@ -1,10 +1,18 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom"
+import { TextInput, Button } from "evergreen-ui";
 
+export const InputField = styled(TextInput)`
+  width: 80%;
+`;
+export const LoginButton = styled(Button)`
+  width: 100%;
+  height: 30px;
+  text-align: center;
+`;
 export const PageLink = styled(Link)`
   
-`
-
+`;
 export const Container = styled.div`
   width: 100%;
 `;
@@ -27,17 +35,6 @@ export const InputDiv = styled.div`
 export const LoginForm = styled.form`
   width: 30%;
 `;
-export const EmailInput = styled.input`
-  width: 80%;
-`;
 export const InputLabel = styled.label`
   width: 20%;
-`;
-export const PasswordInput = styled.input`
-  width: 80%;
-`;
-export const LoginButton = styled.button`
-  width: 100%;
-  height: 30px;
-  text-align: center;
 `;

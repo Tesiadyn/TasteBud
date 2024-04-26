@@ -1,5 +1,14 @@
 import styled from "styled-components";
+import { TextInput, Button } from "evergreen-ui";
 
+export const InputField = styled(TextInput)`
+  width: 70%;
+`;
+export const SignUpButton = styled(Button)`
+  width: 100%;
+  height: 30px;
+  text-align: center;
+`;
 export const Container = styled.div`
   width: 100%;
 `;
@@ -22,14 +31,7 @@ export const InputDiv = styled.div`
 export const SignUpForm = styled.form`
   width: 30%;
 `;
-export const Input = styled.input`
-  width: 70%;
-`;
+
 export const InputLabel = styled.label`
   width: 30%;
-`;
-export const SignUpButton = styled.button`
-  width: 100%;
-  height: 30px;
-  text-align: center;
 `;

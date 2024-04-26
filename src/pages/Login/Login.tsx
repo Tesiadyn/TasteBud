@@ -5,11 +5,10 @@ import {
   LoginSectionTitle,
   InputDiv,
   LoginForm,
-  EmailInput,
   InputLabel,
-  PasswordInput,
   LoginButton,
   PageLink,
+  InputField,
 } from "./LoginStyle";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
@@ -44,11 +43,11 @@ const Login = () => {
           <LoginForm onSubmit={handleSubmit}>
             <InputDiv>
               <InputLabel htmlFor="email">Email</InputLabel>
-              <EmailInput type="email" id="email" name="email" />
+              <InputField type="email" id="email" name="email" />
             </InputDiv>
             <InputDiv>
               <InputLabel htmlFor="password">Password</InputLabel>
-              <PasswordInput type="password" id="password" name="password" />
+              <InputField type="password" id="password" name="password" />
             </InputDiv>
             <LoginButton type="submit">登入</LoginButton>
           </LoginForm>

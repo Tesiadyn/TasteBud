@@ -2,12 +2,12 @@ import {
   Container,
   Wrapper,
   SignUpButton,
-  Input,
   SignUpForm,
   SignUpSection,
   SignUpSectionTitle,
   InputLabel,
   InputDiv,
+  InputField
 } from "./SignUpStyle";
 import { auth, firestore } from "../../utilities/firebase";
 import {
@@ -17,7 +17,6 @@ import {
 import { setDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
-// TODO :  flavourWheel options
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -451,15 +450,15 @@ const SignUp = () => {
           <SignUpForm onSubmit={handleSubmit}>
             <InputDiv>
               <InputLabel htmlFor="email">Email</InputLabel>
-              <Input id="email" type="email" name="email" />
+              <InputField id="email" type="email" name="email" />
             </InputDiv>
             <InputDiv>
               <InputLabel htmlFor="userName">UserName</InputLabel>
-              <Input id="userName" type="text" name="userName" />
+              <InputField id="userName" type="text" name="userName" />
             </InputDiv>
             <InputDiv>
               <InputLabel htmlFor="password">Password</InputLabel>
-              <Input id="password" type="password" name="password" />
+              <InputField id="password" type="password" name="password" />
             </InputDiv>
             <SignUpButton type="submit">註冊</SignUpButton>
           </SignUpForm>
