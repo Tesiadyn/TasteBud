@@ -13,7 +13,9 @@ import {
 import { auth, firestore } from "../../utilities/firebase";
 import {
   createUserWithEmailAndPassword,
+  getAuth,
   onAuthStateChanged,
+  updateProfile
 } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
@@ -479,7 +481,12 @@ const SignUp = () => {
         }
         `,
       };
+      const auth = getAuth();
+      const user = auth.currentUser;
+      if (user) {  
       await setDoc(doc(firestore, "Members", userUid), memberData);
+      await updateProfile(auth.currentUser, { displayName: userName })
+      }
     };
 
     gettingEmailAndPassword();
