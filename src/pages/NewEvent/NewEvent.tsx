@@ -12,6 +12,7 @@ import { addDoc, collection, updateDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { auth, firestore, storage } from "../../utilities/firebase";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const NewEvent = () => {
   const [title, setTitle] = useState("");
@@ -20,7 +21,9 @@ const NewEvent = () => {
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [text, setText] = useState("");
   const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const navigate = useNavigate();
 
   const uploadCoverImg = async (file: File) => {
     const storageRef = ref(storage, `coverImages/${file.name}`);
@@ -47,42 +50,46 @@ const NewEvent = () => {
     } else {
       setSelectedTags((prevTags) => prevTags.filter((tag) => tag !== name));
     }
-  };  const handleSubmit =
- async (e: React.FormEvent) => {
+  };  
+  
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const user = auth.currentUser;
+    const userUid = user?.uid;
 
-    try {
-      const user = auth.currentUser;
-      if (!user) {
-        console.error("User not authenticated.");
-        return;
+    const updateEventData = async () => {
+      try {
+        if (!user) {
+          console.error("User not authenticated.");
+          navigate("/login");
+        }
+        const tags = selectedTags;
+        let coverImageUrl = "";
+        if (coverImage) {
+          coverImageUrl = await uploadCoverImg(coverImage);
+        }
+        const eventData = {
+          organizerUid: userUid,
+          participantsUid: [],
+          location,
+          title,
+          coverImage: coverImageUrl,
+          maxParticipants,
+          text,
+          date,
+          tags,
+          time
+        };
+        const eventDocRef = await addDoc(collection(firestore, "Events"), eventData);
+        const eventUid = eventDocRef.id;
+        const updatedEventData = { ...eventData, eventUid };
+        await updateDoc(eventDocRef, updatedEventData);
+        console.log("Doc written with ID : ", eventDocRef.id);
+      } catch (err) {
+        console.error("Error adding event data : ", err);
       }
-
-      const organizerUid = user?.uid;
-      const tags = selectedTags;
-      let coverImageUrl = "";
-      if (coverImage) {
-        coverImageUrl = await uploadCoverImg(coverImage);
-      }
-      const eventData = {
-        organizerUid,
-        participantsUid: [],
-        location,
-        title,
-        coverImage: coverImageUrl,
-        maxParticipants,
-        text,
-        date,
-        tags
-      };
-      const docRef = await addDoc(collection(firestore, "Events"), eventData);
-      const eventUid = docRef.id;
-      const updatedEventData = { ...eventData, eventUid };
-      await updateDoc(docRef, updatedEventData);
-      console.log("Doc written with ID : ", docRef.id);
-    } catch (err) {
-      console.error("Error adding event data : ", err);
     }
+    updateEventData()
   };
   console.log(selectedTags);
   
@@ -106,12 +113,19 @@ const NewEvent = () => {
               type="text"
               onChange={(e) => setText(e.target.value)}
             />
-            <InputLabel htmlFor="text">活動日期</InputLabel>
+            <InputLabel htmlFor="date">活動日期</InputLabel>
             <InputField
-              id="text"
+              id="date"
               placeholder="請輸入活動日期"
               type="date"
               onChange={(e) => setDate(e.target.value)}
+            />
+            <InputLabel htmlFor="time">活動時間</InputLabel>
+            <InputField
+              id="time"
+              placeholder="請輸入活動時間"
+              type="time"
+              onChange={(e) => setTime(e.target.value)}
             />
             <InputLabel htmlFor="location">地點</InputLabel>
             <InputField

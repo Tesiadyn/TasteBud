@@ -30,6 +30,7 @@ interface EventData {
   tags: (string | null)[];
   text: string;
   title: string;
+  time: string;
 }
 
 const Member = () => {
@@ -120,6 +121,7 @@ const Member = () => {
         <>
           <h1>活動標題{event.title}</h1>
           <h1>活動日期{event.date}</h1>
+          <h1>活動日期{event.time}</h1>
           <h1>活動地點{event.location}</h1>
         </>
       ))}
