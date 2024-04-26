@@ -12,8 +12,9 @@ import {
 import { firestore } from "../../utilities/firebase";
 import { useParams } from "react-router-dom";
 import { getAuth } from "firebase/auth";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
-/* ------------------------------ firebase init ----------------------------- */
 const db = firestore;
 const auth = getAuth();
 interface TreeNode {
@@ -177,6 +178,7 @@ const Post: React.FC = () => {
     value: 0,
   });
   const [isLoading, setIsLoading] = useState(true);
+  const [quillValue, setQuillValue] = useState("");
 
   useEffect(() => {
     const fetchWheelData = async () => {
@@ -215,6 +217,7 @@ const Post: React.FC = () => {
       ) : (
         <>
           <CheckboxTree data={parsedNodeData} />
+          <ReactQuill theme="snow" value={quillValue} onChange={setQuillValue} />
         </>
       )}
     </>
