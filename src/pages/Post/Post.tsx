@@ -11,12 +11,15 @@ import {
 
 import { firestore } from "../../utilities/firebase";
 import { useParams } from "react-router-dom";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { useNavigate } from "react-router-dom";
 
 const db = firestore;
 const auth = getAuth();
+
+
 interface TreeNode {
   id: number;
   name: string;
@@ -179,36 +182,44 @@ const Post: React.FC = () => {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [quillValue, setQuillValue] = useState("");
+  const navigate = useNavigate();
+  
+  const fetchWheelData = async (userUid: string) => {
+      
+    try {
+      const q = query(
+        collection(db, "Members"),
+        where("__name__", "==", userUid)
+      );
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.docs.forEach((doc) => {
+        const parsedData = JSON.parse(doc.data().wheelData);
+        setParsedNodeData(parsedData);
+
+
+        setIsLoading(false);
+      });
+    } catch (err: any) {
+      console.error("Login failed:", err.message);
+      setIsLoading(false);
+    }
+    
+
+  };
 
   useEffect(() => {
-    const fetchWheelData = async () => {
-      try {
-        const user = auth.currentUser;
-        console.log("logged in as :", user?.email);
+    const user = getAuth();
 
-        const userUid = user?.uid;
-
-        const q = query(
-          collection(db, "Members"),
-          where("__name__", "==", userUid)
-        );
-        const querySnapshot = await getDocs(q);
-
-        querySnapshot.docs.forEach((doc) => {
-          const parsedData = JSON.parse(doc.data().wheelData);
-          setParsedNodeData(parsedData);
-          // console.log(parsedData);
-
-          setIsLoading(false);
-        });
-      } catch (err: any) {
-        console.error("Login failed:", err.message);
-        setIsLoading(false);
+    const unsubscribe = onAuthStateChanged(user, (user) => {
+      if (user) {
+        fetchWheelData(user.uid);
+      } else {
+        navigate("/login");
       }
-    };
-
-    fetchWheelData();
-  }, []);
+    });
+    return unsubscribe;
+  }, [navigate]);
 
   return (
     <>
