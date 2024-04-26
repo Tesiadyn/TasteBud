@@ -14,6 +14,7 @@ interface WheelData {
 }
 interface UserData {
   userUid: string;
+  userName: string;
   email: string;
   organizedEvents: (string | null)[];
   attendedEvents: (string | null)[];
@@ -111,6 +112,7 @@ const Member = () => {
   return (
     <>
       {wheelData ? <SunburstChart data={wheelData} /> : null}
+      <h1>Hello! {userData?.userName}</h1>
       <h2>Email</h2>
       {userData?.email}
       <h2>我參加的活動</h2>
