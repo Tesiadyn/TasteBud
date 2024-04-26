@@ -12,6 +12,7 @@ import {
 } from "./LoginStyle";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { toaster } from "evergreen-ui";
 // TODO: redirect after login & notification for user
 
 const Login = () => {
@@ -28,10 +29,12 @@ const Login = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user); 
+        toaster.success("Welcome back!")
         navigate("/member");
       })
       .catch((err) => {
         console.error("Error when signing in : ", err.message)
+        toaster.danger("帳號或密碼錯誤")
       });
   };
 
