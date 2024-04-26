@@ -26,6 +26,7 @@ export const SignUpSection = styled.section`
 export const SignUpSectionTitle = styled.h2``;
 export const InputDiv = styled.div`
   display: flex;
+  flex-wrap: wrap;
   margin: 20px 0;
 `;
 export const SignUpForm = styled.form`
@@ -35,3 +36,9 @@ export const SignUpForm = styled.form`
 export const InputLabel = styled.label`
   width: 30%;
 `;
+export const HintMessage = styled.p`
+  width: 100%;
+  font-size: 12px;
+  color: #b84b4b;
+  margin-left: 30%;
+`

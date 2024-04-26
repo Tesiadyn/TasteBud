@@ -7,7 +7,8 @@ import {
   SignUpSectionTitle,
   InputLabel,
   InputDiv,
-  InputField
+  InputField,
+  HintMessage
 } from "./SignUpStyle";
 import { auth, firestore } from "../../utilities/firebase";
 import {
@@ -16,21 +17,61 @@ import {
 } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { toaster } from "evergreen-ui";
+import { useEffect, useState } from "react";
 
-
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    console.log("User logged in:", user);
-  } else {
-    console.log("User logged out");
-  }
-});
-
+interface InputRule {
+  rule: RegExp;
+  message: string;
+}
+interface FormState {
+  email: string;
+  userName: string;
+  password: string;
+}
 const SignUp = () => {
   const navigate = useNavigate();
+  const [form, setForm] = useState<FormState>({
+    email: "",
+    userName: "",
+    password: ""
+  });
+  const inputRules : {[key: string]: InputRule} = {
+    email: {
+      rule: /^\S+@\S+\.\S+$/,
+      message: `請輸入包含'@'在內的有效電子信箱`
+    },
+    userName: {
+      rule: /^.{3,}$/,
+      message: "請輸入最少為3個字元的使用者名稱",
+    },
+    password: {
+      rule: /^(?=.*[a-z])(?=.*[A-Z]).*$/,
+      message: "密碼需最少含有一個英文大寫及一個英文小寫"
+    }
+
+  }
+  const getHint = (inputField: keyof FormState) => {
+    const hint = inputRules[inputField];
+    const value = form[inputField];
+    if (hint && typeof value === 'string' && !hint.rule.test(value)) {
+      return hint.message;
+    }
+    return null;
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+    const { name, value } = e.target;
+    setForm((prevForm) => ({
+      ...prevForm,
+      [name]: value,
+    }));
+  };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("handleSubmit running...");
+
 
     const register = async (email: string, password: string) => {
       try {
@@ -66,6 +107,7 @@ const SignUp = () => {
             const userUid = userObj?.user.uid;
             console.log(userUid);
             writingMemberDoc(email, userUid, userName!);
+            toaster.success("註冊成功，請使用電子信箱及密碼登入")
             navigate("/login");
           }
         }
@@ -442,6 +484,16 @@ const SignUp = () => {
 
     gettingEmailAndPassword();
   };
+  useEffect (() => {
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log("User logged in:", user);
+  } else {
+    console.log("User logged out");
+  }
+});
+  })
   return (
     <Container>
       <Wrapper>
@@ -450,15 +502,25 @@ const SignUp = () => {
           <SignUpForm onSubmit={handleSubmit}>
             <InputDiv>
               <InputLabel htmlFor="email">Email</InputLabel>
-              <InputField id="email" type="email" name="email" />
+              <InputField id="email" type="email" name="email" value={form.email} onChange={handleChange}/>
+              {getHint("email") && (
+              <HintMessage>{getHint("email")}</HintMessage>
+            )}
             </InputDiv>
+            
             <InputDiv>
               <InputLabel htmlFor="userName">UserName</InputLabel>
-              <InputField id="userName" type="text" name="userName" />
+              <InputField id="userName" type="text" name="userName" value={form.userName} onChange={handleChange}/>
+              {getHint("userName") && (
+              <HintMessage>{getHint("userName")}</HintMessage>
+            )}
             </InputDiv>
             <InputDiv>
               <InputLabel htmlFor="password">Password</InputLabel>
-              <InputField id="password" type="password" name="password" />
+              <InputField id="password" type="password" name="password" value={form.password} onChange={handleChange}/>
+              {getHint("password") && (
+              <HintMessage>{getHint("password")}</HintMessage>
+            )}
             </InputDiv>
             <SignUpButton type="submit">註冊</SignUpButton>
           </SignUpForm>
