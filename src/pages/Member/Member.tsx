@@ -4,6 +4,7 @@ import { query, collection, where, getDocs } from "firebase/firestore";
 import { firestore } from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { PageLink } from "./MemberStyle";
 
 // TODO: display event date with event title & link
 
@@ -119,13 +120,13 @@ const Member = () => {
       <h2>Email</h2>
       {userData?.email}
       <h2>我參加的活動</h2>
-      {eventData.map((event) => (
-        <>
+      {eventData.map((event, index) => (
+        <PageLink to={`/event/${event.eventUid}`}key={index}>
           <h1>活動標題{event.title}</h1>
           <h1>活動日期{event.date}</h1>
           <h1>活動日期{event.time}</h1>
           <h1>活動地點{event.location}</h1>
-        </>
+        </PageLink>
       ))}
       <h2>我的UID</h2>
       {userData?.userUid}
