@@ -23,6 +23,7 @@ import {
 } from "./EventStyle";
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { toaster } from "evergreen-ui";
 
 interface EventData {
   coverImage: string;
@@ -147,6 +148,8 @@ const Event = () => {
   const auth = getAuth();
   const currentUser = auth.currentUser;
   const currentUserUid = currentUser?.uid;
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchEventData = async () => {
       try {
@@ -240,6 +243,8 @@ const Event = () => {
     setIsEditing(false);
   };
   const handleParticipateClick = () => {
+    console.log('handleParticipateClick is running');
+    
     const updateParticipateDoc = async () => {
       if (!firestore || !currentUserUid){
         console.error("firestore or currentUserUid is undefined.");
@@ -250,6 +255,12 @@ const Event = () => {
         await updateDoc(userDocRef,{
           attendedEvents: arrayUnion(id),
         })
+        const eventDocRef = doc(firestore, "Events", id);
+        await updateDoc(eventDocRef,{
+          participantsUid: arrayUnion(currentUserUid)
+        })
+        toaster.success("成功參加活動!");
+        navigate(`/member`)
         
       } catch (err: any) {
         console.error("Error when updating participate doc : ", err.message);

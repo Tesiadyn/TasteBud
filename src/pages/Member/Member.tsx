@@ -85,10 +85,12 @@ const Member = () => {
       where("participantsUid", "array-contains", userUid)
     );
     const querySnapshot = await getDocs(q);
+
     const newData = querySnapshot.docs.map((doc) => {
       const eventDataFromFirestore = doc.data() as EventData;
       return eventDataFromFirestore;
     });
+
     setEventData(newData);
   };
   useEffect(() => {

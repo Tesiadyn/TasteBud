@@ -14,27 +14,30 @@ import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { toaster } from "evergreen-ui";
 
-
 const Login = () => {
   const navigate = useNavigate();
   const auth = getAuth();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const emailInput = e.currentTarget.elements.namedItem("email") as HTMLInputElement | null;
-    const passwordInput = e.currentTarget.elements.namedItem("password") as HTMLInputElement | null;
-    const email = emailInput?.value || '';
-    const password = passwordInput?.value || '';
-    
+    const emailInput = e.currentTarget.elements.namedItem(
+      "email"
+    ) as HTMLInputElement | null;
+    const passwordInput = e.currentTarget.elements.namedItem(
+      "password"
+    ) as HTMLInputElement | null;
+    const email = emailInput?.value || "";
+    const password = passwordInput?.value || "";
+
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user); 
-        toaster.success(`Welcome back! ${user.displayName}`)
+        console.log(user);
+        toaster.success(`Welcome back! ${user.displayName}`);
         navigate("/member");
       })
       .catch((err) => {
-        console.error("Error when signing in : ", err.message)
-        toaster.danger("帳號或密碼錯誤")
+        console.error("Error when signing in : ", err.message);
+        toaster.danger("帳號或密碼錯誤");
       });
   };
 
