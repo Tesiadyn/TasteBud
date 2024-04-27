@@ -9,7 +9,7 @@ import {
   getDoc,
   deleteDoc,
   updateDoc,
-  arrayUnion
+  arrayUnion,
 } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import {
@@ -243,25 +243,24 @@ const Event = () => {
     setIsEditing(false);
   };
   const handleParticipateClick = () => {
-    console.log('handleParticipateClick is running');
-    
+    console.log("handleParticipateClick is running");
+
     const updateParticipateDoc = async () => {
-      if (!firestore || !currentUserUid){
+      if (!firestore || !currentUserUid) {
         console.error("firestore or currentUserUid is undefined.");
         return;
       }
       try {
         const userDocRef = doc(firestore, "Members", currentUserUid);
-        await updateDoc(userDocRef,{
+        await updateDoc(userDocRef, {
           attendedEvents: arrayUnion(id),
-        })
+        });
         const eventDocRef = doc(firestore, "Events", id);
-        await updateDoc(eventDocRef,{
-          participantsUid: arrayUnion(currentUserUid)
-        })
+        await updateDoc(eventDocRef, {
+          participantsUid: arrayUnion(currentUserUid),
+        });
         toaster.success("成功參加活動!");
-        navigate(`/member`)
-        
+        navigate(`/member`);
       } catch (err: any) {
         console.error("Error when updating participate doc : ", err.message);
       }
@@ -274,18 +273,14 @@ const Event = () => {
         <EventSection>
           {isAuthor ? (
             <>
-              <button onClick={handleDeleteClick}>Delete</button>
+              <button onClick={handleDeleteClick}>刪除活動</button>
               <h1>You are author</h1>
+              <button onClick={handleEditClick}>編輯</button>
             </>
           ) : (
             <>
               <h1>You are not author</h1>
               <button onClick={handleParticipateClick}>參加</button>
-            </>
-          )}
-          {isAuthor && (
-            <>
-              <button onClick={handleEditClick}>編輯</button>
             </>
           )}
           {isEditing && (
@@ -307,7 +302,9 @@ const Event = () => {
           </EventImgDiv>
           <EventTitle>活動標題{eventData?.title}</EventTitle>
           <EventText>活動內容{eventData?.text}</EventText>
-          <EventText className="location">活動地點{eventData?.location}</EventText>
+          <EventText className="location">
+            活動地點{eventData?.location}
+          </EventText>
           <EventText className="maxParticipants">
             活動最大人數{eventData?.maxParticipants}
           </EventText>
