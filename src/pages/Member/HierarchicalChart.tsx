@@ -1,16 +1,34 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect } from "react";
 import * as d3 from "d3";
 
 interface Data {
   name: string;
   value?: number;
   children?: Data[];
-  current? : any;
+  current?: any;
+}
+
+interface NodeData {
+  x0: number;
+  x1: number;
+  y0: number;
+  y1: number;
+  current?: {
+    x0: number;
+    x1: number;
+    y0: number;
+    y1: number;
+  };
+  target?: {
+    x0: number;
+    x1: number;
+    y0: number;
+    y1: number;
+  };
 }
 
 const HierarchicalChart: React.FC<{ data: Data }> = ({ data }) => {
   const svgRef = React.useRef<SVGSVGElement>(null);
-  
 
   useEffect(() => {
     const width = 500;
@@ -33,7 +51,7 @@ const HierarchicalChart: React.FC<{ data: Data }> = ({ data }) => {
       hierarchy
     );
 
-    root.each((d) => (d.current = d));
+    root.each((d) => ((d as any).current = d));
 
     const arc = d3
       .arc<d3.HierarchyRectangularNode<Data>>()
@@ -56,17 +74,19 @@ const HierarchicalChart: React.FC<{ data: Data }> = ({ data }) => {
       .data(root.descendants().slice(1))
       .join("path")
       .attr("fill", (d) => {
-        while (d.depth > 1) d = d.parent;
+        while (d.depth > 1 && d.parent) d = d.parent;
         return color(d.data.name);
       })
       .attr("fill-opacity", (d) =>
-        arcVisible(d.current) ? (d.children ? 0.6 : 0.4) : 0
+        arcVisible((d as any).current) ? (d.children ? 0.6 : 0.4) : 0
       )
-      .attr("pointer-events", (d) => (arcVisible(d.current) ? "auto" : "none"))
-      .attr("d", (d) => arc(d.current));
+      .attr("pointer-events", (d) =>
+        arcVisible((d as any).current) ? "auto" : "none"
+      )
+      .attr("d", (d) => arc((d as any).current));
 
     path
-      .filter((d) => d.children)
+      .filter((d) => (d as any).children)
       .style("cursor", "pointer")
       .on("click", clicked);
 
@@ -77,7 +97,7 @@ const HierarchicalChart: React.FC<{ data: Data }> = ({ data }) => {
           .ancestors()
           .map((d) => d.data.name)
           .reverse()
-          .join("/")}\n${format(d.value)}`
+          .join("/")}\n${format(d.value!)}`
     );
 
     const label = svg
@@ -85,8 +105,8 @@ const HierarchicalChart: React.FC<{ data: Data }> = ({ data }) => {
       .data(root.descendants().slice(1))
       .join("text")
       .attr("dy", "0.35em")
-      .attr("fill-opacity", (d) => +labelVisible(d.current))
-      .attr("transform", (d) => labelTransform(d.current))
+      .attr("fill-opacity", (d) => +labelVisible((d as any).current))
+      .attr("transform", (d) => labelTransform((d as any).current))
       .attr("pointer-events", "none")
       .text((d) => d.data.name);
 
@@ -98,12 +118,12 @@ const HierarchicalChart: React.FC<{ data: Data }> = ({ data }) => {
       .attr("pointer-events", "all")
       .on("click", clicked);
 
-    function clicked(event, p) {
+    function clicked(event: React.MouseEvent, p: any) {
       parent.datum(p.parent || root);
 
       root.each(
         (d) =>
-          (d.target = {
+          ((d as any).target = {
             x0:
               Math.max(0, Math.min(1, (d.x0 - p.x0) / (p.x1 - p.x0))) *
               2 *
@@ -122,52 +142,64 @@ const HierarchicalChart: React.FC<{ data: Data }> = ({ data }) => {
       path
         .transition(t)
         .tween("data", (d) => {
-          const i = d3.interpolate(d.current, d.target);
-          return (t) => (d.current = i(t));
+          const i = d3.interpolate((d as any).current, (d as any).target);
+          return (t) => ((d as any).current = i(t));
         })
-        .filter(function (d) {
-          return +this.getAttribute("fill-opacity") || arcVisible(d.target);
+        .filter(function (this: any, d: any) {
+          return (
+            +this.getAttribute("fill-opacity") || arcVisible((d as any).target)
+          );
         })
         .attr("fill-opacity", (d) =>
-          arcVisible(d.target) ? (d.children ? 0.6 : 0.4) : 0
+          arcVisible((d as any).target) ? (d.children ? 0.6 : 0.4) : 0
         )
-        .attr("pointer-events", (d) => (arcVisible(d.target) ? "auto" : "none"))
-        .attrTween("d", (d) => () => arc(d.current))
+        .attr("pointer-events", (d) =>
+          arcVisible((d as any).target) ? "auto" : "none"
+        )
+        .attrTween("d", function (d: d3.HierarchyRectangularNode<Data>) {
+          const interpolate = d3.interpolate(
+            (d as any).current as d3.DefaultArcObject,
+            (d as any).target as d3.DefaultArcObject
+          );
+          return function (t: number) {
+            return arc(interpolate(t)!);
+          };
+        })
         .on("end", function (d) {
           // Hide non-visible elements after transition
-          if (!arcVisible(d.target)) {
+          if (!arcVisible((d as any).target)) {
             d3.select(this).attr("fill-opacity", 0);
           }
         });
 
       label
         .transition(t)
-        .attr("fill-opacity", (d) => +labelVisible(d.target))
-        .attrTween("transform", (d) => () => labelTransform(d.current))
+        .attr("fill-opacity", (d) => +labelVisible((d as any).target))
+        .attrTween("transform", (d) => () => labelTransform((d as any).current))
         .on("end", function (d) {
           // Hide non-visible elements after transition
-          if (!labelVisible(d.target)) {
+          if (!labelVisible((d as any).target)) {
             d3.select(this).attr("fill-opacity", 0);
           }
         });
     }
 
-    function arcVisible(d) {
+    function arcVisible(d: NodeData) {
       return d.y1 <= 3 && d.y0 >= 1 && d.x1 > d.x0;
     }
 
-    function labelVisible(d) {
+    function labelVisible(d: NodeData) {
       return d.y1 <= 3 && d.y0 >= 1 && (d.y1 - d.y0) * (d.x1 - d.x0) > 0.03;
     }
 
-    function labelTransform(d) {
+    function labelTransform(d: NodeData) {
       const x = (((d.x0 + d.x1) / 2) * 180) / Math.PI;
       const y = ((d.y0 + d.y1) / 2) * radius;
       return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
     }
   }, [data]);
 
-  return <svg ref={svgRef} width={750} height={750}></svg>; // 設置 SVG 容器的寬度和高度
+  return <svg ref={svgRef} width={750} height={750}></svg>;
 };
 
 export default HierarchicalChart;
