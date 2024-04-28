@@ -5,8 +5,9 @@ import { firestore } from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { PageLink } from "./MemberStyle";
-
+import  HierarchicalChart from "./HierarchicalChart";
 // TODO: display event date with event title & link
+import data from './data.json'
 
 interface WheelData {
   name: string;
@@ -115,7 +116,7 @@ const Member = () => {
 
   return (
     <>
-      {wheelData ? <SunburstChart data={wheelData} /> : null}
+      {wheelData ? <HierarchicalChart data={data} /> : null}
       <h1>Hello! {userData?.userName}</h1>
       <h2>Email</h2>
       {userData?.email}
