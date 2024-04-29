@@ -11,8 +11,9 @@ import {
 import { addDoc, collection, updateDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { auth, firestore, storage } from "../../utilities/firebase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const NewEvent = () => {
   const [title, setTitle] = useState("");
@@ -84,6 +85,7 @@ const NewEvent = () => {
         const eventUid = eventDocRef.id;
         const updatedEventData = { ...eventData, eventUid };
         await updateDoc(eventDocRef, updatedEventData);
+        navigate('/events');
         console.log("Doc written with ID : ", eventDocRef.id);
       } catch (err) {
         console.error("Error adding event data : ", err);
@@ -91,8 +93,21 @@ const NewEvent = () => {
     }
     updateEventData()
   };
+
   console.log(selectedTags);
-  
+
+  useEffect (() => {
+    const user = getAuth();
+    const unsubscribe = onAuthStateChanged(user, (user) => {
+      if(!user){
+        navigate("/login");
+      }
+    })
+    return unsubscribe;
+  },[navigate])
+
+
+
   return (
     <Container>
       <Wrapper>
