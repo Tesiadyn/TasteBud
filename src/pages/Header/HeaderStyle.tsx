@@ -2,6 +2,10 @@ import styled from "styled-components";
 import SearchIcon from "../../assets/search.png";
 import { Link } from "react-router-dom";
 
+interface DropDownProps {
+  isVisible: boolean;
+}
+
 export const Container = styled.div`
   width: 100%;
   background-color: #f7f7f7;
@@ -65,7 +69,7 @@ export const ProfileImg = styled.img`
 `;
 
 export const LogOutBtn = styled.button``;
-export const DropDownMenu = styled.div`
+export const DropDownMenu = styled.div<DropDownProps>`
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -75,6 +79,8 @@ export const DropDownMenu = styled.div`
   background-color: #9e620e;
   border-radius: 4px;
   padding: 8px;
+  opacity: ${({ isVisible }) => (isVisible ? "1" : "0")};
+  transition: opacity 0.3s ease;
 `;
 export const DropDownItem = styled.div`
   width: 100%;

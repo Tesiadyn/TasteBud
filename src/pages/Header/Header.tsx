@@ -56,15 +56,13 @@ const Header = () => {
           </PageLink>
         </LinksDiv>
         {user ? <LogOutBtn onClick={handleLogout}>登出</LogOutBtn> : null}
-        <PageLink to="/member">
-          <ProfileDiv>
-            <ProfileImg
-              src={MemberIcon}
-              onMouseLeave={() => setIsDropDownShows(false)}
-              onMouseEnter={() => setIsDropDownShows(true)}
-            />
+          <ProfileDiv
+            onMouseLeave={() => setIsDropDownShows(false)}
+            onMouseEnter={() => setIsDropDownShows(true)}
+          >
+            <ProfileImg src={MemberIcon} />
             {isDropDownShows ? (
-              <DropDownMenu>
+              <DropDownMenu isVisible={isDropDownShows}>
                 <PageLink to="/member">
                   <DropDownItem>個人主頁</DropDownItem>
                 </PageLink>
@@ -74,7 +72,6 @@ const Header = () => {
               </DropDownMenu>
             ) : null}
           </ProfileDiv>
-        </PageLink>
       </Wrapper>
     </Container>
   );
