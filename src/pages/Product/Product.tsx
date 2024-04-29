@@ -33,6 +33,7 @@ interface CommentData {
   commentText: string;
   productUid: string;
   wheelData: object;
+  quillValue: string;
 }
 
 const Product = () => {
@@ -98,6 +99,7 @@ const Product = () => {
       <div>
         {commentData.map((comment, index) => (
           <div key={index}>
+            <div dangerouslySetInnerHTML={{ __html: comment.quillValue }} />
             {comment.authorUid}
             {comment.productUid}
             {comment.commentText}

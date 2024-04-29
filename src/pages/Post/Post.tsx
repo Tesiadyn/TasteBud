@@ -11,11 +11,15 @@ import {
 
 import { firestore } from "../../utilities/firebase";
 import { useParams } from "react-router-dom";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { useNavigate } from "react-router-dom";
 
-/* ------------------------------ firebase init ----------------------------- */
 const db = firestore;
 const auth = getAuth();
+
+
 interface TreeNode {
   id: number;
   name: string;
@@ -30,6 +34,7 @@ interface Props {
 const CheckboxTree: React.FC<Props> = ({ data }) => {
   const [updatedData, setUpdatedData] = useState<TreeNode | null>(null);
   const [commentText, setCommentText] = useState("");
+  const [quillValue, setQuillValue] = useState("");
   const { id } = useParams();
 
   const updateNodeValueInTree = (
@@ -48,7 +53,6 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
           incrementValue
         );
       }
-
       return updatedNode;
     });
   };
@@ -56,8 +60,6 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
     try {
       const user = auth.currentUser;
       const productUid = id?.toString();
-      console.log(productUid);
-
       const authorUid = user?.uid;
       const wheelData = parsedData;
       const commentData = {
@@ -65,6 +67,7 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
         commentText,
         productUid,
         wheelData,
+        quillValue
       };
       console.log(commentData);
       const commentRef = await addDoc(collection(db, "Comments"), commentData);
@@ -155,13 +158,13 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
               {renderTreeNode(node)}
             </div>
           ))}
-
           <label>
             <input
               type="text"
               onChange={(e) => setCommentText(e.target.value)}
             />
           </label>
+          <ReactQuill theme="snow" value={quillValue} onChange={setQuillValue} />
         </>
       ) : (
         <div>No data available</div>
@@ -177,36 +180,40 @@ const Post: React.FC = () => {
     value: 0,
   });
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+  
+  const fetchWheelData = async (userUid: string) => {
+      
+    try {
+      const q = query(
+        collection(db, "Members"),
+        where("__name__", "==", userUid)
+      );
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.docs.forEach((doc) => {
+        const parsedData = JSON.parse(doc.data().wheelData);
+        setParsedNodeData(parsedData);
+        setIsLoading(false);
+      });
+    } catch (err: any) {
+      console.error("Login failed:", err.message);
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchWheelData = async () => {
-      try {
-        const user = auth.currentUser;
-        console.log("logged in as :", user?.email);
+    const user = getAuth();
 
-        const userUid = user?.uid;
-
-        const q = query(
-          collection(db, "Members"),
-          where("__name__", "==", userUid)
-        );
-        const querySnapshot = await getDocs(q);
-
-        querySnapshot.docs.forEach((doc) => {
-          const parsedData = JSON.parse(doc.data().wheelData);
-          setParsedNodeData(parsedData);
-          // console.log(parsedData);
-
-          setIsLoading(false);
-        });
-      } catch (err: any) {
-        console.error("Login failed:", err.message);
-        setIsLoading(false);
+    const unsubscribe = onAuthStateChanged(user, (user) => {
+      if (user) {
+        fetchWheelData(user.uid);
+      } else {
+        navigate("/login");
       }
-    };
-
-    fetchWheelData();
-  }, []);
+    });
+    return unsubscribe;
+  }, [navigate]);
 
   return (
     <>

@@ -9,7 +9,7 @@ import {
   getDoc,
   deleteDoc,
   updateDoc,
-  arrayUnion
+  arrayUnion,
 } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import {
@@ -22,6 +22,8 @@ import {
   EventText,
 } from "./EventStyle";
 import { getAuth } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { toaster } from "evergreen-ui";
 
 interface EventData {
   coverImage: string;
@@ -33,6 +35,7 @@ interface EventData {
   participantsUid: (string | null)[];
   text: string;
   title: string;
+  time: string;
 }
 interface EditEventFormProps {
   eventId?: string;
@@ -41,6 +44,7 @@ interface EditEventFormProps {
   initParticipants?: number;
   initText?: string;
   initDate?: string;
+  initTime?: string;
   onFormClose?: () => void;
 }
 const EditEventForm = ({
@@ -49,6 +53,7 @@ const EditEventForm = ({
   initParticipants = 0,
   initText = "",
   initDate = "",
+  initTime = "",
   onFormClose,
 }: EditEventFormProps) => {
   const [title, setTitle] = useState(initTitle);
@@ -57,7 +62,9 @@ const EditEventForm = ({
     useState<number>(initParticipants);
   const [text, setText] = useState(initText);
   const [date, setDate] = useState(initDate);
+  const [time, setTime] = useState(initTime);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,6 +77,7 @@ const EditEventForm = ({
       const eventRef = doc(firestore, "Events", id);
       await updateDoc(eventRef, {
         date: date,
+        time: time,
         location: location,
         title: title,
         text: text,
@@ -77,6 +85,7 @@ const EditEventForm = ({
       });
       console.log("Event data updated.");
       onFormClose && onFormClose();
+      navigate("/events");
     } catch (err) {
       console.error("Error when submitting edited event data");
     }
@@ -118,6 +127,13 @@ const EditEventForm = ({
         value={date}
         onChange={(e) => setDate(e.target.value)}
       />
+      <label htmlFor="edit-time">時間</label>
+      <input
+        id="edit-time"
+        type="time"
+        value={time}
+        onChange={(e) => setTime(e.target.value)}
+      />
 
       <button type="submit">編輯完成</button>
     </form>
@@ -132,6 +148,8 @@ const Event = () => {
   const auth = getAuth();
   const currentUser = auth.currentUser;
   const currentUserUid = currentUser?.uid;
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchEventData = async () => {
       try {
@@ -225,17 +243,24 @@ const Event = () => {
     setIsEditing(false);
   };
   const handleParticipateClick = () => {
+    console.log("handleParticipateClick is running");
+
     const updateParticipateDoc = async () => {
-      if (!firestore || !currentUserUid){
+      if (!firestore || !currentUserUid || !id) {
         console.error("firestore or currentUserUid is undefined.");
         return;
       }
       try {
         const userDocRef = doc(firestore, "Members", currentUserUid);
-        await updateDoc(userDocRef,{
+        await updateDoc(userDocRef, {
           attendedEvents: arrayUnion(id),
-        })
-        
+        });
+        const eventDocRef = doc(firestore, "Events", id);
+        await updateDoc(eventDocRef, {
+          participantsUid: arrayUnion(currentUserUid),
+        });
+        toaster.success("成功參加活動!");
+        navigate(`/member`);
       } catch (err: any) {
         console.error("Error when updating participate doc : ", err.message);
       }
@@ -248,18 +273,14 @@ const Event = () => {
         <EventSection>
           {isAuthor ? (
             <>
-              <button onClick={handleDeleteClick}>Delete</button>
+              <button onClick={handleDeleteClick}>刪除活動</button>
               <h1>You are author</h1>
+              <button onClick={handleEditClick}>編輯</button>
             </>
           ) : (
             <>
               <h1>You are not author</h1>
               <button onClick={handleParticipateClick}>參加</button>
-            </>
-          )}
-          {isAuthor && (
-            <>
-              <button onClick={handleEditClick}>編輯</button>
             </>
           )}
           {isEditing && (
@@ -271,6 +292,7 @@ const Event = () => {
                 initParticipants={eventData?.maxParticipants}
                 initText={eventData?.text}
                 initDate={eventData?.date}
+                initTime={eventData?.time}
                 onFormClose={handleCloseForm}
               />
             </>
@@ -278,13 +300,16 @@ const Event = () => {
           <EventImgDiv>
             <EventImg src={eventData?.coverImage} />
           </EventImgDiv>
-          <EventTitle>{eventData?.title}</EventTitle>
-          <EventText>{eventData?.text}</EventText>
-          <EventText className="location">{eventData?.location}</EventText>
-          <EventText className="maxParticipants">
-            {eventData?.maxParticipants}
+          <EventTitle>活動標題{eventData?.title}</EventTitle>
+          <EventText>活動內容{eventData?.text}</EventText>
+          <EventText className="location">
+            活動地點{eventData?.location}
           </EventText>
-          <EventText>{eventData?.date}</EventText>
+          <EventText className="maxParticipants">
+            活動最大人數{eventData?.maxParticipants}
+          </EventText>
+          <EventText>活動日期{eventData?.date}</EventText>
+          <EventText>活動時間{eventData?.time}</EventText>
         </EventSection>
       </Wrapper>
     </Container>
