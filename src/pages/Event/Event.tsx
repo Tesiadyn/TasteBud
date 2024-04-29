@@ -246,7 +246,7 @@ const Event = () => {
     console.log("handleParticipateClick is running");
 
     const updateParticipateDoc = async () => {
-      if (!firestore || !currentUserUid) {
+      if (!firestore || !currentUserUid || !id) {
         console.error("firestore or currentUserUid is undefined.");
         return;
       }
