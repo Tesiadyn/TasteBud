@@ -7,27 +7,35 @@ import {
   LogoDiv,
   ProfileDiv,
   ProfileImg,
-  SearchBar,
-  SearchButton,
-  SearchInput,
   Wrapper,
   LogOutBtn,
+  DropDownItem,
+  DropDownMenu,
 } from "./HeaderStyle";
 import LogoImage from "../../assets/Logo.png";
-import ProfileIcon from "../../assets/Profile.png";
+import MemberIcon from "../../assets/member.png";
+import { useNavigate } from "react-router-dom";
 import { auth } from "../../utilities/firebase";
 import { signOut } from "firebase/auth";
-
-const handleLogout = async () => {
-  try {
-    await signOut(auth);
-    console.log("user logged out");
-  } catch (err: any) {
-    console.error("Error when logging out: ", err.message);
-  }
-};
+import { toaster } from "evergreen-ui";
+import { useState } from "react";
 
 const Header = () => {
+  const [isDropDownShows, setIsDropDownShows] = useState(false);
+  const navigate = useNavigate();
+  const user = auth.currentUser;
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      console.log("user logged out");
+      toaster.notify("您已成功登出");
+      navigate("/");
+    } catch (err: any) {
+      console.error("Error when logging out: ", err.message);
+    }
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -47,14 +55,24 @@ const Header = () => {
             <LinkItem>品酒會</LinkItem>
           </PageLink>
         </LinksDiv>
-        <SearchBar>
-          <SearchInput />
-          <SearchButton />
-        </SearchBar>
-        <LogOutBtn onClick={handleLogout}>登出</LogOutBtn>
+        {user ? <LogOutBtn onClick={handleLogout}>登出</LogOutBtn> : null}
         <PageLink to="/member">
           <ProfileDiv>
-            <ProfileImg src={ProfileIcon} />
+            <ProfileImg
+              src={MemberIcon}
+              onMouseLeave={() => setIsDropDownShows(false)}
+              onMouseEnter={() => setIsDropDownShows(true)}
+            />
+            {isDropDownShows ? (
+              <DropDownMenu>
+                <PageLink to="/member">
+                  <DropDownItem>個人主頁</DropDownItem>
+                </PageLink>
+                <PageLink to="/flavourWheel">
+                  <DropDownItem>風味輪</DropDownItem>
+                </PageLink>
+              </DropDownMenu>
+            ) : null}
           </ProfileDiv>
         </PageLink>
       </Wrapper>
