@@ -33,8 +33,12 @@ export const PageLink = styled(Link)`
 export const LinkItem = styled.li`
   list-style: none;
   color: #0a0d0f;
-  margin-left: 30px;
+  padding: 0 30px;
   cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    color: #9e620e;
+  }
 `;
 export const SearchBar = styled.div`
   display: flex;
