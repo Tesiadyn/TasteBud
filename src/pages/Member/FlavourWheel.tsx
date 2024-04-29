@@ -27,7 +27,7 @@ interface NodeData {
   };
 }
 
-const HierarchicalChart: React.FC<{ data: Data }> = ({ data }) => {
+const FlavourWheel: React.FC<{ data: Data }> = ({ data }) => {
   const svgRef = React.useRef<SVGSVGElement>(null);
 
   useEffect(() => {
@@ -199,4 +199,4 @@ const HierarchicalChart: React.FC<{ data: Data }> = ({ data }) => {
   return <svg ref={svgRef} width={750} height={750}></svg>;
 };
 
-export default HierarchicalChart;
+export default FlavourWheel;
