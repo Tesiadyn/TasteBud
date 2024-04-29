@@ -118,7 +118,7 @@ const HierarchicalChart: React.FC<{ data: Data }> = ({ data }) => {
       .attr("pointer-events", "all")
       .on("click", clicked);
 
-    function clicked(event: React.MouseEvent, p: any) {
+    function clicked(_event: React.MouseEvent, p: any) {
       parent.datum(p.parent || root);
 
       root.each(
@@ -141,15 +141,12 @@ const HierarchicalChart: React.FC<{ data: Data }> = ({ data }) => {
 
       path
         .transition(t)
+        
         .tween("data", (d) => {
           const i = d3.interpolate((d as any).current, (d as any).target);
           return (t) => ((d as any).current = i(t));
         })
-        .filter(function (this: any, d: any) {
-          return (
-            +this.getAttribute("fill-opacity") || arcVisible((d as any).target)
-          );
-        })
+
         .attr("fill-opacity", (d) =>
           arcVisible((d as any).target) ? (d.children ? 0.6 : 0.4) : 0
         )
@@ -158,11 +155,11 @@ const HierarchicalChart: React.FC<{ data: Data }> = ({ data }) => {
         )
         .attrTween("d", function (d: d3.HierarchyRectangularNode<Data>) {
           const interpolate = d3.interpolate(
-            (d as any).current as d3.DefaultArcObject,
-            (d as any).target as d3.DefaultArcObject
+            (d as any).current as any,
+            (d as any).target as any
           );
-          return function (t: number) {
-            return arc(interpolate(t)!);
+          return function (t: number): string {
+            return arc(interpolate(t)!) as string;
           };
         })
         .on("end", function (d) {
