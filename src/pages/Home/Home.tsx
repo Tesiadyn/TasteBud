@@ -1,11 +1,10 @@
 import {
   Container,
-  PromoBanner,
+  PromoBannerSection,
   PromoBannerTitle,
-  PromoBannerBtn,
+  PromoBannerText,
   ArticleSectionTitle,
-  SectionTitleDivider,
-  ArticleCardsWrapper,
+  ArticleCards,
   ArticleCard,
   ArticleCardInfoDiv,
   ArticleCardTitle,
@@ -20,14 +19,32 @@ import {
   ProductCardTitle,
   ProductSectionTitle,
   ArticleCardImgDiv,
+  ArticlesLink,
   Wrapper,
   PageLink,
+  PromoBannerInfoDiv,
+  PromoBannerSubTitle,
+  PromoBannerIconDiv,
+  PromoBannerImg,
+  FeaturesSection,
+  FeaturesDiv,
+  FeaturesTitle,
+  FeatureCard,
+  FeatureCardImgDiv,
+  FeatureCardImg,
+  FeatureCardInfoDiv,
+  FeatureCardTitle,
+  FeatureCardText,
+  FeatureCards,
+  FeatureSubTitle,
 } from "./HomeStyle";
 import { useEffect, useState } from "react";
 import { firestore } from "../../utilities/firebase.tsx";
 import { collection, getDocs, query } from "firebase/firestore";
-
-// TODO : Herobox article
+import PromoBannerIcon from "../../assets/promoBannerIcon.png";
+import ArticlesIcon from "../../assets/articlesIcon.svg";
+import CommentsIcon from "../../assets/commentsIcon.svg";
+import EventsIcon from "../../assets/eventsIcon.svg";
 
 interface ArticleData {
   picture: string;
@@ -68,7 +85,6 @@ const Home = () => {
     };
     fetchArticleData();
   }, []);
-  console.log(articleData);
 
   const [productsData, setProductsData] = useState<Array<ProductsData>>([]);
 
@@ -89,23 +105,83 @@ const Home = () => {
     };
     fetchProductsData();
   }, []);
-  console.log(productsData);
 
   return (
     <Container>
       <Wrapper>
-        <PromoBanner>
-          <PromoBannerTitle>
-            探索Woodford : 蜂蜜與橡木的完美結合
-          </PromoBannerTitle>
-          <PromoBannerBtn>閱讀更多</PromoBannerBtn>
-        </PromoBanner>
+        <PromoBannerSection>
+          <PromoBannerInfoDiv>
+            <PromoBannerTitle>TASTEBUD</PromoBannerTitle>
+            <PromoBannerSubTitle>
+              True comments about teste.
+            </PromoBannerSubTitle>
+            <PromoBannerIconDiv>
+              <PromoBannerImg src={PromoBannerIcon} />
+            </PromoBannerIconDiv>
+            <PromoBannerText>
+              - Founded in 2024 & made with passion -
+            </PromoBannerText>
+          </PromoBannerInfoDiv>
+        </PromoBannerSection>
+        <FeaturesSection>
+          <FeaturesDiv>
+            <FeaturesTitle>Features</FeaturesTitle>
+            <FeatureSubTitle>
+              What is TasteBud? This is our main feature.
+            </FeatureSubTitle>
+            <FeatureCards>
+              <FeatureCard>
+                <FeatureCardImgDiv>
+                  <FeatureCardImg src={ArticlesIcon} />
+                </FeatureCardImgDiv>
+                <FeatureCardInfoDiv>
+                  <FeatureCardTitle>Articles</FeatureCardTitle>
+                  <FeatureCardText>
+                    Explore our knowledge column to learn about whisky
+                    craftsmanship, history, and tasting techniques, becoming a
+                    whisky connoisseur.
+                  </FeatureCardText>
+                </FeatureCardInfoDiv>
+              </FeatureCard>
+              <FeatureCard>
+                <FeatureCardImgDiv>
+                  <FeatureCardImg src={CommentsIcon} />
+                </FeatureCardImgDiv>
+                <FeatureCardInfoDiv>
+                  <FeatureCardTitle>Comments</FeatureCardTitle>
+                  <FeatureCardText>
+                    In our user reviews section, you can rate and review various
+                    whiskies, engaging in discussions with others and sharing
+                    your perspectives.
+                  </FeatureCardText>
+                </FeatureCardInfoDiv>
+              </FeatureCard>
+              <FeatureCard>
+                <FeatureCardImgDiv>
+                  <FeatureCardImg src={EventsIcon} />
+                </FeatureCardImgDiv>
+                <FeatureCardInfoDiv>
+                  <FeatureCardTitle>Events</FeatureCardTitle>
+                  <FeatureCardText>
+                    Our regular tasting events provide unique tasting
+                    experiences and opportunities to connect with whisky experts
+                    and fellow enthusiasts.
+                  </FeatureCardText>
+                </FeatureCardInfoDiv>
+              </FeatureCard>
+            </FeatureCards>
+          </FeaturesDiv>
+        </FeaturesSection>
         <ArticleSection>
-          <ArticleSectionTitle>知識專欄</ArticleSectionTitle>
-          <SectionTitleDivider />
-          <ArticleCardsWrapper>
+          <ArticleSectionTitle>Latest Articles</ArticleSectionTitle>
+          {/* <SectionTitleDivider /> */}
+          <ArticleCards>
             {articleData.map((data, index) => (
-              <PageLink key={index} to={`/article/${data.articleUid}`} className="article">
+              <PageLink
+                key={index}
+                to={`/article/${data.articleUid}`}
+                className="articleCard"
+              >
                 <ArticleCard>
                   <ArticleCardImgDiv>
                     <ArticleCardImg src={data.picture} />
@@ -116,11 +192,14 @@ const Home = () => {
                 </ArticleCard>
               </PageLink>
             ))}
-          </ArticleCardsWrapper>
+          </ArticleCards>
+          <PageLink to="/articles">
+            <ArticlesLink>Read More</ArticlesLink>
+          </PageLink>
         </ArticleSection>
         <ProductSection>
           <ProductSectionTitle>最新評論</ProductSectionTitle>
-          <SectionTitleDivider />
+
           <ProductCardsWrapper>
             {productsData.map((data, index) => (
               <PageLink key={index} to={`/product/${data.productUid}`}>
