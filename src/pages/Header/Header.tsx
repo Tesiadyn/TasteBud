@@ -5,15 +5,14 @@ import {
   LinksDiv,
   LogoImg,
   LogoDiv,
-  ProfileDiv,
+  ProfileImgDiv,
   ProfileImg,
   Wrapper,
   LogOutBtn,
   DropDownItem,
   DropDownMenu,
 } from "./HeaderStyle";
-import LogoImage from "../../assets/Logo.png";
-import MemberIcon from "../../assets/member.png";
+import MemberIcon from "../../assets/memberSvg.svg";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../utilities/firebase";
 import { signOut } from "firebase/auth";
@@ -41,37 +40,37 @@ const Header = () => {
       <Wrapper>
         <PageLink to="/">
           <LogoDiv>
-            <LogoImg src={LogoImage} />
+            <LogoImg />
           </LogoDiv>
         </PageLink>
         <LinksDiv>
           <PageLink to="/articles">
-            <LinkItem>知識專欄</LinkItem>
+            <LinkItem>Articles</LinkItem>
           </PageLink>
           <PageLink to="/products">
-            <LinkItem>酒款評鑑</LinkItem>
+            <LinkItem>Comments</LinkItem>
           </PageLink>
           <PageLink to="/events">
-            <LinkItem>品酒會</LinkItem>
+            <LinkItem>Events</LinkItem>
           </PageLink>
         </LinksDiv>
         {user ? <LogOutBtn onClick={handleLogout}>登出</LogOutBtn> : null}
-          <ProfileDiv
-            onMouseLeave={() => setIsDropDownShows(false)}
-            onMouseEnter={() => setIsDropDownShows(true)}
-          >
-            <ProfileImg src={MemberIcon} />
-            {isDropDownShows ? (
-              <DropDownMenu isVisible={isDropDownShows}>
-                <PageLink to="/member">
-                  <DropDownItem>個人主頁</DropDownItem>
-                </PageLink>
-                <PageLink to="/flavourWheel">
-                  <DropDownItem>風味輪</DropDownItem>
-                </PageLink>
-              </DropDownMenu>
-            ) : null}
-          </ProfileDiv>
+        <ProfileImgDiv
+          onMouseLeave={() => setIsDropDownShows(false)}
+          onMouseEnter={() => setIsDropDownShows(true)}
+        >
+          <ProfileImg src={MemberIcon} />
+          {isDropDownShows ? (
+            <DropDownMenu isVisible={isDropDownShows}>
+              <PageLink to="/member">
+                <DropDownItem>Profile</DropDownItem>
+              </PageLink>
+              <PageLink to="/flavourWheel">
+                <DropDownItem>FlavourWheel</DropDownItem>
+              </PageLink>
+            </DropDownMenu>
+          ) : null}
+        </ProfileImgDiv>
       </Wrapper>
     </Container>
   );

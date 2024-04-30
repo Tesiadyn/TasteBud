@@ -8,8 +8,6 @@ interface DropDownProps {
 
 export const Container = styled.div`
   width: 100%;
-  background-color: #f7f7f7;
-  border-bottom: 1px solid #dfdfdf;
   margin-bottom: 50px;
 `;
 export const Wrapper = styled.div`
@@ -36,7 +34,7 @@ export const PageLink = styled(Link)`
 `;
 export const LinkItem = styled.li`
   list-style: none;
-  color: #0a0d0f;
+  color: #f7f7f7;
   padding: 0 30px;
   cursor: pointer;
   transition: 0.3s;
@@ -57,7 +55,7 @@ export const SearchButton = styled.button`
   background-color: transparent;
   background-image: url(${SearchIcon});
 `;
-export const ProfileDiv = styled.div`
+export const ProfileImgDiv = styled.div`
   width: 25px;
   height: 25px;
   cursor: pointer;
@@ -78,7 +76,8 @@ export const DropDownMenu = styled.div<DropDownProps>`
   right: 0px;
   background-color: #9e620e;
   border-radius: 4px;
-  padding: 8px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  padding: 8px 16px;
   opacity: ${({ isVisible }) => (isVisible ? "1" : "0")};
   transition: opacity 0.3s ease;
 `;
