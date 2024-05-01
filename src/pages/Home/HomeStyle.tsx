@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { Button } from "evergreen-ui";
 
 export const PageLink = styled(Link)`
   cursor: pointer;
@@ -18,7 +19,7 @@ export const Wrapper = styled.div`
 `;
 export const PromoBannerSection = styled.section`
   width: 100%;
-  height: 450px;
+  height: calc(100vh - 120px);
   position: relative;
   display: flex;
 `;
@@ -116,12 +117,13 @@ export const ArticleSection = styled.section`
   width: 100%;
   height: 400px;
   background-color: #f7f7f7;
-  padding-top: 50px;
+  padding: 50px 0;
+  text-align: center;
 `;
 export const ArticleSectionTitle = styled.h1`
   font-size: 32px;
-  text-align: center;
-  margin: 0 0 30px;
+  margin: 0 0 50px;
+  color: #a1803e;
 `;
 // export const SectionTitleDivider = styled.div`
 //   height: 1px;
@@ -143,6 +145,7 @@ export const ArticleCard = styled.div`
   display: flex;
   box-shadow: 3px 3px 3px 2px rgba(89, 89, 89, 0.5);
   border-radius: 6px;
+  text-align: left;
 `;
 export const ArticleCardImgDiv = styled.div`
   width: 30%;
@@ -162,40 +165,55 @@ export const ArticleCardTitle = styled.h3`
   font-weight: 500;
 `;
 export const ArticleCardText = styled.p``;
-export const ArticlesLink = styled.p`
-  text-align: center;
-  margin-top: 40px;
+export const ArticlesLink = styled(Button)`
+  border: 1px solid #a1803e;
+  margin: 50px auto;
+  color: #a1803e;
 `;
 export const ProductSection = styled.section`
   width: 80%;
-  margin: 0 auto;
+  margin: 50px auto;
 `;
 export const ProductSectionTitle = styled.h1`
   text-align: center;
+  color: #a1803e;
 `;
 
 export const ProductCardsWrapper = styled.div`
-  height: 100%;
   display: flex;
   gap: 30px;
 `;
 export const ProductCard = styled.div`
-  width: 100%;
-  background-color: #37757e;
+  width: 70%;
+  height: 500px;
+  background-color: #e9e7e0;
+  display: flex;
+  margin: 0 auto;
+  border-radius: 16px;
 `;
 export const ProductCardImgDiv = styled.div`
-  width: 100%;
-  height: 50%;
+  height: 100%;
+  width: 50%;
 `;
 export const ProductCardImg = styled.img`
   width: 100%;
   height: 100%;
 `;
-export const ProductCardInfoDiv = styled.div``;
-export const ProductCardTitle = styled.h1`
-  color: #000;
+export const ProductCardInfoDiv = styled.div`
+  width: 50%;
+  margin-left: 50px;
 `;
-export const ProductCardText = styled.p``;
+export const ProductCardTitle = styled.h1`
+  font-size: 28px;
+  font-weight: 600;
+  color: #5e3106;
+  margin: 80px 0;
+`;
+export const ProductCardText = styled.p`
+  width: 70%;
+  color: #5e3106;
+  line-height: 1.3;
+`;
 export const ProductCardAuthorDiv = styled.div`
   display: flex;
 `;

@@ -37,6 +37,7 @@ import {
   FeatureCardText,
   FeatureCards,
   FeatureSubTitle,
+  ProductCardText,
 } from "./HomeStyle";
 import { useEffect, useState } from "react";
 import { firestore } from "../../utilities/firebase.tsx";
@@ -45,7 +46,12 @@ import PromoBannerIcon from "../../assets/promoBannerIcon.png";
 import ArticlesIcon from "../../assets/articlesIcon.svg";
 import CommentsIcon from "../../assets/commentsIcon.svg";
 import EventsIcon from "../../assets/eventsIcon.svg";
-
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "./HomeStyles.css"
 interface ArticleData {
   picture: string;
   text: string;
@@ -199,20 +205,41 @@ const Home = () => {
         </ArticleSection>
         <ProductSection>
           <ProductSectionTitle>最新評論</ProductSectionTitle>
-
           <ProductCardsWrapper>
-            {productsData.map((data, index) => (
-              <PageLink key={index} to={`/product/${data.productUid}`}>
-                <ProductCard>
-                  <ProductCardImgDiv>
-                    <ProductCardImg src={data.picture} />
-                  </ProductCardImgDiv>
-                  <ProductCardInfoDiv>
-                    <ProductCardTitle>{data.title}</ProductCardTitle>
-                  </ProductCardInfoDiv>
-                </ProductCard>
-              </PageLink>
-            ))}
+            <Swiper
+              spaceBetween={30}
+              centeredSlides={true}
+              autoplay={{
+                delay: 6000,
+                disableOnInteraction: false,
+              }}
+              pagination={{
+                clickable: true,
+              }}
+              navigation={true}
+              modules={[Autoplay, Pagination, Navigation]}
+              className="mySwiper"
+            >
+              {productsData.map((data, index) => (
+                <SwiperSlide>
+                  <PageLink key={index} to={`/product/${data.productUid}`}>
+                    <ProductCard>
+                      <ProductCardImgDiv>
+                        <ProductCardImg src={data.picture} />
+                      </ProductCardImgDiv>
+                      <ProductCardInfoDiv>
+                        <ProductCardTitle>{data.title}</ProductCardTitle>
+                        <ProductCardText>
+                          隸屬於全球知名烈酒集團百家得，John Dewar
+                          Sons將推出艾柏迪16年系列。
+                          完全由Oloroso雪莉桶陳年，經由艾柏迪專屬的70小時的長時間發酵工藝，生成的脂類賦予威士忌濃郁的果香。
+                        </ProductCardText>
+                      </ProductCardInfoDiv>
+                    </ProductCard>
+                  </PageLink>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </ProductCardsWrapper>
         </ProductSection>
       </Wrapper>
