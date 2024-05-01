@@ -6,6 +6,8 @@ import {
   CardInfoDiv,
   CardInfos,
   CardInfoTitle,
+  Cards,
+  SectionTitle,
 } from "./ProductsStyle.tsx";
 import { firestore } from "../../utilities/firebase.tsx";
 import { collection, getDocs, query } from "firebase/firestore";
@@ -47,16 +49,19 @@ const Products = () => {
   return (
     <Container>
       <Wrapper>
-        {productsData.map((product, index) => (
-          <Card key={index} to={`/product/${product.productUid}`}>
-            <CardImgDiv $bgImage={product.picture} />
-            <CardInfoDiv>
-              <CardInfos>
-                <CardInfoTitle>{product.title}</CardInfoTitle>
-              </CardInfos>
-            </CardInfoDiv>
-          </Card>
-        ))}
+        <SectionTitle>Comments</SectionTitle>
+        <Cards>
+          {productsData.map((product, index) => (
+            <Card key={index} to={`/product/${product.productUid}`}>
+              <CardImgDiv $bgImage={product.picture} />
+              <CardInfoDiv>
+                <CardInfos>
+                  <CardInfoTitle>{product.title}</CardInfoTitle>
+                </CardInfos>
+              </CardInfoDiv>
+            </Card>
+          ))}
+        </Cards>
       </Wrapper>
     </Container>
   );
