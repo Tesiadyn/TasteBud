@@ -13,6 +13,7 @@ import {
   ProductInfosDiv,
   TabTogglerDiv,
   Toggler,
+  CommentCard,
 } from "./ProductStyle";
 import { useParams } from "react-router-dom";
 import { firestore } from "../../utilities/firebase";
@@ -40,6 +41,7 @@ const Product = () => {
   const { id } = useParams();
   const [productData, setProductData] = useState<ProductData | null>(null);
   const [commentData, setCommentData] = useState<CommentData[]>([]);
+  const [isCommentsShowing, setIsCommentsShowing] = useState(false);
   const db = firestore;
 
   useEffect(() => {
@@ -86,31 +88,52 @@ const Product = () => {
           </IntroSection>
           <ProductInfoSection>
             <TabTogglerDiv>
-              <Toggler>Info</Toggler>
-              <Toggler>Comments</Toggler>
+              <Toggler
+                className="toggler-info"
+                isActive={isCommentsShowing}
+                onClick={() => setIsCommentsShowing(false)}
+              >
+                Info
+              </Toggler>
+              <Toggler
+                className="toggler-comments"
+                isActive={isCommentsShowing}
+                onClick={() => setIsCommentsShowing(true)}
+              >
+                Comments
+              </Toggler>
             </TabTogglerDiv>
-            <ProductInfosDiv>
-              <ProductInfoText>桶型: {productData?.caskType}</ProductInfoText>
-              <ProductInfoText>廠商: {productData?.distillery}</ProductInfoText>
-              <ProductInfoText>裝瓶商: {productData?.bottler}</ProductInfoText>
-              <ProductInfoText>
-                酒精度: {productData?.strength}%
-              </ProductInfoText>
-              <ProductInfoText>容量: {productData?.size} ml</ProductInfoText>
-            </ProductInfosDiv>
+            {isCommentsShowing ? (
+              <CommentCard>
+                {commentData.map((comment, index) => (
+                  <div key={index}>
+                    <div
+                      dangerouslySetInnerHTML={{ __html: comment.quillValue }}
+                    />
+                    {comment.authorUid}
+                    {comment.productUid}
+                    {comment.commentText}
+                  </div>
+                ))}
+              </CommentCard>
+            ) : (
+              <ProductInfosDiv>
+                <ProductInfoText>桶型: {productData?.caskType}</ProductInfoText>
+                <ProductInfoText>
+                  廠商: {productData?.distillery}
+                </ProductInfoText>
+                <ProductInfoText>
+                  裝瓶商: {productData?.bottler}
+                </ProductInfoText>
+                <ProductInfoText>
+                  酒精度: {productData?.strength}%
+                </ProductInfoText>
+                <ProductInfoText>容量: {productData?.size} ml</ProductInfoText>
+              </ProductInfosDiv>
+            )}
           </ProductInfoSection>
         </Wrapper>
       </Container>
-      <div>
-        {commentData.map((comment, index) => (
-          <div key={index}>
-            <div dangerouslySetInnerHTML={{ __html: comment.quillValue }} />
-            {comment.authorUid}
-            {comment.productUid}
-            {comment.commentText}
-          </div>
-        ))}
-      </div>
     </>
   );
 };
