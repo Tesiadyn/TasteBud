@@ -7,7 +7,8 @@ export const PageLink = styled(Link)`
 `;
 export const Container = styled.div`
   width: 100%;
-  background-color: #7c7e80;
+  background-color: #cecece;
+  padding: 75px 0;
 `;
 
 export const Wrapper = styled.div`
@@ -17,14 +18,15 @@ export const Wrapper = styled.div`
 export const PageTitle = styled.h1`
   margin: 0;
   text-align: center;
+  color: #5e3106;
 `;
 export const PageSubtitle = styled.h3`
   font-size: 18px;
   text-align: center;
+  color: #5e3106;
 `;
 
 export const TagsSection = styled.section`
-  width: 50%;
   padding: 50px;
   margin: 0 auto;
 `;
@@ -34,17 +36,24 @@ export const TagsDiv = styled.div`
 export const Tags = styled.div`
   display: flex;
   list-style: none;
+  margin: 0 auto;
 `;
 export const Tag = styled.button`
-  width: 50px;
-  text-align: center;
-  background-color: #592b2b;
-  margin-left: 20px;
-  color: #f7f7f7;
+  padding: 8px;
+  background-color: transparent;
+  border: 1px solid #5e3106;
+  color: #5e3106;
+  margin: 0 10px;
+  border-radius: 4px;
+  transition: all 0.3s;
+  cursor: pointer;
+  &:hover {
+    background-color: #914b0b;
+    border: 1px solid #c5c5c5;
+    color: #c5c5c5;
+  }
 `;
-export const TagText = styled.span`
-  color: #f7f7f7;
-`;
+
 export const ArticlesSection = styled.section`
   margin: 50px 0;
   display: flex;
@@ -52,11 +61,18 @@ export const ArticlesSection = styled.section`
   flex-direction: column;
 `;
 export const ArticleCard = styled.div`
-  background-color: #718c8a;
+  background-color: #e9e7e0;
   height: 200px;
   width: 80%;
   display: flex;
   margin: 25px auto;
+  box-shadow: 3px 3px 5px 2px rgba(89, 89, 89, 0.3);
+  border-radius: 4px;
+  transition: all .3s;
+  &:hover{
+    box-shadow: 1px 1px 2px 1px rgba(89, 89, 89, 0.7);
+    background-color: #c4c2bc;
+  }
 `;
 export const ArticleImgDiv = styled.div`
   height: 100%;
@@ -65,15 +81,26 @@ export const ArticleImgDiv = styled.div`
 export const ArticleImg = styled.img`
   height: 100%;
   width: 100%;
+  border-radius: 0 0 4px 4px;
 `;
 export const ArticleInfoDiv = styled.div`
   width: 60%;
 `;
 export const ArticleInfoTags = styled.ul`
   display: flex;
+  padding-inline-start: 0px;
+  padding: 0 30px;
+  color: #a5550b;
 `;
 export const ArticleInfoTag = styled.li`
   list-style: none;
+  margin-right: 20px;
+  padding: 6px;
+  border: 1px solid #a5550b;
+  border-radius: 4px;
 `;
-export const ArticleInfoTitle = styled.h2``;
+export const ArticleInfoTitle = styled.h2`
+  padding: 0 30px;
+  color: #5e3106;
+`;
 export const ArticleInfoText = styled.p``;
