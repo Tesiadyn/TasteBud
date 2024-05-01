@@ -59,15 +59,18 @@ export const EventCards = styled.div`
   gap: 10px;
 `;
 export const EventCard = styled.div`
+  height: 400px;
   width: 400px;
   border-radius: 4px;
   background-color: #e9e7e0;
   display: flex;
   flex-direction: column;
-  padding: 0 10px;
+  padding: 20px;
 `;
 export const EventCardImgDiv = styled.div`
+  margin: 0 auto;
   width: 50%;
+  height: 50%;
 `;
 export const EventCardImg = styled.img`
   width: 100%;
@@ -93,6 +96,7 @@ export const EventCardTag = styled.li`
 export const EventCardInfos = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-top: auto;
 `;
 export const EventCardDateDiv = styled.div`
   display: flex;
