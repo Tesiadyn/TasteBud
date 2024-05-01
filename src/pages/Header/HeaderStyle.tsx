@@ -12,6 +12,7 @@ export const Container = styled.div`
 `;
 export const Wrapper = styled.div`
   width: 1280px;
+  height: 80px;
   margin: 0 auto;
   padding: 20px;
   display: flex;
