@@ -2,17 +2,17 @@ import { useEffect, useState } from "react";
 import {
   Container,
   ProductImgDiv,
-  ProductInfoAlc,
-  ProductInfoCategory,
-  ProductInfoDiv,
-  ProductInfoDivider,
-  ProductInfoFactory,
+  ProductInfoSection,
   ProductInfoTitle,
-  ProductInfoBottler,
   Wrapper,
-  ProductInfoMl,
   ProductImg,
   PostCommentBtn,
+  IntroSection,
+  ProductIntroTitleDiv,
+  ProductInfoText,
+  ProductInfosDiv,
+  TabTogglerDiv,
+  Toggler,
 } from "./ProductStyle";
 import { useParams } from "react-router-dom";
 import { firestore } from "../../utilities/firebase";
@@ -74,28 +74,33 @@ const Product = () => {
     <>
       <Container>
         <Wrapper>
-          <ProductImgDiv>
-            <ProductImg alt="Morlach" src={productData?.picture} />
-          </ProductImgDiv>
-          <ProductInfoDiv>
-            <ProductInfoTitle>{productData?.title}</ProductInfoTitle>
-            <ProductInfoDivider />
-            <ProductInfoCategory>
-              桶型: {productData?.caskType}
-            </ProductInfoCategory>
-            <ProductInfoFactory>
-              廠商: {productData?.distillery}
-            </ProductInfoFactory>
-            <ProductInfoBottler>
-              裝瓶商: {productData?.bottler}
-            </ProductInfoBottler>
-            <ProductInfoAlc>酒精度: {productData?.strength}</ProductInfoAlc>
-            <ProductInfoMl>容量: {productData?.size} ml</ProductInfoMl>
+          <IntroSection>
+            <ProductImgDiv>
+              <ProductImg alt={productData?.title} src={productData?.picture} />
+            </ProductImgDiv>
+            <ProductIntroTitleDiv>
+              <ProductInfoTitle>{productData?.title}</ProductInfoTitle>
+              <ProductInfoText>{productData?.distillery}</ProductInfoText>
+            </ProductIntroTitleDiv>
             <PostCommentBtn to={`./post`}>發表評論</PostCommentBtn>
-          </ProductInfoDiv>
+          </IntroSection>
+          <ProductInfoSection>
+            <TabTogglerDiv>
+              <Toggler>Info</Toggler>
+              <Toggler>Comments</Toggler>
+            </TabTogglerDiv>
+            <ProductInfosDiv>
+              <ProductInfoText>桶型: {productData?.caskType}</ProductInfoText>
+              <ProductInfoText>廠商: {productData?.distillery}</ProductInfoText>
+              <ProductInfoText>裝瓶商: {productData?.bottler}</ProductInfoText>
+              <ProductInfoText>
+                酒精度: {productData?.strength}%
+              </ProductInfoText>
+              <ProductInfoText>容量: {productData?.size} ml</ProductInfoText>
+            </ProductInfosDiv>
+          </ProductInfoSection>
         </Wrapper>
       </Container>
-      <ProductInfoDivider />
       <div>
         {commentData.map((comment, index) => (
           <div key={index}>
