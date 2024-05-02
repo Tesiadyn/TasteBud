@@ -56,7 +56,6 @@ export const Toggler = styled.span<TogglerProps>`
 `;
 export const ProductInfoSection = styled.section`
   background-color: #e9e7e0;
-  height: 500px;
   padding: 20px;
   border-radius: 0 8px 8px 8px;
 `;
@@ -90,4 +89,6 @@ export const CommentCard = styled.div`
   border: 1px solid #b6b6b6;
   border-radius: 8px;
   padding: 15px;
+  box-shadow: 3px 3px 5px 2px rgba(89, 89, 89, 0.2);
+  margin: 30px 0;
 `;

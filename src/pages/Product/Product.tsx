@@ -104,18 +104,18 @@ const Product = () => {
               </Toggler>
             </TabTogglerDiv>
             {isCommentsShowing ? (
-              <CommentCard>
+              <>
                 {commentData.map((comment, index) => (
-                  <div key={index}>
+                  <CommentCard key={index}>
                     <div
                       dangerouslySetInnerHTML={{ __html: comment.quillValue }}
                     />
                     {comment.authorUid}
                     {comment.productUid}
                     {comment.commentText}
-                  </div>
+                  </CommentCard>
                 ))}
-              </CommentCard>
+              </>
             ) : (
               <ProductInfosDiv>
                 <ProductInfoText>桶型: {productData?.caskType}</ProductInfoText>
