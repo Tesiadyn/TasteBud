@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
 export const EventSection = styled.section`
   width: 100%;
   display: flex;
+  height: 600px;
   background-color: #e9e7e0;
   border-radius: 4px;
   margin: 50px 0;
@@ -32,3 +33,7 @@ export const EventText = styled.p`
   &.maxParticipants {
   }
 `;
+export const EditForm = styled.form`
+  display: flex;
+  flex-direction: column;
+`

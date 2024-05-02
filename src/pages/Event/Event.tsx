@@ -21,6 +21,7 @@ import {
   EventTitle,
   EventText,
   EventInfoDiv,
+  EditForm,
 } from "./EventStyle";
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
@@ -92,7 +93,7 @@ const EditEventForm = ({
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <EditForm onSubmit={handleSubmit}>
       <label htmlFor="title">標題</label>
       <input
         id="title"
@@ -137,7 +138,7 @@ const EditEventForm = ({
       />
 
       <button type="submit">編輯完成</button>
-    </form>
+    </EditForm>
   );
 };
 const Event = () => {
