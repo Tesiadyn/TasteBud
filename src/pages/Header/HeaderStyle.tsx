@@ -67,7 +67,13 @@ export const ProfileImg = styled.img`
   height: 100%;
 `;
 
-export const LogOutBtn = styled.button``;
+export const LogOutBtn = styled.div`
+  width: 60px;
+  height: 25px;
+  color: #f7f7f7;
+  background-color: transparent;
+  text-align: center;
+`;
 export const DropDownMenu = styled.div<DropDownProps>`
   position: absolute;
   display: flex;

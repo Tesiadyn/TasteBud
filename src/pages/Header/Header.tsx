@@ -18,7 +18,7 @@ import { auth } from "../../utilities/firebase";
 import { signOut } from "firebase/auth";
 import { toaster } from "evergreen-ui";
 import { useState } from "react";
-
+import HeaderLogo from "../../assets/header-logo.png";
 const Header = () => {
   const [isDropDownShows, setIsDropDownShows] = useState(false);
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ const Header = () => {
       <Wrapper>
         <PageLink to="/">
           <LogoDiv>
-            <LogoImg />
+            <LogoImg src={HeaderLogo} />
           </LogoDiv>
         </PageLink>
         <LinksDiv>
@@ -54,7 +54,7 @@ const Header = () => {
             <LinkItem>Events</LinkItem>
           </PageLink>
         </LinksDiv>
-        {user ? <LogOutBtn onClick={handleLogout}>登出</LogOutBtn> : null}
+        {user ? <LogOutBtn onClick={handleLogout}>Log out</LogOutBtn> : null}
         <ProfileImgDiv
           onMouseLeave={() => setIsDropDownShows(false)}
           onMouseEnter={() => setIsDropDownShows(true)}
