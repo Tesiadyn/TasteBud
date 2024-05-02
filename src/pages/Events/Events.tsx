@@ -1,11 +1,5 @@
 import {
   Container,
-  HeroboxDiv,
-  HeroboxTitle,
-  HeroboxSubtitle,
-  SearchBox,
-  SearchInput,
-  SearchButton,
   Wrapper,
   EventCardsSection,
   EventCardSectionTitle,
