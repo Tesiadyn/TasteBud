@@ -222,8 +222,8 @@ const Home = () => {
               className="mySwiper"
             >
               {productsData.map((data, index) => (
-                <SwiperSlide>
-                  <PageLink key={index} to={`/product/${data.productUid}`}>
+                <SwiperSlide key={index}>
+                  <PageLink to={`/product/${data.productUid}`}>
                     <ProductCard>
                       <ProductCardImgDiv>
                         <ProductCardImg src={data.picture} />
