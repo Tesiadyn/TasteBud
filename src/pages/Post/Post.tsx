@@ -38,8 +38,6 @@ interface Props {
 }
 
 const CheckboxTree: React.FC<Props> = ({ data }) => {
-  const [updatedData, setUpdatedData] = useState<TreeNode | null>(null);
-  // const [commentText, setCommentText] = useState("");
   const [quillValue, setQuillValue] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
@@ -72,21 +70,42 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
       const commentData = {
         authorName,
         authorUid,
-        // commentText,
         productUid,
         wheelData,
         quillValue,
       };
-      console.log(commentData);
       const commentRef = await addDoc(collection(db, "Comments"), commentData);
-      console.log("Document written with ID: ", commentRef.id);
+      const commentUid = commentRef.id;
+      // console.log("Document written with ID: ", commentRef.id);
+      updateFirestoreData(parsedData, commentUid);
     } catch (err) {
       console.error("Error when writing new doc : ", err);
     }
   };
 
-  const handleButtonClick = () => {
-    console.log("handleButtonClick running...");
+  const updateFirestoreData = async (
+    parsedData: object,
+    commentUid: string
+  ) => {
+    if (parsedData) {
+      try {
+        const user = auth?.currentUser;
+        const userUid = user?.uid;
+        if (userUid) {
+          const docRef = doc(db, "Members", userUid);
+          await updateDoc(docRef, {
+            wheelData: JSON.stringify(parsedData),
+            commentsUid: commentUid,
+          });
+          // console.log(`Data updated in Firestore in uid : ${userUid}`);
+        }
+      } catch (err) {
+        console.error("Error when updating data:", err);
+      }
+    }
+  };
+  const handleSubmit = () => {
+    console.log("handleSubmit running...");
 
     const parsedData = JSON.parse(JSON.stringify(data));
 
@@ -108,34 +127,11 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
         updateNodeValueInData(parsedData.children || [], checkbox.id);
       }
     });
-    console.log(parsedData);
-
+    // console.log(parsedData);
     addCommentDoc(parsedData);
-    setUpdatedData(parsedData);
     toaster.success("Submit Success!");
     navigate("/products");
   };
-
-  useEffect(() => {
-    const updateFirestoreData = async () => {
-      if (updatedData) {
-        try {
-          const user = auth?.currentUser;
-          const userUid = user?.uid;
-          if (userUid) {
-            const docRef = doc(db, "Members", userUid);
-            await updateDoc(docRef, {
-              wheelData: JSON.stringify(updatedData),
-            });
-            console.log(`Data updated in Firestore in uid : ${userUid}`);
-          }
-        } catch (err) {
-          console.error("Error when updating data:", err);
-        }
-      }
-    };
-    updateFirestoreData();
-  }, [updatedData]);
 
   const renderTreeNode = (node: TreeNode) => {
     if (node.children && node.children.length > 0) {
@@ -167,18 +163,12 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
               {renderTreeNode(node)}
             </div>
           ))}
-          {/* <label>
-            <input
-              type="text"
-              onChange={(e) => setCommentText(e.target.value)}
-            />
-          </label> */}
           <ReactQuill
             theme="snow"
             value={quillValue}
             onChange={setQuillValue}
           />
-          <SubmitButton onClick={handleButtonClick}>Submit</SubmitButton>
+          <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
         </>
       ) : (
         <div>No data available</div>
