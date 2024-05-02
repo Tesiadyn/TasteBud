@@ -67,8 +67,10 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
       const user = auth.currentUser;
       const productUid = id?.toString();
       const authorUid = user?.uid;
+      const authorName = user?.displayName;
       const wheelData = parsedData;
       const commentData = {
+        authorName,
         authorUid,
         // commentText,
         productUid,

@@ -35,6 +35,7 @@ interface CommentData {
   productUid: string;
   wheelData: object;
   quillValue: string;
+  authorName: string;
 }
 
 const Product = () => {
@@ -110,8 +111,7 @@ const Product = () => {
                     <div
                       dangerouslySetInnerHTML={{ __html: comment.quillValue }}
                     />
-                    {comment.authorUid}
-                    {comment.productUid}
+                    ---  {comment.authorName}
                     {comment.commentText}
                   </CommentCard>
                 ))}
