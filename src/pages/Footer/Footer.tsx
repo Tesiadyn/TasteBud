@@ -7,7 +7,6 @@ const Footer = () => {
       <LogoDiv>
         <LogoImg src={LogoImage} />
       </LogoDiv>
-
       <SubTitle>TasteBud © 2024 All rights reserved</SubTitle>
     </Container>
   );

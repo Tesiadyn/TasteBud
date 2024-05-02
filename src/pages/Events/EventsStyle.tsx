@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import SearchIcon from "../../assets/search.png";
+import { Button } from "evergreen-ui";
 
 export const Container = styled.div`
   width: 100%;
@@ -46,9 +47,10 @@ export const Wrapper = styled.div`
 export const EventCardsSection = styled.div`
   width: 100%;
   background-color: #fff0e5;
+  padding: 50px 0;
 `;
 export const EventCardSectionTitle = styled.h2`
-  margin: 0;
+  margin: 30px 0;
   text-align: center;
 `;
 export const EventCards = styled.div`
@@ -57,28 +59,44 @@ export const EventCards = styled.div`
   gap: 10px;
 `;
 export const EventCard = styled.div`
+  height: 400px;
   width: 400px;
-  background-color: #40759d;
+  border-radius: 4px;
+  background-color: #e9e7e0;
   display: flex;
   flex-direction: column;
+  padding: 20px;
 `;
 export const EventCardImgDiv = styled.div`
-  width: 100%;
+  margin: 0 auto;
+  width: 50%;
+  height: 50%;
 `;
 export const EventCardImg = styled.img`
   width: 100%;
+  height: 100%;
 `;
 export const EventCardTitle = styled.h3`
-  color: #f7f7f7;
+  color: #5e3106;
+  font-size: 28px;
+  margin: 20px 0 10px;
 `;
-export const EventCardTags = styled.ul``;
+export const EventCardTags = styled.ul`
+  display: flex;
+  padding-inline-start: initial;
+`;
 export const EventCardTag = styled.li`
   list-style: none;
-  color: #070707;
+  color: #5e3106;
+  margin-right: 10px;
+  border: 1px solid #5e3106;
+  padding: 4px;
+  border-radius: 4px;
 `;
 export const EventCardInfos = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-top: auto;
 `;
 export const EventCardDateDiv = styled.div`
   display: flex;
@@ -100,7 +118,7 @@ export const PageLink = styled(Link)`
   cursor: pointer;
   text-decoration: none;
 `;
-export const NewEventButton = styled.button`
+export const NewEventButton = styled(Button)`
   cursor: pointer;
-  margin-left: auto;
+  margin: 50px;
 `;

@@ -1,11 +1,5 @@
 import {
   Container,
-  HeroboxDiv,
-  HeroboxTitle,
-  HeroboxSubtitle,
-  SearchBox,
-  SearchInput,
-  SearchButton,
   Wrapper,
   EventCardsSection,
   EventCardSectionTitle,
@@ -42,6 +36,7 @@ interface EventData {
   date: string;
   eventUid: string;
   tags: (string | null)[];
+  participantsUid: (string | null)[];
 }
 
 const Events = () => {
@@ -68,20 +63,17 @@ const Events = () => {
 
   return (
     <Container>
-      <HeroboxDiv>
+      {/* <HeroboxDiv>
         <HeroboxTitle>探索最有意思的品酒會</HeroboxTitle>
         <HeroboxSubtitle>探索、發現新的味蕾饗宴</HeroboxSubtitle>
-        <SearchBox>
-          <SearchInput />
-          <SearchButton />
-        </SearchBox>
-      </HeroboxDiv>
+
+      </HeroboxDiv> */}
       <Wrapper>
         <EventCardsSection>
           <PageLink to="/newEvent">
-            <NewEventButton>新活動</NewEventButton>
+            <NewEventButton>New Event</NewEventButton>
           </PageLink>
-          <EventCardSectionTitle>最新活動</EventCardSectionTitle>
+          <EventCardSectionTitle>Latest Events</EventCardSectionTitle>
           <EventCards>
             {eventData.map((data, index) => (
               <PageLink key={index} to={`/event/${data.eventUid}`}>
@@ -98,13 +90,13 @@ const Events = () => {
                   <EventCardInfos>
                     <EventCardDateDiv>
                       <EventCardDateIcon src={DateIcon}></EventCardDateIcon>
-                      <EventCardDateText>6/1</EventCardDateText>
+                      <EventCardDateText>{data.date}</EventCardDateText>
                     </EventCardDateDiv>
                     <EventCardCapacityDiv>
                       <EventCardCapacityIcon
                         src={CapacityIcon}
                       ></EventCardCapacityIcon>
-                      <EventCardCapacityText>{data.maxParticipants}</EventCardCapacityText>
+                      <EventCardCapacityText>{data.participantsUid.length} / {data.maxParticipants}</EventCardCapacityText>
                     </EventCardCapacityDiv>
                   </EventCardInfos>
                 </EventCard>

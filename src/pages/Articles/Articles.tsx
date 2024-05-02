@@ -47,7 +47,7 @@ const Articles = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   useEffect(() => {
-    // fetch all articles when user enters 
+    // fetch all articles when user enters
     const fetchArticleData = async () => {
       const db = firestore;
       try {
@@ -109,14 +109,17 @@ const Articles = () => {
   //     console.error("Error when getting article data : ", err.message);
   //   }
   // };
-  const filterArticlesByTags = (articles: ArticleData[], tags:string[]) => {
+  const filterArticlesByTags = (articles: ArticleData[], tags: string[]) => {
     if (tags.length === 0) return articles;
     return articles.filter((article) =>
       article.tags.some((tag) => tags.includes(tag!))
     );
   };
 
-  const filteredArticles: ArticleData[] = filterArticlesByTags(articleData, selectedTags);
+  const filteredArticles: ArticleData[] = filterArticlesByTags(
+    articleData,
+    selectedTags
+  );
 
   const handleTagClick = (tag: string) => {
     setSelectedTags((prevTags) =>
@@ -127,15 +130,22 @@ const Articles = () => {
   };
 
   return (
+
     <Container>
       <Wrapper>
-        <PageTitle>知識專欄</PageTitle>
-        <PageSubtitle>這邊囊括了所有身為品飲者所需的知識!</PageSubtitle>
+        <PageTitle>Articles</PageTitle>
+        <PageSubtitle>Dive into the world of whisky!</PageSubtitle>
         <TagsSection>
           <TagsDiv>
             <Tags>
               {tagsList.map((tag, index) => (
-                <Tag onClick={() => handleTagClick(tag)} value={tag} key={index}>
+                <Tag
+
+                  
+                  onClick={() => handleTagClick(tag)}
+                  value={tag}
+                  key={index}
+                >
                   {tag}
                 </Tag>
               ))}
@@ -163,6 +173,7 @@ const Articles = () => {
         </ArticlesSection>
       </Wrapper>
     </Container>
+
   );
 };
 

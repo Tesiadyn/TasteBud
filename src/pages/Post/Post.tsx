@@ -12,13 +12,19 @@ import {
 import { firestore } from "../../utilities/firebase";
 import { useParams } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 import { useNavigate } from "react-router-dom";
-
+import {
+  CheckboxTreeWrapper,
+  TreeList,
+  TreeItem,
+  SubmitButton,
+} from "./PostStyle";
+import { toaster } from "evergreen-ui";
+import "./PostStyles.css";
 const db = firestore;
 const auth = getAuth();
-
 
 interface TreeNode {
   id: number;
@@ -32,11 +38,9 @@ interface Props {
 }
 
 const CheckboxTree: React.FC<Props> = ({ data }) => {
-  const [updatedData, setUpdatedData] = useState<TreeNode | null>(null);
-  const [commentText, setCommentText] = useState("");
   const [quillValue, setQuillValue] = useState("");
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const updateNodeValueInTree = (
     nodes: TreeNode[],
     nodeName: string,
@@ -61,24 +65,47 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
       const user = auth.currentUser;
       const productUid = id?.toString();
       const authorUid = user?.uid;
+      const authorName = user?.displayName;
       const wheelData = parsedData;
       const commentData = {
+        authorName,
         authorUid,
-        commentText,
         productUid,
         wheelData,
-        quillValue
+        quillValue,
       };
-      console.log(commentData);
       const commentRef = await addDoc(collection(db, "Comments"), commentData);
-      console.log("Document written with ID: ", commentRef.id);
+      const commentUid = commentRef.id;
+      // console.log("Document written with ID: ", commentRef.id);
+      updateFirestoreData(parsedData, commentUid);
     } catch (err) {
       console.error("Error when writing new doc : ", err);
     }
   };
 
-  const handleButtonClick = () => {
-    console.log("handleButtonClick running...");
+  const updateFirestoreData = async (
+    parsedData: object,
+    commentUid: string
+  ) => {
+    if (parsedData) {
+      try {
+        const user = auth?.currentUser;
+        const userUid = user?.uid;
+        if (userUid) {
+          const docRef = doc(db, "Members", userUid);
+          await updateDoc(docRef, {
+            wheelData: JSON.stringify(parsedData),
+            commentsUid: commentUid,
+          });
+          // console.log(`Data updated in Firestore in uid : ${userUid}`);
+        }
+      } catch (err) {
+        console.error("Error when updating data:", err);
+      }
+    }
+  };
+  const handleSubmit = () => {
+    console.log("handleSubmit running...");
 
     const parsedData = JSON.parse(JSON.stringify(data));
 
@@ -100,44 +127,23 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
         updateNodeValueInData(parsedData.children || [], checkbox.id);
       }
     });
-    console.log(parsedData);
-
+    // console.log(parsedData);
     addCommentDoc(parsedData);
-    setUpdatedData(parsedData);
+    toaster.success("Submit Success!");
+    navigate("/products");
   };
-
-  useEffect(() => {
-    const updateFirestoreData = async () => {
-      if (updatedData) {
-        try {
-          const user = auth?.currentUser;
-          const userUid = user?.uid;
-          if (userUid) {
-            const docRef = doc(db, "Members", userUid);
-            await updateDoc(docRef, {
-              wheelData: JSON.stringify(updatedData),
-            });
-            console.log(`Data updated in Firestore in uid : ${userUid}`);
-          }
-        } catch (err) {
-          console.error("Error when updating data:", err);
-        }
-      }
-    };
-    updateFirestoreData();
-  }, [updatedData]);
 
   const renderTreeNode = (node: TreeNode) => {
     if (node.children && node.children.length > 0) {
       return (
-        <ul>
+        <TreeList>
           {node.children.map((child) => (
-            <li key={child.id}>
-              {child.name}
+            <TreeItem key={child.id}>
               {renderTreeNode(child)}
-            </li>
+              {child.name}
+            </TreeItem>
           ))}
-        </ul>
+        </TreeList>
       );
     } else {
       return (
@@ -149,7 +155,6 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
   };
   return (
     <>
-      <button onClick={handleButtonClick}>Update Value</button>
       {data && data.children && data.children.length > 0 ? (
         <>
           {data.children.map((node, index) => (
@@ -158,13 +163,12 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
               {renderTreeNode(node)}
             </div>
           ))}
-          <label>
-            <input
-              type="text"
-              onChange={(e) => setCommentText(e.target.value)}
-            />
-          </label>
-          <ReactQuill theme="snow" value={quillValue} onChange={setQuillValue} />
+          <ReactQuill
+            theme="snow"
+            value={quillValue}
+            onChange={setQuillValue}
+          />
+          <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
         </>
       ) : (
         <div>No data available</div>
@@ -181,9 +185,8 @@ const Post: React.FC = () => {
   });
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-  
+
   const fetchWheelData = async (userUid: string) => {
-      
     try {
       const q = query(
         collection(db, "Members"),
@@ -221,7 +224,9 @@ const Post: React.FC = () => {
         <p>Loading...</p>
       ) : (
         <>
-          <CheckboxTree data={parsedNodeData} />
+          <CheckboxTreeWrapper>
+            <CheckboxTree data={parsedNodeData} />
+          </CheckboxTreeWrapper>
         </>
       )}
     </>

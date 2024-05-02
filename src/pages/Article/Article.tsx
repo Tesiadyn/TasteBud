@@ -2,6 +2,15 @@ import { useParams } from "react-router-dom";
 import { firestore } from "../../utilities/firebase";
 import { query, where, getDocs, collection } from "firebase/firestore";
 import { useState, useEffect } from "react";
+import {
+  Container,
+  Wrapper,
+  ArticleSection,
+  SectionTitle,
+  ArticleText,
+  PageLink,
+  PrevPageBtn,
+} from "./ArticleStyle";
 
 interface ArticleData {
   picture: string;
@@ -36,10 +45,19 @@ const Article = () => {
     fetchArticleData();
   }, []);
   return (
-    <>
-      <h1>{articleData?.title}</h1>
-      <p>{articleData?.text}</p>
-    </>
+    <Container>
+      <Wrapper>
+        <ArticleSection>
+          <PageLink to="/articles">
+            <PrevPageBtn>回文章列表</PrevPageBtn>
+          </PageLink>
+          <SectionTitle>{articleData?.title}</SectionTitle>
+          <ArticleText>
+            <p>{articleData?.text}</p>
+          </ArticleText>
+        </ArticleSection>
+      </Wrapper>
+    </Container>
   );
 };
 

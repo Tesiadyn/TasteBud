@@ -20,6 +20,8 @@ import {
   EventImg,
   EventTitle,
   EventText,
+  EventInfoDiv,
+  EditForm,
 } from "./EventStyle";
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
@@ -91,7 +93,7 @@ const EditEventForm = ({
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <EditForm onSubmit={handleSubmit}>
       <label htmlFor="title">標題</label>
       <input
         id="title"
@@ -136,7 +138,7 @@ const EditEventForm = ({
       />
 
       <button type="submit">編輯完成</button>
-    </form>
+    </EditForm>
   );
 };
 const Event = () => {
@@ -271,18 +273,6 @@ const Event = () => {
     <Container>
       <Wrapper>
         <EventSection>
-          {isAuthor ? (
-            <>
-              <button onClick={handleDeleteClick}>刪除活動</button>
-              <h1>You are author</h1>
-              <button onClick={handleEditClick}>編輯</button>
-            </>
-          ) : (
-            <>
-              <h1>You are not author</h1>
-              <button onClick={handleParticipateClick}>參加</button>
-            </>
-          )}
           {isEditing && (
             <>
               <EditEventForm
@@ -300,16 +290,28 @@ const Event = () => {
           <EventImgDiv>
             <EventImg src={eventData?.coverImage} />
           </EventImgDiv>
-          <EventTitle>活動標題{eventData?.title}</EventTitle>
-          <EventText>活動內容{eventData?.text}</EventText>
-          <EventText className="location">
-            活動地點{eventData?.location}
-          </EventText>
-          <EventText className="maxParticipants">
-            活動最大人數{eventData?.maxParticipants}
-          </EventText>
-          <EventText>活動日期{eventData?.date}</EventText>
-          <EventText>活動時間{eventData?.time}</EventText>
+          <EventInfoDiv>
+            <EventTitle>{eventData?.title}</EventTitle>
+            <EventText>活動內容{eventData?.text}</EventText>
+            <EventText className="location">
+              活動地點{eventData?.location}
+            </EventText>
+            <EventText className="maxParticipants">
+              活動名額{eventData?.maxParticipants}人
+            </EventText>
+            <EventText>活動日期{eventData?.date}</EventText>
+            <EventText>活動時間{eventData?.time}</EventText>
+            {isAuthor ? (
+              <>
+                <button onClick={handleEditClick}>編輯</button>
+                <button onClick={handleDeleteClick}>刪除活動</button>
+              </>
+            ) : (
+              <>
+                <button onClick={handleParticipateClick}>參加</button>
+              </>
+            )}
+          </EventInfoDiv>
         </EventSection>
       </Wrapper>
     </Container>
