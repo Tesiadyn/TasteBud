@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { TextInput, Button } from "evergreen-ui";
-
+import SignupBanner from "../../assets/signup-banner.jpg";
 export const InputField = styled(TextInput)`
   width: 70%;
 `;
@@ -18,10 +18,13 @@ export const Wrapper = styled.div`
 `;
 export const SignUpSection = styled.section`
   width: 100%;
-  margin: 50px 0;
+  margin: 0 0 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #f7f7f7;
+  border-radius: 0 0 12px 12px;
+  padding-bottom: 20px;
 `;
 export const SignUpSectionTitle = styled.h2``;
 export const InputDiv = styled.div`
@@ -41,4 +44,9 @@ export const HintMessage = styled.p`
   font-size: 12px;
   color: #b84b4b;
   margin-left: 30%;
-`
+`;
+export const BannerDiv = styled.div`
+  background-image: url(${SignupBanner});
+  height: 350px;
+  border-radius: 12px 12px 0 0;
+`;

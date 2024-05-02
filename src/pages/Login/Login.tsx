@@ -9,6 +9,8 @@ import {
   LoginButton,
   PageLink,
   InputField,
+  BannerDiv,
+  SignupBtn,
 } from "./LoginStyle";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
@@ -44,6 +46,7 @@ const Login = () => {
   return (
     <Container>
       <Wrapper>
+        <BannerDiv />
         <LoginSection>
           <LoginSectionTitle>Login</LoginSectionTitle>
           <LoginForm onSubmit={handleSubmit}>
@@ -55,12 +58,12 @@ const Login = () => {
               <InputLabel htmlFor="password">Password</InputLabel>
               <InputField type="password" id="password" name="password" />
             </InputDiv>
+            <PageLink to="/signup">
+              <SignupBtn>還沒有帳號嗎？ 馬上註冊</SignupBtn>
+            </PageLink>
             <LoginButton type="submit">登入</LoginButton>
           </LoginForm>
         </LoginSection>
-        <PageLink to="/signup">
-          <div>註冊</div>
-        </PageLink>
       </Wrapper>
     </Container>
   );
