@@ -141,7 +141,7 @@ const FlavourWheel: React.FC<{ data: Data }> = ({ data }) => {
 
       path
         .transition(t)
-        
+
         .tween("data", (d) => {
           const i = d3.interpolate((d as any).current, (d as any).target);
           return (t) => ((d as any).current = i(t));
@@ -196,7 +196,7 @@ const FlavourWheel: React.FC<{ data: Data }> = ({ data }) => {
     }
   }, [data]);
 
-  return <svg ref={svgRef} width={750} height={750}></svg>;
+  return <svg ref={svgRef} width={500} height={500}></svg>;
 };
 
 export default FlavourWheel;

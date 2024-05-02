@@ -4,7 +4,17 @@ import { query, collection, where, getDocs } from "firebase/firestore";
 import { firestore } from "../../utilities/firebase";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { PageLink } from "./MemberStyle";
+import {
+  Container,
+  InfoSection,
+  InfoText,
+  PageLink,
+  SectionTitle,
+  WheelSection,
+  Wrapper,
+  InfoDiv,
+  InfoTitle,
+} from "./MemberStyle";
 
 interface WheelData {
   name: string;
@@ -113,21 +123,35 @@ const Member = () => {
 
   return (
     <>
-      {wheelData ? <FlavourWheel data={wheelData} /> : null}
-      <h1>Hello! {userData?.userName}</h1>
-      <h2>Email</h2>
-      {userData?.email}
-      <h2>我參加的活動</h2>
-      {eventData.map((event, index) => (
-        <PageLink to={`/event/${event.eventUid}`} key={index}>
-          <h1>活動標題{event.title}</h1>
-          <h1>活動日期{event.date}</h1>
-          <h1>活動日期{event.time}</h1>
-          <h1>活動地點{event.location}</h1>
-        </PageLink>
-      ))}
-      <h2>我的UID</h2>
-      {userData?.userUid}
+      <Container>
+        <Wrapper>
+          <WheelSection>
+            {wheelData ? <FlavourWheel data={wheelData} /> : null}
+          </WheelSection>
+          <SectionTitle>Hello! {userData?.userName}</SectionTitle>
+          <InfoSection>
+            <InfoDiv>
+              <InfoTitle>Email</InfoTitle>
+              <InfoText>{userData?.email}</InfoText>
+            </InfoDiv>
+            <InfoDiv>
+              <InfoTitle>UID</InfoTitle>
+              <InfoText>{userData?.userUid}</InfoText>
+            </InfoDiv>
+            <InfoDiv>
+              <InfoTitle>我參加的活動</InfoTitle>
+              {eventData.map((event, index) => (
+                <PageLink to={`/event/${event.eventUid}`} key={index}>
+                  <InfoText>活動標題{event.title}</InfoText>
+                  <InfoText>活動日期{event.date}</InfoText>
+                  <InfoText>活動日期{event.time}</InfoText>
+                  <InfoText>活動地點{event.location}</InfoText>
+                </PageLink>
+              ))}
+            </InfoDiv>
+          </InfoSection>
+        </Wrapper>
+      </Container>
     </>
   );
 };
