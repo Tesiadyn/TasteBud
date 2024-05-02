@@ -51,7 +51,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import "./HomeStyles.css"
+import "./HomeStyles.css";
 interface ArticleData {
   picture: string;
   text: string;
@@ -69,6 +69,7 @@ interface ProductsData {
   strength: string;
   title: string;
   productUid: string;
+  introText: string;
 }
 
 const Home = () => {
@@ -204,7 +205,7 @@ const Home = () => {
           </PageLink>
         </ArticleSection>
         <ProductSection>
-          <ProductSectionTitle>最新評論</ProductSectionTitle>
+          <ProductSectionTitle>New Whiskies</ProductSectionTitle>
           <ProductCardsWrapper>
             <Swiper
               spaceBetween={30}
@@ -229,11 +230,7 @@ const Home = () => {
                       </ProductCardImgDiv>
                       <ProductCardInfoDiv>
                         <ProductCardTitle>{data.title}</ProductCardTitle>
-                        <ProductCardText>
-                          隸屬於全球知名烈酒集團百家得，John Dewar
-                          Sons將推出艾柏迪16年系列。
-                          完全由Oloroso雪莉桶陳年，經由艾柏迪專屬的70小時的長時間發酵工藝，生成的脂類賦予威士忌濃郁的果香。
-                        </ProductCardText>
+                        <ProductCardText>{data.introText}</ProductCardText>
                       </ProductCardInfoDiv>
                     </ProductCard>
                   </PageLink>

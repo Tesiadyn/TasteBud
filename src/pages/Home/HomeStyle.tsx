@@ -176,7 +176,7 @@ export const ProductSection = styled.section`
 `;
 export const ProductSectionTitle = styled.h1`
   text-align: center;
-  color: #a1803e;
+  color: #6c491e;
 `;
 
 export const ProductCardsWrapper = styled.div`
@@ -185,7 +185,7 @@ export const ProductCardsWrapper = styled.div`
 `;
 export const ProductCard = styled.div`
   width: 70%;
-  height: 500px;
+  height: 550px;
   background-color: #e9e7e0;
   display: flex;
   margin: 0 auto;
@@ -198,6 +198,7 @@ export const ProductCardImgDiv = styled.div`
 export const ProductCardImg = styled.img`
   width: 100%;
   height: 100%;
+  border-radius: 16px 0 0 16px;
 `;
 export const ProductCardInfoDiv = styled.div`
   width: 50%;
