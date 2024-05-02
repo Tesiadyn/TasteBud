@@ -36,6 +36,7 @@ interface EventData {
   date: string;
   eventUid: string;
   tags: (string | null)[];
+  participantsUid: (string | null)[];
 }
 
 const Events = () => {
@@ -95,7 +96,7 @@ const Events = () => {
                       <EventCardCapacityIcon
                         src={CapacityIcon}
                       ></EventCardCapacityIcon>
-                      <EventCardCapacityText>{data.maxParticipants}</EventCardCapacityText>
+                      <EventCardCapacityText>{data.participantsUid.length} / {data.maxParticipants}</EventCardCapacityText>
                     </EventCardCapacityDiv>
                   </EventCardInfos>
                 </EventCard>
