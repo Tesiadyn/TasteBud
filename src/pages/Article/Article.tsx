@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { firestore } from "../../utilities/firebase";
 import { query, where, getDocs, collection } from "firebase/firestore";
 import { useState, useEffect } from "react";
+import { Container, Wrapper, ArticleSection, SectionTitle, ArticleText } from "./ArticleStyle";
 
 interface ArticleData {
   picture: string;
@@ -36,10 +37,16 @@ const Article = () => {
     fetchArticleData();
   }, []);
   return (
-    <>
-      <h1>{articleData?.title}</h1>
-      <p>{articleData?.text}</p>
-    </>
+    <Container>
+      <Wrapper>
+        <ArticleSection>
+        <SectionTitle>{articleData?.title}</SectionTitle>
+          <ArticleText>
+            <p>{articleData?.text}</p>
+          </ArticleText>
+        </ArticleSection>
+      </Wrapper>
+    </Container>
   );
 };
 
