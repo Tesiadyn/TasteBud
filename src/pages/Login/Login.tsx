@@ -11,6 +11,8 @@ import {
   InputField,
   BannerDiv,
   SignupBtn,
+  SignUpText,
+  SignupLinkDiv,
 } from "./LoginStyle";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
@@ -58,9 +60,12 @@ const Login = () => {
               <InputLabel htmlFor="password">Password</InputLabel>
               <InputField type="password" id="password" name="password" />
             </InputDiv>
-            <PageLink to="/signup">
-              <SignupBtn>還沒有帳號嗎？ 馬上註冊</SignupBtn>
-            </PageLink>
+            <SignUpText>還沒有帳號嗎？ </SignUpText>
+            <SignupLinkDiv>
+              <PageLink to="/signup" className="signupLink">
+                <SignupBtn>馬上註冊</SignupBtn>
+              </PageLink>
+            </SignupLinkDiv>
             <LoginButton type="submit">登入</LoginButton>
           </LoginForm>
         </LoginSection>

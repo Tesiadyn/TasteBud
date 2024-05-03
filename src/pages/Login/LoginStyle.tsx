@@ -14,9 +14,16 @@ export const LoginButton = styled(Button)`
 export const SignupBtn = styled.div`
   text-align: center;
   color: #5e3106;
+  text-decoration: underline;
+  font-weight: 500;
 `;
 export const PageLink = styled(Link)`
   text-decoration: none;
+  display: inline-block;
+`;
+export const SignupLinkDiv = styled.div`
+  width: 100%;
+  text-align: center;
 `;
 export const Container = styled.div`
   width: 100%;
@@ -55,4 +62,9 @@ export const LoginForm = styled.form`
 `;
 export const InputLabel = styled.label`
   width: 20%;
+`;
+export const SignUpText = styled.p`
+  text-align: center;
+  margin: 0 0 8px;
+  font-size: 14px;
 `;
