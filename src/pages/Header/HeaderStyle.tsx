@@ -2,10 +2,6 @@ import styled from "styled-components";
 import SearchIcon from "../../assets/search.png";
 import { Link } from "react-router-dom";
 
-interface DropDownProps {
-  isVisible: boolean;
-}
-
 export const Container = styled.div`
   width: 100%;
   margin-bottom: 50px;
@@ -67,29 +63,15 @@ export const ProfileImg = styled.img`
   height: 100%;
 `;
 
-export const LogOutBtn = styled.div`
+export const LogBtn = styled.div`
   width: 60px;
   height: 25px;
   color: #f7f7f7;
   background-color: transparent;
   text-align: center;
-`;
-export const DropDownMenu = styled.div<DropDownProps>`
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  width: 100px;
-  text-align: right;
-  right: 0px;
-  background-color: #9e620e;
-  border-radius: 4px;
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-  padding: 8px 16px;
-  opacity: ${({ isVisible }) => (isVisible ? "1" : "0")};
-  transition: opacity 0.3s ease;
-`;
-export const DropDownItem = styled.div`
-  width: 100%;
-  padding: 12px 0;
-  color: #f7f7f7;
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    color: #9e620e;
+  }
 `;
