@@ -23,6 +23,13 @@ import {
 } from "./PostStyle";
 import { toaster } from "evergreen-ui";
 import "./PostStyles.css";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+
 const db = firestore;
 const auth = getAuth();
 
@@ -38,6 +45,7 @@ interface Props {
 }
 
 const CheckboxTree: React.FC<Props> = ({ data }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [quillValue, setQuillValue] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
@@ -136,20 +144,22 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
   const renderTreeNode = (node: TreeNode) => {
     if (node.children && node.children.length > 0) {
       return (
-        <TreeList>
-          {node.children.map((child) => (
-            <TreeItem key={child.id}>
-              {renderTreeNode(child)}
-              {child.name}
-            </TreeItem>
-          ))}
+        <TreeList key={node.name}>
+          <div>
+            {node.children.map((child) => (
+              <Accordion key={child.id}>
+                <AccordionSummary>{child.name}</AccordionSummary>
+                {renderTreeNode(child)}
+              </Accordion>
+            ))}
+          </div>
         </TreeList>
       );
     } else {
       return (
-        <label>
+        <AccordionDetails>
           <input type="checkbox" id={node.name} />
-        </label>
+        </AccordionDetails>
       );
     }
   };
