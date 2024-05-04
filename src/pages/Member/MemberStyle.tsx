@@ -7,7 +7,6 @@ export const Container = styled.div`
   background-color: #f7f7f7;
 `;
 export const Wrapper = styled.div`
-  height: 750px;
   width: 1280px;
   margin: 0 auto;
   display: flex;
