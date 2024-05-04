@@ -9,6 +9,9 @@ export const PageLink = styled(Link)`
     display: inline-block;
     width: 40%;
   }
+  &.productLink{
+    margin: auto 0;
+  }
 `;
 
 export const Container = styled.div`
@@ -115,7 +118,6 @@ export const FeatureCardText = styled.p`
 
 export const ArticleSection = styled.section`
   width: 100%;
-  height: 400px;
   background-color: #f7f7f7;
   padding: 50px 0;
   text-align: center;
@@ -190,10 +192,11 @@ export const ProductCard = styled.div`
   display: flex;
   margin: 0 auto;
   border-radius: 16px;
+  box-shadow: 2px 1px -1px rgba(0, 0, 0, 0.2);
 `;
 export const ProductCardImgDiv = styled.div`
   height: 100%;
-  width: 50%;
+  width: 45%;
 `;
 export const ProductCardImg = styled.img`
   width: 100%;
@@ -201,15 +204,17 @@ export const ProductCardImg = styled.img`
   border-radius: 16px 0 0 16px;
 `;
 export const ProductCardInfoDiv = styled.div`
-  width: 50%;
+  width: 45%;
   margin-left: 50px;
 `;
+
 export const ProductCardTitle = styled.h1`
   font-size: 28px;
   font-weight: 600;
   color: #5e3106;
   margin: 80px 0;
 `;
+
 export const ProductCardText = styled.p`
   width: 70%;
   color: #5e3106;

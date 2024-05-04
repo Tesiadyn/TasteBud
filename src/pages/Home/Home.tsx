@@ -5,10 +5,6 @@ import {
   PromoBannerText,
   ArticleSectionTitle,
   ArticleCards,
-  ArticleCard,
-  ArticleCardInfoDiv,
-  ArticleCardTitle,
-  ArticleCardImg,
   ArticleSection,
   ProductSection,
   ProductCardsWrapper,
@@ -18,7 +14,6 @@ import {
   ProductCardInfoDiv,
   ProductCardTitle,
   ProductSectionTitle,
-  ArticleCardImgDiv,
   ArticlesLink,
   Wrapper,
   PageLink,
@@ -52,6 +47,10 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./HomeStyles.css";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+
 interface ArticleData {
   picture: string;
   text: string;
@@ -189,14 +188,17 @@ const Home = () => {
                 to={`/article/${data.articleUid}`}
                 className="articleCard"
               >
-                <ArticleCard>
-                  <ArticleCardImgDiv>
-                    <ArticleCardImg src={data.picture} />
-                  </ArticleCardImgDiv>
-                  <ArticleCardInfoDiv>
-                    <ArticleCardTitle>{data.title}</ArticleCardTitle>
-                  </ArticleCardInfoDiv>
-                </ArticleCard>
+                <Card>
+                  <CardMedia
+                  component="img"
+                  height="140"
+                  image={data.picture}
+                  alt={data.title}
+                  />
+                  <CardContent>
+                    {data.title}
+                  </CardContent>
+                </Card>
               </PageLink>
             ))}
           </ArticleCards>
@@ -223,17 +225,17 @@ const Home = () => {
             >
               {productsData.map((data, index) => (
                 <SwiperSlide key={index}>
-                  <PageLink to={`/product/${data.productUid}`}>
                     <ProductCard>
+         
                       <ProductCardImgDiv>
                         <ProductCardImg src={data.picture} />
                       </ProductCardImgDiv>
                       <ProductCardInfoDiv>
                         <ProductCardTitle>{data.title}</ProductCardTitle>
                         <ProductCardText>{data.introText}</ProductCardText>
+                        <PageLink className="productLink" to={`/product/${data.productUid}`}>詳細資訊</PageLink>
                       </ProductCardInfoDiv>
                     </ProductCard>
-                  </PageLink>
                 </SwiperSlide>
               ))}
             </Swiper>
