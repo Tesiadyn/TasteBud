@@ -1,15 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_429_11106)">
-<path d="M12 21C16.9706 21 21 16.9705 21 12C21 7.02941 16.9706 2.99997 12 2.99997C7.02944 2.99997 3 7.02941 3 12C3 13.4876 3.36093 14.8909 4 16.1272L3 21L7.8728 20C9.10904 20.639 10.5124 21 12 21Z" stroke="#292929" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="7.5" y="12" width="0.01" height="0.01" stroke="#292929" stroke-width="3.75" stroke-linejoin="round"/>
-<rect x="12" y="12" width="0.01" height="0.01" stroke="#292929" stroke-width="3.75" stroke-linejoin="round"/>
-<rect x="16.5" y="12" width="0.01" height="0.01" stroke="#292929" stroke-width="3.75" stroke-linejoin="round"/>
+<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_2118_11)">
+<mask id="mask0_2118_11" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="800">
+<path d="M800 0H0V800H800V0Z" fill="white"/>
+</mask>
+<g mask="url(#mask0_2118_11)">
+<path d="M400 700C565.687 700 700 565.683 700 400C700 234.314 565.687 99.999 400 99.999C234.315 99.999 100 234.314 100 400C100 449.587 112.031 496.363 133.333 537.573L100 700L262.427 666.667C303.635 687.967 350.413 700 400 700Z" stroke="#A1803E" stroke-width="83.3333" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M250.333 400H250V400.333H250.333V400Z" stroke="#A1803E" stroke-width="125" stroke-linejoin="round"/>
+<path d="M400.333 400H400V400.333H400.333V400Z" stroke="#A1803E" stroke-width="125" stroke-linejoin="round"/>
+<path d="M550.333 400H550V400.333H550.333V400Z" stroke="#A1803E" stroke-width="125" stroke-linejoin="round"/>
+</g>
 </g>
 <defs>
-<clipPath id="clip0_429_11106">
-<rect width="24" height="24" fill="white"/>
+<clipPath id="clip0_2118_11">
+<rect width="800" height="800" fill="white"/>
 </clipPath>
 </defs>
 </svg>
