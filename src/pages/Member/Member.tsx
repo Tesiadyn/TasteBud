@@ -47,6 +47,7 @@ const Member = () => {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [eventData, setEventData] = useState<Array<EventData>>([]);
+  const [organizedEventsData, setOrganizedEventsData] = useState<Array<EventData>>([]);
 
   const navigate = useNavigate();
   const db = firestore;
@@ -102,6 +103,27 @@ const Member = () => {
 
     setEventData(newData);
   };
+
+  const fetchOrganizedEventsData = async (userUid: string) => {
+    try{
+      const organizedEventsRef = collection(db, "Events");
+      const q = query(
+        organizedEventsRef,
+        where("organizerUid", "==", userUid)
+      );
+      const querySnapshot = await getDocs(q);
+      
+      const newData = querySnapshot.docs.map((doc) => {
+        const eventDataFromFirestore = doc.data() as EventData;
+        return eventDataFromFirestore;
+      })
+      setOrganizedEventsData(newData);
+    } catch (err:any) {
+      console.error("Error when fetching organized events : ", err.message)
+    }
+  }
+
+
   useEffect(() => {
     const user = getAuth();
 
@@ -110,6 +132,7 @@ const Member = () => {
         fetchUserData(user.uid);
         fetchWheelData(user.uid);
         fetchEventsData(user.uid);
+        fetchOrganizedEventsData(user.uid);
       } else {
         navigate("/login");
       }
@@ -141,6 +164,17 @@ const Member = () => {
             <InfoDiv>
               <InfoTitle>我參加的活動</InfoTitle>
               {eventData.map((event, index) => (
+                <PageLink to={`/event/${event.eventUid}`} key={index}>
+                  <InfoText>活動標題{event.title}</InfoText>
+                  <InfoText>活動日期{event.date}</InfoText>
+                  <InfoText>活動日期{event.time}</InfoText>
+                  <InfoText>活動地點{event.location}</InfoText>
+                </PageLink>
+              ))}
+            </InfoDiv>
+            <InfoDiv>
+              <InfoTitle>舉辦的活動</InfoTitle>
+              {organizedEventsData.map((event, index) => (
                 <PageLink to={`/event/${event.eventUid}`} key={index}>
                   <InfoText>活動標題{event.title}</InfoText>
                   <InfoText>活動日期{event.date}</InfoText>
