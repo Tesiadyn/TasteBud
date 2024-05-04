@@ -31,7 +31,7 @@ const FlavourWheel: React.FC<{ data: Data }> = ({ data }) => {
   const svgRef = React.useRef<SVGSVGElement>(null);
 
   useEffect(() => {
-    const width = 500;
+    const width = 750;
     const height = width;
     const radius = width / 6;
 
@@ -105,6 +105,8 @@ const FlavourWheel: React.FC<{ data: Data }> = ({ data }) => {
       .data(root.descendants().slice(1))
       .join("text")
       .attr("dy", "0.35em")
+      .attr("text-anchor", "middle")
+      .attr("font-size", "12px")
       .attr("fill-opacity", (d) => +labelVisible((d as any).current))
       .attr("transform", (d) => labelTransform((d as any).current))
       .attr("pointer-events", "none")
@@ -190,13 +192,13 @@ const FlavourWheel: React.FC<{ data: Data }> = ({ data }) => {
     }
 
     function labelTransform(d: NodeData) {
-      const x = (((d.x0 + d.x1) / 2) * 180) / Math.PI;
-      const y = ((d.y0 + d.y1) / 2) * radius;
-      return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
+      const x = (d.x0 + d.x1) / 2 * 180 / Math.PI;
+    const y = (d.y0 + d.y1) / 2 * radius;
+    return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
     }
   }, [data]);
 
-  return <svg ref={svgRef} width={500} height={500}></svg>;
+  return <svg ref={svgRef} width={750} height={750}></svg>;
 };
 
 export default FlavourWheel;
