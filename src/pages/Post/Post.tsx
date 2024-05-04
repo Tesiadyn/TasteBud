@@ -19,6 +19,8 @@ import {
   CheckboxTreeWrapper,
   TreeList,
   SubmitButton,
+  InputSection,
+  SectionTitle
 } from "./PostStyle";
 import { toaster } from "evergreen-ui";
 import "./PostStyles.css";
@@ -168,11 +170,13 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
               {renderTreeNode(node)}
             </div>
           ))}
-          <ReactQuill
-            theme="snow"
-            value={quillValue}
-            onChange={setQuillValue}
-          />
+            <ReactQuill
+              theme="snow"
+              value={quillValue}
+              onChange={setQuillValue}
+            />
+          
+
           <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
         </>
       ) : (
@@ -228,11 +232,12 @@ const Post: React.FC = () => {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <>
-          <CheckboxTreeWrapper>
-            <CheckboxTree data={parsedNodeData} />
-          </CheckboxTreeWrapper>
-        </>
+          <InputSection>
+          <SectionTitle>Flavours</SectionTitle>
+            <CheckboxTreeWrapper>
+              <CheckboxTree data={parsedNodeData} />
+            </CheckboxTreeWrapper>
+          </InputSection>
       )}
     </>
   );

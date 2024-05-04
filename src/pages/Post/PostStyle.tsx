@@ -1,13 +1,17 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+
+export const InputSection = styled.section`
   width: 100%;
+  background-color: #f7f7f7;
+  padding: 20px;
 `;
-export const Wrapper = styled.div`
-  width: 1280px;
-  margin: 0 auto;
-  background-color: #bd9f9f;
-`;
+export const SectionTitle = styled.h2`
+  color: #5e3106;
+  text-align: center;
+  margin: 30px 0;
+  font-size: 36px;
+`
 export const FlavourForm = styled.form``;
 export const CheckboxTreeWrapper = styled.div`
   display: flex;
@@ -45,3 +49,7 @@ export const SubmitButton = styled.button`
   width: 70px;
   height: 40px;
 `;
+export const EditorDiv = styled.div`
+  width: 350px;
+  height: 200px;
+`
