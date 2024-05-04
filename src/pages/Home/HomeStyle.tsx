@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Button } from "evergreen-ui";
+import Paper from '@mui/material/Paper';
+
 
 export const PageLink = styled(Link)`
   cursor: pointer;
@@ -68,9 +70,8 @@ export const PromoBannerImgDiv = styled.div`
 export const PromoBannerImg = styled.img`
   height: 100%;
 `;
-export const FeaturesSection = styled.section`
-  color: #a1803e;
-  background-color: #e9e7e0;
+export const FeaturesSection = styled(Paper)`
+  /* color: #a1803e; */
   height: 500px;
   padding-top: 50px;
 `;
@@ -116,9 +117,8 @@ export const FeatureCardText = styled.p`
   color: #937e54;
 `;
 
-export const ArticleSection = styled.section`
+export const ArticleSection = styled(Paper)`
   width: 100%;
-  background-color: #f7f7f7;
   padding: 50px 0;
   text-align: center;
 `;

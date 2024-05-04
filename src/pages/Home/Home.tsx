@@ -50,6 +50,20 @@ import "./HomeStyles.css";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import { createTheme, ThemeProvider} from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    background: {
+      paper: '#f7f7f7',
+    },
+    text: {
+      primary: '#a1803e',
+      secondary: '#937e54',
+    }
+  },
+});
+
 
 interface ArticleData {
   picture: string;
@@ -113,6 +127,7 @@ const Home = () => {
   }, []);
 
   return (
+    <ThemeProvider theme={theme}>
     <Container>
       <Wrapper>
         <PromoBannerSection>
@@ -129,7 +144,7 @@ const Home = () => {
             </PromoBannerText>
           </PromoBannerInfoDiv>
         </PromoBannerSection>
-        <FeaturesSection>
+        <FeaturesSection elevation={12} sx={{bgcolor: '#f7f7f7'}}>
           <FeaturesDiv>
             <FeaturesTitle>Features</FeaturesTitle>
             <FeatureSubTitle>
@@ -178,7 +193,7 @@ const Home = () => {
             </FeatureCards>
           </FeaturesDiv>
         </FeaturesSection>
-        <ArticleSection>
+        <ArticleSection elevation={12} sx={{bgcolor: '#e7e7e7'}}>
           <ArticleSectionTitle>Latest Articles</ArticleSectionTitle>
           {/* <SectionTitleDivider /> */}
           <ArticleCards>
@@ -226,7 +241,6 @@ const Home = () => {
               {productsData.map((data, index) => (
                 <SwiperSlide key={index}>
                     <ProductCard>
-         
                       <ProductCardImgDiv>
                         <ProductCardImg src={data.picture} />
                       </ProductCardImgDiv>
@@ -243,6 +257,7 @@ const Home = () => {
         </ProductSection>
       </Wrapper>
     </Container>
+    </ThemeProvider>
   );
 };
 export default Home;
