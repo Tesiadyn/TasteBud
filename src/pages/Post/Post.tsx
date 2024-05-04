@@ -18,7 +18,6 @@ import { useNavigate } from "react-router-dom";
 import {
   CheckboxTreeWrapper,
   TreeList,
-  TreeItem,
   SubmitButton,
 } from "./PostStyle";
 import { toaster } from "evergreen-ui";
@@ -42,7 +41,6 @@ interface Props {
 }
 
 const CheckboxTree: React.FC<Props> = ({ data }) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [quillValue, setQuillValue] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
