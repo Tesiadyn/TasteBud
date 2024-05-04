@@ -57,6 +57,7 @@ export const EventCards = styled.div`
   display: flex;
   justify-content: center;
   gap: 10px;
+  flex-wrap: wrap;
 `;
 export const EventCard = styled.div`
   height: 400px;
