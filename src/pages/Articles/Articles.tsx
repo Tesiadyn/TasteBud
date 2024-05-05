@@ -16,12 +16,11 @@ import {
   PageTitle,
   PageSubtitle,
   PageLink,
-  SelectedTag
+  SelectedTag,
 } from "./ArticlesStyle";
 import { firestore } from "../../utilities/firebase";
 import { collection, getDocs, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
-
 
 interface ArticleData {
   picture: string;
@@ -31,14 +30,7 @@ interface ArticleData {
   articleUid: string;
 }
 
-const tagsList = [
-  "歷史",
-  "製程",
-  "調和",
-  "其他",
-  "名詞",
-  "入門",
-];
+const tagsList = ["歷史", "製程", "調和", "其他", "名詞", "入門"];
 
 const Articles = () => {
   const [articleData, setArticleData] = useState<Array<ArticleData>>([]);
@@ -128,8 +120,7 @@ const Articles = () => {
   };
 
   return (
-
-    <Container>
+    <Container elevation={8} sx={{ bgcolor: "#e7e7e7" }}>
       <Wrapper>
         <PageTitle>Articles</PageTitle>
         <PageSubtitle>Dive into the world of whisky!</PageSubtitle>
@@ -138,7 +129,7 @@ const Articles = () => {
             <Tags>
               {tagsList.map((tag, index) => (
                 <Tag
-                  as= {selectedTags.includes(tag) ? SelectedTag : undefined}
+                  as={selectedTags.includes(tag) ? SelectedTag : undefined}
                   onClick={() => handleTagClick(tag)}
                   value={tag}
                   key={index}
@@ -170,7 +161,6 @@ const Articles = () => {
         </ArticlesSection>
       </Wrapper>
     </Container>
-
   );
 };
 
