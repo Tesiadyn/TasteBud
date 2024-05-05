@@ -16,10 +16,12 @@ import {
   PageTitle,
   PageSubtitle,
   PageLink,
+  SelectedTag
 } from "./ArticlesStyle";
 import { firestore } from "../../utilities/firebase";
 import { collection, getDocs, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
+
 
 interface ArticleData {
   picture: string;
@@ -32,11 +34,7 @@ interface ArticleData {
 const tagsList = [
   "歷史",
   "製程",
-  "單一麥芽",
   "調和",
-  "蘇格蘭",
-  "愛爾蘭",
-  "美國",
   "其他",
   "名詞",
   "入門",
@@ -140,8 +138,7 @@ const Articles = () => {
             <Tags>
               {tagsList.map((tag, index) => (
                 <Tag
-
-                  
+                  as= {selectedTags.includes(tag) ? SelectedTag : undefined}
                   onClick={() => handleTagClick(tag)}
                   value={tag}
                   key={index}

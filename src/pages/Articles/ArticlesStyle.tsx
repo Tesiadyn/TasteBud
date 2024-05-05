@@ -53,6 +53,10 @@ export const Tag = styled.button`
     color: #c5c5c5;
   }
 `;
+export const SelectedTag = styled(Tag)`
+background-color: #a1803e; 
+color: #f7f7f7; 
+`;
 
 export const ArticlesSection = styled.section`
   margin: 50px 0;
