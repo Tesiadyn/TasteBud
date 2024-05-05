@@ -1,6 +1,6 @@
 import {
   Container,
-  TagsDiv,
+  BannerSection,
   TagsSection,
   Wrapper,
   Tags,
@@ -17,6 +17,7 @@ import {
   PageSubtitle,
   PageLink,
   SelectedTag,
+  TagSectionTitle,
 } from "./ArticlesStyle";
 import { firestore } from "../../utilities/firebase";
 import { collection, getDocs, query } from "firebase/firestore";
@@ -121,24 +122,25 @@ const Articles = () => {
 
   return (
     <Container elevation={8} sx={{ bgcolor: "#e7e7e7" }}>
-      <Wrapper>
+      <BannerSection>
         <PageTitle>Articles</PageTitle>
         <PageSubtitle>Dive into the world of whisky!</PageSubtitle>
+      </BannerSection>
+      <Wrapper>
         <TagsSection>
-          <TagsDiv>
-            <Tags>
-              {tagsList.map((tag, index) => (
-                <Tag
-                  as={selectedTags.includes(tag) ? SelectedTag : undefined}
-                  onClick={() => handleTagClick(tag)}
-                  value={tag}
-                  key={index}
-                >
-                  {tag}
-                </Tag>
-              ))}
-            </Tags>
-          </TagsDiv>
+          <TagSectionTitle>Categories</TagSectionTitle>
+          <Tags>
+            {tagsList.map((tag, index) => (
+              <Tag
+                as={selectedTags.includes(tag) ? SelectedTag : undefined}
+                onClick={() => handleTagClick(tag)}
+                value={tag}
+                key={index}
+              >
+                {tag}
+              </Tag>
+            ))}
+          </Tags>
         </TagsSection>
         <ArticlesSection>
           {filteredArticles.map((data, index) => (

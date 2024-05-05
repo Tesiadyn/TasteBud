@@ -1,49 +1,58 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Paper } from "@mui/material";
+import Banner from "../../assets/articles-Banner.jpg";
 export const PageLink = styled(Link)`
   text-decoration: none;
-  width: 80%;
 `;
 export const Container = styled(Paper)`
   width: 100%;
   background-color: #cecece;
-  padding: 75px 0;
 `;
 
 export const Wrapper = styled.div`
   width: 1280px;
   margin: 0 auto;
+  display: flex;
+  padding: 30px;
+`;
+export const BannerSection = styled.section`
+  height: 300px;
+  width: 100%;
+  background-image: url(${Banner});
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 export const PageTitle = styled.h1`
   margin: 0;
   text-align: center;
-  color: #5e3106;
+  color: #f7f7f7;
 `;
 export const PageSubtitle = styled.h3`
   font-size: 18px;
   text-align: center;
-  color: #5e3106;
+  color: #f7f7f7;
 `;
 
 export const TagsSection = styled.section`
-  padding: 50px;
   margin: 0 auto;
 `;
-export const TagsDiv = styled.div`
-  display: flex;
+export const TagSectionTitle = styled.h3`
+  color: #8c4303;
 `;
 export const Tags = styled.div`
-  display: flex;
   list-style: none;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 `;
 export const Tag = styled.button`
   padding: 8px;
   background-color: transparent;
   border: 1px solid #5e3106;
   color: #5e3106;
-  margin: 0 10px;
+  margin: 10px 0;
   border-radius: 4px;
   transition: all 0.3s;
   cursor: pointer;
@@ -59,15 +68,11 @@ export const SelectedTag = styled(Tag)`
 `;
 
 export const ArticlesSection = styled.section`
-  margin: 50px 0;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  width: 70%;
 `;
 export const ArticleCard = styled.div`
   background-color: #e9e7e0;
   height: 200px;
-  width: 80%;
   display: flex;
   margin: 25px auto;
   box-shadow: 3px 3px 5px 2px rgba(89, 89, 89, 0.3);
@@ -80,7 +85,7 @@ export const ArticleCard = styled.div`
 `;
 export const ArticleImgDiv = styled.div`
   height: 100%;
-  width: 40%;
+  width: 30%;
 `;
 export const ArticleImg = styled.img`
   height: 100%;
@@ -89,6 +94,7 @@ export const ArticleImg = styled.img`
 `;
 export const ArticleInfoDiv = styled.div`
   width: 60%;
+  flex: 1;
 `;
 export const ArticleInfoTags = styled.ul`
   display: flex;
