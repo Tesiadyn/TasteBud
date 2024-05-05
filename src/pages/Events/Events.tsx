@@ -2,7 +2,6 @@ import {
   Container,
   Wrapper,
   EventCardsSection,
-  EventCardSectionTitle,
   EventCard,
   EventCardTitle,
   EventCardImgDiv,
@@ -19,6 +18,9 @@ import {
   EventCards,
   PageLink,
   NewEventButton,
+  BannerSection,
+  PageTitle,
+  PageSubtitle,
 } from "./EventsStyle";
 import CapacityIcon from "../../assets/capacityIcon.png";
 import DateIcon from "../../assets/dateIcon.png";
@@ -68,12 +70,16 @@ const Events = () => {
         <HeroboxSubtitle>探索、發現新的味蕾饗宴</HeroboxSubtitle>
 
       </HeroboxDiv> */}
+      <BannerSection>
+        <PageTitle>Events</PageTitle>
+        <PageSubtitle>Be the part of community</PageSubtitle>
+      </BannerSection>
       <Wrapper>
         <EventCardsSection>
           <PageLink to="/newEvent">
             <NewEventButton>New Event</NewEventButton>
           </PageLink>
-          <EventCardSectionTitle>Latest Events</EventCardSectionTitle>
+
           <EventCards>
             {eventData.map((data, index) => (
               <PageLink key={index} to={`/event/${data.eventUid}`}>
@@ -96,7 +102,9 @@ const Events = () => {
                       <EventCardCapacityIcon
                         src={CapacityIcon}
                       ></EventCardCapacityIcon>
-                      <EventCardCapacityText>{data.participantsUid.length} / {data.maxParticipants}</EventCardCapacityText>
+                      <EventCardCapacityText>
+                        {data.participantsUid.length} / {data.maxParticipants}
+                      </EventCardCapacityText>
                     </EventCardCapacityDiv>
                   </EventCardInfos>
                 </EventCard>
