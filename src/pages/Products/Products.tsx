@@ -47,7 +47,7 @@ const Products = () => {
   console.log(productsData);
 
   return (
-    <Container>
+    <Container elevation={10} sx={{bgcolor: '#f7f7f7'}}>
       <Wrapper>
         <SectionTitle>Comments</SectionTitle>
         <Cards>
