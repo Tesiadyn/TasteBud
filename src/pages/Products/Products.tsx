@@ -8,8 +8,10 @@ import {
   CardInfos,
   CardInfoTitle,
   Cards,
-  SectionTitle,
   CardImgBg,
+  BannerSection,
+  PageTitle,
+  PageSubtitle
 } from "./ProductsStyle.tsx";
 import { firestore } from "../../utilities/firebase.tsx";
 import { collection, getDocs, query } from "firebase/firestore";
@@ -50,8 +52,11 @@ const Products = () => {
 
   return (
     <Container elevation={10} sx={{ bgcolor: "#f7f7f7" }}>
+      <BannerSection>
+        <PageTitle>Comments</PageTitle>
+        <PageSubtitle>Rate and share your perspectives!</PageSubtitle>
+      </BannerSection>
       <Wrapper>
-        <SectionTitle>Comments</SectionTitle>
         <Cards>
           {productsData.map((product, index) => (
             <Card key={index} to={`/product/${product.productUid}`}>

@@ -1,10 +1,32 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Paper } from "@mui/material";
+import Banner from "../../assets/comments-Banner.jpg";
 
 export interface CardImgDivProps {
   $bgImage: string;
 }
+
+export const BannerSection = styled.section`
+  height: 300px;
+  width: 100%;
+  background-image: url(${Banner});
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+export const PageTitle = styled.h1`
+  margin: 0;
+  text-align: center;
+  color: #f7f7f7;
+`;
+export const PageSubtitle = styled.h3`
+  font-size: 18px;
+  text-align: center;
+  color: #f7f7f7;
+`;
+
+
 export const Container = styled(Paper)`
   width: 100%;
   background-color: #f7f7f7;
