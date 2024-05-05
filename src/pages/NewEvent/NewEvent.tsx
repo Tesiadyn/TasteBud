@@ -25,6 +25,7 @@ const NewEvent = () => {
   const [time, setTime] = useState("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const navigate = useNavigate();
+  const today = new Date().toISOString().split('T')[0];
 
   const uploadCoverImg = async (file: File) => {
     const storageRef = ref(storage, `coverImages/${file.name}`);
@@ -120,6 +121,7 @@ const NewEvent = () => {
               placeholder="請輸入名稱"
               type="text"
               onChange={(e) => setTitle(e.target.value)}
+              required
             />
             <InputLabel htmlFor="text">活動內容</InputLabel>
             <InputField
@@ -127,13 +129,16 @@ const NewEvent = () => {
               placeholder="請輸入活動內容"
               type="text"
               onChange={(e) => setText(e.target.value)}
+              required
             />
             <InputLabel htmlFor="date">活動日期</InputLabel>
             <InputField
               id="date"
               placeholder="請輸入活動日期"
               type="date"
+              min={today}
               onChange={(e) => setDate(e.target.value)}
+              required
             />
             <InputLabel htmlFor="time">活動時間</InputLabel>
             <InputField
@@ -141,6 +146,7 @@ const NewEvent = () => {
               placeholder="請輸入活動時間"
               type="time"
               onChange={(e) => setTime(e.target.value)}
+              required
             />
             <InputLabel htmlFor="location">地點</InputLabel>
             <InputField
@@ -148,6 +154,7 @@ const NewEvent = () => {
               placeholder="請輸入地點"
               type="text"
               onChange={(e) => setLocation(e.target.value)}
+              required
             />
             <InputLabel htmlFor="number">最大人數</InputLabel>
             <InputField
@@ -156,6 +163,7 @@ const NewEvent = () => {
               type="number"
               min={1}
               onChange={(e) => setMaxParticipants(parseInt(e.target.value))}
+              required
             />
             <InputLabel htmlFor="pic">封面照片</InputLabel>
             <InputField
