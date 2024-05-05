@@ -137,7 +137,7 @@ const EditEventForm = ({
         onChange={(e) => setTime(e.target.value)}
       />
 
-      <button type="submit">編輯完成</button>
+      <button type="submit">Submit</button>
     </EditForm>
   );
 };
@@ -273,42 +273,46 @@ const Event = () => {
     <Container>
       <Wrapper>
         <EventSection>
-          {isEditing && (
-            <>
-              <EditEventForm
-                eventId={id}
-                initTitle={eventData?.title}
-                initLocation={eventData?.location}
-                initParticipants={eventData?.maxParticipants}
-                initText={eventData?.text}
-                initDate={eventData?.date}
-                initTime={eventData?.time}
-                onFormClose={handleCloseForm}
-              />
-            </>
-          )}
           <EventImgDiv>
             <EventImg src={eventData?.coverImage} />
           </EventImgDiv>
+
           <EventInfoDiv>
-            <EventTitle>{eventData?.title}</EventTitle>
-            <EventText>活動內容{eventData?.text}</EventText>
-            <EventText className="location">
-              活動地點{eventData?.location}
-            </EventText>
-            <EventText className="maxParticipants">
-              活動名額{eventData?.maxParticipants}人
-            </EventText>
-            <EventText>活動日期{eventData?.date}</EventText>
-            <EventText>活動時間{eventData?.time}</EventText>
-            {isAuthor ? (
+            {isEditing ? (
               <>
-                <button onClick={handleEditClick}>編輯</button>
-                <button onClick={handleDeleteClick}>刪除活動</button>
+                <EditEventForm
+                  eventId={id}
+                  initTitle={eventData?.title}
+                  initLocation={eventData?.location}
+                  initParticipants={eventData?.maxParticipants}
+                  initText={eventData?.text}
+                  initDate={eventData?.date}
+                  initTime={eventData?.time}
+                  onFormClose={handleCloseForm}
+                />
               </>
             ) : (
               <>
-                <button onClick={handleParticipateClick}>參加</button>
+                <EventTitle>{eventData?.title}</EventTitle>
+                <EventText>活動內容{eventData?.text}</EventText>
+                <EventText className="location">
+                  活動地點{eventData?.location}
+                </EventText>
+                <EventText className="maxParticipants">
+                  活動名額{eventData?.maxParticipants}人
+                </EventText>
+                <EventText>活動日期{eventData?.date}</EventText>
+                <EventText>活動時間{eventData?.time}</EventText>
+                {isAuthor ? (
+                  <>
+                    <button onClick={handleEditClick}>Edit event</button>
+                    <button onClick={handleDeleteClick}>Delete event</button>
+                  </>
+                ) : (
+                  <>
+                    <button onClick={handleParticipateClick}>Participate event</button>
+                  </>
+                )}
               </>
             )}
           </EventInfoDiv>
