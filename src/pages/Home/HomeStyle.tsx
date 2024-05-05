@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Button } from "evergreen-ui";
-import Paper from '@mui/material/Paper';
+import Paper from "@mui/material/Paper";
 
+interface backgroundImgUrlProps {
+  $backgroundImageUrl: string;
+}
 
 export const PageLink = styled(Link)`
   cursor: pointer;
@@ -11,8 +14,12 @@ export const PageLink = styled(Link)`
     display: inline-block;
     width: 40%;
   }
-  &.productLink{
+  &.productLink {
     margin: auto 0;
+    color: #8c4303;
+    font-size: 24px;
+    font-weight: 600;
+    text-decoration: underline;
   }
 `;
 
@@ -71,52 +78,78 @@ export const PromoBannerImg = styled.img`
   height: 100%;
 `;
 export const FeaturesSection = styled(Paper)`
-  /* color: #a1803e; */
-  height: 500px;
-  padding-top: 50px;
+  /* width: 100%; */
+  padding: 50px;
 `;
 export const FeaturesDiv = styled.div`
-  height: 100%;
-  text-align: center;
+  width: 1280px;
+  margin: 0 auto;
 `;
 export const FeaturesTitle = styled.h2`
-  font-size: 40px;
+  font-size: 52px;
   margin: 0;
 `;
-export const FeatureSubTitle = styled.p``;
+export const FeatureSubTitle = styled.h2`
+  font-size: 48px;
+  margin: 0;
+`;
 export const FeatureCards = styled.div`
+  width: 80%;
+  margin-left: 5%;
   display: flex;
-  margin-top: 75px;
+  flex-wrap: wrap;
+  gap: 30px;
+`;
+export const FeatureCardsDiv = styled.div`
+  display: flex;
+  margin-top: 50px;
 `;
 export const FeatureCard = styled.div`
+  width: 40%;
   display: flex;
   flex-direction: column;
-  text-align: center;
+  /* border: 1px solid #d6a668; */
+  background-color: #e2d0b7;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 `;
 export const FeatureCardImgDiv = styled.div`
-  height: 50%;
+  height: 50px;
+  width: 50px;
   position: relative;
+  background-color: #d6a668;
+  border-radius: 12px;
+`;
+export const FeatureBannerDiv = styled.div`
+  width: 30%;
+  height: 100%;
+`;
+export const FeatureBanner = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
 `;
 export const FeatureCardImg = styled.img`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
+  width: 70%;
+  height: 70%;
 `;
-export const FeatureCardInfoDiv = styled.div`
-  height: 50%;
-`;
+export const FeatureCardInfoDiv = styled.div``;
 export const FeatureCardTitle = styled.h3`
-  font-size: 24px;
+  font-size: 20px;
+  margin: 10px 0;
+  color: #8c4303;
 `;
 export const FeatureCardText = styled.p`
-  margin: 0 auto;
-  width: 75%;
-  color: #937e54;
+  margin: 0;
+  line-height: 1.25;
+  color: #9c602c;
 `;
-
 export const ArticleSection = styled(Paper)`
   width: 100%;
   padding: 50px 0;
@@ -125,7 +158,8 @@ export const ArticleSection = styled(Paper)`
 export const ArticleSectionTitle = styled.h1`
   font-size: 32px;
   margin: 0 0 50px;
-  color: #a1803e;
+  color: #8c4303;
+  text-decoration: underline;
 `;
 // export const SectionTitleDivider = styled.div`
 //   height: 1px;
@@ -142,28 +176,35 @@ export const ArticleCards = styled.div`
   margin: 0 auto;
 `;
 export const ArticleCard = styled.div`
-  height: 100px;
-  background-color: #e9e7e0;
+  background-color: #e2d0b7;
   display: flex;
-  box-shadow: 3px 3px 3px 2px rgba(89, 89, 89, 0.5);
-  border-radius: 6px;
-  text-align: left;
+  flex-direction: column;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  &.hover {
+    opacity: 0.7;
+  }
 `;
-export const ArticleCardImgDiv = styled.div`
-  width: 30%;
+export const ArticleCardImgDiv = styled.div<backgroundImgUrlProps>`
+  background-image: url(${(props) => props.$backgroundImageUrl});
+  background-size: cover;
+  background-position: center;
+  height: 150px;
+  border-radius: 12px 12px 0 0;
 `;
 export const ArticleCardImg = styled.img`
   height: 100%;
   width: 100%;
 `;
 export const ArticleCardInfoDiv = styled.div`
-  width: 70%;
-  padding: 16px 16px 0;
+  width: 100%;
+  padding: 20px 0;
 `;
 export const ArticleCardTitle = styled.h3`
   margin: 0;
   font-size: 18px;
-  color: #141623;
+  color: #8c4303;
   font-weight: 500;
 `;
 export const ArticleCardText = styled.p``;
@@ -219,6 +260,7 @@ export const ProductCardText = styled.p`
   width: 70%;
   color: #5e3106;
   line-height: 1.3;
+  height: 40%;
 `;
 export const ProductCardAuthorDiv = styled.div`
   display: flex;
