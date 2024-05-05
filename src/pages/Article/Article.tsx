@@ -10,6 +10,8 @@ import {
   ArticleText,
   PageLink,
   PrevPageBtn,
+  BackToTopBtn,
+  BtnDiv,
 } from "./ArticleStyle";
 
 interface ArticleData {
@@ -44,17 +46,42 @@ const Article = () => {
     };
     fetchArticleData();
   }, []);
+
+  const handleToTopClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <Container>
       <Wrapper>
         <ArticleSection>
           <PageLink to="/articles">
-            <PrevPageBtn>回文章列表</PrevPageBtn>
+            <PrevPageBtn
+              variant="outlined"
+              sx={{
+                backgroundColor: "#a1803e",
+                color: "#f7f7f7",
+                border: "none",
+                boxShadow: 5,
+                "&:hover": {
+                  backgroundColor: "#b19f7d",
+                  border: "none",
+                  boxShadow: 2,
+                },
+              }}
+            >
+              回文章列表
+            </PrevPageBtn>
           </PageLink>
           <SectionTitle>{articleData?.title}</SectionTitle>
           <ArticleText>
             <p>{articleData?.text}</p>
           </ArticleText>
+          <BtnDiv>
+            <BackToTopBtn onClick={handleToTopClick} sx={{ color: "#a1803e" }}>
+              Back to top
+            </BackToTopBtn>
+          </BtnDiv>
         </ArticleSection>
       </Wrapper>
     </Container>
