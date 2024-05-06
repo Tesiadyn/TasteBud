@@ -78,13 +78,13 @@ export const EventCards = styled.div`
   flex-wrap: wrap;
 `;
 export const EventCard = styled.div`
-  height: 300px;
+  height: 330px;
   width: 300px;
   border-radius: 4px;
   background-color: #b9a79a;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 20px 20px 10px;
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 `;
@@ -106,6 +106,7 @@ export const EventCardTitle = styled.h3`
 export const EventCardTags = styled.ul`
   display: flex;
   padding-inline-start: initial;
+  margin-bottom: 35px;
 `;
 export const EventCardTag = styled.li`
   list-style: none;
@@ -118,24 +119,26 @@ export const EventCardTag = styled.li`
 export const EventCardInfos = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: auto;
+  height: 10%;
 `;
 export const EventCardDateDiv = styled.div`
   display: flex;
 `;
-export const EventCardDateIcon = styled.img``;
-export const EventCardDateText = styled.p`
-  margin: 0;
-  color: #5e3106;
+export const EventCardDateIcon = styled.img`
+
 `;
 export const EventCardCapacityDiv = styled.div`
   display: flex;
+  align-items: center;
 `;
 export const EventCardCapacityIcon = styled.img``;
-export const EventCardCapacityText = styled.p`
-  margin: 0;
+export const EventCardInfoText = styled.p`
   color: #5e3106;
+  margin-bottom: 0;
+  margin-left: 4px;
+  height: 100%;
 `;
+
 export const PageLink = styled(Link)`
   cursor: pointer;
   text-decoration: none;

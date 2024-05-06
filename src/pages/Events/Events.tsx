@@ -9,11 +9,8 @@ import {
   EventCardTags,
   EventCardTag,
   EventCardInfos,
-  EventCardDateText,
-  EventCardCapacityText,
+  EventCardInfoText,
   EventCardCapacityIcon,
-  EventCardDateIcon,
-  EventCardDateDiv,
   EventCardCapacityDiv,
   EventCards,
   PageLink,
@@ -89,17 +86,25 @@ const Events = () => {
                     ))}
                   </EventCardTags>
                   <EventCardInfos>
-                    <EventCardDateDiv>
+                    {/* <EventCardDateDiv>
                       <EventCardDateIcon src={DateIcon}></EventCardDateIcon>
-                      <EventCardDateText>{data.date}</EventCardDateText>
-                    </EventCardDateDiv>
+                      <EventCardInfoText>{data.date}</EventCardInfoText>
+                    </EventCardDateDiv> */}
+                    <EventCardCapacityDiv>
+                      <EventCardCapacityIcon
+                        src={DateIcon}
+                      ></EventCardCapacityIcon>
+                      <EventCardInfoText>
+                        {data.date}
+                      </EventCardInfoText>
+                    </EventCardCapacityDiv>
                     <EventCardCapacityDiv>
                       <EventCardCapacityIcon
                         src={CapacityIcon}
                       ></EventCardCapacityIcon>
-                      <EventCardCapacityText>
+                      <EventCardInfoText>
                         {data.participantsUid.length} / {data.maxParticipants}
-                      </EventCardCapacityText>
+                      </EventCardInfoText>
                     </EventCardCapacityDiv>
                   </EventCardInfos>
                 </EventCard>
