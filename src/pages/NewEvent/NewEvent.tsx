@@ -182,7 +182,7 @@ const NewEvent = () => {
                 <InputLabel>Bourbon</InputLabel>
                 <InputField
                   type="checkbox"
-                  name="Bourbon"
+                  name="bourbon"
                   onChange={handleCheckboxChange}
                   checked={selectedTags.includes("bourbon")}
                   className="checkbox"
