@@ -65,11 +65,6 @@ const Events = () => {
 
   return (
     <Container>
-      {/* <HeroboxDiv>
-        <HeroboxTitle>探索最有意思的品酒會</HeroboxTitle>
-        <HeroboxSubtitle>探索、發現新的味蕾饗宴</HeroboxSubtitle>
-
-      </HeroboxDiv> */}
       <BannerSection>
         <PageTitle>Events</PageTitle>
         <PageSubtitle>Be the part of community</PageSubtitle>

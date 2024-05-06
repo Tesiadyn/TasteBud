@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import SearchIcon from "../../assets/search.png";
-import { Button } from "evergreen-ui";
 import Banner from "../../assets/events-Banner.jpg";
 
 export const BannerSection = styled.section`
@@ -127,7 +126,7 @@ export const EventCardDateDiv = styled.div`
 export const EventCardDateIcon = styled.img``;
 export const EventCardDateText = styled.p`
   margin: 0;
-  color: #070707;
+  color: #5e3106;
 `;
 export const EventCardCapacityDiv = styled.div`
   display: flex;
@@ -135,13 +134,26 @@ export const EventCardCapacityDiv = styled.div`
 export const EventCardCapacityIcon = styled.img``;
 export const EventCardCapacityText = styled.p`
   margin: 0;
-  color: #070707;
+  color: #5e3106;
 `;
 export const PageLink = styled(Link)`
   cursor: pointer;
   text-decoration: none;
 `;
-export const NewEventButton = styled(Button)`
-  cursor: pointer;
-  margin: 50px;
+export const NewEventButton = styled.button`
+  border: none;
+  background-color: #b26218;
+  padding: 12px;
+  border-radius: 8px;
+  color: #f7f7f7;
+  box-shadow: 5px 5px 15px 0px rgba(156, 131, 85, 0.75);
+  transition: all 0.2s;
+  margin: 50px 0;
+  &:hover {
+    background-color: #a27a55;
+  }
+  &:active {
+    box-shadow: 3px 3px 10px 0px rgba(156, 131, 85, 0.871);
+    padding: 10px;
+  }
 `;
