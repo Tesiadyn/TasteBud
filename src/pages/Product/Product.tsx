@@ -46,7 +46,6 @@ const Product = () => {
   const { id } = useParams();
   const [productData, setProductData] = useState<ProductData | null>(null);
   const [commentData, setCommentData] = useState<CommentData[]>([]);
-  const [isCommentsShowing, setIsCommentsShowing] = useState(false);
   const db = firestore;
 
   useEffect(() => {
@@ -117,49 +116,30 @@ const Product = () => {
           <DivDivider />
 
           <CommentDiv>
-            {commentData.map((comment, index) => (
-              <CommentCard key={index}>
-                <div dangerouslySetInnerHTML={{ __html: comment.quillValue }} />
-                --- {comment.authorName}
-                {comment.commentText}
-              </CommentCard>
-            ))}
+            {commentData.length > 0 ? (
+              commentData.map((comment, index) => (
+                <CommentCard key={index}>
+                  <div
+                    dangerouslySetInnerHTML={{ __html: comment.quillValue }}
+                  />
+                  --- {comment.authorName}
+                  {comment.commentText}
+                </CommentCard>
+              ))
+            ) : (
+              <>
+                <NoCommentsHint>
+                  No one has left comments here, wanna be the first one?
+                </NoCommentsHint>
+                <PostCommentBtn className="noCommentsBtn" to={`./post`}>
+                  Post a new comment
+                </PostCommentBtn>
+              </>
+            )}
           </CommentDiv>
         </Wrapper>
       </Container>
-    </> /* <ProductInfoSection>
-
-          </ProductInfoSection> */
-    /* <TabTogglerDiv>
-              <Toggler
-                className="toggler-info"
-                isActive={isCommentsShowing}
-                onClick={() => setIsCommentsShowing(false)}
-              >
-                Info
-              </Toggler>
-              <Toggler
-                className="toggler-comments"
-                isActive={isCommentsShowing}
-                onClick={() => setIsCommentsShowing(true)}
-              >
-                Comments
-              </Toggler>
-            </TabTogglerDiv> */
-
-    /* {commentData.length > 0 ? (
-                  
-               */
-
-    /*           
-                    <NoCommentsHint>
-                      No one has left comments here, wanna be the first one?
-                    </NoCommentsHint>
-                    <PostCommentBtn className="noCommentsBtn" to={`./post`}>
-                      Post a new comment
-                    </PostCommentBtn>
-            
-             */
+    </>
   );
 };
 
