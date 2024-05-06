@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { Paper } from "@mui/material";
+
 
 interface TogglerProps {
   isActive: boolean;
@@ -16,6 +16,8 @@ export const Wrapper = styled.div`
   background-color: #e7e7e7;
   display: flex;
   justify-content: center;
+  box-shadow: 3px 3px 5px 2px rgba(89, 89, 89, 0.3);
+  border-radius: 12px;
 `;
 
 export const InfoDiv = styled.div`
@@ -50,12 +52,14 @@ export const InfoDivDivider = styled.div`
   width: 90%;
   margin: 30px auto 0;
   background-color: #c4c4c4;
+  border-radius: 4px;
 `;
 export const DivDivider = styled.div`
   height: 700px;
   width: 3px;
   margin: auto 0;
   background-color: #c4c4c4;
+  border-radius: 4px;
 `;
 export const ProductInfoTitle = styled.h2`
   font-weight: 400;
