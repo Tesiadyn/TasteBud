@@ -60,10 +60,10 @@ const Login = () => {
               <InputLabel htmlFor="password">Password</InputLabel>
               <InputField type="password" id="password" name="password" />
             </InputDiv>
-            <SignUpText>還沒有帳號嗎？ </SignUpText>
+            <SignUpText>Not a member? </SignUpText>
             <SignupLinkDiv>
               <PageLink to="/signup" className="signupLink">
-                <SignupBtn>馬上註冊</SignupBtn>
+                <SignupBtn>Sign up now</SignupBtn>
               </PageLink>
             </SignupLinkDiv>
             <LoginButton type="submit">登入</LoginButton>
