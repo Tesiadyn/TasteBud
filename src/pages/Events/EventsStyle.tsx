@@ -59,11 +59,13 @@ export const SearchButton = styled.button`
   left: 95%;
 `;
 export const Wrapper = styled.div`
-  background-color: #c3c3c3;
+  width: 100%;
+  margin: 0 auto;
+  background-color: #e0caba;
 `;
 export const EventCardsSection = styled.div`
-  width: 100%;
-  background-color: #e0caba;
+  width: 1280px;
+  margin: 0 auto;
   padding: 50px 0;
 `;
 export const EventCardSectionTitle = styled.h2`
@@ -77,8 +79,8 @@ export const EventCards = styled.div`
   flex-wrap: wrap;
 `;
 export const EventCard = styled.div`
-  height: 400px;
-  width: 400px;
+  height: 300px;
+  width: 300px;
   border-radius: 4px;
   background-color: #b9a79a;
   display: flex;

@@ -26,7 +26,11 @@ export const EventImg = styled.img`
 export const EventInfoDiv = styled.div`
   padding: 20px;
 `
-export const EventTitle = styled.h1``;
+export const EventTitle = styled.h1`
+`;
+export const EventSubTitle = styled.h2`
+  
+`;
 export const EventText = styled.p`
   &.location {
   }
