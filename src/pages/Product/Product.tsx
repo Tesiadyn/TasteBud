@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import {
   Container,
   ProductImgDiv,
-  ProductInfoSection,
   ProductInfoTitle,
   Wrapper,
   ProductImg,
@@ -10,10 +9,14 @@ import {
   IntroSection,
   ProductIntroTitleDiv,
   ProductInfoText,
-  ProductInfosDiv,
-  TabTogglerDiv,
-  Toggler,
   CommentCard,
+  NoCommentsHint,
+  InfoDiv,
+  InfoSection,
+  CommentDiv,
+  ProductIntroText,
+  InfoDivDivider,
+  DivDivider,
 } from "./ProductStyle";
 import { useParams } from "react-router-dom";
 import { firestore } from "../../utilities/firebase";
@@ -28,6 +31,7 @@ interface ProductData {
   strength: string;
   title: string;
   productUid: string;
+  introText: string;
 }
 interface CommentData {
   authorUid: string;
@@ -77,18 +81,56 @@ const Product = () => {
     <>
       <Container>
         <Wrapper>
-          <IntroSection>
-            <ProductImgDiv>
-              <ProductImg alt={productData?.title} src={productData?.picture} />
-            </ProductImgDiv>
-            <ProductIntroTitleDiv>
-              <ProductInfoTitle>{productData?.title}</ProductInfoTitle>
-              <ProductInfoText>{productData?.distillery}</ProductInfoText>
-            </ProductIntroTitleDiv>
-            <PostCommentBtn to={`./post`}>發表評論</PostCommentBtn>
-          </IntroSection>
-          <ProductInfoSection>
-            <TabTogglerDiv>
+          <InfoDiv>
+            <IntroSection>
+              <ProductImgDiv>
+                <ProductImg
+                  alt={productData?.title}
+                  src={productData?.picture}
+                />
+              </ProductImgDiv>
+
+              <ProductIntroTitleDiv>
+                <ProductInfoTitle>{productData?.title}</ProductInfoTitle>
+                <ProductIntroText>{productData?.introText}</ProductIntroText>
+                <PostCommentBtn to={`./post`}>New Comment</PostCommentBtn>
+              </ProductIntroTitleDiv>
+            </IntroSection>
+
+            <InfoDivDivider />
+
+            <InfoSection>
+              <ProductInfoText>
+                CaskType: {productData?.caskType}
+              </ProductInfoText>
+              <ProductInfoText>
+                Dilistilery: {productData?.distillery}
+              </ProductInfoText>
+              <ProductInfoText>
+                Bottled By: {productData?.bottler}
+              </ProductInfoText>
+              <ProductInfoText>Alc: {productData?.strength}%</ProductInfoText>
+              <ProductInfoText>Size: {productData?.size} ml</ProductInfoText>
+            </InfoSection>
+          </InfoDiv>
+
+          <DivDivider />
+
+          <CommentDiv>
+            {commentData.map((comment, index) => (
+              <CommentCard key={index}>
+                <div dangerouslySetInnerHTML={{ __html: comment.quillValue }} />
+                --- {comment.authorName}
+                {comment.commentText}
+              </CommentCard>
+            ))}
+          </CommentDiv>
+        </Wrapper>
+      </Container>
+    </> /* <ProductInfoSection>
+
+          </ProductInfoSection> */
+    /* <TabTogglerDiv>
               <Toggler
                 className="toggler-info"
                 isActive={isCommentsShowing}
@@ -103,38 +145,21 @@ const Product = () => {
               >
                 Comments
               </Toggler>
-            </TabTogglerDiv>
-            {isCommentsShowing ? (
-              <>
-                {commentData.map((comment, index) => (
-                  <CommentCard key={index}>
-                    <div
-                      dangerouslySetInnerHTML={{ __html: comment.quillValue }}
-                    />
-                    ---  {comment.authorName}
-                    {comment.commentText}
-                  </CommentCard>
-                ))}
-              </>
-            ) : (
-              <ProductInfosDiv>
-                <ProductInfoText>桶型: {productData?.caskType}</ProductInfoText>
-                <ProductInfoText>
-                  廠商: {productData?.distillery}
-                </ProductInfoText>
-                <ProductInfoText>
-                  裝瓶商: {productData?.bottler}
-                </ProductInfoText>
-                <ProductInfoText>
-                  酒精度: {productData?.strength}%
-                </ProductInfoText>
-                <ProductInfoText>容量: {productData?.size} ml</ProductInfoText>
-              </ProductInfosDiv>
-            )}
-          </ProductInfoSection>
-        </Wrapper>
-      </Container>
-    </>
+            </TabTogglerDiv> */
+
+    /* {commentData.length > 0 ? (
+                  
+               */
+
+    /*           
+                    <NoCommentsHint>
+                      No one has left comments here, wanna be the first one?
+                    </NoCommentsHint>
+                    <PostCommentBtn className="noCommentsBtn" to={`./post`}>
+                      Post a new comment
+                    </PostCommentBtn>
+            
+             */
   );
 };
 
