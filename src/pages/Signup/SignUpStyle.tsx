@@ -26,7 +26,9 @@ export const SignUpSection = styled.section`
   border-radius: 0 0 12px 12px;
   padding-bottom: 20px;
 `;
-export const SignUpSectionTitle = styled.h2``;
+export const SignUpSectionTitle = styled.h2`
+  color: #5e3106;
+`;
 export const InputDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -38,6 +40,7 @@ export const SignUpForm = styled.form`
 
 export const InputLabel = styled.label`
   width: 30%;
+  color: #5e3106;
 `;
 export const HintMessage = styled.p`
   width: 100%;

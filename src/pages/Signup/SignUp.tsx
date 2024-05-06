@@ -42,15 +42,15 @@ const SignUp = () => {
   const inputRules: { [key: string]: InputRule } = {
     email: {
       rule: /^\S+@\S+\.\S+$/,
-      message: `請輸入包含'@'在內的有效電子信箱`,
+      message: `Please input email address with '@'`,
     },
     userName: {
       rule: /^.{3,}$/,
-      message: "請輸入最少為3個字元的使用者名稱",
+      message: "Please enter user name at least 3 characters",
     },
     password: {
       rule: /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/,
-      message: "請輸入最少需含有６個字元並且包含英文大小寫的密碼",
+      message: "Please enter password at least 6 characters including caps",
     },
   };
   const getHint = (inputField: keyof FormState) => {
@@ -107,7 +107,9 @@ const SignUp = () => {
             const userUid = userObj?.user.uid;
             console.log(userUid);
             writingMemberDoc(email, userUid, userName!);
-            toaster.success("註冊成功，請使用電子信箱及密碼登入");
+            toaster.success(
+              "Sing up success! Please login with email & password"
+            );
             navigate("/login");
           }
         }
@@ -679,7 +681,7 @@ const SignUp = () => {
                 <HintMessage>{getHint("password")}</HintMessage>
               )}
             </InputDiv>
-            <SignUpButton type="submit">註冊</SignUpButton>
+            <SignUpButton type="submit">Sign Up</SignUpButton>
           </SignUpForm>
         </SignUpSection>
       </Wrapper>
