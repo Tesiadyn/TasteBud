@@ -22,6 +22,9 @@ import {
   EventText,
   EventInfoDiv,
   EditForm,
+  EventSubTitle,
+  EventSubDiv,
+  EventActButton,
 } from "./EventStyle";
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
@@ -269,7 +272,7 @@ const Event = () => {
         await updateDoc(eventDocRef, {
           participantsUid: arrayUnion(currentUserUid),
         });
-        toaster.success("成功參加活動!");
+        toaster.success("Participate success!");
         navigate(`/member`);
       } catch (err: any) {
         console.error("Error when updating participate doc : ", err.message);
@@ -302,25 +305,40 @@ const Event = () => {
             ) : (
               <>
                 <EventTitle>{eventData?.title}</EventTitle>
-                <EventText>活動內容{eventData?.text}</EventText>
-                <EventText className="location">
-                  活動地點{eventData?.location}
-                </EventText>
-                <EventText className="maxParticipants">
-                  活動名額{eventData?.maxParticipants}人
-                </EventText>
-                <EventText>活動日期{eventData?.date}</EventText>
-                <EventText>活動時間{eventData?.time}</EventText>
+                <EventSubDiv>
+                  <EventSubTitle>Location</EventSubTitle>
+                  <EventText>{eventData?.location}</EventText>
+                </EventSubDiv>
+                <EventSubDiv>
+                  <EventSubTitle>Max people</EventSubTitle>
+                  <EventText>{eventData?.maxParticipants}人</EventText>
+                </EventSubDiv>
+                <EventSubDiv>
+                  <EventSubTitle>Date</EventSubTitle>
+                  <EventText>{eventData?.date}</EventText>
+                </EventSubDiv>
+                <EventSubDiv>
+                  <EventSubTitle>Time</EventSubTitle>
+                  <EventText>{eventData?.time}</EventText>
+                </EventSubDiv>
+                <EventSubDiv>
+                  <EventSubTitle>Event content</EventSubTitle>
+                  <EventText>{eventData?.text}</EventText>
+                </EventSubDiv>
                 {isAuthor ? (
                   <>
-                    <button onClick={handleEditClick}>Edit event</button>
-                    <button onClick={handleDeleteClick}>Delete event</button>
+                    <EventActButton onClick={handleEditClick}>
+                      Edit event
+                    </EventActButton>
+                    <EventActButton onClick={handleDeleteClick}>
+                      Delete event
+                    </EventActButton>
                   </>
                 ) : (
                   <>
-                    <button onClick={handleParticipateClick}>
+                    <EventActButton onClick={handleParticipateClick}>
                       Participate event
-                    </button>
+                    </EventActButton>
                   </>
                 )}
               </>

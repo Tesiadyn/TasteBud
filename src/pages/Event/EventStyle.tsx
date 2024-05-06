@@ -25,19 +25,38 @@ export const EventImg = styled.img`
 `;
 export const EventInfoDiv = styled.div`
   padding: 20px;
+  color: #5e3106;
 `
 export const EventTitle = styled.h1`
+  margin-bottom: 50px;
 `;
-export const EventSubTitle = styled.h2`
-  
+export const EventSubDiv = styled.div`
+  margin-bottom: 30px;
+`
+export const EventSubTitle = styled.h3`
+  margin: 0 0 6px;
 `;
 export const EventText = styled.p`
-  &.location {
-  }
-  &.maxParticipants {
-  }
+  margin: 0;
 `;
 export const EditForm = styled.form`
   display: flex;
   flex-direction: column;
 `
+export const EventActButton = styled.button`
+  border: none;
+  background-color: #b26218;
+  padding: 12px;
+  border-radius: 8px;
+  color: #f7f7f7;
+  box-shadow: 5px 5px 15px 0px rgba(156,131,85,0.75);
+  transition: all .2s;
+  margin-right: 30px;
+  &:hover{
+    background-color: #a27a55;
+  }
+  &:active{
+    box-shadow: 3px 3px 10px 0px rgba(156, 131, 85, 0.871);
+    padding: 10px;
+  }
+` 
