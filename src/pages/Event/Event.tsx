@@ -186,57 +186,65 @@ const Event = () => {
   }, []);
 
   const handleDeleteClick = () => {
-    const handleDeleteEvent = async () => {
-      if (!currentUserUid || !id || !firestore) {
-        console.error("Not logged in.");
-        return;
-      }
-      try {
-        /* ---------------------------- delete event doc ---------------------------- */
-        const eventRef = doc(firestore, "Events", id);
-        const organizerRef = doc(firestore, "Members", currentUserUid);
-        await deleteDoc(eventRef);
-        console.log("Event deleted");
-        /* -------------------------- update organizer doc -------------------------- */
-        const organizerSnapshot = await getDoc(organizerRef);
-        if (organizerSnapshot.exists()) {
-          const organizerData = organizerSnapshot.data();
-          const organizedEvents = organizerData.organizedEvents || [];
-          const index = organizedEvents.indexOf(id);
-          if (index !== -1) {
-            organizedEvents.splice(index, 1);
-          }
-          await updateDoc(organizerRef, { organizedEvents: organizedEvents });
-          console.log("Organizer event removed.");
+    const confirmDelete: boolean = window.confirm(
+      "Are you sure to delete this event? This can not be undo."
+    );
+
+    if (confirmDelete) {
+      const handleDeleteEvent = async () => {
+        if (!currentUserUid || !id || !firestore) {
+          console.error("Not logged in.");
+          return;
         }
-        /* ------------------------- update paticipants doc ------------------------- */
-        const participantsCollectionRef = collection(firestore, "Member");
-        const participantsQuery = query(
-          participantsCollectionRef,
-          where("attendedEvents", "array-contains", id)
-        );
-        const participantsSnapshot = await getDocs(participantsQuery);
-
-        participantsSnapshot.forEach(async (participantDoc) => {
-          const participantData = participantDoc.data();
-          const participantEvents = participantData.participantEvents || [];
-
-          const eventIndex = participantEvents.indexOf(id);
-          if (eventIndex !== -1) {
-            participantEvents.splice(eventIndex, 1);
-            await updateDoc(participantDoc.ref, {
-              participantEvents: participantEvents,
-            });
-            console.log(
-              `Participant event removed successfully for user ${participantDoc.id}`
-            );
+        try {
+          /* ---------------------------- delete event doc ---------------------------- */
+          const eventRef = doc(firestore, "Events", id);
+          const organizerRef = doc(firestore, "Members", currentUserUid);
+          await deleteDoc(eventRef);
+          console.log("Event deleted");
+          /* -------------------------- update organizer doc -------------------------- */
+          const organizerSnapshot = await getDoc(organizerRef);
+          if (organizerSnapshot.exists()) {
+            const organizerData = organizerSnapshot.data();
+            const organizedEvents = organizerData.organizedEvents || [];
+            const index = organizedEvents.indexOf(id);
+            if (index !== -1) {
+              organizedEvents.splice(index, 1);
+            }
+            await updateDoc(organizerRef, { organizedEvents: organizedEvents });
+            console.log("Organizer event removed.");
           }
-        });
-      } catch (err: any) {
-        console.error("Error when deleting event : ", err.message);
-      }
-    };
-    handleDeleteEvent();
+          /* ------------------------- update paticipants doc ------------------------- */
+          const participantsCollectionRef = collection(firestore, "Member");
+          const participantsQuery = query(
+            participantsCollectionRef,
+            where("attendedEvents", "array-contains", id)
+          );
+          const participantsSnapshot = await getDocs(participantsQuery);
+
+          participantsSnapshot.forEach(async (participantDoc) => {
+            const participantData = participantDoc.data();
+            const participantEvents = participantData.participantEvents || [];
+
+            const eventIndex = participantEvents.indexOf(id);
+            if (eventIndex !== -1) {
+              participantEvents.splice(eventIndex, 1);
+              await updateDoc(participantDoc.ref, {
+                participantEvents: participantEvents,
+              });
+              console.log(
+                `Participant event removed successfully for user ${participantDoc.id}`
+              );
+            }
+          });
+        } catch (err: any) {
+          console.error("Error when deleting event : ", err.message);
+        }
+      };
+      handleDeleteEvent();
+      navigate("/events");
+      toaster.notify("Event deleted.");
+    }
   };
   const handleEditClick = () => {
     setIsEditing(true);
@@ -310,7 +318,9 @@ const Event = () => {
                   </>
                 ) : (
                   <>
-                    <button onClick={handleParticipateClick}>Participate event</button>
+                    <button onClick={handleParticipateClick}>
+                      Participate event
+                    </button>
                   </>
                 )}
               </>
