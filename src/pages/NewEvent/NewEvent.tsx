@@ -7,6 +7,9 @@ import {
   InputLabel,
   InputField,
   SubmitButton,
+  TagsDiv,
+  Tag,
+  BannerSection,
 } from "./NewEventStyle";
 import { addDoc, collection, updateDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -25,7 +28,7 @@ const NewEvent = () => {
   const [time, setTime] = useState("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const navigate = useNavigate();
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split("T")[0];
 
   const uploadCoverImg = async (file: File) => {
     const storageRef = ref(storage, `coverImages/${file.name}`);
@@ -52,8 +55,8 @@ const NewEvent = () => {
     } else {
       setSelectedTags((prevTags) => prevTags.filter((tag) => tag !== name));
     }
-  };  
-  
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const user = auth.currentUser;
@@ -80,198 +83,214 @@ const NewEvent = () => {
           text,
           date,
           tags,
-          time
+          time,
         };
-        const eventDocRef = await addDoc(collection(firestore, "Events"), eventData);
+        const eventDocRef = await addDoc(
+          collection(firestore, "Events"),
+          eventData
+        );
         const eventUid = eventDocRef.id;
         const updatedEventData = { ...eventData, eventUid };
         await updateDoc(eventDocRef, updatedEventData);
-        navigate('/events');
+        navigate("/events");
         console.log("Doc written with ID : ", eventDocRef.id);
       } catch (err) {
         console.error("Error adding event data : ", err);
       }
-    }
-    updateEventData()
+    };
+    updateEventData();
   };
 
   console.log(selectedTags);
 
-  useEffect (() => {
+  useEffect(() => {
     const user = getAuth();
     const unsubscribe = onAuthStateChanged(user, (user) => {
-      if(!user){
+      if (!user) {
         navigate("/login");
       }
-    })
+    });
     return unsubscribe;
-  },[navigate])
-
-
+  }, [navigate]);
 
   return (
     <Container>
-      <Wrapper>
+      <Wrapper elevation={10}>
+        <BannerSection></BannerSection>
         <FormSection onSubmit={handleSubmit}>
-          <FormTitle>新活動</FormTitle>
+          <FormTitle>NEW EVENT</FormTitle>
           <InputForm>
-            <InputLabel htmlFor="title">活動名稱</InputLabel>
+            <InputLabel htmlFor="title">Event Title</InputLabel>
             <InputField
               id="title"
-              placeholder="請輸入名稱"
+              placeholder="Enter the title"
               type="text"
               onChange={(e) => setTitle(e.target.value)}
               required
             />
-            <InputLabel htmlFor="text">活動內容</InputLabel>
+            <InputLabel htmlFor="text">Event content</InputLabel>
             <InputField
               id="text"
-              placeholder="請輸入活動內容"
+              placeholder="Enter the content"
               type="text"
               onChange={(e) => setText(e.target.value)}
               required
             />
-            <InputLabel htmlFor="date">活動日期</InputLabel>
+            <InputLabel htmlFor="date">Event Date</InputLabel>
             <InputField
               id="date"
-              placeholder="請輸入活動日期"
+              placeholder="Enter the event Date"
               type="date"
               min={today}
               onChange={(e) => setDate(e.target.value)}
               required
             />
-            <InputLabel htmlFor="time">活動時間</InputLabel>
+            <InputLabel htmlFor="time">Event Time</InputLabel>
             <InputField
               id="time"
-              placeholder="請輸入活動時間"
+              placeholder="Enter the event time"
               type="time"
               onChange={(e) => setTime(e.target.value)}
               required
             />
-            <InputLabel htmlFor="location">地點</InputLabel>
+            <InputLabel htmlFor="location">Location</InputLabel>
             <InputField
               id="location"
-              placeholder="請輸入地點"
+              placeholder="Enter the location"
               type="text"
               onChange={(e) => setLocation(e.target.value)}
               required
             />
-            <InputLabel htmlFor="number">最大人數</InputLabel>
+            <InputLabel htmlFor="number">Max People</InputLabel>
             <InputField
               id="number"
-              placeholder="最大人數"
+              placeholder="Enter max people number"
               type="number"
               min={1}
               onChange={(e) => setMaxParticipants(parseInt(e.target.value))}
               required
             />
-            <InputLabel htmlFor="pic">封面照片</InputLabel>
+            <InputLabel htmlFor="pic">Cover Image</InputLabel>
             <InputField
               id="pic"
-              placeholder="活動封面"
+              placeholder="Upload a cover image"
               type="file"
               onChange={(e) => setCoverImage(e.target.files?.[0] || null)}
             />
-            <InputLabel>
-              <input
-                type="checkbox"
-                name="singleMalt"
-                onChange={handleCheckboxChange}
-                checked={selectedTags.includes("singleMalt")}
-              />
-              單一麥芽
-            </InputLabel>
-            <InputLabel>
-              <input
-                type="checkbox"
-                name="blended"
-                onChange={handleCheckboxChange}
-                checked={selectedTags.includes("blended")}
-              />
-              調和
-            </InputLabel>
-            <InputLabel>
-              <input
-                type="checkbox"
-                name="newbie"
-                onChange={handleCheckboxChange}
-                checked={selectedTags.includes("newbie")}
-              />
-              新手友善
-            </InputLabel>
-            <InputLabel>
-              <input
-                type="checkbox"
-                name="theme"
-                onChange={handleCheckboxChange}
-                checked={selectedTags.includes("theme")}
-              />
-              主題品酒
-            </InputLabel>
-            <InputLabel>
-              <input
-                type="checkbox"
-                name="north"
-                onChange={handleCheckboxChange}
-                checked={selectedTags.includes("north")}
-              />
-              北部
-            </InputLabel>
-            <InputLabel>
-              <input
-                type="checkbox"
-                name="middle"
-                onChange={handleCheckboxChange}
-                checked={selectedTags.includes("middle")}
-              />
-              中部
-            </InputLabel>
-            <InputLabel>
-              <input
-                type="checkbox"
-                name="south"
-                onChange={handleCheckboxChange}
-              
-              />
-              南部
-            </InputLabel>
-            <InputLabel>
-              <input
-                type="checkbox"
-                name="scotland"
-                onChange={handleCheckboxChange}
-                checked={selectedTags.includes("scotland")}
-              />
-              蘇格蘭
-            </InputLabel>
-            <InputLabel>
-              <input
-                type="checkbox"
-                name="kentucky"
-                onChange={handleCheckboxChange}
-                checked={selectedTags.includes("kentucky")}
-              />
-              肯塔基
-            </InputLabel>
-            <InputLabel>
-              <input
-                type="checkbox"
-                name="ireland"
-                onChange={handleCheckboxChange}
-                checked={selectedTags.includes("ireland")}
-              />
-              愛爾蘭
-            </InputLabel>
-            <InputLabel>
-              <input
-                type="checkbox"
-                name="other"
-                onChange={handleCheckboxChange}
-                checked={selectedTags.includes("other")}
-              />
-              其他產區
-            </InputLabel>
-            <SubmitButton>舉辦新活動</SubmitButton>
+            <TagsDiv>
+              <Tag>
+                <InputLabel>Bourbon</InputLabel>
+                <InputField
+                  type="checkbox"
+                  name="Bourbon"
+                  onChange={handleCheckboxChange}
+                  checked={selectedTags.includes("bourbon")}
+                  className="checkbox"
+                />
+              </Tag>
+              <Tag>
+                <InputLabel>Blended</InputLabel>
+                <InputField
+                  type="checkbox"
+                  name="blended"
+                  onChange={handleCheckboxChange}
+                  checked={selectedTags.includes("blended")}
+                  className="checkbox"
+                />
+              </Tag>
+              <Tag>
+                <InputLabel>Newbie</InputLabel>
+                <InputField
+                  type="checkbox"
+                  name="newbie"
+                  onChange={handleCheckboxChange}
+                  checked={selectedTags.includes("newbie")}
+                  className="checkbox"
+                />
+              </Tag>
+              <Tag>
+                <InputLabel>Theme</InputLabel>
+
+                <InputField
+                  type="checkbox"
+                  name="theme"
+                  onChange={handleCheckboxChange}
+                  checked={selectedTags.includes("theme")}
+                  className="checkbox"
+                />
+              </Tag>
+              <Tag>
+                <InputLabel>North</InputLabel>
+                <InputField
+                  type="checkbox"
+                  name="north"
+                  onChange={handleCheckboxChange}
+                  checked={selectedTags.includes("north")}
+                  className="checkbox"
+                />
+              </Tag>
+              <Tag>
+                <InputLabel>Middle</InputLabel>
+                <InputField
+                  type="checkbox"
+                  name="middle"
+                  onChange={handleCheckboxChange}
+                  checked={selectedTags.includes("middle")}
+                  className="checkbox"
+                />
+              </Tag>
+              <Tag>
+                <InputLabel>South</InputLabel>
+                <InputField
+                  type="checkbox"
+                  name="south"
+                  onChange={handleCheckboxChange}
+                  checked={selectedTags.includes("south")}
+                  className="checkbox"
+                />
+              </Tag>
+              <Tag>
+                <InputLabel>Scotland</InputLabel>
+                <InputField
+                  type="checkbox"
+                  name="scotland"
+                  onChange={handleCheckboxChange}
+                  checked={selectedTags.includes("scotland")}
+                  className="checkbox"
+                />
+              </Tag>
+              <Tag>
+                <InputLabel>Kentucky</InputLabel>
+                <InputField
+                  type="checkbox"
+                  name="kentucky"
+                  onChange={handleCheckboxChange}
+                  checked={selectedTags.includes("kentucky")}
+                  className="checkbox"
+                />
+              </Tag>
+              <Tag>
+                <InputLabel>Ireland</InputLabel>
+                <InputField
+                  type="checkbox"
+                  name="ireland"
+                  onChange={handleCheckboxChange}
+                  checked={selectedTags.includes("ireland")}
+                  className="checkbox"
+                />
+              </Tag>
+              <Tag>
+                <InputLabel>Others</InputLabel>
+                <InputField
+                  type="checkbox"
+                  name="other"
+                  onChange={handleCheckboxChange}
+                  checked={selectedTags.includes("other")}
+                  className="checkbox"
+                />
+              </Tag>
+            </TagsDiv>
+            <SubmitButton>Submit</SubmitButton>
           </InputForm>
         </FormSection>
       </Wrapper>
