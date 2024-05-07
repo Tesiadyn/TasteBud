@@ -19,6 +19,8 @@ import {
   InfoDiv,
   SectionTitle,
   SectionDivider,
+  EventCards,
+  NoEventDiv,
 } from "./MemberStyle";
 
 interface WheelData {
@@ -156,7 +158,9 @@ const Member = () => {
               <Picture />
             </PictureDiv>
             <InfoDiv>
-              <InfoText>{userData?.userName}</InfoText>
+              <InfoText className="infoSectionText">
+                Hello! {userData?.userName}
+              </InfoText>
               <InfoText>{userData?.email}</InfoText>
               <InfoText>{userData?.userUid}</InfoText>
             </InfoDiv>
@@ -165,34 +169,66 @@ const Member = () => {
           <OrganizedEventsSection>
             <SectionTitle>Organized Events</SectionTitle>
             <SectionDivider />
-            {organizedEventsData.map((event, index) => (
-              <PageLink to={`/event/${event.eventUid}`} key={index}>
-                <EventCard>
-                  <InfoText className="eventCardText">{event.title}</InfoText>
-                  <InfoText className="eventCardText">{event.date}</InfoText>
-                  <InfoText className="eventCardText">
-                    {event.location}
-                  </InfoText>
-                </EventCard>
-              </PageLink>
-            ))}
+            <EventCards>
+              {organizedEventsData.length > 0 ? (
+                organizedEventsData.map((event, index) => (
+                  <PageLink
+                    to={`/event/${event.eventUid}`}
+                    key={index}
+                    className="eventLink"
+                  >
+                    <EventCard>
+                      <InfoText className="eventCardText">
+                        {event.title}
+                      </InfoText>
+                      <InfoText className="eventCardText">
+                        {event.date}
+                      </InfoText>
+                      <InfoText className="eventCardText">
+                        {event.location}
+                      </InfoText>
+                    </EventCard>
+                  </PageLink>
+                ))
+              ) : (
+                <>
+                  <NoEventDiv>
+                    <InfoText>No events yet, go to </InfoText>
+                    <PageLink className="noEventText" to="/events">
+                      events list
+                    </PageLink>
+                  </NoEventDiv>
+                </>
+              )}
+            </EventCards>
           </OrganizedEventsSection>
 
           <ParticipatedEventsSection>
             <SectionTitle>Participated Events</SectionTitle>
             <SectionDivider />
-            {eventData.map((event, index) => (
-              <PageLink to={`/event/${event.eventUid}`} key={index}>
-                <EventCard>
-                  <InfoText className="eventCardText">{event.title}</InfoText>
-                  <InfoText className="eventCardText">{event.date}</InfoText>
-                  <InfoText className="eventCardText">{event.time}</InfoText>
-                  <InfoText className="eventCardText">
-                    {event.location}
-                  </InfoText>
-                </EventCard>
-              </PageLink>
-            ))}
+            {eventData.length > 0 ? (
+              eventData.map((event, index) => (
+                <PageLink to={`/event/${event.eventUid}`} key={index}>
+                  <EventCard>
+                    <InfoText className="eventCardText">{event.title}</InfoText>
+                    <InfoText className="eventCardText">{event.date}</InfoText>
+                    <InfoText className="eventCardText">{event.time}</InfoText>
+                    <InfoText className="eventCardText">
+                      {event.location}
+                    </InfoText>
+                  </EventCard>
+                </PageLink>
+              ))
+            ) : (
+              <>
+                <NoEventDiv>
+                  <InfoText>No events yet, go to </InfoText>
+                  <PageLink className="noEventText" to="/events">
+                    events list
+                  </PageLink>
+                </NoEventDiv>
+              </>
+            )}
           </ParticipatedEventsSection>
 
           <WheelSection>
