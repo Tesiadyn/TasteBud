@@ -20,13 +20,14 @@ import {
   TreeList,
   SubmitButton,
   InputSection,
-  SectionTitle
+  SectionTitle,
 } from "./PostStyle";
 import { toaster } from "evergreen-ui";
 import "./PostStyles.css";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
+import initWheelData from "../../pages/Product/initData.json";
 
 const db = firestore;
 const auth = getAuth();
@@ -65,13 +66,13 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
       return updatedNode;
     });
   };
-  const addCommentDoc = async (parsedData: object) => {
+  const addCommentDoc = async (parsedData: object, parsedInitData: object) => {
     try {
       const user = auth.currentUser;
       const productUid = id?.toString();
       const authorUid = user?.uid;
       const authorName = user?.displayName;
-      const wheelData = parsedData;
+      const wheelData = parsedInitData;
       const commentData = {
         authorName,
         authorUid,
@@ -113,6 +114,7 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
     console.log("handleSubmit running...");
 
     const parsedData = JSON.parse(JSON.stringify(data));
+    const parsedInitData = JSON.parse(JSON.stringify(initWheelData));
 
     const updateNodeValueInData = (nodes: TreeNode[], nodeName: string) => {
       nodes.forEach((node) => {
@@ -130,10 +132,11 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
     checkboxes.forEach((checkbox) => {
       if (checkbox.checked) {
         updateNodeValueInData(parsedData.children || [], checkbox.id);
+        updateNodeValueInData(parsedInitData.children || [], checkbox.id);
       }
     });
     // console.log(parsedData);
-    addCommentDoc(parsedData);
+    addCommentDoc(parsedData, parsedInitData);
     toaster.success("Submit Success!");
     navigate("/products");
   };
@@ -170,12 +173,11 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
               {renderTreeNode(node)}
             </div>
           ))}
-            <ReactQuill
-              theme="snow"
-              value={quillValue}
-              onChange={setQuillValue}
-            />
-          
+          <ReactQuill
+            theme="snow"
+            value={quillValue}
+            onChange={setQuillValue}
+          />
 
           <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
         </>
@@ -232,12 +234,12 @@ const Post: React.FC = () => {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-          <InputSection>
+        <InputSection>
           <SectionTitle>Flavours</SectionTitle>
-            <CheckboxTreeWrapper>
-              <CheckboxTree data={parsedNodeData} />
-            </CheckboxTreeWrapper>
-          </InputSection>
+          <CheckboxTreeWrapper>
+            <CheckboxTree data={parsedNodeData} />
+          </CheckboxTreeWrapper>
+        </InputSection>
       )}
     </>
   );
