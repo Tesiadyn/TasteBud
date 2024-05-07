@@ -17,6 +17,11 @@ import {
   ProductIntroText,
   InfoDivDivider,
   DivDivider,
+  WheelDiv,
+  CommentWrapper,
+  UserNameText,
+  CommentTextDiv,
+  CommentCardDivider,
 } from "./ProductStyle";
 import { useParams } from "react-router-dom";
 import { firestore } from "../../utilities/firebase";
@@ -76,7 +81,7 @@ const Product = () => {
           (doc) => doc.data() as CommentData
         );
         console.log(commentData);
-      
+
         setCommentData(commentData);
       } catch (err) {
         console.error("Error when fatching product data : ", err);
@@ -122,20 +127,26 @@ const Product = () => {
             </InfoSection>
           </InfoDiv>
 
-          <DivDivider />
-
           <CommentDiv>
             {commentData.length > 0 ? (
               commentData.map((comment, index) => (
                 <>
-                <CommentCard key={index}>
-                  <div
-                    dangerouslySetInnerHTML={{ __html: comment.quillValue }}
-                  />
-                  --- {comment.authorName}
-                  {comment.commentText}
-                </CommentCard>
-               <MiniFlavourWheel data={comment.wheelData as WheelData}/>
+                  <CommentWrapper>
+                    <WheelDiv>
+                      <MiniFlavourWheel data={comment.wheelData as WheelData} />
+                    </WheelDiv>
+                    <CommentCard key={index}>
+                      <UserNameText>{comment.authorName}</UserNameText>
+                      <CommentCardDivider />
+                      <CommentTextDiv>
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: comment.quillValue,
+                          }}
+                        />
+                      </CommentTextDiv>
+                    </CommentCard>
+                  </CommentWrapper>
                 </>
               ))
             ) : (

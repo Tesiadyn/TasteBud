@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-
 interface TogglerProps {
   isActive: boolean;
 }
@@ -87,6 +86,11 @@ export const PostCommentBtn = styled(Link)`
     text-align: center;
   }
 `;
+export const WheelDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 30px 0 0;
+`;
 export const InfoSection = styled.div`
   width: 100%;
   padding: 20px 35px;
@@ -130,13 +134,27 @@ export const NoCommentsHint = styled.h3`
 `;
 export const CommentCard = styled.div`
   height: 100px;
-  border: 1px solid #b6b6b6;
   border-radius: 8px;
   padding: 15px;
-  box-shadow: 3px 3px 5px 2px rgba(89, 89, 89, 0.2);
-  margin: 30px auto;
 `;
 export const CommentDiv = styled.div`
   flex: 1;
   padding: 0 50px;
 `;
+export const CommentWrapper = styled.div`
+  border: 1px solid #b6b6b6;
+  margin: 20px 0;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 3px 3px 5px 2px rgba(89, 89, 89, 0.3);
+`;
+export const UserNameText = styled.h3`
+  text-align: center;
+`;
+export const CommentCardDivider = styled.div`
+  height: 2px;
+  background-color: #b6b3b0;
+  width: 70%;
+  margin: 0 auto;
+`;
+export const CommentTextDiv = styled.div``;
