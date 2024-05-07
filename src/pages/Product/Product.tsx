@@ -21,7 +21,7 @@ import {
 import { useParams } from "react-router-dom";
 import { firestore } from "../../utilities/firebase";
 import { query, where, getDocs, collection } from "firebase/firestore";
-
+import MiniFlavourWheel from "./MiniFlavourWheel";
 interface ProductData {
   bottler: string;
   caskType: string;
@@ -33,19 +33,26 @@ interface ProductData {
   productUid: string;
   introText: string;
 }
+interface WheelData {
+  name: string;
+  value?: number;
+  children?: WheelData[];
+}
+
 interface CommentData {
   authorUid: string;
   commentText: string;
   productUid: string;
-  wheelData: object;
   quillValue: string;
   authorName: string;
+  wheelData: WheelData | WheelData[];
 }
 
 const Product = () => {
   const { id } = useParams();
   const [productData, setProductData] = useState<ProductData | null>(null);
   const [commentData, setCommentData] = useState<CommentData[]>([]);
+
   const db = firestore;
 
   useEffect(() => {
@@ -68,6 +75,8 @@ const Product = () => {
         const commentData = commentQuerySnapshot.docs.map(
           (doc) => doc.data() as CommentData
         );
+        console.log(commentData);
+      
         setCommentData(commentData);
       } catch (err) {
         console.error("Error when fatching product data : ", err);
@@ -118,6 +127,7 @@ const Product = () => {
           <CommentDiv>
             {commentData.length > 0 ? (
               commentData.map((comment, index) => (
+                <>
                 <CommentCard key={index}>
                   <div
                     dangerouslySetInnerHTML={{ __html: comment.quillValue }}
@@ -125,6 +135,8 @@ const Product = () => {
                   --- {comment.authorName}
                   {comment.commentText}
                 </CommentCard>
+               <MiniFlavourWheel data={comment.wheelData as WheelData}/>
+                </>
               ))
             ) : (
               <>
