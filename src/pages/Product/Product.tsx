@@ -16,7 +16,6 @@ import {
   CommentDiv,
   ProductIntroText,
   InfoDivDivider,
-  DivDivider,
   WheelDiv,
   CommentWrapper,
   UserNameText,
