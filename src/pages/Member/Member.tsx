@@ -7,13 +7,18 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   Container,
   InfoSection,
-  InfoText,
   PageLink,
-  SectionTitle,
   WheelSection,
   Wrapper,
+  OrganizedEventsSection,
+  ParticipatedEventsSection,
+  EventCard,
+  PictureDiv,
+  Picture,
+  InfoText,
   InfoDiv,
-  InfoTitle,
+  SectionTitle,
+  SectionDivider,
 } from "./MemberStyle";
 
 interface WheelData {
@@ -47,7 +52,9 @@ const Member = () => {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [eventData, setEventData] = useState<Array<EventData>>([]);
-  const [organizedEventsData, setOrganizedEventsData] = useState<Array<EventData>>([]);
+  const [organizedEventsData, setOrganizedEventsData] = useState<
+    Array<EventData>
+  >([]);
 
   const navigate = useNavigate();
   const db = firestore;
@@ -105,24 +112,20 @@ const Member = () => {
   };
 
   const fetchOrganizedEventsData = async (userUid: string) => {
-    try{
+    try {
       const organizedEventsRef = collection(db, "Events");
-      const q = query(
-        organizedEventsRef,
-        where("organizerUid", "==", userUid)
-      );
+      const q = query(organizedEventsRef, where("organizerUid", "==", userUid));
       const querySnapshot = await getDocs(q);
-      
+
       const newData = querySnapshot.docs.map((doc) => {
         const eventDataFromFirestore = doc.data() as EventData;
         return eventDataFromFirestore;
-      })
+      });
       setOrganizedEventsData(newData);
-    } catch (err:any) {
-      console.error("Error when fetching organized events : ", err.message)
+    } catch (err: any) {
+      console.error("Error when fetching organized events : ", err.message);
     }
-  }
-
+  };
 
   useEffect(() => {
     const user = getAuth();
@@ -148,42 +151,55 @@ const Member = () => {
     <>
       <Container>
         <Wrapper>
-          <WheelSection>
-            {wheelData ? <FlavourWheel data={wheelData} /> : null}
-          </WheelSection>
-          <SectionTitle>Hello! {userData?.userName}</SectionTitle>
           <InfoSection>
+            <PictureDiv>
+              <Picture />
+            </PictureDiv>
             <InfoDiv>
-              <InfoTitle>Email</InfoTitle>
+              <InfoText>{userData?.userName}</InfoText>
               <InfoText>{userData?.email}</InfoText>
-            </InfoDiv>
-            <InfoDiv>
-              <InfoTitle>UID</InfoTitle>
               <InfoText>{userData?.userUid}</InfoText>
             </InfoDiv>
-            <InfoDiv>
-              <InfoTitle>我參加的活動</InfoTitle>
-              {eventData.map((event, index) => (
-                <PageLink to={`/event/${event.eventUid}`} key={index}>
-                  <InfoText>活動標題{event.title}</InfoText>
-                  <InfoText>活動日期{event.date}</InfoText>
-                  <InfoText>活動日期{event.time}</InfoText>
-                  <InfoText>活動地點{event.location}</InfoText>
-                </PageLink>
-              ))}
-            </InfoDiv>
-            <InfoDiv>
-              <InfoTitle>舉辦的活動</InfoTitle>
-              {organizedEventsData.map((event, index) => (
-                <PageLink to={`/event/${event.eventUid}`} key={index}>
-                  <InfoText>活動標題{event.title}</InfoText>
-                  <InfoText>活動日期{event.date}</InfoText>
-                  <InfoText>活動日期{event.time}</InfoText>
-                  <InfoText>活動地點{event.location}</InfoText>
-                </PageLink>
-              ))}
-            </InfoDiv>
           </InfoSection>
+
+          <OrganizedEventsSection>
+            <SectionTitle>Organized Events</SectionTitle>
+            <SectionDivider />
+            {organizedEventsData.map((event, index) => (
+              <PageLink to={`/event/${event.eventUid}`} key={index}>
+                <EventCard>
+                  <InfoText className="eventCardText">{event.title}</InfoText>
+                  <InfoText className="eventCardText">{event.date}</InfoText>
+                  <InfoText className="eventCardText">
+                    {event.location}
+                  </InfoText>
+                </EventCard>
+              </PageLink>
+            ))}
+          </OrganizedEventsSection>
+
+          <ParticipatedEventsSection>
+            <SectionTitle>Participated Events</SectionTitle>
+            <SectionDivider />
+            {eventData.map((event, index) => (
+              <PageLink to={`/event/${event.eventUid}`} key={index}>
+                <EventCard>
+                  <InfoText className="eventCardText">{event.title}</InfoText>
+                  <InfoText className="eventCardText">{event.date}</InfoText>
+                  <InfoText className="eventCardText">{event.time}</InfoText>
+                  <InfoText className="eventCardText">
+                    {event.location}
+                  </InfoText>
+                </EventCard>
+              </PageLink>
+            ))}
+          </ParticipatedEventsSection>
+
+          <WheelSection>
+            <SectionTitle>FlavourWheel</SectionTitle>
+            <SectionDivider />
+            {wheelData ? <FlavourWheel data={wheelData} /> : null}
+          </WheelSection>
         </Wrapper>
       </Container>
     </>
