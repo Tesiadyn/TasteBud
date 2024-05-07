@@ -96,6 +96,7 @@ const FeatureSection = styled(({ ...props }) => {
   background-color: #e9e2db;
 `;
 /* ---------------------------- feature animation --------------------------- */
+/* ----------------------------- card animation ----------------------------- */
 const ArticleCardWrapper = styled.div`
   opacity: 0;
   transform: translateX(50px);
@@ -133,7 +134,7 @@ const ArticleCard = styled(({ ...props }) => {
     opacity: 0.7;
   }
 `;
-
+/* -------------------------------- card animation ------------------------------- */
 const theme = createTheme({
   palette: {
     background: {
