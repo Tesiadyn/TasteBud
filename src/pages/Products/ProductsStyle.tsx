@@ -25,7 +25,9 @@ export const PageSubtitle = styled.h3`
   text-align: center;
   color: #f7f7f7;
 `;
-
+export const CardWrapper = styled.div`
+  width: 25%;
+`;
 
 export const Container = styled(Paper)`
   width: 100%;
@@ -45,12 +47,11 @@ export const SectionTitle = styled.h2`
 export const Cards = styled.section`
   margin: 0 auto;
   display: flex;
-  justify-content: center;
-  gap: 30px;
+  /* gap: 30px; */
   flex-wrap: wrap;
 `;
 export const Card = styled(Link)`
-  width: 20%;
+  width: 100%;
   height: 300px;
   /* background-color: #b66d6d; */
   display: flex;
@@ -68,6 +69,7 @@ export const Card = styled(Link)`
 export const CardImgDiv = styled.div`
   width: 250px;
   height: 250px;
+  margin: 0 auto;
   background-position: center;
   border-radius: 16px;
   position: relative;

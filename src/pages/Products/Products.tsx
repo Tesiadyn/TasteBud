@@ -11,12 +11,16 @@ import {
   CardImgBg,
   BannerSection,
   PageTitle,
-  PageSubtitle
+  PageSubtitle,
+  CardWrapper,
 } from "./ProductsStyle.tsx";
 import { firestore } from "../../utilities/firebase.tsx";
 import { collection, getDocs, query } from "firebase/firestore";
-import { useEffect, useState } from "react";
-// import TestImg from "../../assets/test.png";
+import { useEffect, useState, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
+
 interface ProductsData {
   bottler: string;
   caskType: string;
@@ -30,6 +34,7 @@ interface ProductsData {
 
 const Products = () => {
   const [productsData, setProductsData] = useState<Array<ProductsData>>([]);
+  const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   useEffect(() => {
     const fetchProductsData = async () => {
@@ -50,6 +55,26 @@ const Products = () => {
   }, []);
   console.log(productsData);
 
+  useEffect(() => {
+    cardRefs.current.forEach((cardRef, index) => {
+      if (cardRef) {
+        gsap.fromTo(
+          cardRef,
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            scrollTrigger: {
+              trigger: cardRef,
+              start: "top 80%",
+            },
+            delay: index * 0.2,
+          }
+        );
+      }
+    });
+  }, [productsData]);
+
   return (
     <Container elevation={10} sx={{ bgcolor: "#f7f7f7" }}>
       <BannerSection>
@@ -59,17 +84,19 @@ const Products = () => {
       <Wrapper>
         <Cards>
           {productsData.map((product, index) => (
-            <Card key={index} to={`/product/${product.productUid}`}>
-              <CardImgDiv>
-                <CardImgBg />
-                <CardImg src={product.picture} />
-              </CardImgDiv>
-              <CardInfoDiv>
-                <CardInfos>
-                  <CardInfoTitle>{product.title}</CardInfoTitle>
-                </CardInfos>
-              </CardInfoDiv>
-            </Card>
+            <CardWrapper ref={(el) => (cardRefs.current[index] = el)}>
+              <Card key={index} to={`/product/${product.productUid}`}>
+                <CardImgDiv>
+                  <CardImgBg />
+                  <CardImg src={product.picture} />
+                </CardImgDiv>
+                <CardInfoDiv>
+                  <CardInfos>
+                    <CardInfoTitle>{product.title}</CardInfoTitle>
+                  </CardInfos>
+                </CardInfoDiv>
+              </Card>
+            </CardWrapper>
           ))}
         </Cards>
       </Wrapper>
