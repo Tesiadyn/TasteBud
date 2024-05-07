@@ -77,10 +77,10 @@ export const PromoBannerImgDiv = styled.div`
 export const PromoBannerImg = styled.img`
   height: 100%;
 `;
-export const FeaturesSection = styled(Paper)`
-  /* width: 100%; */
-  padding: 50px;
-`;
+// export const FeaturesSection = styled(Paper)`
+//   /* width: 100%; */
+//   padding: 50px;
+// `; elevation={12} sx={{ bgcolor: "#e9e2db" }
 export const FeaturesDiv = styled.div`
   width: 1280px;
   margin: 0 auto;
@@ -88,10 +88,12 @@ export const FeaturesDiv = styled.div`
 export const FeaturesTitle = styled.h2`
   font-size: 52px;
   margin: 0;
+  color: #5e3106;
 `;
 export const FeatureSubTitle = styled.h2`
   font-size: 48px;
   margin: 0;
+  color: #5e3106;
 `;
 export const FeatureCards = styled.div`
   width: 80%;
@@ -147,7 +149,7 @@ export const FeatureCardTitle = styled.h3`
 `;
 export const FeatureCardText = styled.p`
   margin: 0;
-  line-height: 1.25;
+  line-height: 1.5;
   color: #9c602c;
 `;
 export const ArticleSection = styled(Paper)`
@@ -175,17 +177,17 @@ export const ArticleCards = styled.div`
   gap: 40px;
   margin: 0 auto;
 `;
-export const ArticleCard = styled.div`
-  background-color: #e2d0b7;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-  border-radius: 12px;
-  &.hover {
-    opacity: 0.7;
-  }
-`;
+// export const ArticleCard = styled.div`
+//   background-color: #e2d0b7;
+//   display: flex;
+//   flex-direction: column;
+//   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+//     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+//   border-radius: 12px;
+//   &.hover {
+//     opacity: 0.7;
+//   }
+// `;
 export const ArticleCardImgDiv = styled.div<backgroundImgUrlProps>`
   background-image: url(${(props) => props.$backgroundImageUrl});
   background-size: cover;
@@ -208,10 +210,13 @@ export const ArticleCardTitle = styled.h3`
   font-weight: 500;
 `;
 export const ArticleCardText = styled.p``;
-export const ArticlesLink = styled(Button)`
-  border: 1px solid #a1803e;
+export const ArticlesLink = styled.button`
+  border: 1px solid #a5550b;
   margin: 50px auto;
-  color: #a1803e;
+  padding: 8px 12px;
+  color: #a5550b;
+  border-radius: 12px;
+  transition: all 0.2s;
 `;
 export const ProductSection = styled.section`
   width: 80%;

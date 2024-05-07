@@ -4,7 +4,6 @@ import {
   PromoBannerTitle,
   PromoBannerText,
   ArticleSectionTitle,
-  ArticleCard,
   ArticleCards,
   ArticleCardTitle,
   ArticleSection,
@@ -23,7 +22,6 @@ import {
   PromoBannerSubTitle,
   PromoBannerIconDiv,
   PromoBannerImg,
-  FeaturesSection,
   FeaturesDiv,
   FeatureCardsDiv,
   FeaturesTitle,
@@ -41,7 +39,7 @@ import {
   ArticleCardImgDiv,
   ArticleCardInfoDiv,
 } from "./HomeStyle";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { firestore } from "../../utilities/firebase.tsx";
 import { collection, getDocs, query } from "firebase/firestore";
 import PromoBannerIcon from "../../assets/promoBannerIcon.png";
@@ -57,6 +55,84 @@ import "swiper/css/navigation";
 import "./HomeStyles.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import FeatureBannerImage from "../../assets/featureBanner.jpg";
+
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import styled from "styled-components";
+
+gsap.registerPlugin(ScrollTrigger);
+
+/* ---------------------------- feature animation --------------------------- */
+const FeatureSectionWrapper = styled.div`
+  opacity: 0;
+  transform: translateY(50px);
+`;
+const FeatureSection = styled(({ ...props }) => {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    gsap.fromTo(
+      section,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 2,
+        scrollTrigger: {
+          trigger: section,
+          start: "top 60%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse",
+        },
+      }
+    );
+  }, []);
+
+  return <FeatureSectionWrapper ref={sectionRef} {...props} />;
+})`
+  padding: 50px;
+  background-color: #e9e2db;
+`;
+/* ---------------------------- feature animation --------------------------- */
+const ArticleCardWrapper = styled.div`
+  opacity: 0;
+  transform: translateX(50px);
+`;
+const ArticleCard = styled(({ ...props }) => {
+  const cardRef = useRef(null);
+  useEffect(() => {
+    const section = cardRef.current;
+
+    gsap.fromTo(
+      section,
+      { opacity: 0, x: -100 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 2,
+        scrollTrigger: {
+          trigger: section,
+          start: "top 70%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse",
+        },
+      }
+    );
+  }, []);
+  return <ArticleCardWrapper ref={cardRef} {...props} />;
+})`
+  background-color: #e2d0b7;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  &.hover {
+    opacity: 0.7;
+  }
+`;
 
 const theme = createTheme({
   palette: {
@@ -149,7 +225,7 @@ const Home = () => {
               </PromoBannerText>
             </PromoBannerInfoDiv>
           </PromoBannerSection>
-          <FeaturesSection elevation={12} sx={{ bgcolor: "#e9e2db" }}>
+          <FeatureSection>
             <FeaturesDiv>
               <FeaturesTitle>WHAT IS TASTEBUD?</FeaturesTitle>
               <FeatureSubTitle>THIS IS OUR MAIN FEATURES.</FeatureSubTitle>
@@ -213,7 +289,7 @@ const Home = () => {
                 </FeatureCards>
               </FeatureCardsDiv>
             </FeaturesDiv>
-          </FeaturesSection>
+          </FeatureSection>
           <ArticleSection elevation={12} sx={{ bgcolor: "#ddd4c5" }}>
             <ArticleSectionTitle>Latest Articles</ArticleSectionTitle>
             {/* <SectionTitleDivider /> */}
@@ -269,7 +345,7 @@ const Home = () => {
                           className="productLink"
                           to={`/product/${data.productUid}`}
                         >
-                          詳細資訊
+                          Learn More
                         </PageLink>
                       </ProductCardInfoDiv>
                     </ProductCard>
