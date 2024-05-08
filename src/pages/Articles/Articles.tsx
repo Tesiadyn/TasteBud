@@ -164,7 +164,7 @@ const Articles = () => {
   };
 
   return (
-    <Container elevation={8} sx={{ bgcolor: "#e7e7e7" }}>
+    <Container>
       <BannerSection>
         <PageTitle>Articles</PageTitle>
         <PageSubtitle>Dive into the world of whisky!</PageSubtitle>

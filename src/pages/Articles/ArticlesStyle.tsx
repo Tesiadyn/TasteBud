@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { Paper } from "@mui/material";
 import Banner from "../../assets/articles-Banner.jpg";
 export const PageLink = styled(Link)`
   text-decoration: none;
 `;
-export const Container = styled(Paper)`
+export const Container = styled.div`
   width: 100%;
   background-color: #cecece;
+  min-height: calc(100vh - 270px);
 `;
 
 export const Wrapper = styled.div`
@@ -28,6 +28,7 @@ export const PageTitle = styled.h1`
   margin: 0;
   text-align: center;
   color: #f7f7f7;
+  font-size: 44px;
 `;
 export const PageSubtitle = styled.h3`
   font-size: 18px;
