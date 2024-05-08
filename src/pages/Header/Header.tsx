@@ -25,7 +25,7 @@ const Header = () => {
     try {
       await signOut(auth);
       console.log("user logged out");
-      toaster.notify("您已成功登出");
+      toaster.notify("Log out succeed!");
       navigate("/");
     } catch (err: any) {
       console.error("Error when logging out: ", err.message);

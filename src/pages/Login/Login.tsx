@@ -41,7 +41,7 @@ const Login = () => {
       })
       .catch((err) => {
         console.error("Error when signing in : ", err.message);
-        toaster.danger("帳號或密碼錯誤");
+        toaster.danger("Accout is not existed or password wrong!");
       });
   };
 
