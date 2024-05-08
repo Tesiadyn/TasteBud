@@ -158,7 +158,6 @@ const Member = () => {
                 Hello! {userData?.userName}
               </InfoText>
               <InfoText>{userData?.email}</InfoText>
-              <InfoText>1</InfoText>
             </InfoSection>
             <OrganizedEventsSection>
               <SectionTitle>Organized Events</SectionTitle>
@@ -192,7 +191,7 @@ const Member = () => {
                     <NoEventDiv>
                       <InfoText>No events yet, go to </InfoText>
                       <PageLink className="noEventText" to="/events">
-                        events list
+                        Events list
                       </PageLink>
                     </NoEventDiv>
                   </>
@@ -231,7 +230,7 @@ const Member = () => {
                   <NoEventDiv>
                     <InfoText>No events yet, go to </InfoText>
                     <PageLink className="noEventText" to="/events">
-                      events list
+                      Events list
                     </PageLink>
                   </NoEventDiv>
                 </>

@@ -10,11 +10,22 @@ export const PageLink = styled(Link)`
   }
   &.noEventText {
     font-weight: 500;
-    color: #5e3106;
-    border: 1px solid #5e3106;
-    margin: 20px auto 0; 
+    color: #f7f7f7;
+    margin: 30px auto 0;
     display: block;
-    width: 30%;
+    width: 20%;
+    background-color: #a5550b;
+    box-shadow: 2px 3px 6px 1px rgb(202, 91, 0, 0.55);
+    border-radius: 12px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    &:hover {
+      background-color: #be722c;
+    }
+    &:active {
+      box-shadow: 1px 1px 7px 0px rgb(212, 107, 20, 0.75);
+    }
   }
 `;
 export const Container = styled.div`
@@ -39,6 +50,7 @@ export const InfoSection = styled.section`
   display: flex;
   flex-direction: column;
   text-align: center;
+  margin-bottom: 75px;
 `;
 export const PictureDiv = styled.div``;
 export const Picture = styled.img``;
@@ -47,8 +59,8 @@ export const InfoDiv = styled.div`
   color: #5e3106;
 `;
 export const WheelDiv = styled.div`
-    width: 50%;
-`
+  width: 50%;
+`;
 export const OrganizedEventsSection = styled.section`
   width: 100%;
   margin-bottom: 100px;
