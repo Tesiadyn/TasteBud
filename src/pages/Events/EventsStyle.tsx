@@ -15,6 +15,7 @@ export const PageTitle = styled.h1`
   margin: 0;
   text-align: center;
   color: #f7f7f7;
+  font-size: 44px;
 `;
 export const PageSubtitle = styled.h3`
   font-size: 18px;
@@ -84,13 +85,13 @@ export const EventCard = styled.div`
   background-color: #b9a79a;
   display: flex;
   flex-direction: column;
-  padding: 20px 20px 10px;
+  padding: 20px;
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 `;
 export const EventCardImgDiv = styled.div`
   margin: 0 auto;
-  width: 50%;
+  width: 100%;
   height: 50%;
 `;
 export const EventCardImg = styled.img`
