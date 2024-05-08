@@ -21,6 +21,7 @@ import {
   UserNameText,
   CommentTextDiv,
   CommentCardDivider,
+  PageLink,
 } from "./ProductStyle";
 import { useParams } from "react-router-dom";
 import { firestore } from "../../utilities/firebase";
@@ -124,6 +125,8 @@ const Product = () => {
               <ProductInfoText>Alc: {productData?.strength}%</ProductInfoText>
               <ProductInfoText>Size: {productData?.size} ml</ProductInfoText>
             </InfoSection>
+            <InfoDivDivider />
+            <PageLink to="/products">Back to Product List</PageLink>
           </InfoDiv>
 
           <CommentDiv>

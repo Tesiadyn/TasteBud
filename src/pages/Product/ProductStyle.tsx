@@ -4,7 +4,14 @@ import { Link } from "react-router-dom";
 interface TogglerProps {
   isActive: boolean;
 }
-
+export const PageLink = styled(Link)`
+  font-size: 16px;
+  text-decoration: underline;
+  color: #5e3106;
+  margin: 30px 35px;
+  border-radius: 12px;
+  font-weight: 500;
+`
 export const Container = styled.div`
   width: 100%;
   margin: 0 auto;
@@ -76,11 +83,19 @@ export const PostCommentBtn = styled(Link)`
   padding: 10px;
   text-decoration: none;
   text-align: center;
-  border-radius: 8px;
+  border-radius: 12px;
   color: #f7f7f7;
-  box-shadow: 3px 3px 5px 2px rgba(89, 89, 89, 0.3);
+  box-shadow: 2px 3px 6px 1px rgb(202, 91, 0, 0.55);
   margin-left: auto;
   margin-top: 30px;
+  cursor: pointer;
+  transition: all 0.2s;
+  &:hover {
+    background-color: #be722c;
+  }
+  &:active {
+    box-shadow: 1px 1px 7px 0px rgb(212, 107, 20, 0.75);
+  }
   &.noCommentsBtn {
     display: inline-block;
     text-align: center;
