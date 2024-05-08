@@ -31,7 +31,7 @@ const FlavourWheel: React.FC<{ data: Data }> = ({ data }) => {
   const svgRef = React.useRef<SVGSVGElement>(null);
 
   useEffect(() => {
-    const width = 750;
+    const width = 700;
     const height = width;
     const radius = width / 6;
 
@@ -198,7 +198,7 @@ const FlavourWheel: React.FC<{ data: Data }> = ({ data }) => {
     }
   }, [data]);
 
-  return <svg ref={svgRef} width={750} height={750}></svg>;
+  return <svg ref={svgRef} width={700} height={700}></svg>;
 };
 
 export default FlavourWheel;
