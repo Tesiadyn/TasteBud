@@ -234,7 +234,19 @@ const Member = () => {
           <WheelSection>
             <SectionTitle>FlavourWheel</SectionTitle>
             <SectionDivider />
-            {wheelData ? <FlavourWheel data={wheelData} /> : null}
+            {wheelData ? (
+              <FlavourWheel data={wheelData} />
+            ) : (
+              <NoEventDiv>
+                <InfoText>
+                  No datas yet, share some comments to get your own flavour
+                  wheel!
+                </InfoText>
+                <PageLink className="noEventText" to="/products">
+                  products
+                </PageLink>
+              </NoEventDiv>
+            )}
           </WheelSection>
         </Wrapper>
       </Container>
