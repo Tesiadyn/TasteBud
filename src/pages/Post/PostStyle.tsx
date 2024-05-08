@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 export const InputSection = styled.section`
   width: 100%;
   background-color: #f7f7f7;
@@ -11,7 +10,7 @@ export const SectionTitle = styled.h2`
   text-align: center;
   margin: 30px 0;
   font-size: 36px;
-`
+`;
 export const FlavourForm = styled.form``;
 export const CheckboxTreeWrapper = styled.div`
   display: flex;
@@ -46,10 +45,24 @@ export const TreeItem = styled.li`
   }
 `;
 export const SubmitButton = styled.button`
-  width: 70px;
+  /* width: 70px; */
   height: 40px;
+  background-color: #a5550b;
+  box-shadow: 2px 3px 6px 1px rgb(202, 91, 0, 0.55);
+  color: #f7f7f7;
+  border-radius: 12px;
+  padding: 0 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  &:hover {
+    background-color: #be722c;
+  }
+  &:active {
+    box-shadow: 1px 1px 7px 0px rgb(212, 107, 20, 0.75);
+  }
 `;
 export const EditorDiv = styled.div`
   width: 350px;
   height: 200px;
-`
+`;
