@@ -43,7 +43,7 @@ export const PromoBannerInfoDiv = styled.div`
   text-align: center;
 `;
 export const PromoBannerTitle = styled.h1`
-  font-size: 64px;
+  font-size: 68px;
   color: #f7f7f7;
   width: 100%;
   margin: 0;
@@ -52,13 +52,14 @@ export const PromoBannerTitle = styled.h1`
 `;
 export const PromoBannerSubTitle = styled.h3`
   color: #f7f7f7;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 400;
+  margin: 12px 0 ;
 `;
 export const PromoBannerText = styled.p`
   color: #eaeaea;
   margin: 0;
-  font-size: 10px;
+  font-size: 16px;
 `;
 export const PromoBannerIconDiv = styled.div`
   width: 20px;

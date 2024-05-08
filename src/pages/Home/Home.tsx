@@ -216,7 +216,7 @@ const Home = () => {
             <PromoBannerInfoDiv>
               <PromoBannerTitle>TASTEBUD</PromoBannerTitle>
               <PromoBannerSubTitle>
-                True comments about teste.
+                True comments about taste.
               </PromoBannerSubTitle>
               <PromoBannerIconDiv>
                 <PromoBannerImg src={PromoBannerIcon} />
