@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   width: 100%;
-  margin-bottom: 50px;
 `;
 export const Wrapper = styled.div`
   width: 1280px;

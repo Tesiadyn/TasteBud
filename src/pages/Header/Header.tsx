@@ -18,7 +18,6 @@ import { toaster } from "evergreen-ui";
 
 import HeaderLogo from "../../assets/header-logo.png";
 const Header = () => {
-  // const [isDropDownShows, setIsDropDownShows] = useState(false);
   const navigate = useNavigate();
   const user = auth.currentUser;
 
