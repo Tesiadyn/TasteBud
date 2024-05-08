@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { Paper } from "@mui/material";
 import Banner from "../../assets/comments-Banner.jpg";
 
 export interface CardImgDivProps {
@@ -19,6 +18,7 @@ export const PageTitle = styled.h1`
   margin: 0;
   text-align: center;
   color: #f7f7f7;
+  font-size: 44px;
 `;
 export const PageSubtitle = styled.h3`
   font-size: 18px;
@@ -29,8 +29,9 @@ export const CardWrapper = styled.div`
   width: 25%;
 `;
 
-export const Container = styled(Paper)`
+export const Container = styled.div`
   width: 100%;
+  min-height: calc(100vh - 270px);
   background-color: #f7f7f7;
 `;
 export const Wrapper = styled.div`
@@ -50,22 +51,7 @@ export const Cards = styled.section`
   /* gap: 30px; */
   flex-wrap: wrap;
 `;
-export const Card = styled(Link)`
-  width: 100%;
-  height: 300px;
-  /* background-color: #b66d6d; */
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  color: #a1803e;
-  border-radius: 16px;
-  transition: all 0.3s;
-  /* border: 1px solid #bfbfbf; */
-  /* box-shadow: 3px 3px 3px 2px rgba(89, 89, 89, 0.5);
-  &:hover{
-    box-shadow: 2px 2px 2px 1px rgba(89, 89, 89, 0.3);
-  } */
-`;
+
 export const CardImgDiv = styled.div`
   width: 250px;
   height: 250px;
@@ -84,6 +70,22 @@ export const CardImgBg = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
+  transition: background-color 0.3s;
+`;
+export const Card = styled(Link)`
+  width: 100%;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: #a1803e;
+  border-radius: 16px;
+  transition: all 0.3s;
+  &:hover {
+    ${CardImgBg} {
+      background-color: #cca86e; 
+    }
+  }
 `;
 export const CardImg = styled.img`
   max-width: 100%;

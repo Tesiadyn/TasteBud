@@ -76,7 +76,7 @@ const Products = () => {
   }, [productsData]);
 
   return (
-    <Container elevation={10} sx={{ bgcolor: "#f7f7f7" }}>
+    <Container>
       <BannerSection>
         <PageTitle>Comments</PageTitle>
         <PageSubtitle>Rate and share your perspectives!</PageSubtitle>
