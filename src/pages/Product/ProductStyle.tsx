@@ -15,6 +15,7 @@ export const PageLink = styled(Link)`
 export const Container = styled.div`
   width: 100%;
   margin: 0 auto;
+  min-height: calc(100vh - 270px);
 `;
 export const Wrapper = styled.div`
   width: 75%;
