@@ -13,11 +13,19 @@ export const LoginButton = styled.button`
   height: 30px;
   text-align: center;
   margin-top: 40px;
-  background-color: #b26218;
+  background-color: #a5550b;
   border: none;
   color: #f7f7f7;
   cursor: pointer;
-  box-shadow: 3px 3px 3px 1px rgba(156,131,85,0.75);
+  border-radius: 12px;
+  box-shadow: 2px 3px 6px 1px rgb(202, 91, 0, 0.55);
+  transition: all 0.2s;
+  &:hover {
+    background-color: #be722c;
+  }
+  &:active {
+    box-shadow: 1px 1px 7px 0px rgb(212, 107, 20, 0.75);
+  }
 `;
 export const SignupBtn = styled.div`
   text-align: center;

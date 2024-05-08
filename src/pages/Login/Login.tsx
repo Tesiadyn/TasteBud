@@ -66,7 +66,7 @@ const Login = () => {
                 <SignupBtn>Sign up now</SignupBtn>
               </PageLink>
             </SignupLinkDiv>
-            <LoginButton type="submit">登入</LoginButton>
+            <LoginButton type="submit">Login</LoginButton>
           </LoginForm>
         </LoginSection>
       </Wrapper>

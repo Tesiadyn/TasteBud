@@ -1,13 +1,26 @@
 import styled from "styled-components";
-import { TextInput, Button } from "evergreen-ui";
+import { TextInput } from "evergreen-ui";
 import SignupBanner from "../../assets/signup-banner.jpg";
 export const InputField = styled(TextInput)`
   width: 70%;
 `;
-export const SignUpButton = styled(Button)`
+export const SignUpButton = styled.button`
   width: 100%;
   height: 30px;
   text-align: center;
+  background-color: #a5550b;
+  border: none;
+  color: #f7f7f7;
+  cursor: pointer;
+  box-shadow: 2px 3px 6px 1px rgb(202, 91, 0, 0.55);
+  transition: all 0.2s;
+  border-radius: 12px;
+  &:hover {
+    background-color: #be722c;
+  }
+  &:active {
+    box-shadow: 1px 1px 7px 0px rgb(212, 107, 20, 0.75);
+  }
 `;
 export const Container = styled.div`
   width: 100%;

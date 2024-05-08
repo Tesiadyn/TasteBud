@@ -145,18 +145,18 @@ export const PageLink = styled(Link)`
 `;
 export const NewEventButton = styled.button`
   border: none;
-  background-color: #b26218;
+  background-color: #a5550b;
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 12px;
   color: #f7f7f7;
-  box-shadow: 5px 5px 15px 0px rgba(156, 131, 85, 0.75);
+  box-shadow: 2px 3px 6px 1px rgb(202, 91, 0, 0.55);
   transition: all 0.2s;
   margin: 50px 0;
+  cursor: pointer;
   &:hover {
-    background-color: #a27a55;
+    background-color: #be722c;
   }
   &:active {
-    box-shadow: 3px 3px 10px 0px rgba(156, 131, 85, 0.871);
-    padding: 10px;
+    box-shadow: 1px 1px 7px 0px rgb(212, 107, 20, 0.75);
   }
 `;

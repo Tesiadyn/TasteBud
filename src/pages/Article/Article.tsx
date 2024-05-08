@@ -56,22 +56,7 @@ const Article = () => {
       <Wrapper>
         <ArticleSection>
           <PageLink to="/articles">
-            <PrevPageBtn
-              variant="outlined"
-              sx={{
-                backgroundColor: "#a1803e",
-                color: "#f7f7f7",
-                border: "none",
-                boxShadow: 5,
-                "&:hover": {
-                  backgroundColor: "#b19f7d",
-                  border: "none",
-                  boxShadow: 2,
-                },
-              }}
-            >
-              回文章列表
-            </PrevPageBtn>
+            <PrevPageBtn>Back to Articles</PrevPageBtn>
           </PageLink>
           <SectionTitle>{articleData?.title}</SectionTitle>
           <ArticleText>

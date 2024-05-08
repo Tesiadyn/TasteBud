@@ -68,6 +68,7 @@ export const InfoText = styled.p`
   }
   &.infoSectionText {
     font-size: 36px;
+    font-weight: 600;
   }
 `;
 export const NoEventDiv = styled.div`
