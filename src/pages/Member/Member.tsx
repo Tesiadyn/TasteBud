@@ -13,8 +13,7 @@ import {
   OrganizedEventsSection,
   ParticipatedEventsSection,
   EventCard,
-  PictureDiv,
-  Picture,
+  WheelDiv,
   InfoText,
   InfoDiv,
   SectionTitle,
@@ -153,25 +152,59 @@ const Member = () => {
     <>
       <Container>
         <Wrapper>
-          <InfoSection>
-            <PictureDiv>
-              <Picture />
-            </PictureDiv>
-            <InfoDiv>
+          <InfoDiv>
+            <InfoSection>
               <InfoText className="infoSectionText">
                 Hello! {userData?.userName}
               </InfoText>
               <InfoText>{userData?.email}</InfoText>
-              <InfoText>{userData?.userUid}</InfoText>
-            </InfoDiv>
-          </InfoSection>
+              <InfoText>1</InfoText>
+            </InfoSection>
+            <OrganizedEventsSection>
+              <SectionTitle>Organized Events</SectionTitle>
+              <SectionDivider />
+              <EventCards>
+                {organizedEventsData.length > 0 ? (
+                  organizedEventsData.map((event, index) => (
+                    <PageLink
+                      to={`/event/${event.eventUid}`}
+                      key={index}
+                      className="eventLink"
+                    >
+                      <EventCard>
+                        <InfoText className="eventCardText">
+                          {event.title}
+                        </InfoText>
+                        <InfoText className="eventCardText">
+                          {event.date}
+                        </InfoText>
+                        <InfoText className="eventCardText">
+                          {event.time}
+                        </InfoText>
+                        <InfoText className="eventCardText">
+                          {event.location}
+                        </InfoText>
+                      </EventCard>
+                    </PageLink>
+                  ))
+                ) : (
+                  <>
+                    <NoEventDiv>
+                      <InfoText>No events yet, go to </InfoText>
+                      <PageLink className="noEventText" to="/events">
+                        events list
+                      </PageLink>
+                    </NoEventDiv>
+                  </>
+                )}
+              </EventCards>
+            </OrganizedEventsSection>
 
-          <OrganizedEventsSection>
-            <SectionTitle>Organized Events</SectionTitle>
-            <SectionDivider />
-            <EventCards>
-              {organizedEventsData.length > 0 ? (
-                organizedEventsData.map((event, index) => (
+            <ParticipatedEventsSection>
+              <SectionTitle>Participated Events</SectionTitle>
+              <SectionDivider />
+              {eventData.length > 0 ? (
+                eventData.map((event, index) => (
                   <PageLink
                     to={`/event/${event.eventUid}`}
                     key={index}
@@ -183,6 +216,9 @@ const Member = () => {
                       </InfoText>
                       <InfoText className="eventCardText">
                         {event.date}
+                      </InfoText>
+                      <InfoText className="eventCardText">
+                        {event.time}
                       </InfoText>
                       <InfoText className="eventCardText">
                         {event.location}
@@ -200,54 +236,28 @@ const Member = () => {
                   </NoEventDiv>
                 </>
               )}
-            </EventCards>
-          </OrganizedEventsSection>
+            </ParticipatedEventsSection>
+          </InfoDiv>
 
-          <ParticipatedEventsSection>
-            <SectionTitle>Participated Events</SectionTitle>
-            <SectionDivider />
-            {eventData.length > 0 ? (
-              eventData.map((event, index) => (
-                <PageLink to={`/event/${event.eventUid}`} key={index}>
-                  <EventCard>
-                    <InfoText className="eventCardText">{event.title}</InfoText>
-                    <InfoText className="eventCardText">{event.date}</InfoText>
-                    <InfoText className="eventCardText">{event.time}</InfoText>
-                    <InfoText className="eventCardText">
-                      {event.location}
-                    </InfoText>
-                  </EventCard>
-                </PageLink>
-              ))
-            ) : (
-              <>
+          <WheelDiv>
+            <WheelSection>
+              <SectionTitle>FlavourWheel</SectionTitle>
+              <SectionDivider />
+              {wheelData ? (
+                <FlavourWheel data={wheelData} />
+              ) : (
                 <NoEventDiv>
-                  <InfoText>No events yet, go to </InfoText>
-                  <PageLink className="noEventText" to="/events">
-                    events list
+                  <InfoText>
+                    No datas yet, share some comments to get your own flavour
+                    wheel!
+                  </InfoText>
+                  <PageLink className="noEventText" to="/products">
+                    products
                   </PageLink>
                 </NoEventDiv>
-              </>
-            )}
-          </ParticipatedEventsSection>
-
-          <WheelSection>
-            <SectionTitle>FlavourWheel</SectionTitle>
-            <SectionDivider />
-            {wheelData ? (
-              <FlavourWheel data={wheelData} />
-            ) : (
-              <NoEventDiv>
-                <InfoText>
-                  No datas yet, share some comments to get your own flavour
-                  wheel!
-                </InfoText>
-                <PageLink className="noEventText" to="/products">
-                  products
-                </PageLink>
-              </NoEventDiv>
-            )}
-          </WheelSection>
+              )}
+            </WheelSection>
+          </WheelDiv>
         </Wrapper>
       </Container>
     </>
