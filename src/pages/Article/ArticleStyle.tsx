@@ -2,6 +2,10 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 
+interface backgroundImgUrlProps {
+  $backgroundImageUrl: string;
+}
+
 export const Container = styled.div`
   width: 100%;
 `;
@@ -25,6 +29,20 @@ export const ArticleText = styled.p`
 export const PageLink = styled(Link)`
   text-decoration: none;
 `;
+export const CoverSection = styled.section<backgroundImgUrlProps>`
+  width: 100%;
+  height: 300px;
+  background-image: url(${(props) => props.$backgroundImageUrl});
+  background-position: center;
+  background-size: cover;
+  border-radius: 12px;
+  margin: 30px 0;
+  box-shadow: 3px 3px 5px 2px rgba(89, 89, 89, 0.3);
+`;
+// export const CoverImg = styled.img`
+//   width: 100%;
+//   height: 100%;
+// `
 export const PrevPageBtn = styled.button`
   background-color: #a5550b;
   color: #f7f7f7;

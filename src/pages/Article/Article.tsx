@@ -12,6 +12,7 @@ import {
   PrevPageBtn,
   BackToTopBtn,
   BtnDiv,
+  CoverSection,
 } from "./ArticleStyle";
 
 interface ArticleData {
@@ -58,6 +59,9 @@ const Article = () => {
           <PageLink to="/articles">
             <PrevPageBtn>Back to Articles</PrevPageBtn>
           </PageLink>
+          <CoverSection
+            $backgroundImageUrl={articleData?.picture as string}
+          ></CoverSection>
           <SectionTitle>{articleData?.title}</SectionTitle>
           <ArticleText>
             <p>{articleData?.text}</p>
