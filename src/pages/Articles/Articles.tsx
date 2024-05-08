@@ -9,7 +9,6 @@ import {
   ArticleImgDiv,
   ArticleImg,
   ArticleInfoTags,
-  ArticleCard,
   ArticleInfoTag,
   ArticleInfoDiv,
   ArticleInfoTitle,
@@ -21,8 +20,10 @@ import {
 } from "./ArticlesStyle";
 import { firestore } from "../../utilities/firebase";
 import { collection, getDocs, query } from "firebase/firestore";
-import { useEffect, useState } from "react";
-
+import { useEffect, useState, useRef } from "react";
+import styled from "styled-components";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 interface ArticleData {
   picture: string;
   text: string;
@@ -31,6 +32,48 @@ interface ArticleData {
   articleUid: string;
 }
 
+gsap.registerPlugin(ScrollTrigger);
+/* ----------------------------- cards animation ---------------------------- */
+const ArticleCardWrapper = styled.div`
+  opacity: 0;
+  transform: translateX(-50px);
+`;
+const ArticleCard = styled(({ ...props }) => {
+  const cardRef = useRef(null);
+  useEffect(() => {
+    const section = cardRef.current;
+
+    gsap.fromTo(
+      section,
+      { opacity: 0, x: -50 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 1,
+        scrollTrigger: {
+          trigger: section,
+          start: "top 90%",
+          once: true,
+          toggleActions: "play none none reverse",
+        },
+      }
+    );
+  }, []);
+  return <ArticleCardWrapper ref={cardRef} {...props} />;
+})`
+  background-color: #e9e7e0;
+  height: 200px;
+  display: flex;
+  margin: 25px auto;
+  box-shadow: 3px 3px 5px 2px rgba(89, 89, 89, 0.3);
+  border-radius: 8px;
+  transition: all 0.3s;
+  &:hover {
+    box-shadow: 1px 1px 2px 1px rgba(89, 89, 89, 0.7);
+    background-color: #c4c2bc;
+  }
+`;
+/* ----------------------------- cards animation ---------------------------- */
 const tagsList = ["歷史", "製程", "調和", "其他", "名詞", "入門"];
 
 const Articles = () => {
