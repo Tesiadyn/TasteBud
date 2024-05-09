@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
+interface backgroundImgUrlProps {
+  $backgroundImageUrl: string;
+}
 export const Container = styled.div`
   width: 100%;
   min-height: calc(100vh - 270px);
@@ -16,8 +19,10 @@ export const EventSection = styled.section`
   border-radius: 4px;
   margin: 50px 0;
 `;
-export const EventImgDiv = styled.div`
-  width: 50%;
+export const EventImgDiv = styled.div<backgroundImgUrlProps>`
+  width: 30%;
+  height: 100%;
+  background-image: url(${(props) => props.$backgroundImageUrl});
 `;
 export const EventImg = styled.img`
   width: 100%;

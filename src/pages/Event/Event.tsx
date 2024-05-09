@@ -17,7 +17,6 @@ import {
   Wrapper,
   EventSection,
   EventImgDiv,
-  EventImg,
   EventTitle,
   EventText,
   EventInfoDiv,
@@ -284,8 +283,9 @@ const Event = () => {
     <Container>
       <Wrapper>
         <EventSection>
-          <EventImgDiv>
-            <EventImg src={eventData?.coverImage} />
+          <EventImgDiv $backgroundImageUrl={eventData?.coverImage as string}
+>
+            {/* <EventImg src={eventData?.coverImage} /> */}
           </EventImgDiv>
 
           <EventInfoDiv>
