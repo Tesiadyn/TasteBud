@@ -27,6 +27,7 @@
     "firebase": "^10.11.0",
     "framer-motion": "^11.1.7",
     "gsap": "^3.12.5",
+    "ldrs": "^1.0.1",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
     "react": "^18.2.0",
