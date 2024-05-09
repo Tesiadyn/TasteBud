@@ -79,7 +79,6 @@ export const EventCards = styled.div`
   flex-wrap: wrap;
 `;
 export const EventCard = styled.div`
-  height: 330px;
   width: 300px;
   border-radius: 4px;
   background-color: #b9a79a;
