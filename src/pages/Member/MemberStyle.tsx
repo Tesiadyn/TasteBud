@@ -4,16 +4,15 @@ import styled from "styled-components";
 export const PageLink = styled(Link)`
   text-decoration: none;
   &.eventLink {
-    display: inline-block;
-    width: 25%;
+    display: block;
+    width: 50%;
     margin-right: 25px;
+    margin: 0 auto;
   }
   &.noEventText {
     font-weight: 500;
     color: #f7f7f7;
     margin: 30px auto 0;
-    display: block;
-    width: 20%;
     background-color: #a5550b;
     box-shadow: 2px 3px 6px 1px rgb(202, 91, 0, 0.55);
     border-radius: 12px;
@@ -30,6 +29,8 @@ export const PageLink = styled(Link)`
 `;
 export const Container = styled.div`
   width: 100%;
+  min-height: calc(100vh - 270px);
+  position: relative;
 `;
 export const Wrapper = styled.div`
   width: 1440px;
@@ -61,12 +62,9 @@ export const InfoDiv = styled.div`
 export const WheelDiv = styled.div`
   width: 50%;
 `;
-export const OrganizedEventsSection = styled.section`
+export const EventsSection = styled.section`
   width: 100%;
   margin-bottom: 100px;
-`;
-export const ParticipatedEventsSection = styled.section`
-  width: 100%;
 `;
 export const SectionTitle = styled.h2`
   color: #5e3106;
@@ -80,6 +78,7 @@ export const EventCard = styled.div`
   box-shadow: 3px 3px 5px 2px rgba(89, 89, 89, 0.3);
   border-radius: 8px;
   transition: all 0.3s;
+  margin: 0 auto;
   &:hover {
     box-shadow: 1px 1px 2px 1px rgba(89, 89, 89, 0.7);
     background-color: #c4c2bc;
@@ -97,6 +96,7 @@ export const InfoText = styled.p`
 export const NoEventDiv = styled.div`
   text-align: center;
   margin: 0 auto;
+  height: 250px;
 `;
 export const EventCards = styled.div`
   display: flex;

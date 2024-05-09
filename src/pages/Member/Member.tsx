@@ -10,8 +10,7 @@ import {
   PageLink,
   WheelSection,
   Wrapper,
-  OrganizedEventsSection,
-  ParticipatedEventsSection,
+  EventsSection,
   EventCard,
   WheelDiv,
   InfoText,
@@ -21,6 +20,9 @@ import {
   EventCards,
   NoEventDiv,
 } from "./MemberStyle";
+import { pulsar } from "ldrs";
+
+pulsar.register();
 
 interface WheelData {
   name: string;
@@ -144,8 +146,24 @@ const Member = () => {
     return unsubscribe;
   }, [navigate]);
 
+  const LoadingContainer = {
+    display: 'flex',
+    justifyContent: 'center', 
+    alignItems: 'center',
+    height: 'calc(100vh - 270px)',
+    width: '1440px',
+    margin: '0 auto',
+    padding: '50px',
+    backgroundColor: '#dad8d6',
+    borderRadius: '12px',
+    boxShadow: '3px 3px 5px 2px rgba(89, 89, 89, 0.3)'
+  }
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div style={LoadingContainer}>
+        <l-pulsar size="40" speed="1.75" color="black"></l-pulsar>
+      </div>
+    );
   }
 
   return (
@@ -159,7 +177,7 @@ const Member = () => {
               </InfoText>
               <InfoText>{userData?.email}</InfoText>
             </InfoSection>
-            <OrganizedEventsSection>
+            <EventsSection>
               <SectionTitle>Organized Events</SectionTitle>
               <SectionDivider />
               <EventCards>
@@ -197,9 +215,9 @@ const Member = () => {
                   </>
                 )}
               </EventCards>
-            </OrganizedEventsSection>
+            </EventsSection>
 
-            <ParticipatedEventsSection>
+            <EventsSection>
               <SectionTitle>Participated Events</SectionTitle>
               <SectionDivider />
               {eventData.length > 0 ? (
@@ -235,7 +253,7 @@ const Member = () => {
                   </NoEventDiv>
                 </>
               )}
-            </ParticipatedEventsSection>
+            </EventsSection>
           </InfoDiv>
 
           <WheelDiv>
