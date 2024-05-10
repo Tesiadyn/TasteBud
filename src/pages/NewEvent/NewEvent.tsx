@@ -165,10 +165,10 @@ const NewEvent = () => {
               required
               maxLength={150}
             />
-            <InputLabel htmlFor="number">Max Guests</InputLabel>
+            <InputLabel htmlFor="number">Maximum Guests</InputLabel>
             <InputField
               id="number"
-              placeholder="Enter maxinum of guests (Max: 200)"
+              placeholder="Enter maximum guests (Max: 200)"
               type="number"
               min={1}
               onChange={(e) => setMaxParticipants(parseInt(e.target.value))}
