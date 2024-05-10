@@ -4,6 +4,14 @@ import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  transition: all 0.3s;
+  &.scrolled {
+    box-shadow: 3px 3px 5px 2px rgba(89, 89, 89, 0.3);
+    background-color: #62431ada;
+  }
 `;
 export const Wrapper = styled.div`
   width: 1280px;

@@ -15,9 +15,10 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../../utilities/firebase";
 import { signOut } from "firebase/auth";
 import { toaster } from "evergreen-ui";
-
+import { useState, useEffect } from "react";
 import HeaderLogo from "../../assets/header-logo.png";
 const Header = () => {
+  const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
   const user = auth.currentUser;
 
@@ -32,8 +33,25 @@ const Header = () => {
     }
   };
 
+  useEffect(() => {
+    function handleScroll() {
+      const currentPosition = window.scrollY;
+      if (currentPosition > 0) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <Container>
+    <Container className={scrolled ? "scrolled" : ""}>
       <Wrapper>
         <PageLink to="/">
           <LogoDiv>
