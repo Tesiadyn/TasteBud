@@ -7,13 +7,12 @@ import {
   doc,
   updateDoc,
   addDoc,
+  arrayUnion,
 } from "firebase/firestore";
 
 import { firestore } from "../../utilities/firebase";
 import { useParams } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import { useNavigate } from "react-router-dom";
 import {
   CheckboxTreeWrapper,
@@ -21,6 +20,13 @@ import {
   SubmitButton,
   InputSection,
   SectionTitle,
+  SectionSubTitle,
+  CommentInput,
+  Container,
+  TreeListDiv,
+  CategoryDiv,
+  InputLabel,
+  SubmitDiv,
 } from "./PostStyle";
 import { toaster } from "evergreen-ui";
 import "./PostStyles.css";
@@ -28,7 +34,8 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import initWheelData from "../../pages/Product/initData.json";
-
+import { pulsar } from "ldrs";
+pulsar.register();
 const db = firestore;
 const auth = getAuth();
 
@@ -44,7 +51,7 @@ interface Props {
 }
 
 const CheckboxTree: React.FC<Props> = ({ data }) => {
-  const [quillValue, setQuillValue] = useState("");
+  const [commentText, setCommentText] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
   const updateNodeValueInTree = (
@@ -78,7 +85,7 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
         authorUid,
         productUid,
         wheelData,
-        quillValue,
+        commentText,
       };
       const commentRef = await addDoc(collection(db, "Comments"), commentData);
       const commentUid = commentRef.id;
@@ -101,7 +108,7 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
           const docRef = doc(db, "Members", userUid);
           await updateDoc(docRef, {
             wheelData: JSON.stringify(parsedData),
-            commentsUid: commentUid,
+            commentsUid: arrayUnion(commentUid),
           });
           // console.log(`Data updated in Firestore in uid : ${userUid}`);
         }
@@ -111,8 +118,6 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
     }
   };
   const handleSubmit = () => {
-    console.log("handleSubmit running...");
-
     const parsedData = JSON.parse(JSON.stringify(data));
     const parsedInitData = JSON.parse(JSON.stringify(initWheelData));
 
@@ -145,14 +150,14 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
     if (node.children && node.children.length > 0) {
       return (
         <TreeList key={node.name}>
-          <div>
+          <TreeListDiv>
             {node.children.map((child) => (
               <Accordion key={child.id}>
                 <AccordionSummary>{child.name}</AccordionSummary>
                 {renderTreeNode(child)}
               </Accordion>
             ))}
-          </div>
+          </TreeListDiv>
         </TreeList>
       );
     } else {
@@ -165,25 +170,31 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
   };
   return (
     <>
-      {data && data.children && data.children.length > 0 ? (
-        <>
-          {data.children.map((node, index) => (
-            <div key={index}>
-              <p>{node.name}</p>
-              {renderTreeNode(node)}
-            </div>
-          ))}
-          <ReactQuill
-            theme="snow"
-            value={quillValue}
-            onChange={setQuillValue}
-          />
+      <InputSection>
+        {data && data.children && data.children.length > 0 ? (
+          <>
+            {data.children.map((node, index) => (
+              <CategoryDiv key={index}>
+                <p>{node.name}</p>
+                {renderTreeNode(node)}
+              </CategoryDiv>
+            ))}
+          </>
+        ) : (
+          <div>No data available</div>
+        )}
+      </InputSection>
 
-          <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
-        </>
-      ) : (
-        <div>No data available</div>
-      )}
+      <SubmitDiv>
+        <InputLabel htmlFor="commentText">
+          <CommentInput
+            maxLength={100}
+            placeholder="Write down your thoughts... (Max 100 characters)"
+            onChange={(e) => setCommentText(e.target.value)}
+          />
+        </InputLabel>
+        <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
+      </SubmitDiv>
     </>
   );
 };
@@ -229,17 +240,34 @@ const Post: React.FC = () => {
     return unsubscribe;
   }, [navigate]);
 
+  const LoadingContainer = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "calc(100vh - 270px)",
+    width: "1440px",
+    margin: "0 auto",
+    padding: "50px",
+    backgroundColor: "#dad8d6",
+    borderRadius: "12px",
+    boxShadow: "3px 3px 5px 2px rgba(89, 89, 89, 0.3)",
+  };
   return (
     <>
       {isLoading ? (
-        <p>Loading...</p>
+        <div style={LoadingContainer}>
+          <l-pulsar size="40" speed="1.75" color="black"></l-pulsar>
+        </div>
       ) : (
-        <InputSection>
+        <Container>
           <SectionTitle>Flavours</SectionTitle>
+          <SectionSubTitle>
+            Choose the flavours you feel when tasing this!
+          </SectionSubTitle>
           <CheckboxTreeWrapper>
             <CheckboxTree data={parsedNodeData} />
           </CheckboxTreeWrapper>
-        </InputSection>
+        </Container>
       )}
     </>
   );
