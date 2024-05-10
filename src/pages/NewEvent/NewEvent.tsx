@@ -10,6 +10,7 @@ import {
   TagsDiv,
   Tag,
   BannerSection,
+  HintText,
 } from "./NewEventStyle";
 import { addDoc, collection, updateDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -123,18 +124,20 @@ const NewEvent = () => {
             <InputLabel htmlFor="title">Event Title</InputLabel>
             <InputField
               id="title"
-              placeholder="Enter the title"
+              placeholder="Enter the title of event.(Max: 150 characters)"
               type="text"
               onChange={(e) => setTitle(e.target.value)}
               required
+              maxLength={150}
             />
             <InputLabel htmlFor="text">Event content</InputLabel>
             <InputField
               id="text"
-              placeholder="Enter the content"
+              placeholder="Enter the content.(Max: 250 characters)"
               type="text"
               onChange={(e) => setText(e.target.value)}
               required
+              maxLength={250}
             />
             <InputLabel htmlFor="date">Event Date</InputLabel>
             <InputField
@@ -156,19 +159,21 @@ const NewEvent = () => {
             <InputLabel htmlFor="location">Location</InputLabel>
             <InputField
               id="location"
-              placeholder="Enter the location"
+              placeholder="Enter the location (Max: 150 characters)"
               type="text"
               onChange={(e) => setLocation(e.target.value)}
               required
+              maxLength={150}
             />
-            <InputLabel htmlFor="number">Max People</InputLabel>
+            <InputLabel htmlFor="number">Max Guests</InputLabel>
             <InputField
               id="number"
-              placeholder="Enter max people number"
+              placeholder="Enter maxinum of guests (Max: 200)"
               type="number"
               min={1}
               onChange={(e) => setMaxParticipants(parseInt(e.target.value))}
               required
+              max={200}
             />
             <InputLabel htmlFor="pic">Cover Image</InputLabel>
             <InputField
@@ -177,6 +182,7 @@ const NewEvent = () => {
               type="file"
               onChange={(e) => setCoverImage(e.target.files?.[0] || null)}
             />
+
             <TagsDiv>
               <Tag>
                 <InputLabel>Bourbon</InputLabel>
@@ -290,6 +296,7 @@ const NewEvent = () => {
                 />
               </Tag>
             </TagsDiv>
+            <HintText>Select Tags that is related to your event!</HintText>
             <SubmitButton>Submit</SubmitButton>
           </InputForm>
         </FormSection>

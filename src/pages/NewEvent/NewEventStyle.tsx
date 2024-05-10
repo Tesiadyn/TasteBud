@@ -83,3 +83,7 @@ export const Tag = styled.div`
   text-align: center;
   flex: 1;
 `;
+export const HintText = styled.p`
+  color: #5e3106;
+  text-align: center;
+`
