@@ -130,7 +130,7 @@ const NewEvent = () => {
               required
               maxLength={150}
             />
-            <InputLabel htmlFor="text">Event content</InputLabel>
+            <InputLabel htmlFor="text">Event Content</InputLabel>
             <InputField
               id="text"
               placeholder="Enter the content.(Max: 250 characters)"
