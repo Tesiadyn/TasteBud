@@ -15,6 +15,7 @@ export const SignUpButton = styled.button`
   box-shadow: 2px 3px 6px 1px rgb(202, 91, 0, 0.55);
   transition: all 0.2s;
   border-radius: 12px;
+  margin: 35px 0;
   &:hover {
     background-color: #be722c;
   }
@@ -47,6 +48,8 @@ export const InputDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: 20px 0;
+  position: relative;
+  align-items: center;
 `;
 export const SignUpForm = styled.form`
   width: 30%;
@@ -60,7 +63,8 @@ export const HintMessage = styled.p`
   width: 100%;
   font-size: 12px;
   color: #b84b4b;
-  margin-left: 30%;
+  position: absolute;
+  left: 105%;
 `;
 export const BannerDiv = styled.div`
   background-image: url(${SignupBanner});
