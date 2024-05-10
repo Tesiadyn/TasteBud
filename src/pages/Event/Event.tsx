@@ -24,6 +24,9 @@ import {
   EventSubTitle,
   EventSubDiv,
   EventActButton,
+  EditFormInputDiv,
+  EditFormInput,
+  EditFormLabel,
 } from "./EventStyle";
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
@@ -96,50 +99,63 @@ const EditEventForm = ({
   };
   return (
     <EditForm onSubmit={handleSubmit}>
-      <label htmlFor="title">標題</label>
-      <input
-        id="title"
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <label htmlFor="location">地點</label>
-      <input
-        id="location"
-        type="text"
-        value={location}
-        onChange={(e) => setLocation(e.target.value)}
-      />
-      <label htmlFor="maxParticipants">名額人數</label>
-      <input
-        id="maxParticipants"
-        type="number"
-        value={maxParticipants}
-        onChange={(e) => setMaxParticipants(parseInt(e.target.value))}
-      />
-      <label htmlFor="text">活動內容</label>
-      <input
-        id="text"
-        type="text"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
-      <label htmlFor="edit-title">日期</label>
-      <input
-        id="edit-title"
-        type="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-      />
-      <label htmlFor="edit-time">時間</label>
-      <input
-        id="edit-time"
-        type="time"
-        value={time}
-        onChange={(e) => setTime(e.target.value)}
-      />
-
-      <button type="submit">Submit</button>
+      <EditFormInputDiv>
+        <EditFormLabel htmlFor="title">Event Title</EditFormLabel>
+        <EditFormInput
+          id="title"
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+      </EditFormInputDiv>
+      <EditFormInputDiv>
+        <EditFormLabel htmlFor="location">Location</EditFormLabel>
+        <EditFormInput
+          id="location"
+          type="text"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+        />
+      </EditFormInputDiv>
+      <EditFormInputDiv>
+        <EditFormLabel htmlFor="maxParticipants">Maximum Guests</EditFormLabel>
+        <EditFormInput
+          id="maxParticipants"
+          type="number"
+          value={maxParticipants}
+          onChange={(e) => setMaxParticipants(parseInt(e.target.value))}
+        />
+      </EditFormInputDiv>
+      <EditFormInputDiv>
+        <EditFormLabel htmlFor="text">Event Content</EditFormLabel>
+        <EditFormInput
+          id="text"
+          type="text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+      </EditFormInputDiv>
+      <EditFormInputDiv>
+        <EditFormLabel htmlFor="edit-title">Event Date</EditFormLabel>
+        <EditFormInput
+          id="edit-title"
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+        />
+      </EditFormInputDiv>
+      <EditFormInputDiv>
+        <EditFormLabel htmlFor="edit-time">Event Time</EditFormLabel>
+        <EditFormInput
+          id="edit-time"
+          type="time"
+          value={time}
+          onChange={(e) => setTime(e.target.value)}
+        />
+      </EditFormInputDiv>
+      <EventActButton type="submit" className="editFormBtn">
+        Submit
+      </EventActButton>
     </EditForm>
   );
 };
@@ -283,11 +299,9 @@ const Event = () => {
     <Container>
       <Wrapper>
         <EventSection>
-          <EventImgDiv $backgroundImageUrl={eventData?.coverImage as string}
->
-            {/* <EventImg src={eventData?.coverImage} /> */}
-          </EventImgDiv>
-
+          <EventImgDiv
+            $backgroundImageUrl={eventData?.coverImage as string}
+          ></EventImgDiv>
           <EventInfoDiv>
             {isEditing ? (
               <>
@@ -310,7 +324,7 @@ const Event = () => {
                   <EventText>{eventData?.location}</EventText>
                 </EventSubDiv>
                 <EventSubDiv>
-                  <EventSubTitle>Max people</EventSubTitle>
+                  <EventSubTitle>Maximum guests</EventSubTitle>
                   <EventText>{eventData?.maxParticipants}人</EventText>
                 </EventSubDiv>
                 <EventSubDiv>
