@@ -143,7 +143,7 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
     // console.log(parsedData);
     addCommentDoc(parsedData, parsedInitData);
     toaster.success("Submit Success!");
-    navigate("/products");
+    navigate(`/product/${id}`);
   };
 
   const renderTreeNode = (node: TreeNode) => {
