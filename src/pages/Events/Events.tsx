@@ -10,14 +10,15 @@ import {
   EventCardTag,
   EventCardInfos,
   EventCardInfoText,
-  EventCardCapacityIcon,
-  EventCardCapacityDiv,
+  EventCardInfoIcon,
+  EventCardInfoDiv,
   EventCards,
   PageLink,
   NewEventButton,
   BannerSection,
   PageTitle,
   PageSubtitle,
+  EventCardInfoIconDiv,
 } from "./EventsStyle";
 import CapacityIcon from "../../assets/capacityIcon.png";
 import DateIcon from "../../assets/dateIcon.png";
@@ -86,26 +87,26 @@ const Events = () => {
                     ))}
                   </EventCardTags>
                   <EventCardInfos>
-                    {/* <EventCardDateDiv>
-                      <EventCardDateIcon src={DateIcon}></EventCardDateIcon>
-                      <EventCardInfoText>{data.date}</EventCardInfoText>
-                    </EventCardDateDiv> */}
-                    <EventCardCapacityDiv>
-                      <EventCardCapacityIcon
+                    <EventCardInfoDiv>
+                      <EventCardInfoIconDiv>
+                      <EventCardInfoIcon
                         src={DateIcon}
-                      ></EventCardCapacityIcon>
+                      ></EventCardInfoIcon>
+                      </EventCardInfoIconDiv>
                       <EventCardInfoText>
                         {data.date}
                       </EventCardInfoText>
-                    </EventCardCapacityDiv>
-                    <EventCardCapacityDiv>
-                      <EventCardCapacityIcon
+                    </EventCardInfoDiv>
+                    <EventCardInfoDiv>
+                    <EventCardInfoIconDiv>
+                      <EventCardInfoIcon
                         src={CapacityIcon}
-                      ></EventCardCapacityIcon>
+                      ></EventCardInfoIcon>
+                      </EventCardInfoIconDiv>
                       <EventCardInfoText>
                         {data.participantsUid.length} / {data.maxParticipants}
                       </EventCardInfoText>
-                    </EventCardCapacityDiv>
+                    </EventCardInfoDiv>
                   </EventCardInfos>
                 </EventCard>
               </PageLink>
