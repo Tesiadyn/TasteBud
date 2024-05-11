@@ -163,6 +163,7 @@ const Event = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [eventData, setEventData] = useState<EventData | null>(null);
   const [isAuthor, setIsAuthor] = useState(false);
+  const [isGuest, setIsGuest] = useState(false);
   const { id } = useParams();
   const db = firestore;
   const auth = getAuth();
@@ -199,10 +200,84 @@ const Event = () => {
         console.error("Error when checking author : ", err.message);
       }
     };
+    const checkIsGuest = async () => {
+      if (!id) {
+        return;
+      }
+      try {
+        const currentUserUid = auth.currentUser?.uid;
+        const eventRef = doc(firestore, "Events", id);
+        const eventDoc = await getDoc(eventRef);
+        if (eventDoc.exists()) {
+          console.log("eventDoc exist");
+          const eventData = eventDoc.data();
+          if (eventData && eventData.participantsUid) {
+            const participatedArray = eventDoc.data().participantsUid;
+            console.log(participatedArray);
+
+            if (participatedArray.includes(currentUserUid)) {
+              console.log("isGuest");
+              setIsGuest(true);
+            }
+          }
+        }
+      } catch (err: any) {
+        console.error("Error when checking is guest or not : ", err.message);
+      }
+    };
     fetchEventData();
     checkIsAuthor();
+    checkIsGuest();
   }, []);
+  const handleCancelClick = () => {
+    const confirmCancel: boolean = window.confirm(
+      "Are you sure to cancel participate this event? This can not be undo."
+    );
+    if (confirmCancel) {
+      const handleCancelEvent = async () => {
+        if (!id || !currentUserUid) {
+          console.error("Not logged in.");
+          return;
+        }
+        /* ---------------------------- update member doc --------------------------- */
+        const participaterRef = doc(firestore, "Members", currentUserUid);
+        const participaterSnapshot = await getDoc(participaterRef);
+        if (participaterSnapshot.exists()) {
+          const participaterData = participaterSnapshot.data();
+          const participatedEvents = participaterData.attendedEvents || [];
+          const index = participatedEvents.indexOf(id);
+          if (index !== -1) {
+            participatedEvents.splice(index, 1);
+          }
+          await updateDoc(participaterRef, {
+            attendedEvents: participatedEvents,
+          });
+          console.log("Member participated events updated.");
+        }
+        /* ---------------------------- update event doc ---------------------------- */
+        const eventRef = doc(firestore, "Events", id);
+        const eventSnapshot = await getDoc(eventRef);
+        if (eventSnapshot.exists()) {
+          const eventData = eventSnapshot.data();
+          const guestsData = eventData.participantsUid || [];
+          console.log(guestsData);
 
+          const index = guestsData.indexOf(currentUserUid);
+          console.log(index);
+
+          if (index !== -1) {
+            guestsData.splice(index, 1);
+            console.log(guestsData);
+          }
+          await updateDoc(eventRef, {
+            participantsUid: guestsData,
+          });
+          console.log("Event participants updated.");
+        }
+      };
+      handleCancelEvent();
+    }
+  };
   const handleDeleteClick = () => {
     const confirmDelete: boolean = window.confirm(
       "Are you sure to delete this event? This can not be undo."
@@ -350,9 +425,15 @@ const Event = () => {
                   </>
                 ) : (
                   <>
-                    <EventActButton onClick={handleParticipateClick}>
-                      Participate event
-                    </EventActButton>
+                    {isGuest ? (
+                      <EventActButton onClick={handleCancelClick}>
+                        Cancel Participation
+                      </EventActButton>
+                    ) : (
+                      <EventActButton onClick={handleParticipateClick}>
+                        Participate event
+                      </EventActButton>
+                    )}
                   </>
                 )}
               </>
