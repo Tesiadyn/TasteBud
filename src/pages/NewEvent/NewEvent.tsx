@@ -31,7 +31,15 @@ const NewEvent = () => {
   const navigate = useNavigate();
   const today = new Date().toISOString().split("T")[0];
 
-  const uploadCoverImg = async (file: File) => {
+  const uploadCoverImg = async (file: File | null) => {
+    let coverImageUrl = "";
+
+    if (!file) {
+      coverImageUrl =
+        "https://firebasestorage.googleapis.com/v0/b/tastebud-2dd90.appspot.com/o/coverImages%2FdefaultCover.png?alt=media&token=c88a6751-3554-4816-a273-8fd376a498f6";
+      return Promise.resolve(coverImageUrl);
+    }
+
     const storageRef = ref(storage, `coverImages/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -73,6 +81,8 @@ const NewEvent = () => {
         let coverImageUrl = "";
         if (coverImage) {
           coverImageUrl = await uploadCoverImg(coverImage);
+        } else {
+          coverImageUrl = await uploadCoverImg(null);
         }
         const eventData = {
           organizerUid: userUid,
