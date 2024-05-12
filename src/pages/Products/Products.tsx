@@ -53,7 +53,7 @@ const Products = () => {
     };
     fetchProductsData();
   }, []);
-  console.log(productsData);
+  // console.log(productsData);
 
   useEffect(() => {
     cardRefs.current.forEach((cardRef, index) => {
@@ -84,8 +84,8 @@ const Products = () => {
       <Wrapper>
         <Cards>
           {productsData.map((product, index) => (
-            <CardWrapper ref={(el) => (cardRefs.current[index] = el)}>
-              <Card key={index} to={`/product/${product.productUid}`}>
+            <CardWrapper key={index} ref={(el) => (cardRefs.current[index] = el)}>
+              <Card to={`/product/${product.productUid}`}>
                 <CardImgDiv>
                   <CardImgBg />
                   <CardImg src={product.picture} />
