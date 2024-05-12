@@ -50,7 +50,7 @@ const SignUp = () => {
     },
     password: {
       rule: /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/,
-      message: "Please enter password at least 6 characters including caps",
+      message: "Please enter password at least 6 characters including uppercase and lowercase",
     },
   };
   const getHint = (inputField: keyof FormState) => {
@@ -83,6 +83,10 @@ const SignUp = () => {
         console.log("user created", user);
         return user;
       } catch (err: any) {
+        const errorCode = err.code;
+        if (errorCode === 'auth/email-already-in-use'){
+            window.alert('Email already in use!')
+        }
         console.error("Error creating user: ", err.message);
       }
     };
