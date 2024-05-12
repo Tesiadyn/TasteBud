@@ -72,7 +72,7 @@ const EditEventForm = ({
   const [time, setTime] = useState(initTime);
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const today = new Date().toISOString().split("T")[0];
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -106,6 +106,7 @@ const EditEventForm = ({
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          maxLength={150}
         />
       </EditFormInputDiv>
       <EditFormInputDiv>
@@ -115,6 +116,7 @@ const EditEventForm = ({
           type="text"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
+          maxLength={150}
         />
       </EditFormInputDiv>
       <EditFormInputDiv>
@@ -124,6 +126,7 @@ const EditEventForm = ({
           type="number"
           value={maxParticipants}
           onChange={(e) => setMaxParticipants(parseInt(e.target.value))}
+          max={200}
         />
       </EditFormInputDiv>
       <EditFormInputDiv>
@@ -133,6 +136,7 @@ const EditEventForm = ({
           type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
+          maxLength={250}
         />
       </EditFormInputDiv>
       <EditFormInputDiv>
@@ -142,6 +146,7 @@ const EditEventForm = ({
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
+          min={today}
         />
       </EditFormInputDiv>
       <EditFormInputDiv>
