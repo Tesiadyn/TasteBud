@@ -10,7 +10,7 @@ export const Container = styled.div`
   transition: all 0.3s;
   &.scrolled {
     box-shadow: 3px 3px 5px 2px rgba(89, 89, 89, 0.3);
-    background-color: #62431ada;
+    background-color: #803f15da;
   }
 `;
 export const Wrapper = styled.div`
