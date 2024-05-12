@@ -217,6 +217,11 @@ export const ArticlesLink = styled.button`
   color: #a5550b;
   border-radius: 12px;
   transition: all 0.2s;
+  cursor: pointer;
+  &:hover{
+    background-color: #8c4303;
+    color: #f7f7f7;
+  }
 `;
 export const ProductSection = styled.section`
   width: 80%;
@@ -257,7 +262,7 @@ export const ProductCardInfoDiv = styled.div`
 export const ProductCardTitle = styled.h1`
   font-size: 28px;
   font-weight: 600;
-  color: #5e3106;
+  color: #894a0f;
   margin: 80px 0;
 `;
 
