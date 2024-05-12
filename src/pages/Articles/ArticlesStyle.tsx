@@ -58,7 +58,7 @@ export const Tag = styled.button`
   padding: 8px;
   background-color: transparent;
   border: 1px solid #8c4303;
-  background-color: #e9e3df;
+  background-color: #e9e7e0;
   color: #8c4303;
   margin: 10px 0;
   border-radius: 4px;
