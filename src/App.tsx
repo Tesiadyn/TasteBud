@@ -1,4 +1,9 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+} from "react-router-dom";
 
 import Home from "./pages/Home/Home.tsx";
 import Articles from "./pages/Articles/Articles.tsx";
@@ -14,68 +19,29 @@ import NewEvent from "./pages/NewEvent/NewEvent.tsx";
 import Event from "./pages/Event/Event.tsx";
 import Article from "./pages/Article/Article.tsx";
 
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Layout />}>
+      <Route index element={<Home />} />
+      <Route path="articles" element={<Articles />} />
+      <Route path="products" element={<Products />} />
+      <Route path="events" element={<Events />} />
+      <Route path="login" element={<Login />} />
+      <Route path="member" element={<Member />} />
+      <Route path="product/:id" element={<Product />} />
+      <Route path="product/:id/post" element={<Post />} />
+      <Route path="signup" element={<SignUp />} />
+      <Route path="newEvent" element={<NewEvent />} />
+      <Route path="event/:id" element={<Event />} />
+      <Route path="article/:id" element={<Article />} />
+    </Route>
+  )
+);
+
 const App = () => {
-  // const [isLoading, setIsLoading] = useState(true);
-
-  // useEffect(() => {
-  //   const autoLogin = async () => {
-  //     /* ----------------------------- firebase config ---------------------------- */
-  //     const firebaseConfig = {
-  //       apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  //       authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  //       projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  //       storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  //       messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  //       appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  //     };
-  //     /* ------------------------------ firebase init ----------------------------- */
-  //     const app = initializeApp(firebaseConfig);
-  //     const auth = getAuth(app);
-
-  //     const email = "test@test.com";
-  //     const password = "112233";
-  //     try {
-  //       const userIdent = await signInWithEmailAndPassword(
-  //         auth,
-  //         email,
-  //         password
-  //       );
-  //       const user = userIdent.user;
-  //       console.log(user);
-
-  //       const userUid = user.uid;
-  //       console.log(userUid);
-
-  //       console.log("logged in as :", user.email);
-  //       setIsLoading(false);
-  //     } catch (err: any) {
-  //       console.error("Login failed:", err.message);
-  //       setIsLoading(false);
-  //     }
-  //   };
-  //   autoLogin();
-  // }, []);
-
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="articles" element={<Articles />} />
-            <Route path="products" element={<Products />} />
-            <Route path="events" element={<Events />} />
-            <Route path="login" element={<Login />} />
-            <Route path="member" element={<Member />} />
-            <Route path="product/:id" element={<Product />} />
-            <Route path="product/:id/post" element={<Post />} />
-            <Route path="signup" element={<SignUp />} />
-            <Route path="newEvent" element={<NewEvent />} />
-            <Route path="event/:id" element={<Event />} />
-            <Route path="article/:id" element={<Article />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <RouterProvider router={router} />
     </>
   );
 };
