@@ -19,8 +19,10 @@ import {
   SectionDivider,
   EventCards,
   NoEventDiv,
+  BtnText,
 } from "./MemberStyle";
 import { pulsar } from "ldrs";
+import { List } from "iconoir-react";
 
 pulsar.register();
 
@@ -248,7 +250,7 @@ const Member = () => {
                   <NoEventDiv>
                     <InfoText>No events yet, go to </InfoText>
                     <PageLink className="noEventText" to="/events">
-                      Events list
+                      <List color="#f7f7f7"/><BtnText>Events list</BtnText>
                     </PageLink>
                   </NoEventDiv>
                 </>

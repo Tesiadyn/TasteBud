@@ -22,11 +22,14 @@ import {
   CommentTextDiv,
   CommentCardDivider,
   PageLink,
+  BtnText,
 } from "./ProductStyle";
 import { useParams } from "react-router-dom";
 import { firestore } from "../../utilities/firebase";
 import { query, where, getDocs, collection } from "firebase/firestore";
 import MiniFlavourWheel from "./MiniFlavourWheel";
+import { DesignNib } from "iconoir-react";
+
 interface ProductData {
   bottler: string;
   caskType: string;
@@ -106,7 +109,10 @@ const Product = () => {
               <ProductIntroTitleDiv>
                 <ProductInfoTitle>{productData?.title}</ProductInfoTitle>
                 <ProductIntroText>{productData?.introText}</ProductIntroText>
-                <PostCommentBtn to={`./post`}>New Comment</PostCommentBtn>
+                <PostCommentBtn to={`./post`}>
+                  <DesignNib color="#f7f7f7" />
+                  <BtnText>New Comment</BtnText>
+                </PostCommentBtn>
               </ProductIntroTitleDiv>
             </IntroSection>
 
@@ -156,9 +162,9 @@ const Product = () => {
                 <NoCommentsHint>
                   No one has left comments here, wanna be the first one?
                 </NoCommentsHint>
-                <PostCommentBtn className="noCommentsBtn" to={`./post`}>
+                {/* <PostCommentBtn className="noCommentsBtn" to={`./post`}>
                   Post a new comment
-                </PostCommentBtn>
+                </PostCommentBtn> */}
               </>
             )}
           </CommentDiv>

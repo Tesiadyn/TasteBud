@@ -19,12 +19,14 @@ import {
   PageTitle,
   PageSubtitle,
   EventCardInfoIconDiv,
+  ButtonText,
 } from "./EventsStyle";
 import CapacityIcon from "../../assets/capacityIcon.png";
 import DateIcon from "../../assets/dateIcon.png";
 import { firestore } from "../../utilities/firebase";
 import { collection, getDocs, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { Community } from "iconoir-react";
 
 interface EventData {
   coverImage: string;
@@ -70,7 +72,10 @@ const Events = () => {
       <Wrapper>
         <EventCardsSection>
           <PageLink to="/newEvent">
-            <NewEventButton>New Event</NewEventButton>
+            <NewEventButton>
+              <Community color="#f7f7f7" />
+              <ButtonText>New Event</ButtonText>
+            </NewEventButton>
           </PageLink>
 
           <EventCards>
@@ -89,19 +94,15 @@ const Events = () => {
                   <EventCardInfos>
                     <EventCardInfoDiv>
                       <EventCardInfoIconDiv>
-                      <EventCardInfoIcon
-                        src={DateIcon}
-                      ></EventCardInfoIcon>
+                        <EventCardInfoIcon src={DateIcon}></EventCardInfoIcon>
                       </EventCardInfoIconDiv>
-                      <EventCardInfoText>
-                        {data.date}
-                      </EventCardInfoText>
+                      <EventCardInfoText>{data.date}</EventCardInfoText>
                     </EventCardInfoDiv>
                     <EventCardInfoDiv>
-                    <EventCardInfoIconDiv>
-                      <EventCardInfoIcon
-                        src={CapacityIcon}
-                      ></EventCardInfoIcon>
+                      <EventCardInfoIconDiv>
+                        <EventCardInfoIcon
+                          src={CapacityIcon}
+                        ></EventCardInfoIcon>
                       </EventCardInfoIconDiv>
                       <EventCardInfoText>
                         {data.participantsUid.length} / {data.maxParticipants}

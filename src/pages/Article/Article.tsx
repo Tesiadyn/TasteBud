@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { firestore } from "../../utilities/firebase";
 import { query, where, getDocs, collection } from "firebase/firestore";
 import { useState, useEffect } from "react";
+import { Undo } from "iconoir-react";
 import {
   Container,
   Wrapper,
@@ -13,6 +14,7 @@ import {
   BackToTopBtn,
   BtnDiv,
   CoverSection,
+  BtnText,
 } from "./ArticleStyle";
 
 interface ArticleData {
@@ -57,7 +59,7 @@ const Article = () => {
       <Wrapper>
         <ArticleSection>
           <PageLink to="/articles">
-            <PrevPageBtn>Back to Articles</PrevPageBtn>
+            <PrevPageBtn><Undo color="#f7f7f7"/><BtnText>Back to Articles</BtnText></PrevPageBtn>
           </PageLink>
           <CoverSection
             $backgroundImageUrl={articleData?.picture as string}
