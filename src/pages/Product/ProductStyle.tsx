@@ -11,7 +11,7 @@ export const PageLink = styled(Link)`
   margin: 30px 35px;
   border-radius: 12px;
   font-weight: 500;
-`
+`;
 export const Container = styled.div`
   width: 100%;
   margin: 0 auto;
@@ -78,17 +78,19 @@ export const ProductInfoText = styled.p`
 `;
 
 export const PostCommentBtn = styled(Link)`
-  width: 100%;
-  height: 20px;
+  width: 50%;
+  /* height: 20px; */
   background-color: #a5550b;
-  padding: 10px;
+  padding: 12px;
   text-decoration: none;
   text-align: center;
   border-radius: 12px;
   color: #f7f7f7;
   box-shadow: 2px 3px 6px 1px rgb(202, 91, 0, 0.55);
-  margin-left: auto;
-  margin-top: 30px;
+  margin: 30px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: all 0.2s;
   &:hover {
@@ -101,6 +103,9 @@ export const PostCommentBtn = styled(Link)`
     display: inline-block;
     text-align: center;
   }
+`;
+export const BtnText = styled.p`
+  margin: 0 0 0 8px;
 `;
 export const WheelDiv = styled.div`
   display: flex;

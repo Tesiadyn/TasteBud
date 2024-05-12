@@ -39,10 +39,9 @@ export const CoverSection = styled.section<backgroundImgUrlProps>`
   margin: 30px 0;
   box-shadow: 3px 3px 5px 2px rgba(89, 89, 89, 0.3);
 `;
-// export const CoverImg = styled.img`
-//   width: 100%;
-//   height: 100%;
-// `
+export const BtnText = styled.p`
+  margin: 0 0 0 4px;
+`
 export const PrevPageBtn = styled.button`
   background-color: #a5550b;
   color: #f7f7f7;
@@ -52,6 +51,8 @@ export const PrevPageBtn = styled.button`
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s;
+  display: flex;
+  align-items: center;
   &:hover {
     background-color: #be722c;
   }

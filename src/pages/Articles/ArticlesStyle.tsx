@@ -41,7 +41,13 @@ export const TagsSection = styled.section`
 `;
 export const TagSectionTitle = styled.h3`
   color: #8c4303;
+  margin-left: 8px;
 `;
+export const TagSectionTitleDiv = styled.div`
+  display: flex;
+  align-items: center;
+  color: #8c4303;
+`
 export const Tags = styled.div`
   list-style: none;
   margin: 0 auto;
@@ -51,16 +57,18 @@ export const Tags = styled.div`
 export const Tag = styled.button`
   padding: 8px;
   background-color: transparent;
-  border: 1px solid #5e3106;
-  color: #5e3106;
+  border: 1px solid #8c4303;
+  background-color: #e9e3df;
+  color: #8c4303;
   margin: 10px 0;
   border-radius: 4px;
   transition: all 0.3s;
+  box-shadow: 3px 3px 5px 2px rgba(89, 89, 89, 0.3);
   cursor: pointer;
   &:hover {
     background-color: #914b0b;
     border: 1px solid #c5c5c5;
-    color: #c5c5c5;
+    color: #f7f7f7;
   }
 `;
 export const SelectedTag = styled(Tag)`

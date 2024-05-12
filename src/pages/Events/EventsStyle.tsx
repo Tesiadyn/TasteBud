@@ -138,16 +138,18 @@ export const EventCardInfoIcon = styled.img`
 export const EventCardInfoText = styled.p`
   color: #5e3106;
   margin: 4px 0 0 4px;
-
   height: 100%;
 `;
 
 export const PageLink = styled(Link)`
   cursor: pointer;
+  display: inline-block;
   text-decoration: none;
 `;
 export const NewEventButton = styled.button`
   border: none;
+  display: flex;
+  align-items: center;
   background-color: #a5550b;
   padding: 12px;
   border-radius: 12px;
@@ -163,3 +165,6 @@ export const NewEventButton = styled.button`
     box-shadow: 1px 1px 7px 0px rgb(212, 107, 20, 0.75);
   }
 `;
+export const ButtonText = styled.p`
+  margin: 0 0 0 8px;
+`

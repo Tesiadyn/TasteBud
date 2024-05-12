@@ -11,12 +11,16 @@ export const PageLink = styled(Link)`
   }
   &.noEventText {
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
     color: #f7f7f7;
     margin: 30px auto 0;
     background-color: #a5550b;
     box-shadow: 2px 3px 6px 1px rgb(202, 91, 0, 0.55);
     border-radius: 12px;
-    padding: 8px 16px;
+    padding: 8px;
     cursor: pointer;
     transition: all 0.2s;
     &:hover {
@@ -27,6 +31,9 @@ export const PageLink = styled(Link)`
     }
   }
 `;
+export const BtnText = styled.p`
+  margin: 0 0 0 8px;
+`
 export const Container = styled.div`
   width: 100%;
   min-height: calc(100vh - 270px);
