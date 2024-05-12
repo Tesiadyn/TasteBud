@@ -61,7 +61,7 @@ const Events = () => {
     };
     fetchEventsData();
   }, []);
-  console.log(eventData);
+  // console.log(eventData);
 
   return (
     <Container>
