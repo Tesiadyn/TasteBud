@@ -23,7 +23,7 @@ export const PageLink = styled(Link)`
 `;
 
 export const Container = styled.div`
-  width: 100%;
+  width: 100vw;
 `;
 export const Wrapper = styled.div`
   margin: 0 auto;
@@ -54,7 +54,7 @@ export const PromoBannerSubTitle = styled.h3`
   color: #f7f7f7;
   font-size: 20px;
   font-weight: 400;
-  margin: 12px 0 ;
+  margin: 12px 0;
 `;
 export const PromoBannerText = styled.p`
   color: #eaeaea;
@@ -84,6 +84,10 @@ export const PromoBannerImg = styled.img`
 export const FeaturesDiv = styled.div`
   width: 1280px;
   margin: 0 auto;
+  @media screen and (max-width: 1279px) {
+    width: 100%;
+    text-align: center;
+  }
 `;
 export const FeaturesTitle = styled.h2`
   font-size: 52px;
@@ -96,11 +100,16 @@ export const FeatureSubTitle = styled.h2`
   color: #5e3106;
 `;
 export const FeatureCards = styled.div`
-  width: 80%;
+  width: 70%;
   margin-left: 5%;
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
+  @media screen and (max-width: 1279px){
+    width: 100%;
+    margin-left: 0;
+    justify-content: center;
+  }
 `;
 export const FeatureCardsDiv = styled.div`
   display: flex;
@@ -116,6 +125,9 @@ export const FeatureCard = styled.div`
   border-radius: 12px;
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  @media screen and (max-width: 1279px){
+    align-items: center;
+  }
 `;
 export const FeatureCardImgDiv = styled.div`
   height: 50px;
@@ -127,6 +139,9 @@ export const FeatureCardImgDiv = styled.div`
 export const FeatureBannerDiv = styled.div`
   width: 30%;
   height: 100%;
+  @media screen and (max-width: 1279px) {
+    display: none;
+  }
 `;
 export const FeatureBanner = styled.img`
   width: 100%;
@@ -176,6 +191,9 @@ export const ArticleCards = styled.div`
   justify-content: center;
   gap: 40px;
   margin: 0 auto;
+  @media screen and (max-width: 1279px){
+    width: auto;
+  }
 `;
 // export const ArticleCard = styled.div`
 //   background-color: #e2d0b7;
@@ -218,7 +236,7 @@ export const ArticlesLink = styled.button`
   border-radius: 12px;
   transition: all 0.2s;
   cursor: pointer;
-  &:hover{
+  &:hover {
     background-color: #8c4303;
     color: #f7f7f7;
   }
@@ -244,10 +262,16 @@ export const ProductCard = styled.div`
   margin: 0 auto;
   border-radius: 16px;
   box-shadow: 2px 1px -1px rgba(0, 0, 0, 0.2);
+  @media screen and (max-width: 1279px){
+    height: 350px;
+  }
 `;
 export const ProductCardImgDiv = styled.div`
   height: 100%;
   width: 45%;
+  @media screen and (max-width: 1279px){
+    display: none;
+  }
 `;
 export const ProductCardImg = styled.img`
   width: 100%;
@@ -257,6 +281,11 @@ export const ProductCardImg = styled.img`
 export const ProductCardInfoDiv = styled.div`
   width: 45%;
   margin-left: 50px;
+  @media screen and (max-width: 1279px){
+    margin: 0;
+    width: 100%;
+    text-align: center;
+  }
 `;
 
 export const ProductCardTitle = styled.h1`
@@ -264,6 +293,9 @@ export const ProductCardTitle = styled.h1`
   font-weight: 600;
   color: #894a0f;
   margin: 80px 0;
+  @media screen and (max-width: 1279px){
+    margin: 40px 0;
+  }
 `;
 
 export const ProductCardText = styled.p`
@@ -271,6 +303,9 @@ export const ProductCardText = styled.p`
   color: #5e3106;
   line-height: 1.3;
   height: 40%;
+  @media screen and (max-width: 1279px){
+    margin: 0 auto;
+  }
 `;
 export const ProductCardAuthorDiv = styled.div`
   display: flex;

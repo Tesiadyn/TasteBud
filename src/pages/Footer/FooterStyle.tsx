@@ -1,23 +1,28 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 150px;
   background-color: #552100;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `;
-export const wrapper = styled.div`
-  width: 1280px;
+export const Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 export const LogoDiv = styled.div`
-    margin-top: 20px;
+  
+  margin: 20px auto 0;
+  text-align: center;
 `;
-export const LogoImg = styled.img``;
+export const LogoImg = styled.img`
+
+
+`;
 
 export const SubTitle = styled.p`
-    color: #f7f7f7;
-    margin-top: 0;
-    font-size: 12px;
+  color: #f7f7f7;
+  margin-top: 0;
+  font-size: 12px;
+  text-align: center;
 `;

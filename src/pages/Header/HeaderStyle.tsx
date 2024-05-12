@@ -6,6 +6,7 @@ export const Container = styled.div`
   width: 100%;
   position: sticky;
   top: 0;
+  
   z-index: 10;
   transition: all 0.3s;
   &.scrolled {
@@ -17,10 +18,13 @@ export const Wrapper = styled.div`
   width: 1280px;
   height: 80px;
   margin: 0 auto;
-  padding: 20px;
+padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media screen and (max-width: 1279px) {
+    width: 100%;
+  }
 `;
 export const LogoDiv = styled.div`
   width: 200px;
