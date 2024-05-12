@@ -17,6 +17,7 @@ import {
   PageLink,
   SelectedTag,
   TagSectionTitle,
+  TagSectionTitleDiv,
 } from "./ArticlesStyle";
 import { firestore } from "../../utilities/firebase";
 import { collection, getDocs, query } from "firebase/firestore";
@@ -24,6 +25,8 @@ import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { FilterList } from "iconoir-react";
+
 interface ArticleData {
   picture: string;
   text: string;
@@ -171,7 +174,10 @@ const Articles = () => {
       </BannerSection>
       <Wrapper>
         <TagsSection>
-          <TagSectionTitle>Categories</TagSectionTitle>
+          <TagSectionTitleDiv>
+            <FilterList />
+            <TagSectionTitle>Categories</TagSectionTitle>
+          </TagSectionTitleDiv>
           <Tags>
             {tagsList.map((tag, index) => (
               <Tag
