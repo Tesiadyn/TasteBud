@@ -15,10 +15,21 @@ export const PageLink = styled(Link)`
   }
   &.productLink {
     margin: auto 0;
-    color: #8c4303;
-    font-size: 24px;
-    font-weight: 600;
-    text-decoration: underline;
+    color: #f7f7f7;
+    font-size: 16px;
+    font-weight: 400;
+    background-color: #a5550b;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+      0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    &:hover {
+      background-color: #be722c;
+    }
+    &:active {
+      box-shadow: 1px 1px 7px 0px rgb(212, 107, 20, 0.75);
+    }
   }
 `;
 
@@ -101,9 +112,10 @@ export const FeatureSubTitle = styled.h2`
 `;
 export const FeatureCards = styled.div`
   width: 70%;
-  margin-left: 5%;
+  /* margin-left: 5%; */
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 30px;
   @media screen and (max-width: 1279px) {
     width: 100%;
@@ -161,14 +173,15 @@ export const FeatureCardImg = styled.img`
 `;
 export const FeatureCardInfoDiv = styled.div``;
 export const FeatureCardTitle = styled.h3`
-  font-size: 20px;
-  margin: 10px 0;
+  font-size: 24px;
+  margin: 12px 0;
   color: #8c4303;
 `;
 export const FeatureCardText = styled.p`
   margin: 0;
   line-height: 1.5;
   color: #9c602c;
+  font-size: 16px;
 `;
 export const ArticleSection = styled(Paper)`
   width: 100%;
@@ -179,7 +192,7 @@ export const ArticleSectionTitle = styled.h1`
   font-size: 32px;
   margin: 0 0 50px;
   color: #8c4303;
-  text-decoration: underline;
+  /* text-decoration: underline; */
 `;
 // export const SectionTitleDivider = styled.div`
 //   height: 1px;
@@ -226,7 +239,7 @@ export const ArticleCardInfoDiv = styled.div`
 `;
 export const ArticleCardTitle = styled.h3`
   margin: 0;
-  font-size: 18px;
+  font-size: 20px;
   color: #8c4303;
   font-weight: 500;
 `;
@@ -292,7 +305,7 @@ export const ProductCardInfoDiv = styled.div`
 `;
 
 export const ProductCardTitle = styled.h1`
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 600;
   color: #894a0f;
   margin: 80px 0;
@@ -302,9 +315,10 @@ export const ProductCardTitle = styled.h1`
 `;
 
 export const ProductCardText = styled.p`
-  width: 70%;
+  width: 85%;
   color: #5e3106;
-  line-height: 1.3;
+  line-height: 1.5;
+  font-size: 18px;
   height: 40%;
   @media screen and (max-width: 1279px) {
     margin: 0 auto;
