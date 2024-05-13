@@ -69,6 +69,7 @@ export const SubmitButton = styled.button`
   padding: 8px 0;
   margin: 30px 0;
   border: none;
+  cursor: pointer;
   box-shadow: 3px 3px 5px 0 rgba(93, 93, 93, 0.54);
   &:active {
     box-shadow: 2px 2px 3px 0 rgba(93, 93, 93, 0.7);
