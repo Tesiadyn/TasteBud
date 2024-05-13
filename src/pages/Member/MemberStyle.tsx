@@ -75,7 +75,7 @@ export const EventsSection = styled.section`
 `;
 export const SectionTitle = styled.h2`
   color: #5e3106;
-  text-align: center;
+  margin-left: 8px;
 `;
 export const EventCard = styled.div`
   padding: 10px 20px;
@@ -117,3 +117,8 @@ export const SectionDivider = styled.div`
   margin: 0 auto 40px;
   border-radius: 8px;
 `;
+export const SectionTitleDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`

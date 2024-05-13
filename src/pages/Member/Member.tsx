@@ -19,9 +19,12 @@ import {
   SectionDivider,
   NoEventDiv,
   BtnText,
+  SectionTitleDiv,
 } from "./MemberStyle";
 import { pulsar } from "ldrs";
 import { List } from "iconoir-react";
+import { UserCrown, User } from "iconoir-react";
+import { Lifebelt } from "iconoir-react";
 
 pulsar.register();
 
@@ -179,7 +182,10 @@ const Member = () => {
               <InfoText>{userData?.email}</InfoText>
             </InfoSection>
             <EventsSection>
-              <SectionTitle>Organized Events</SectionTitle>
+              <SectionTitleDiv>
+                <UserCrown color="#5e3106" height={32} width={32} />
+                <SectionTitle>Organized Events</SectionTitle>
+              </SectionTitleDiv>
               <SectionDivider />
 
               {organizedEventsData.length > 0 ? (
@@ -210,7 +216,7 @@ const Member = () => {
                   <NoEventDiv>
                     <InfoText>No events yet, go to </InfoText>
                     <PageLink className="noEventText" to="/events">
-                      <List color="#f7f7f7" />
+                      <List color="#f7f7f7" height={28} width={28} />
                       <BtnText>Events list</BtnText>
                     </PageLink>
                   </NoEventDiv>
@@ -219,7 +225,10 @@ const Member = () => {
             </EventsSection>
 
             <EventsSection>
-              <SectionTitle>Participated Events</SectionTitle>
+              <SectionTitleDiv>
+                <User color="#5e3106" height={32} width={32} />
+                <SectionTitle>Participated Events</SectionTitle>
+              </SectionTitleDiv>
               <SectionDivider />
               {eventData.length > 0 ? (
                 eventData.map((event, index) => (
@@ -249,7 +258,7 @@ const Member = () => {
                   <NoEventDiv>
                     <InfoText>No events yet, go to </InfoText>
                     <PageLink className="noEventText" to="/events">
-                      <List color="#f7f7f7" />
+                      <List color="#f7f7f7" height={28} width={28} />
                       <BtnText>Events list</BtnText>
                     </PageLink>
                   </NoEventDiv>
@@ -260,7 +269,10 @@ const Member = () => {
 
           <WheelDiv>
             <WheelSection>
-              <SectionTitle>FlavourWheel</SectionTitle>
+              <SectionTitleDiv>
+                <Lifebelt color="#5e3106" height={32} width={32} />
+                <SectionTitle>FlavourWheel</SectionTitle>
+              </SectionTitleDiv>
               <SectionDivider />
               {wheelData ? (
                 <FlavourWheel data={wheelData} />
