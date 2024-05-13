@@ -15,6 +15,8 @@ export const Wrapper = styled.div`
 `;
 export const SectionTitle = styled.h2`
   text-align: center;
+  font-size: 32px;
+  color: #0c0c0f;
 `;
 export const ArticleSection = styled.section`
   background-color: #e9e7e0;
@@ -25,6 +27,7 @@ export const ArticleSection = styled.section`
 `;
 export const ArticleText = styled.p`
   line-height: 2;
+  color: #0c0c0f;
 `;
 export const PageLink = styled(Link)`
   text-decoration: none;
@@ -41,7 +44,7 @@ export const CoverSection = styled.section<backgroundImgUrlProps>`
 `;
 export const BtnText = styled.p`
   margin: 0 0 0 4px;
-`
+`;
 export const PrevPageBtn = styled.button`
   background-color: #a5550b;
   color: #f7f7f7;
@@ -66,4 +69,16 @@ export const BtnDiv = styled.div`
 `;
 export const BackToTopBtn = styled(Button)`
   margin: 0 auto;
+`;
+export const Tags = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+export const Tag = styled.div`
+  margin-left: 12px;
+  font-size: 16px;
+  border: 1px solid #a5550b;
+  padding: 8px;
+  color: #a5550b;
+  border-radius: 8px;
 `;

@@ -15,6 +15,8 @@ import {
   BtnDiv,
   CoverSection,
   BtnText,
+  Tags,
+  Tag,
 } from "./ArticleStyle";
 
 interface ArticleData {
@@ -59,12 +61,20 @@ const Article = () => {
       <Wrapper>
         <ArticleSection>
           <PageLink to="/articles">
-            <PrevPageBtn><Undo color="#f7f7f7"/><BtnText>Back to Articles</BtnText></PrevPageBtn>
+            <PrevPageBtn>
+              <Undo color="#f7f7f7" />
+              <BtnText>Back to Articles</BtnText>
+            </PrevPageBtn>
           </PageLink>
           <CoverSection
             $backgroundImageUrl={articleData?.picture as string}
           ></CoverSection>
           <SectionTitle>{articleData?.title}</SectionTitle>
+          <Tags>
+            {articleData?.tags.map((tag, index) => (
+              <Tag key={index}>{tag}</Tag>
+            ))}
+          </Tags>
           <ArticleText>
             <p>{articleData?.text}</p>
           </ArticleText>
