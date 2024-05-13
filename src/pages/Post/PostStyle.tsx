@@ -8,10 +8,12 @@ export const Container = styled.div`
   padding: 20px 0;
 `;
 export const InputSection = styled.section`
-  width: 100%;
+  margin: 0 auto;
+  width: 80%;
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 20px;
+  justify-content: center;
 `;
 export const SectionTitle = styled.h2`
   color: #5e3106;
@@ -22,6 +24,9 @@ export const SectionTitle = styled.h2`
 export const SectionSubTitle = styled.p`
   text-align: center;
   color: #5e3106;
+`;
+export const HelpCircleDiv = styled.div`
+  text-align: center;
 `;
 export const FlavourForm = styled.form``;
 export const CheckboxTreeWrapper = styled.div`

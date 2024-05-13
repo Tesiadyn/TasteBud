@@ -27,14 +27,17 @@ import {
   CategoryDiv,
   InputLabel,
   SubmitDiv,
+  HelpCircleDiv,
 } from "./PostStyle";
 import { toaster } from "evergreen-ui";
+import { HelpCircleSolid } from "iconoir-react";
 import "./PostStyles.css";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import initWheelData from "../../pages/Product/initData.json";
 import { pulsar } from "ldrs";
+import { Tooltip } from "react-tooltip";
 pulsar.register();
 const db = firestore;
 const auth = getAuth();
@@ -264,6 +267,19 @@ const Post: React.FC = () => {
           <SectionSubTitle>
             Choose the flavours you feel when tasing this!
           </SectionSubTitle>
+          <HelpCircleDiv>
+            <HelpCircleSolid
+              className="my-anchor-element"
+              color="#5e3106"
+              height={24}
+              width={24}
+            />
+
+            <Tooltip anchorSelect=".my-anchor-element" place="top">
+              These boxes contains flavours and tastes , you can choose as many
+              boxes as you want!
+            </Tooltip>
+          </HelpCircleDiv>
           <CheckboxTreeWrapper>
             <CheckboxTree data={parsedNodeData} />
           </CheckboxTreeWrapper>
