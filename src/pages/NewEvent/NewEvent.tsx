@@ -19,6 +19,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import imageCompression from "browser-image-compression";
+import { toaster } from "evergreen-ui";
 
 const NewEvent = () => {
   const [title, setTitle] = useState("");
@@ -135,12 +136,14 @@ const NewEvent = () => {
         const updatedEventData = { ...eventData, eventUid };
         await updateDoc(eventDocRef, updatedEventData);
         navigate("/events");
-        console.log("Doc written with ID : ", eventDocRef.id);
+        toaster.success('Event created!')
+        // console.log("Doc written with ID : ", eventDocRef.id);
       } catch (err) {
         console.error("Error adding event data : ", err);
       }
     };
     updateEventData();
+
   };
 
   useEffect(() => {
