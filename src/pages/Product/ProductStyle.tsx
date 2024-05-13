@@ -39,7 +39,7 @@ export const IntroSection = styled.div`
 `;
 
 export const ProductImgDiv = styled.div`
-  width: 35%;
+  width: 50%;
 `;
 export const ProductImg = styled.img`
   height: 100%;
