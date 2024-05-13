@@ -106,7 +106,7 @@ const FlavourWheel: React.FC<{ data: Data }> = ({ data }) => {
       .join("text")
       .attr("dy", "0.35em")
       .attr("text-anchor", "middle")
-      .attr("font-size", "12px")
+      .attr("font-size", "16px")
       .attr("fill-opacity", (d) => +labelVisible((d as any).current))
       .attr("transform", (d) => labelTransform((d as any).current))
       .attr("pointer-events", "none")
