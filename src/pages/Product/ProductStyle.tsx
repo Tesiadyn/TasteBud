@@ -110,7 +110,6 @@ export const BtnText = styled.p`
 export const WheelDiv = styled.div`
   display: flex;
   justify-content: center;
-  margin: 30px 0 0;
 `;
 export const InfoSection = styled.div`
   width: 100%;
