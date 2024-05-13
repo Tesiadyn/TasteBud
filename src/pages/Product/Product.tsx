@@ -146,13 +146,7 @@ const Product = () => {
                     <CommentCard key={index}>
                       <UserNameText>{comment.authorName}</UserNameText>
                       <CommentCardDivider />
-                      <CommentTextDiv>
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: comment.quillValue,
-                          }}
-                        />
-                      </CommentTextDiv>
+                      <CommentTextDiv>{comment.commentText}</CommentTextDiv>
                     </CommentCard>
                   </CommentWrapper>
                 </>
