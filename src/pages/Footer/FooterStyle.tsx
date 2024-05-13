@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 150px;
   background-color: #552100;
 `;
@@ -11,14 +11,10 @@ export const Wrapper = styled.div`
   justify-content: center;
 `;
 export const LogoDiv = styled.div`
-  
   margin: 20px auto 0;
   text-align: center;
 `;
-export const LogoImg = styled.img`
-
-
-`;
+export const LogoImg = styled.img``;
 
 export const SubTitle = styled.p`
   color: #f7f7f7;

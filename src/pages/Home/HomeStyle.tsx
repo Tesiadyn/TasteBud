@@ -23,7 +23,7 @@ export const PageLink = styled(Link)`
 `;
 
 export const Container = styled.div`
-  width: 100vw;
+  width: 100%;
 `;
 export const Wrapper = styled.div`
   margin: 0 auto;
@@ -105,7 +105,7 @@ export const FeatureCards = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
-  @media screen and (max-width: 1279px){
+  @media screen and (max-width: 1279px) {
     width: 100%;
     margin-left: 0;
     justify-content: center;
@@ -125,7 +125,7 @@ export const FeatureCard = styled.div`
   border-radius: 12px;
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-  @media screen and (max-width: 1279px){
+  @media screen and (max-width: 1279px) {
     align-items: center;
   }
 `;
@@ -191,7 +191,7 @@ export const ArticleCards = styled.div`
   justify-content: center;
   gap: 40px;
   margin: 0 auto;
-  @media screen and (max-width: 1279px){
+  @media screen and (max-width: 1279px) {
     width: auto;
   }
 `;
@@ -262,14 +262,14 @@ export const ProductCard = styled.div`
   margin: 0 auto;
   border-radius: 16px;
   box-shadow: 2px 1px -1px rgba(0, 0, 0, 0.2);
-  @media screen and (max-width: 1279px){
+  @media screen and (max-width: 1279px) {
     height: 350px;
   }
 `;
 export const ProductCardImgDiv = styled.div`
   height: 100%;
   width: 45%;
-  @media screen and (max-width: 1279px){
+  @media screen and (max-width: 1279px) {
     display: none;
   }
 `;
@@ -281,7 +281,7 @@ export const ProductCardImg = styled.img`
 export const ProductCardInfoDiv = styled.div`
   width: 45%;
   margin-left: 50px;
-  @media screen and (max-width: 1279px){
+  @media screen and (max-width: 1279px) {
     margin: 0;
     width: 100%;
     text-align: center;
@@ -293,7 +293,7 @@ export const ProductCardTitle = styled.h1`
   font-weight: 600;
   color: #894a0f;
   margin: 80px 0;
-  @media screen and (max-width: 1279px){
+  @media screen and (max-width: 1279px) {
     margin: 40px 0;
   }
 `;
@@ -303,7 +303,7 @@ export const ProductCardText = styled.p`
   color: #5e3106;
   line-height: 1.3;
   height: 40%;
-  @media screen and (max-width: 1279px){
+  @media screen and (max-width: 1279px) {
     margin: 0 auto;
   }
 `;
