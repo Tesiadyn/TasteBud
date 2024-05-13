@@ -33,7 +33,7 @@ export const PageLink = styled(Link)`
 `;
 export const BtnText = styled.p`
   margin: 0 0 0 8px;
-`
+`;
 export const Container = styled.div`
   width: 100%;
   min-height: calc(100vh - 270px);
@@ -74,8 +74,10 @@ export const EventsSection = styled.section`
   margin-bottom: 100px;
 `;
 export const SectionTitle = styled.h2`
+  font-size: 28px;
   color: #5e3106;
   margin-left: 8px;
+  margin-right: 8px;
 `;
 export const EventCard = styled.div`
   padding: 10px 20px;
@@ -121,4 +123,4 @@ export const SectionTitleDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;

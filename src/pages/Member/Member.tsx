@@ -22,9 +22,15 @@ import {
   SectionTitleDiv,
 } from "./MemberStyle";
 import { pulsar } from "ldrs";
-import { List } from "iconoir-react";
-import { UserCrown, User } from "iconoir-react";
-import { Lifebelt } from "iconoir-react";
+import {
+  List,
+  UserCrown,
+  User,
+  Lifebelt,
+  HelpCircleSolid,
+} from "iconoir-react";
+
+import { Tooltip } from "react-tooltip";
 
 pulsar.register();
 
@@ -272,6 +278,16 @@ const Member = () => {
               <SectionTitleDiv>
                 <Lifebelt color="#5e3106" height={32} width={32} />
                 <SectionTitle>FlavourWheel</SectionTitle>
+                <HelpCircleSolid
+                  className="my-anchor-element"
+                  color="#5e3106"
+                  height={20}
+                  width={20}
+                />
+                <Tooltip anchorSelect=".my-anchor-element" place="top">
+                  After you post a comment about a whisky , your own flavour
+                  wheel will shows up!
+                </Tooltip>
               </SectionTitleDiv>
               <SectionDivider />
               {wheelData ? (
