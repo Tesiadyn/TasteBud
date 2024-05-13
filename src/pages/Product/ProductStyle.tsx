@@ -153,13 +153,14 @@ export const NoCommentsHint = styled.h3`
   text-align: center;
 `;
 export const CommentCard = styled.div`
-  height: 100px;
+  /* height: 100px; */
   border-radius: 8px;
-  padding: 15px;
+  /* padding: 10px; */
 `;
 export const CommentDiv = styled.div`
   flex: 1;
   padding: 0 50px;
+  width: 45%;
 `;
 export const CommentWrapper = styled.div`
   border: 1px solid #b6b6b6;
@@ -175,6 +176,8 @@ export const CommentCardDivider = styled.div`
   height: 2px;
   background-color: #b6b3b0;
   width: 70%;
-  margin: 0 auto;
+  margin: 0 auto 20px;
 `;
-export const CommentTextDiv = styled.div``;
+export const CommentTextDiv = styled.div`
+  word-break: break-all;
+`;
