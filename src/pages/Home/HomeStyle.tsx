@@ -135,6 +135,9 @@ export const FeatureCardImgDiv = styled.div`
   position: relative;
   background-color: #d6a668;
   border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 export const FeatureBannerDiv = styled.div`
   width: 30%;

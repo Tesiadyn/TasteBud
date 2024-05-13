@@ -59,6 +59,13 @@ import FeatureBannerImage from "../../assets/featureBanner.jpg";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styled from "styled-components";
+import {
+  Community,
+  Lifebelt,
+  ChatLines,
+  EditPencil,
+  Edit,
+} from "iconoir-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -237,7 +244,7 @@ const Home = () => {
                 <FeatureCards>
                   <FeatureCard>
                     <FeatureCardImgDiv>
-                      <FeatureCardImg src={ArticlesIcon} />
+                      <EditPencil color="#8C4303" height={40} width={40} />
                     </FeatureCardImgDiv>
                     <FeatureCardInfoDiv>
                       <FeatureCardTitle>Articles by pros</FeatureCardTitle>
@@ -250,7 +257,7 @@ const Home = () => {
                   </FeatureCard>
                   <FeatureCard>
                     <FeatureCardImgDiv>
-                      <FeatureCardImg src={CommentsIcon} />
+                      <ChatLines color="#8C4303" height={40} width={40} />
                     </FeatureCardImgDiv>
                     <FeatureCardInfoDiv>
                       <FeatureCardTitle>
@@ -265,7 +272,7 @@ const Home = () => {
                   </FeatureCard>
                   <FeatureCard>
                     <FeatureCardImgDiv>
-                      <FeatureCardImg src={EventsIcon} />
+                      <Community color="#8C4303" height={40} width={40} />
                     </FeatureCardImgDiv>
                     <FeatureCardInfoDiv>
                       <FeatureCardTitle>Events for community</FeatureCardTitle>
@@ -278,7 +285,7 @@ const Home = () => {
                   </FeatureCard>
                   <FeatureCard>
                     <FeatureCardImgDiv>
-                      <FeatureCardImg src={WheelIcon} />
+                      <Lifebelt color="#8C4303" height={40} width={40} />
                     </FeatureCardImgDiv>
                     <FeatureCardInfoDiv>
                       <FeatureCardTitle>Personal FlavourWheel</FeatureCardTitle>
