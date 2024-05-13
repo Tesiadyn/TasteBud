@@ -50,7 +50,8 @@ const SignUp = () => {
     },
     password: {
       rule: /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/,
-      message: "Please enter password at least 6 characters including uppercase and lowercase",
+      message:
+        "Please enter password at least 6 characters including uppercase and lowercase",
     },
   };
   const getHint = (inputField: keyof FormState) => {
@@ -84,8 +85,8 @@ const SignUp = () => {
         return user;
       } catch (err: any) {
         const errorCode = err.code;
-        if (errorCode === 'auth/email-already-in-use'){
-            window.alert('Email already in use!')
+        if (errorCode === "auth/email-already-in-use") {
+          window.alert("Email already in use!");
         }
         console.error("Error creating user: ", err.message);
       }
@@ -393,7 +394,7 @@ const SignUp = () => {
                       "name": "Detergent",
                       "value": 0
                   }, {
-                      "name": "Washing machine inner tank",
+                      "name": "Washingmachine tank",
                       "value": 0
                   }]
               }, {
@@ -459,7 +460,7 @@ const SignUp = () => {
                       "value": 0
                   }]
               }, {
-                  "name": "Enveloping feeling",
+                  "name": "Envelop feeling",
                   "children": [{
                       "name": "Oil",
                       "value": 0
@@ -518,7 +519,7 @@ const SignUp = () => {
                       "name": "TCP Potion",
                       "value": 0
                   }, {
-                      "name": "Disinfectant Water",
+                      "name": "Germicide",
                       "value": 0
                   }, {
                       "name": "Ointment",
@@ -590,7 +591,7 @@ const SignUp = () => {
                       "name": "Leaves",
                       "value": 0
                   }, {
-                      "name": "Freshly cutted grass",
+                      "name": "Cutted grass",
                       "value": 0
                   }, {
                       "name": "Flower stem",
@@ -599,7 +600,7 @@ const SignUp = () => {
                       "name": "Green Apple",
                       "value": 0
                   }, {
-                      "name": "Greem Banana",
+                      "name": "Green Banana",
                       "value": 0
                   }]
               }, {

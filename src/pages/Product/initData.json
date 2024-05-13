@@ -320,7 +320,7 @@
               "value": 0
             },
             {
-              "name": "Baby spitted Milk",
+              "name": "Spitted Milk",
               "value": 0
             },
             {
@@ -367,7 +367,7 @@
               "value": 0
             },
             {
-              "name": "Washing machine inner tank",
+              "name": "Washingmachine tank",
               "value": 0
             }
           ]
@@ -462,7 +462,7 @@
           ]
         },
         {
-          "name": "Enveloping feeling",
+          "name": "Envelop feeling",
           "children": [
             {
               "name": "Oil",
@@ -547,7 +547,7 @@
               "value": 0
             },
             {
-              "name": "Disinfectant Water",
+              "name": "Germicide",
               "value": 0
             },
             {
@@ -650,7 +650,7 @@
               "value": 0
             },
             {
-              "name": "Freshly cutted grass",
+              "name": "Cutted grass",
               "value": 0
             },
             {
@@ -662,7 +662,7 @@
               "value": 0
             },
             {
-              "name": "Greem Banana",
+              "name": "Green Banana",
               "value": 0
             }
           ]
