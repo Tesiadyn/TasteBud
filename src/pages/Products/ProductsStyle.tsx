@@ -103,4 +103,5 @@ export const CardInfos = styled.div`
 `;
 export const CardInfoTitle = styled.h3`
   text-align: center;
+  font-size: 24px;
 `;
