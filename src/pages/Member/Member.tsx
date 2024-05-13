@@ -17,7 +17,6 @@ import {
   InfoDiv,
   SectionTitle,
   SectionDivider,
-  EventCards,
   NoEventDiv,
   BtnText,
 } from "./MemberStyle";
@@ -149,17 +148,17 @@ const Member = () => {
   }, [navigate]);
 
   const LoadingContainer = {
-    display: 'flex',
-    justifyContent: 'center', 
-    alignItems: 'center',
-    height: 'calc(100vh - 270px)',
-    width: '1440px',
-    margin: '0 auto',
-    padding: '50px',
-    backgroundColor: '#dad8d6',
-    borderRadius: '12px',
-    boxShadow: '3px 3px 5px 2px rgba(89, 89, 89, 0.3)'
-  }
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "calc(100vh - 270px)",
+    width: "1440px",
+    margin: "0 auto",
+    padding: "50px",
+    backgroundColor: "#dad8d6",
+    borderRadius: "12px",
+    boxShadow: "3px 3px 5px 2px rgba(89, 89, 89, 0.3)",
+  };
   if (isLoading) {
     return (
       <div style={LoadingContainer}>
@@ -182,41 +181,41 @@ const Member = () => {
             <EventsSection>
               <SectionTitle>Organized Events</SectionTitle>
               <SectionDivider />
-              <EventCards>
-                {organizedEventsData.length > 0 ? (
-                  organizedEventsData.map((event, index) => (
-                    <PageLink
-                      to={`/event/${event.eventUid}`}
-                      key={index}
-                      className="eventLink"
-                    >
-                      <EventCard>
-                        <InfoText className="eventCardText">
-                          {event.title}
-                        </InfoText>
-                        <InfoText className="eventCardText">
-                          {event.date}
-                        </InfoText>
-                        <InfoText className="eventCardText">
-                          {event.time}
-                        </InfoText>
-                        <InfoText className="eventCardText">
-                          {event.location}
-                        </InfoText>
-                      </EventCard>
+
+              {organizedEventsData.length > 0 ? (
+                organizedEventsData.map((event, index) => (
+                  <PageLink
+                    to={`/event/${event.eventUid}`}
+                    key={index}
+                    className="eventLink"
+                  >
+                    <EventCard>
+                      <InfoText className="eventCardText">
+                        {event.title}
+                      </InfoText>
+                      <InfoText className="eventCardText">
+                        {event.date}
+                      </InfoText>
+                      <InfoText className="eventCardText">
+                        {event.time}
+                      </InfoText>
+                      <InfoText className="eventCardText">
+                        {event.location}
+                      </InfoText>
+                    </EventCard>
+                  </PageLink>
+                ))
+              ) : (
+                <>
+                  <NoEventDiv>
+                    <InfoText>No events yet, go to </InfoText>
+                    <PageLink className="noEventText" to="/events">
+                      <List color="#f7f7f7" />
+                      <BtnText>Events list</BtnText>
                     </PageLink>
-                  ))
-                ) : (
-                  <>
-                    <NoEventDiv>
-                      <InfoText>No events yet, go to </InfoText>
-                      <PageLink className="noEventText" to="/events">
-                        Events list
-                      </PageLink>
-                    </NoEventDiv>
-                  </>
-                )}
-              </EventCards>
+                  </NoEventDiv>
+                </>
+              )}
             </EventsSection>
 
             <EventsSection>
@@ -250,7 +249,8 @@ const Member = () => {
                   <NoEventDiv>
                     <InfoText>No events yet, go to </InfoText>
                     <PageLink className="noEventText" to="/events">
-                      <List color="#f7f7f7"/><BtnText>Events list</BtnText>
+                      <List color="#f7f7f7" />
+                      <BtnText>Events list</BtnText>
                     </PageLink>
                   </NoEventDiv>
                 </>
