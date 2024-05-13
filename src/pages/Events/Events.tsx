@@ -27,6 +27,7 @@ import { firestore } from "../../utilities/firebase";
 import { collection, getDocs, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Community } from "iconoir-react";
+import Masonry from '@mui/lab/Masonry';
 
 interface EventData {
   coverImage: string;
@@ -79,6 +80,7 @@ const Events = () => {
           </PageLink>
 
           <EventCards>
+          <Masonry columns={4} spacing={2}>
             {eventData.map((data, index) => (
               <PageLink key={index} to={`/event/${data.eventUid}`}>
                 <EventCard>
@@ -112,6 +114,7 @@ const Events = () => {
                 </EventCard>
               </PageLink>
             ))}
+            </Masonry>
           </EventCards>
         </EventCardsSection>
       </Wrapper>
