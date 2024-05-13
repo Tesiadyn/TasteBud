@@ -27,7 +27,6 @@ import {
   FeaturesTitle,
   FeatureCard,
   FeatureCardImgDiv,
-  FeatureCardImg,
   FeatureCardInfoDiv,
   FeatureCardTitle,
   FeatureCardText,
@@ -43,10 +42,6 @@ import { useEffect, useState, useRef } from "react";
 import { firestore } from "../../utilities/firebase.tsx";
 import { collection, getDocs, query } from "firebase/firestore";
 import PromoBannerIcon from "../../assets/promoBannerIcon.png";
-import ArticlesIcon from "../../assets/articlesIcon.svg";
-import CommentsIcon from "../../assets/commentsIcon.svg";
-import EventsIcon from "../../assets/eventsIcon.svg";
-import WheelIcon from "../../assets/wheelIcon.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
@@ -59,13 +54,7 @@ import FeatureBannerImage from "../../assets/featureBanner.jpg";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styled from "styled-components";
-import {
-  Community,
-  Lifebelt,
-  ChatLines,
-  EditPencil,
-  Edit,
-} from "iconoir-react";
+import { Community, Lifebelt, ChatLines, EditPencil } from "iconoir-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
