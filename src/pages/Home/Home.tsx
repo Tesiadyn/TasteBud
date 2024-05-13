@@ -289,9 +289,8 @@ const Home = () => {
           </FeatureSection>
           <ArticleSection elevation={12} sx={{ bgcolor: "#ddd4c5" }}>
             <ArticleSectionTitle>Latest Articles</ArticleSectionTitle>
-            {/* <SectionTitleDivider /> */}
             <ArticleCards>
-              {articleData.map((data, index) => (
+              {articleData.slice(0, 4).map((data, index) => (
                 <PageLink
                   key={index}
                   to={`/article/${data.articleUid}`}
