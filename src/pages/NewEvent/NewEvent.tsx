@@ -18,6 +18,7 @@ import { auth, firestore, storage } from "../../utilities/firebase";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import imageCompression from "browser-image-compression";
 
 const NewEvent = () => {
   const [title, setTitle] = useState("");
@@ -30,6 +31,36 @@ const NewEvent = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const navigate = useNavigate();
   const today = new Date().toISOString().split("T")[0];
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      const imageFile = files[0];
+      // console.log("originalFile instanceof Blob", imageFile instanceof Blob);
+      // console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
+
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      };
+      try {
+        const compressedFile = await imageCompression(imageFile, options);
+        // console.log(
+        //   "compressedFile instanceof Blob",
+        //   compressedFile instanceof Blob
+        // );
+        // console.log(
+        //   `compressedFile size ${compressedFile.size / 1024 / 1024} MB`
+        // );
+
+        // await uploadCoverImg(compressedFile);
+        setCoverImage(compressedFile);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   const uploadCoverImg = async (file: File | null) => {
     let coverImageUrl = "";
@@ -112,8 +143,6 @@ const NewEvent = () => {
     updateEventData();
   };
 
-  console.log(selectedTags);
-
   useEffect(() => {
     const user = getAuth();
     const unsubscribe = onAuthStateChanged(user, (user) => {
@@ -190,7 +219,9 @@ const NewEvent = () => {
               id="pic"
               placeholder="Upload a cover image"
               type="file"
-              onChange={(e) => setCoverImage(e.target.files?.[0] || null)}
+              accept="image/*"
+              // onChange={(e) => setCoverImage(e.target.files?.[0] || null)}
+              onChange={(e) => handleImageChange(e)}
             />
 
             <TagsDiv>
