@@ -67,6 +67,7 @@ export const EventActButton = styled.button`
   box-shadow: 5px 5px 15px 0px rgba(156,131,85,0.75);
   transition: all .2s;
   margin-right: 30px;
+  cursor: pointer;
   &:hover{
     background-color: #a27a55;
   }
