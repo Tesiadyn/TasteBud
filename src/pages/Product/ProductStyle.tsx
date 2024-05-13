@@ -78,7 +78,7 @@ export const ProductInfoText = styled.p`
 `;
 
 export const PostCommentBtn = styled(Link)`
-  width: 50%;
+  /* width: 50%; */
   /* height: 20px; */
   background-color: #a5550b;
   padding: 12px;
