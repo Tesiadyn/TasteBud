@@ -6,19 +6,20 @@ import {
   LogoImg,
   LogoDiv,
   ProfileImgDiv,
-  ProfileImg,
   Wrapper,
   LogBtn,
 } from "./HeaderStyle";
-import MemberIcon from "../../assets/memberSvg.svg";
+
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../utilities/firebase";
 import { signOut } from "firebase/auth";
 import { toaster } from "evergreen-ui";
 import { useState, useEffect } from "react";
+import { User } from "iconoir-react";
 import HeaderLogo from "../../assets/header-logo.png";
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [isMemberIconHovered, setIsMemberIconHovered] = useState(false);
   const navigate = useNavigate();
   const user = auth.currentUser;
 
@@ -72,8 +73,19 @@ const Header = () => {
         {user ? (
           <>
             <LogBtn onClick={handleLogout}>Log out</LogBtn>
-            <ProfileImgDiv onClick={() => navigate("./member")}>
-              <ProfileImg src={MemberIcon} />
+            <ProfileImgDiv
+              onClick={() => navigate("./member")}
+              onMouseOver={() => setIsMemberIconHovered(true)}
+              onMouseOut={() => setIsMemberIconHovered(false)}
+            >
+              <User
+                color={isMemberIconHovered ? "#9e620e" : "#f7f7f7"}
+                height={28}
+                width={28}
+                style={{
+                  transition: "all 0.2s",
+                }}
+              />
             </ProfileImgDiv>
           </>
         ) : (
