@@ -81,7 +81,7 @@ export const EventCards = styled.div`
 `;
 export const EventCard = styled.div`
   width: 300px;
-  border-radius: 4px;
+  border-radius: 12px;
   background-color: #b9a79a;
   display: flex;
   flex-direction: column;
