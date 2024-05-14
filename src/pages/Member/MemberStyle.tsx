@@ -36,7 +36,7 @@ export const BtnText = styled.p`
 `;
 export const Container = styled.div`
   width: 100%;
-  min-height: calc(100vh - 270px);
+  min-height: calc(100vh - 230px);
   position: relative;
 `;
 export const Wrapper = styled.div`

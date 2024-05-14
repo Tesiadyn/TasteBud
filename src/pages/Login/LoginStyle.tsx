@@ -43,6 +43,7 @@ export const SignupLinkDiv = styled.div`
 `;
 export const Container = styled.div`
   width: 100%;
+  min-height: calc(100vh - 230px);
 `;
 export const Wrapper = styled.div`
   width: 1280px;

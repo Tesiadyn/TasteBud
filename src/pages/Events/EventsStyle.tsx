@@ -24,7 +24,7 @@ export const PageSubtitle = styled.h3`
 `;
 export const Container = styled.div`
   width: 100%;
-  min-height: calc(100vh - 270px);
+  min-height: calc(100vh - 230px);
 `;
 export const HeroboxDiv = styled.div`
   width: 100%;

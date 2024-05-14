@@ -6,6 +6,7 @@ export const Container = styled.div`
   width: 100%;
   background-color: #e7e7e7;
   padding: 30px;
+  min-height: calc(100vh - 230px);
 `;
 export const Wrapper = styled(Paper)`
   width: 1280px;

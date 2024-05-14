@@ -35,6 +35,7 @@ export const PageLink = styled(Link)`
 
 export const Container = styled.div`
   width: 100%;
+  min-height: calc(100vh - 230px);
 `;
 export const Wrapper = styled.div`
   margin: 0 auto;

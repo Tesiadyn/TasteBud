@@ -31,7 +31,7 @@ export const CardWrapper = styled.div`
 
 export const Container = styled.div`
   width: 100%;
-  min-height: calc(100vh - 270px);
+  min-height: calc(100vh - 230px);
   background-color: #f7f7f7;
 `;
 export const Wrapper = styled.div`
