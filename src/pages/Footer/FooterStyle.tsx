@@ -22,12 +22,13 @@ export const LogoDiv = styled.div`
   height: 80%;
 `;
 export const LogoImg = styled.img`
-  width: 50%;
+  width: 70%;
   height: 70%;
 `;
 
 export const SubTitle = styled.p`
   margin: 4px 0 0;
+  font-size: 12px;
 `;
 export const InfoDiv = styled.ul`
   padding: 0;
@@ -35,13 +36,14 @@ export const InfoDiv = styled.ul`
 export const InfoDivTitle = styled.p`
   font-size: 20px;
   font-weight: 500;
-  letter-spacing: 4px;
+  letter-spacing: 3px;
   margin: 0 0 12px;
 `;
 export const InfoDivItem = styled.li`
   list-style: none;
   margin: 0 0 8px;
   font-size: 14px;
+  font-style: italic;
 `;
 export const SocialDiv = styled.div`
   display: flex;

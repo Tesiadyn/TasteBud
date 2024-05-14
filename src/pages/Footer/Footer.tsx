@@ -32,6 +32,7 @@ const Footer = () => {
             <InfoDivTitle>SUPPORT</InfoDivTitle>
             <InfoDivItem>Service terms</InfoDivItem>
             <InfoDivItem>Contact Us</InfoDivItem>
+            <InfoDivItem>Customer Service</InfoDivItem>
           </InfoDiv>
           <InfoDiv>
             <InfoDivTitle>LEGAL</InfoDivTitle>
