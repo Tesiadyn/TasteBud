@@ -25,12 +25,15 @@ import {
   BtnText,
   ProductInfoTitle,
   ProductInfoDiv,
+  CommentTitleDiv,
+  CommentTitle,
 } from "./ProductStyle";
 import { useParams } from "react-router-dom";
 import { firestore } from "../../utilities/firebase";
 import { query, where, getDocs, collection } from "firebase/firestore";
 import MiniFlavourWheel from "./MiniFlavourWheel";
-import { DesignNib } from "iconoir-react";
+import { DesignNib, InfoCircle } from "iconoir-react";
+import { Tooltip } from "react-tooltip";
 
 interface ProductData {
   bottler: string;
@@ -150,6 +153,26 @@ const Product = () => {
           </InfoDiv>
 
           <CommentDiv>
+            <CommentTitleDiv>
+              <CommentTitle>Comments</CommentTitle>
+              <InfoCircle
+                className="anchor-element"
+                color="#5e3106"
+                height={24}
+                width={24}
+                strokeWidth={2}
+              />
+              <Tooltip anchorSelect=".anchor-element" place="top">
+                <p>This is comments from other whisky lovers,</p>
+                <p>
+                  Every chart contains all the flavours that has been tasted by
+                  this user,
+                </p>
+                <p>
+                  you can click on sections of the chart to see more clearly!
+                </p>
+              </Tooltip>
+            </CommentTitleDiv>
             {commentData.length > 0 ? (
               commentData.map((comment, index) => (
                 <>

@@ -69,7 +69,7 @@ export const DivDivider = styled.div`
   border-radius: 4px;
 `;
 export const ProductIntroTitle = styled.h2`
-  font-weight: 400;
+  font-weight: 500;
   font-size: 28px;
 `;
 export const ProductInfoText = styled.p`
@@ -170,9 +170,20 @@ export const CommentDiv = styled.div`
   padding: 0 50px;
   width: 45%;
 `;
+export const CommentTitleDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  font-size: 20px;
+  color: #5e3106;
+`;
+export const CommentTitle = styled.h3`
+  margin: 0 8px 0 0;
+`;
 export const CommentWrapper = styled.div`
   border: 1px solid #b6b6b6;
-  margin: 20px 0;
+  margin: 0 0 20px;
   border-radius: 12px;
   padding: 20px;
   box-shadow: 3px 3px 5px 2px rgba(89, 89, 89, 0.3);
