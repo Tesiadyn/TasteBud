@@ -24,6 +24,8 @@ export const EventImgDiv = styled.div<backgroundImgUrlProps>`
   width: 30%;
   border-radius: 12px 0 0 12px;
   background-image: url(${(props) => props.$backgroundImageUrl});
+  background-size: cover;
+  background-position: center;
 `;
 
 export const EventInfoDiv = styled.div`
