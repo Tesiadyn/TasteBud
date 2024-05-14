@@ -117,6 +117,7 @@ const FlavourWheel: React.FC<{ data: Data }> = ({ data }) => {
       .datum(root)
       .attr("r", radius)
       .attr("fill", "none")
+      .attr("cursor", "pointer")
       .attr("pointer-events", "all")
       .on("click", clicked);
 
