@@ -225,7 +225,7 @@ const Home = () => {
           <FeatureSection>
             <FeaturesDiv>
               <FeaturesTitle>WHAT IS TASTEBUD?</FeaturesTitle>
-              <FeatureSubTitle>THIS IS OUR MAIN FEATURES.</FeatureSubTitle>
+              <FeatureSubTitle>THESE ARE OUR MAIN FEATURES.</FeatureSubTitle>
               <FeatureCardsDiv>
                 <FeatureBannerDiv>
                   <FeatureBanner src={FeatureBannerImage} />
