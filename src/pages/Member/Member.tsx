@@ -285,8 +285,14 @@ const Member = () => {
                   width={20}
                 />
                 <Tooltip anchorSelect=".my-anchor-element" place="top">
-                  After you post a comment about a whisky , your own flavour
-                  wheel will shows up!
+                  <p>
+                    After you post a comment about a whisky , your own flavour
+                    wheel will shows up
+                  </p>
+                  <p>
+                    Clicking on specific sections of the chart to magnify each
+                    flavor category
+                  </p>
                 </Tooltip>
               </SectionTitleDiv>
               <SectionDivider />
