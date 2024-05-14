@@ -44,6 +44,7 @@ export const LinkItem = styled.li`
   list-style: none;
   color: #f7f7f7;
   padding: 0 30px;
+  font-size: 18px;
   cursor: pointer;
   transition: 0.3s;
   &:hover {
@@ -75,9 +76,10 @@ export const ProfileImg = styled.img`
 `;
 
 export const LogBtn = styled.div`
-  width: 60px;
+  /* width: 60px; */
   height: 25px;
   color: #f7f7f7;
+  font-size: 18px;
   background-color: transparent;
   text-align: center;
   cursor: pointer;
