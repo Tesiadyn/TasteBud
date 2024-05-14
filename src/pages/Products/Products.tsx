@@ -84,7 +84,10 @@ const Products = () => {
       <Wrapper>
         <Cards>
           {productsData.map((product, index) => (
-            <CardWrapper key={index} ref={(el) => (cardRefs.current[index] = el)}>
+            <CardWrapper
+              key={index}
+              ref={(el) => (cardRefs.current[index] = el)}
+            >
               <Card to={`/product/${product.productUid}`}>
                 <CardImgDiv>
                   <CardImgBg />

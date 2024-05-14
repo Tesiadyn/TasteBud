@@ -83,7 +83,7 @@ export const Card = styled(Link)`
   transition: all 0.3s;
   &:hover {
     ${CardImgBg} {
-      background-color: #cca86e; 
+      background-color: #cca86e;
     }
   }
 `;
@@ -98,10 +98,9 @@ export const CardImg = styled.img`
 export const CardInfoDiv = styled.div`
   /* background-color: burlywood; */
 `;
-export const CardInfos = styled.div`
-  padding: 10px;
-`;
+export const CardInfos = styled.div``;
 export const CardInfoTitle = styled.h3`
   text-align: center;
   font-size: 24px;
+  margin: 20px 0 32px;
 `;
