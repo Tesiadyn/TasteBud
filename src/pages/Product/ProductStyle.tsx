@@ -68,15 +68,23 @@ export const DivDivider = styled.div`
   background-color: #c4c4c4;
   border-radius: 4px;
 `;
-export const ProductInfoTitle = styled.h2`
+export const ProductIntroTitle = styled.h2`
   font-weight: 400;
   font-size: 28px;
 `;
 export const ProductInfoText = styled.p`
   color: #5e3106;
-  margin: 40px 0;
+  margin: 0 0 0 8px;
 `;
-
+export const ProductInfoDiv = styled.div`
+  display: flex;
+  align-items: center;
+`;
+export const ProductInfoTitle = styled.p`
+  font-weight: 600;
+  font-style: italic;
+  color: #5e3106;
+`;
 export const PostCommentBtn = styled(Link)`
   /* width: 50%; */
   /* height: 20px; */

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   Container,
   ProductImgDiv,
-  ProductInfoTitle,
+  ProductIntroTitle,
   Wrapper,
   ProductImg,
   PostCommentBtn,
@@ -23,6 +23,8 @@ import {
   CommentCardDivider,
   PageLink,
   BtnText,
+  ProductInfoTitle,
+  ProductInfoDiv,
 } from "./ProductStyle";
 import { useParams } from "react-router-dom";
 import { firestore } from "../../utilities/firebase";
@@ -107,7 +109,7 @@ const Product = () => {
               </ProductImgDiv>
 
               <ProductIntroTitleDiv>
-                <ProductInfoTitle>{productData?.title}</ProductInfoTitle>
+                <ProductIntroTitle>{productData?.title}</ProductIntroTitle>
                 <ProductIntroText>{productData?.introText}</ProductIntroText>
                 <PostCommentBtn to={`./post`}>
                   <DesignNib color="#f7f7f7" />
@@ -119,17 +121,29 @@ const Product = () => {
             <InfoDivDivider />
 
             <InfoSection>
-              <ProductInfoText>
-                CaskType: {productData?.caskType}
-              </ProductInfoText>
-              <ProductInfoText>
-                Dilistilery: {productData?.distillery}
-              </ProductInfoText>
-              <ProductInfoText>
-                Bottled By: {productData?.bottler}
-              </ProductInfoText>
-              <ProductInfoText>Alc: {productData?.strength}%</ProductInfoText>
-              <ProductInfoText>Size: {productData?.size} ml</ProductInfoText>
+              <ProductInfoDiv>
+                <ProductInfoTitle>CaskType:</ProductInfoTitle>
+
+                <ProductInfoText>{productData?.caskType}</ProductInfoText>
+              </ProductInfoDiv>
+              <ProductInfoDiv>
+                <ProductInfoTitle>Dilistilery:</ProductInfoTitle>
+
+                <ProductInfoText>{productData?.distillery}</ProductInfoText>
+              </ProductInfoDiv>
+              <ProductInfoDiv>
+                <ProductInfoTitle>Bottled By:</ProductInfoTitle>
+
+                <ProductInfoText>{productData?.bottler}</ProductInfoText>
+              </ProductInfoDiv>
+              <ProductInfoDiv>
+                <ProductInfoTitle>Alc:</ProductInfoTitle>
+                <ProductInfoText>{productData?.strength}%</ProductInfoText>
+              </ProductInfoDiv>
+              <ProductInfoDiv>
+                <ProductInfoTitle>Size:</ProductInfoTitle>
+                <ProductInfoText>{productData?.size}ml</ProductInfoText>
+              </ProductInfoDiv>
             </InfoSection>
             <InfoDivDivider />
             <PageLink to="/products">Back to Product List</PageLink>
