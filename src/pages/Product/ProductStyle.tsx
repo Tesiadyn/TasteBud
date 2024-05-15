@@ -179,7 +179,7 @@ export const CommentTitleDiv = styled.div`
   color: #5e3106;
 `;
 export const CommentTitle = styled.h3`
-  margin: 0 8px 0 0;
+  margin: 0 8px 4px 0;
 `;
 export const CommentWrapper = styled.div`
   border: 1px solid #b6b6b6;
