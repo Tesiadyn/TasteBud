@@ -105,18 +105,19 @@ export const FeaturesTitle = styled.h2`
   font-size: 52px;
   margin: 0;
   color: #5e3106;
+  margin-left: 30px;
 `;
 export const FeatureSubTitle = styled.h2`
   font-size: 48px;
-  margin: 0;
+  margin: 0 0 0 30px;
   color: #5e3106;
 `;
 export const FeatureCards = styled.div`
   width: 70%;
-  /* margin-left: 5%; */
+  margin-left: 30px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  /* justify-content: center; */
   gap: 30px;
   @media screen and (max-width: 1279px) {
     width: 100%;
@@ -129,7 +130,7 @@ export const FeatureCardsDiv = styled.div`
   margin-top: 50px;
 `;
 export const FeatureCard = styled.div`
-  width: 40%;
+  width: calc(50% - 30px);
   display: flex;
   flex-direction: column;
   /* border: 1px solid #d6a668; */
@@ -154,6 +155,7 @@ export const FeatureCardImgDiv = styled.div`
 `;
 export const FeatureBannerDiv = styled.div`
   width: 30%;
+  margin-left: 30px;
   height: 100%;
   @media screen and (max-width: 1279px) {
     display: none;

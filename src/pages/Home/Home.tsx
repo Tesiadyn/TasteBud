@@ -88,7 +88,7 @@ const FeatureSection = styled(({ ...props }) => {
 
   return <FeatureSectionWrapper ref={sectionRef} {...props} />;
 })`
-  padding: 50px;
+  padding: 50px 0;
   background-color: #e9e2db;
 `;
 /* ---------------------------- feature animation --------------------------- */
