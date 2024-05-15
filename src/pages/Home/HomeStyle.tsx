@@ -267,6 +267,7 @@ export const ProductSection = styled.section`
 export const ProductSectionTitle = styled.h1`
   text-align: center;
   color: #6c491e;
+  margin-bottom: 30px;
 `;
 
 export const ProductCardsWrapper = styled.div`
