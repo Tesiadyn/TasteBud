@@ -281,8 +281,8 @@ const Member = () => {
                 <HelpCircleSolid
                   className="my-anchor-element"
                   color="#5e3106"
-                  height={20}
-                  width={20}
+                  height={24}
+                  width={24}
                 />
                 <Tooltip anchorSelect=".my-anchor-element" place="top">
                   <p>
