@@ -88,4 +88,4 @@ export const Tag = styled.div`
 export const HintText = styled.p`
   color: #5e3106;
   text-align: center;
-`
+`;

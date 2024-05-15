@@ -135,15 +135,14 @@ const NewEvent = () => {
         const eventUid = eventDocRef.id;
         const updatedEventData = { ...eventData, eventUid };
         await updateDoc(eventDocRef, updatedEventData);
-        navigate("/events");
-        toaster.success('Event created!')
+        navigate(`/event/${eventUid}`);
+        toaster.success("Event created!");
         // console.log("Doc written with ID : ", eventDocRef.id);
       } catch (err) {
         console.error("Error adding event data : ", err);
       }
     };
     updateEventData();
-
   };
 
   useEffect(() => {
