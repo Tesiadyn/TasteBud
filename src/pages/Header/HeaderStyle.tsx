@@ -6,7 +6,7 @@ export const Container = styled.div`
   width: 100%;
   position: sticky;
   top: 0;
-  
+
   z-index: 10;
   transition: all 0.3s;
   &.scrolled {
@@ -18,7 +18,7 @@ export const Wrapper = styled.div`
   width: 1280px;
   height: 80px;
   margin: 0 auto;
-padding: 0 20px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -43,12 +43,13 @@ export const PageLink = styled(Link)`
 export const LinkItem = styled.li`
   list-style: none;
   color: #f7f7f7;
+  font-weight: 500;
   padding: 0 30px;
   font-size: 18px;
   cursor: pointer;
   transition: 0.3s;
   &:hover {
-    color: #9e620e;
+    color: #e6ad39;
   }
 `;
 export const SearchBar = styled.div`
@@ -85,6 +86,6 @@ export const LogBtn = styled.div`
   cursor: pointer;
   transition: 0.3s;
   &:hover {
-    color: #9e620e;
+    color: #e6ad39;
   }
 `;

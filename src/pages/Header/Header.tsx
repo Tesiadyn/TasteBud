@@ -79,9 +79,10 @@ const Header = () => {
               onMouseOut={() => setIsMemberIconHovered(false)}
             >
               <User
-                color={isMemberIconHovered ? "#9e620e" : "#f7f7f7"}
+                color={isMemberIconHovered ? "#e6ad39" : "#f7f7f7"}
                 height={28}
                 width={28}
+                strokeWidth={2}
                 style={{
                   transition: "all 0.2s",
                 }}
