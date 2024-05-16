@@ -35,6 +35,9 @@ export const LogoImg = styled.img`
 `;
 export const LinksDiv = styled.ul`
   display: flex;
+  @media screen and (max-width: 1279px) {
+    display: none;
+  }
 `;
 export const PageLink = styled(Link)`
   cursor: pointer;
@@ -70,6 +73,9 @@ export const ProfileImgDiv = styled.div`
   height: 25px;
   cursor: pointer;
   position: relative;
+  @media screen and (max-width: 1279px) {
+    display: none;
+  }
 `;
 export const ProfileImg = styled.img`
   width: 100%;
@@ -87,5 +93,16 @@ export const LogBtn = styled.div`
   transition: 0.3s;
   &:hover {
     color: #e6ad39;
+  }
+  @media screen and (max-width: 1279px) {
+    display: none;
+  }
+`;
+export const MobileMenuDiv = styled.div`
+  cursor: pointer;
+  display: none;
+  z-index: 11;
+  @media screen and (max-width: 1279px) {
+    display: inline-block;
   }
 `;

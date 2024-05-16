@@ -8,6 +8,7 @@ import {
   ProfileImgDiv,
   Wrapper,
   LogBtn,
+  MobileMenuDiv,
 } from "./HeaderStyle";
 
 import { useNavigate } from "react-router-dom";
@@ -15,13 +16,24 @@ import { auth } from "../../utilities/firebase";
 import { signOut } from "firebase/auth";
 import { toaster } from "evergreen-ui";
 import { useState, useEffect } from "react";
-import { User } from "iconoir-react";
+import { User, Menu, TransitionLeft } from "iconoir-react";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Drawer from "@mui/material/Drawer";
 import HeaderLogo from "../../assets/header-logo.png";
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isMemberIconHovered, setIsMemberIconHovered] = useState(false);
   const navigate = useNavigate();
   const user = auth.currentUser;
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setIsMobileMenuOpen(newOpen);
+  };
 
   const handleLogout = async () => {
     try {
@@ -50,6 +62,31 @@ const Header = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const DrawerList = (
+    <>
+      <List>
+        <ListItem>
+          <ListItemButton>
+            <ListItemIcon>
+              <User />
+            </ListItemIcon>
+            <ListItemText>Profile</ListItemText>
+          </ListItemButton>
+        </ListItem>
+      </List>
+      <List>
+        <ListItem>
+          <ListItemButton>
+            <ListItemIcon>
+              <TransitionLeft />
+            </ListItemIcon>
+            <ListItemText>Logout</ListItemText>
+          </ListItemButton>
+        </ListItem>
+      </List>
+    </>
+  );
 
   return (
     <Container className={scrolled ? "scrolled" : ""}>
@@ -88,6 +125,16 @@ const Header = () => {
                 }}
               />
             </ProfileImgDiv>
+            <MobileMenuDiv>
+              <Menu
+                color="#f7f7f7"
+                strokeWidth={2}
+                onClick={toggleDrawer(true)}
+              />
+              <Drawer open={isMobileMenuOpen} onClose={toggleDrawer(false)}>
+                {DrawerList}
+              </Drawer>
+            </MobileMenuDiv>
           </>
         ) : (
           <LogBtn onClick={() => navigate("./login")}>Login</LogBtn>
