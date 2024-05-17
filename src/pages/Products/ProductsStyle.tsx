@@ -27,6 +27,12 @@ export const PageSubtitle = styled.h3`
 `;
 export const CardWrapper = styled.div`
   width: 25%;
+  @media screen and (max-width: 1279px) {
+    width: 30%;
+  }
+  @media screen and (max-width: 991px) {
+    width: 50%;
+  }
 `;
 
 export const Container = styled.div`
@@ -38,6 +44,9 @@ export const Wrapper = styled.div`
   width: 1280px;
   margin: 0 auto;
   padding: 50px 0;
+  @media screen and (max-width: 1279px) {
+    width: 100%;
+  }
 `;
 export const SectionTitle = styled.h2`
   color: #a1803e;
@@ -50,6 +59,7 @@ export const Cards = styled.section`
   display: flex;
   /* gap: 30px; */
   flex-wrap: wrap;
+  justify-content: center;
 `;
 
 export const CardImgDiv = styled.div`
