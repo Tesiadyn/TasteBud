@@ -58,7 +58,7 @@ export const InfoDivWrapper = styled.div`
   display: flex;
   justify-content: center;
   gap: 60px;
-  @media screen and (max-width: 1270px) {
+  @media screen and (max-width: 1279px) {
     display: none;
   }
 `;
