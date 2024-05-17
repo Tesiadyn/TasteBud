@@ -88,7 +88,6 @@ const Product = () => {
         const commentData = commentQuerySnapshot.docs.map(
           (doc) => doc.data() as CommentData
         );
-        console.log(commentData);
 
         setCommentData(commentData);
       } catch (err) {

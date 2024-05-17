@@ -18,37 +18,59 @@ export const Container = styled.div`
   min-height: calc(100vh - 230px);
 `;
 export const Wrapper = styled.div`
-  width: 75%;
+  width: 90%;
   margin: 0 auto;
   background-color: #e7e7e7;
   display: flex;
+
   justify-content: center;
   box-shadow: 3px 3px 5px 2px rgba(89, 89, 89, 0.3);
   border-radius: 12px;
+  @media screen and (max-width: 1279px) {
+    flex-direction: column;
+  }
 `;
 
 export const InfoDiv = styled.div`
   width: 45%;
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 1279px) {
+    width: 100%;
+  }
 `;
 export const IntroSection = styled.div`
   width: 100%;
   display: flex;
   padding: 10px;
+  @media screen and (max-width: 1279px) {
+    flex-direction: column;
+  }
 `;
 
 export const ProductImgDiv = styled.div`
   width: 50%;
+  @media screen and (max-width: 1279px) {
+    display: flex;
+    height: 300px;
+    justify-content: center;
+    margin: 0 auto;
+  }
 `;
 export const ProductImg = styled.img`
   height: 100%;
   width: 100%;
+  @media screen and (max-width: 1279px) {
+    width: 50%;
+  }
 `;
 export const ProductIntroTitleDiv = styled.div`
-  width: 50%;
+  width: 100%;
   color: #5e3106;
   padding: 20px;
+  @media screen and (max-width: 1279px) {
+    text-align: center;
+  }
 `;
 export const ProductIntroText = styled.p`
   line-height: 1.5;
@@ -79,6 +101,9 @@ export const ProductInfoText = styled.p`
 export const ProductInfoDiv = styled.div`
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1279px) {
+    justify-content: center;
+  }
 `;
 export const ProductInfoTitle = styled.p`
   font-weight: 600;
@@ -86,8 +111,6 @@ export const ProductInfoTitle = styled.p`
   color: #5e3106;
 `;
 export const PostCommentBtn = styled(Link)`
-  /* width: 50%; */
-  /* height: 20px; */
   background-color: #a5550b;
   padding: 12px;
   text-decoration: none;
@@ -110,6 +133,10 @@ export const PostCommentBtn = styled(Link)`
   &.noCommentsBtn {
     display: inline-block;
     text-align: center;
+  }
+  @media screen and (max-width: 1279px) {
+    margin: 0 auto;
+    width: 50%;
   }
 `;
 export const BtnText = styled.p`
@@ -161,14 +188,15 @@ export const NoCommentsHint = styled.h3`
   text-align: center;
 `;
 export const CommentCard = styled.div`
-  /* height: 100px; */
   border-radius: 8px;
-  /* padding: 10px; */
 `;
 export const CommentDiv = styled.div`
   flex: 1;
   padding: 0 50px;
   width: 45%;
+  @media screen and (max-width: 1279px) {
+    width: 100%;
+  }
 `;
 export const CommentTitleDiv = styled.div`
   display: flex;
