@@ -239,6 +239,7 @@ export const ArticleCardImg = styled.img`
 export const ArticleCardInfoDiv = styled.div`
   width: 100%;
   padding: 20px 0;
+  height: 70px;
 `;
 export const ArticleCardTitle = styled.h3`
   margin: 0;
