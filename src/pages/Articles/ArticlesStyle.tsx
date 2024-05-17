@@ -15,6 +15,10 @@ export const Wrapper = styled.div`
   margin: 0 auto;
   display: flex;
   padding: 30px;
+  @media screen and (max-width: 1279px) {
+    width: 100%;
+    flex-direction: column;
+  }
 `;
 export const BannerSection = styled.section`
   height: 300px;
@@ -47,12 +51,19 @@ export const TagSectionTitleDiv = styled.div`
   display: flex;
   align-items: center;
   color: #8c4303;
-`
+  @media screen and (max-width: 1279px) {
+    justify-content: center;
+  }
+`;
 export const Tags = styled.div`
   list-style: none;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 1279px) {
+    flex-direction: row;
+    gap: 20px;
+  }
 `;
 export const Tag = styled.button`
   padding: 8px;
@@ -78,6 +89,9 @@ export const SelectedTag = styled(Tag)`
 
 export const ArticlesSection = styled.section`
   width: 70%;
+  @media screen and (max-width: 1279px) {
+    width: 100%;
+  }
 `;
 export const ArticleCard = styled.div`
   background-color: #e9e7e0;
@@ -95,6 +109,9 @@ export const ArticleCard = styled.div`
 export const ArticleImgDiv = styled.div`
   height: 100%;
   width: 30%;
+  @media screen and (max-width: 576px) {
+    display: none;
+  }
 `;
 export const ArticleImg = styled.img`
   height: 100%;
@@ -121,5 +138,7 @@ export const ArticleInfoTag = styled.li`
 export const ArticleInfoTitle = styled.h2`
   padding: 0 30px;
   color: #5e3106;
+  @media screen and (max-width: 576px) {
+  }
 `;
 export const ArticleInfoText = styled.p``;

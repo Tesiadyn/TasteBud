@@ -75,6 +75,9 @@ const ArticleCard = styled(({ ...props }) => {
     box-shadow: 1px 1px 2px 1px rgba(89, 89, 89, 0.7);
     background-color: #c4c2bc;
   }
+  @media screen and (max-width: 576px) {
+    height: 150px;
+  }
 `;
 /* ----------------------------- cards animation ---------------------------- */
 const tagsList = ["歷史", "製程", "調和", "其他", "名詞", "入門"];
