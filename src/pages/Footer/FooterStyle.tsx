@@ -13,6 +13,11 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media screen and (max-width: 1279px) {
+    width: 100%;
+    padding: 0 30px;
+    flex-direction: column;
+  }
 `;
 export const LogoDiv = styled.div`
   display: flex;
@@ -53,4 +58,7 @@ export const InfoDivWrapper = styled.div`
   display: flex;
   justify-content: center;
   gap: 60px;
+  @media screen and (max-width: 1270px) {
+    display: none;
+  }
 `;
