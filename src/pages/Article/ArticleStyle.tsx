@@ -13,6 +13,9 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
   width: 1280px;
   margin: 0 auto;
+  @media screen and (max-width: 1279px) {
+    width: 100%;
+  }
 `;
 export const SectionTitle = styled.h2`
   text-align: center;
@@ -62,6 +65,9 @@ export const PrevPageBtn = styled.button`
   }
   &:active {
     box-shadow: 1px 1px 7px 0px rgb(212, 107, 20, 0.75);
+  }
+  @media screen and (max-width: 1279px) {
+    margin: 0 auto;
   }
 `;
 export const BtnDiv = styled.div`
