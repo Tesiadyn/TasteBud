@@ -6,7 +6,6 @@ export const Container = styled.div`
   width: 100%;
   position: sticky;
   top: 0;
-
   z-index: 10;
   transition: all 0.3s;
   &.scrolled {
@@ -24,6 +23,7 @@ export const Wrapper = styled.div`
   justify-content: space-between;
   @media screen and (max-width: 1279px) {
     width: 100%;
+    padding: 0 40px;
   }
 `;
 export const LogoDiv = styled.div`
@@ -83,7 +83,6 @@ export const ProfileImg = styled.img`
 `;
 
 export const LogBtn = styled.div`
-  /* width: 60px; */
   height: 25px;
   color: #f7f7f7;
   font-size: 18px;
@@ -100,9 +99,9 @@ export const LogBtn = styled.div`
 `;
 export const MobileMenuDiv = styled.div`
   cursor: pointer;
+  z-index: 55;
   display: none;
-  z-index: 11;
-  @media screen and (max-width: 1279px) {
-    display: inline-block;
+  @media screen and (max-width: 1280px) {
+    display: block;
   }
 `;

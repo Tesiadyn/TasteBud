@@ -16,7 +16,7 @@ import { auth } from "../../utilities/firebase";
 import { signOut } from "firebase/auth";
 import { toaster } from "evergreen-ui";
 import { useState, useEffect } from "react";
-import { User, Menu, TransitionLeft } from "iconoir-react";
+import { User, Menu, TransitionLeft, TransitionRight } from "iconoir-react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -24,6 +24,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Drawer from "@mui/material/Drawer";
 import HeaderLogo from "../../assets/header-logo.png";
+
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isMemberIconHovered, setIsMemberIconHovered] = useState(false);
@@ -66,7 +67,7 @@ const Header = () => {
   const DrawerList = (
     <>
       <List>
-        <ListItem>
+        <ListItem onClick={() => navigate("/member")}>
           <ListItemButton>
             <ListItemIcon>
               <User />
@@ -75,16 +76,29 @@ const Header = () => {
           </ListItemButton>
         </ListItem>
       </List>
-      <List>
-        <ListItem>
-          <ListItemButton>
-            <ListItemIcon>
-              <TransitionLeft />
-            </ListItemIcon>
-            <ListItemText>Logout</ListItemText>
-          </ListItemButton>
-        </ListItem>
-      </List>
+      {user ? (
+        <List>
+          <ListItem onClick={handleLogout}>
+            <ListItemButton>
+              <ListItemIcon>
+                <TransitionLeft />
+              </ListItemIcon>
+              <ListItemText>Logout</ListItemText>
+            </ListItemButton>
+          </ListItem>
+        </List>
+      ) : (
+        <List>
+          <ListItem onClick={() => navigate("/login")}>
+            <ListItemButton>
+              <ListItemIcon>
+                <TransitionRight />
+              </ListItemIcon>
+              <ListItemText>Login</ListItemText>
+            </ListItemButton>
+          </ListItem>
+        </List>
+      )}
     </>
   );
 
@@ -125,20 +139,16 @@ const Header = () => {
                 }}
               />
             </ProfileImgDiv>
-            <MobileMenuDiv>
-              <Menu
-                color="#f7f7f7"
-                strokeWidth={2}
-                onClick={toggleDrawer(true)}
-              />
-              <Drawer open={isMobileMenuOpen} onClose={toggleDrawer(false)}>
-                {DrawerList}
-              </Drawer>
-            </MobileMenuDiv>
           </>
         ) : (
           <LogBtn onClick={() => navigate("./login")}>Login</LogBtn>
         )}
+        <MobileMenuDiv>
+          <Menu color="#f7f7f7" strokeWidth={2} onClick={toggleDrawer(true)} />
+          <Drawer open={isMobileMenuOpen} onClose={toggleDrawer(false)}>
+            {DrawerList}
+          </Drawer>
+        </MobileMenuDiv>
       </Wrapper>
     </Container>
   );
