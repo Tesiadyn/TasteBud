@@ -97,11 +97,10 @@ const EditEventForm = ({
         text: text,
         maxParticipants: maxParticipants,
       });
-      // console.log("Event data updated.");
       onFormClose && onFormClose();
       navigate("/events");
     } catch (err) {
-      console.error("Error when submitting edited event data");
+      // console.error("Error when submitting edited event data");
     }
   };
   return (
@@ -231,14 +230,11 @@ const Event = () => {
         const eventRef = doc(firestore, "Events", id);
         const eventDoc = await getDoc(eventRef);
         if (eventDoc.exists()) {
-          // console.log("eventDoc exist");
           const eventData = eventDoc.data();
           if (eventData && eventData.participantsUid) {
             const participatedArray = eventDoc.data().participantsUid;
-            // console.log(participatedArray);
 
             if (participatedArray.includes(currentUserUid)) {
-              // console.log("isGuest");
               setIsGuest(true);
             }
           }
@@ -258,7 +254,6 @@ const Event = () => {
     if (confirmCancel) {
       const handleCancelEvent = async () => {
         if (!id || !currentUserUid) {
-          // console.error("Not logged in.");
           return;
         }
         /* ---------------------------- update member doc --------------------------- */
@@ -274,7 +269,6 @@ const Event = () => {
           await updateDoc(participaterRef, {
             attendedEvents: participatedEvents,
           });
-          // console.log("Member participated events updated.");
         }
         /* ---------------------------- update event doc ---------------------------- */
         const eventRef = doc(firestore, "Events", id);
@@ -282,19 +276,15 @@ const Event = () => {
         if (eventSnapshot.exists()) {
           const eventData = eventSnapshot.data();
           const guestsData = eventData.participantsUid || [];
-          // console.log(guestsData);
 
           const index = guestsData.indexOf(currentUserUid);
-          // console.log(index);
 
           if (index !== -1) {
             guestsData.splice(index, 1);
-            // console.log(guestsData);
           }
           await updateDoc(eventRef, {
             participantsUid: guestsData,
           });
-          // console.log("Event participants updated.");
         }
       };
       handleCancelEvent();
@@ -308,7 +298,6 @@ const Event = () => {
     if (confirmDelete) {
       const handleDeleteEvent = async () => {
         if (!currentUserUid || !id || !firestore) {
-          // console.error("Not logged in.");
           return;
         }
         try {
@@ -316,7 +305,7 @@ const Event = () => {
           const eventRef = doc(firestore, "Events", id);
           const organizerRef = doc(firestore, "Members", currentUserUid);
           await deleteDoc(eventRef);
-          // console.log("Event deleted");
+
           /* -------------------------- update organizer doc -------------------------- */
           const organizerSnapshot = await getDoc(organizerRef);
           if (organizerSnapshot.exists()) {
@@ -327,7 +316,6 @@ const Event = () => {
               organizedEvents.splice(index, 1);
             }
             await updateDoc(organizerRef, { organizedEvents: organizedEvents });
-            // console.log("Organizer event removed.");
           }
           /* ------------------------- update paticipants doc ------------------------- */
           const participantsCollectionRef = collection(firestore, "Member");
@@ -347,9 +335,6 @@ const Event = () => {
               await updateDoc(participantDoc.ref, {
                 participantEvents: participantEvents,
               });
-              // console.log(
-              //   `Participant event removed successfully for user ${participantDoc.id}`
-              // );
             }
           });
         } catch (err: any) {
@@ -368,8 +353,6 @@ const Event = () => {
     setIsEditing(false);
   };
   const handleParticipateClick = () => {
-    // console.log("handleParticipateClick is running");
-
     const updateParticipateDoc = async () => {
       if (!firestore || !currentUserUid || !id) {
         console.error("firestore or currentUserUid is undefined.");
