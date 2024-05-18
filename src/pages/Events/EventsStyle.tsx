@@ -68,6 +68,9 @@ export const EventCardsSection = styled.div`
   width: 1280px;
   margin: 0 auto;
   padding: 50px 0;
+  @media screen and (max-width: 1279px){
+    width: 100%;
+  }
 `;
 export const EventCardSectionTitle = styled.h2`
   margin: 30px 0;

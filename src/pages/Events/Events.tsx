@@ -27,7 +27,7 @@ import { firestore } from "../../utilities/firebase";
 import { collection, getDocs, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Community } from "iconoir-react";
-import Masonry from '@mui/lab/Masonry';
+import Masonry from "@mui/lab/Masonry";
 
 interface EventData {
   coverImage: string;
@@ -44,6 +44,10 @@ interface EventData {
 
 const Events = () => {
   const [eventData, setEventData] = useState<Array<EventData>>([]);
+  const [masonryConfig, setMasonryConfig] = useState({
+    columns: 4,
+    spacing: 2,
+  });
 
   useEffect(() => {
     const fetchEventsData = async () => {
@@ -62,7 +66,27 @@ const Events = () => {
     };
     fetchEventsData();
   }, []);
-  // console.log(eventData);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 616) {
+        setMasonryConfig({ columns: 1, spacing: 2 });
+      } else if (window.innerWidth < 900) {
+        setMasonryConfig({ columns: 2, spacing: 2 });
+      } else if (window.innerWidth < 1235) {
+        setMasonryConfig({ columns: 3, spacing: 2 });
+      } else {
+        setMasonryConfig({ columns: 4, spacing: 2 });
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <Container>
@@ -80,40 +104,43 @@ const Events = () => {
           </PageLink>
 
           <EventCards>
-          <Masonry columns={4} spacing={2}>
-            {eventData.map((data, index) => (
-              <PageLink key={index} to={`/event/${data.eventUid}`}>
-                <EventCard>
-                  <EventCardImgDiv>
-                    <EventCardImg src={data.coverImage} />
-                  </EventCardImgDiv>
-                  <EventCardTitle>{data.title}</EventCardTitle>
-                  <EventCardTags>
-                    {data.tags?.map((tag, index) => (
-                      <EventCardTag key={index}>{tag}</EventCardTag>
-                    ))}
-                  </EventCardTags>
-                  <EventCardInfos>
-                    <EventCardInfoDiv>
-                      <EventCardInfoIconDiv>
-                        <EventCardInfoIcon src={DateIcon}></EventCardInfoIcon>
-                      </EventCardInfoIconDiv>
-                      <EventCardInfoText>{data.date}</EventCardInfoText>
-                    </EventCardInfoDiv>
-                    <EventCardInfoDiv>
-                      <EventCardInfoIconDiv>
-                        <EventCardInfoIcon
-                          src={CapacityIcon}
-                        ></EventCardInfoIcon>
-                      </EventCardInfoIconDiv>
-                      <EventCardInfoText>
-                        {data.participantsUid.length} / {data.maxParticipants}
-                      </EventCardInfoText>
-                    </EventCardInfoDiv>
-                  </EventCardInfos>
-                </EventCard>
-              </PageLink>
-            ))}
+            <Masonry
+              columns={masonryConfig.columns}
+              spacing={masonryConfig.spacing}
+            >
+              {eventData.map((data, index) => (
+                <PageLink key={index} to={`/event/${data.eventUid}`}>
+                  <EventCard>
+                    <EventCardImgDiv>
+                      <EventCardImg src={data.coverImage} />
+                    </EventCardImgDiv>
+                    <EventCardTitle>{data.title}</EventCardTitle>
+                    <EventCardTags>
+                      {data.tags?.map((tag, index) => (
+                        <EventCardTag key={index}>{tag}</EventCardTag>
+                      ))}
+                    </EventCardTags>
+                    <EventCardInfos>
+                      <EventCardInfoDiv>
+                        <EventCardInfoIconDiv>
+                          <EventCardInfoIcon src={DateIcon}></EventCardInfoIcon>
+                        </EventCardInfoIconDiv>
+                        <EventCardInfoText>{data.date}</EventCardInfoText>
+                      </EventCardInfoDiv>
+                      <EventCardInfoDiv>
+                        <EventCardInfoIconDiv>
+                          <EventCardInfoIcon
+                            src={CapacityIcon}
+                          ></EventCardInfoIcon>
+                        </EventCardInfoIconDiv>
+                        <EventCardInfoText>
+                          {data.participantsUid.length} / {data.maxParticipants}
+                        </EventCardInfoText>
+                      </EventCardInfoDiv>
+                    </EventCardInfos>
+                  </EventCard>
+                </PageLink>
+              ))}
             </Masonry>
           </EventCards>
         </EventCardsSection>
