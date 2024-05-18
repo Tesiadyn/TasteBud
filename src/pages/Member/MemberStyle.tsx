@@ -5,7 +5,7 @@ export const PageLink = styled(Link)`
   text-decoration: none;
   &.eventLink {
     display: block;
-    width: 50%;
+    width: 70%;
     margin-right: 25px;
     margin: 0 auto;
   }
@@ -14,7 +14,7 @@ export const PageLink = styled(Link)`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 20%;
+    width: 150px;
     color: #f7f7f7;
     margin: 30px auto 0;
     background-color: #a5550b;
@@ -47,11 +47,18 @@ export const Wrapper = styled.div`
   border-radius: 12px;
   box-shadow: 3px 3px 5px 2px rgba(89, 89, 89, 0.3);
   display: flex;
+  @media screen and (max-width: 1423px) {
+    flex-direction: column;
+    width: 100%;
+  }
 `;
 export const WheelSection = styled.section`
   width: 100%;
   margin: 100px auto 0;
   text-align: center;
+  @media screen and (max-width: 1423px) {
+    margin: 20px auto 0;
+  }
 `;
 export const InfoSection = styled.section`
   width: 100%;
@@ -63,15 +70,22 @@ export const InfoSection = styled.section`
 export const PictureDiv = styled.div``;
 export const Picture = styled.img``;
 export const InfoDiv = styled.div`
-  width: 50%;
+  width: 90%;
   color: #5e3106;
+  margin: 0 auto;
 `;
 export const WheelDiv = styled.div`
   width: 50%;
+  @media screen and (max-width: 1423px) {
+    width: auto;
+  }
 `;
 export const EventsSection = styled.section`
   width: 100%;
   margin-bottom: 100px;
+  @media screen and (max-width: 1423px) {
+    margin-bottom: 30px;
+  }
 `;
 export const SectionTitle = styled.h2`
   font-size: 28px;
@@ -101,6 +115,12 @@ export const InfoText = styled.p`
     font-size: 36px;
     font-weight: 600;
   }
+  &.smallScreenHint {
+    display: none;
+    @media screen and (max-width: 780px) {
+      display: inline-block;
+    }
+  }
 `;
 export const NoEventDiv = styled.div`
   text-align: center;
@@ -123,4 +143,9 @@ export const SectionTitleDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+export const WheelWrapper = styled.div`
+  @media screen and (max-width: 780px) {
+    display: none;
+  }
 `;

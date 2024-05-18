@@ -20,6 +20,7 @@ import {
   NoEventDiv,
   BtnText,
   SectionTitleDiv,
+  WheelWrapper,
 } from "./MemberStyle";
 import { pulsar } from "ldrs";
 import {
@@ -296,19 +297,25 @@ const Member = () => {
                 </Tooltip>
               </SectionTitleDiv>
               <SectionDivider />
-              {wheelData ? (
-                <FlavourWheel data={wheelData} />
-              ) : (
-                <NoEventDiv>
-                  <InfoText>
-                    No datas yet, share some comments to get your own flavour
-                    wheel!
-                  </InfoText>
-                  <PageLink className="noEventText" to="/products">
-                    products
-                  </PageLink>
-                </NoEventDiv>
-              )}
+              <InfoText className="smallScreenHint">
+                Sorry , flavour wheel needs more screen size to display , please
+                use device that having bigger resolution.
+              </InfoText>
+              <WheelWrapper>
+                {wheelData ? (
+                  <FlavourWheel data={wheelData} />
+                ) : (
+                  <NoEventDiv>
+                    <InfoText>
+                      No datas yet, share some comments to get your own flavour
+                      wheel!
+                    </InfoText>
+                    <PageLink className="noEventText" to="/products">
+                      products
+                    </PageLink>
+                  </NoEventDiv>
+                )}
+              </WheelWrapper>
             </WheelSection>
           </WheelDiv>
         </Wrapper>
