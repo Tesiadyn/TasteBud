@@ -16,7 +16,15 @@ import { auth } from "../../utilities/firebase";
 import { signOut } from "firebase/auth";
 import { toaster } from "evergreen-ui";
 import { useState, useEffect } from "react";
-import { User, Menu, TransitionLeft, TransitionRight } from "iconoir-react";
+import {
+  User,
+  Menu,
+  TransitionLeft,
+  TransitionRight,
+  ChatLines,
+  EditPencil,
+  Community,
+} from "iconoir-react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -24,6 +32,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Drawer from "@mui/material/Drawer";
 import HeaderLogo from "../../assets/header-logo.png";
+import Divider from "@mui/material/Divider";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -66,6 +75,37 @@ const Header = () => {
 
   const DrawerList = (
     <>
+      <List>
+        <ListItem onClick={() => navigate("/articles")}>
+          <ListItemButton>
+            <ListItemIcon>
+              <EditPencil />
+            </ListItemIcon>
+            <ListItemText>Articles</ListItemText>
+          </ListItemButton>
+        </ListItem>
+      </List>
+      <List>
+        <ListItem onClick={() => navigate("/products")}>
+          <ListItemButton>
+            <ListItemIcon>
+              <ChatLines />
+            </ListItemIcon>
+            <ListItemText>Comments</ListItemText>
+          </ListItemButton>
+        </ListItem>
+      </List>
+      <List>
+        <ListItem onClick={() => navigate("/events")}>
+          <ListItemButton>
+            <ListItemIcon>
+              <Community />
+            </ListItemIcon>
+            <ListItemText>Events</ListItemText>
+          </ListItemButton>
+        </ListItem>
+      </List>
+      <Divider />
       <List>
         <ListItem onClick={() => navigate("/member")}>
           <ListItemButton>
