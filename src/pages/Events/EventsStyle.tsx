@@ -68,8 +68,11 @@ export const EventCardsSection = styled.div`
   width: 1280px;
   margin: 0 auto;
   padding: 50px 0;
-  @media screen and (max-width: 1279px){
+  display: flex;
+  flex-direction: column;
+  @media screen and (max-width: 1279px) {
     width: 100%;
+    padding: 0;
   }
 `;
 export const EventCardSectionTitle = styled.h2`
@@ -133,7 +136,7 @@ export const EventCardInfoDiv = styled.div`
 `;
 export const EventCardInfoIconDiv = styled.div`
   height: 100%;
-`
+`;
 export const EventCardInfoIcon = styled.img`
   width: 100%;
   height: 100%;
@@ -148,6 +151,11 @@ export const PageLink = styled(Link)`
   cursor: pointer;
   display: inline-block;
   text-decoration: none;
+  &.newEventBtn {
+    @media screen and (max-width: 1279px) {
+      margin: 0 auto;
+    }
+  }
 `;
 export const NewEventButton = styled.button`
   border: none;
@@ -170,4 +178,4 @@ export const NewEventButton = styled.button`
 `;
 export const ButtonText = styled.p`
   margin: 0 0 0 8px;
-`
+`;

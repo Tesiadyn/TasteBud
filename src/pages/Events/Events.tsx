@@ -91,12 +91,12 @@ const Events = () => {
   return (
     <Container>
       <BannerSection>
-        <PageTitle>Events</PageTitle>
+        <PageTitle>Events</PageTitle>F
         <PageSubtitle>Be the part of community</PageSubtitle>
       </BannerSection>
       <Wrapper>
         <EventCardsSection>
-          <PageLink to="/newEvent">
+          <PageLink to="/newEvent" className="newEventBtn">
             <NewEventButton>
               <Community color="#f7f7f7" />
               <ButtonText>New Event</ButtonText>
