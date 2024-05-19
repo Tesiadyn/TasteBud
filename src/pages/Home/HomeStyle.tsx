@@ -14,12 +14,12 @@ export const PageLink = styled(Link)`
     width: 40%;
   }
   &.productLink {
-    margin: auto 0;
     color: #f7f7f7;
     font-size: 16px;
     font-weight: 400;
     background-color: #a5550b;
     padding: 8px;
+    margin-top: 20px;
     border-radius: 8px;
     transition: all 0.2s;
     box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
@@ -29,6 +29,9 @@ export const PageLink = styled(Link)`
     }
     &:active {
       box-shadow: 1px 1px 7px 0px rgb(212, 107, 20, 0.75);
+    }
+    @media screen and (max-width: 767px) {
+      width: 100px;
     }
   }
 `;
@@ -47,7 +50,6 @@ export const PromoBannerSection = styled.section`
   display: flex;
 `;
 export const PromoBannerInfoDiv = styled.div`
-  width: 50%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -61,6 +63,9 @@ export const PromoBannerTitle = styled.h1`
   margin: 0;
   font-weight: 700;
   letter-spacing: 16px;
+  @media screen and (max-width: 767px) {
+    font-size: 48px;
+  }
 `;
 export const PromoBannerSubTitle = styled.h3`
   color: #f7f7f7;
@@ -89,10 +94,6 @@ export const PromoBannerImgDiv = styled.div`
 export const PromoBannerImg = styled.img`
   height: 100%;
 `;
-// export const FeaturesSection = styled(Paper)`
-//   /* width: 100%; */
-//   padding: 50px;
-// `; elevation={12} sx={{ bgcolor: "#e9e2db" }
 export const FeaturesDiv = styled.div`
   width: 1280px;
   margin: 0 auto;
@@ -106,18 +107,23 @@ export const FeaturesTitle = styled.h2`
   margin: 0;
   color: #5e3106;
   margin-left: 30px;
+  @media screen and (max-width: 767px) {
+    font-size: 40px;
+  }
 `;
 export const FeatureSubTitle = styled.h2`
   font-size: 48px;
   margin: 0 0 0 30px;
   color: #5e3106;
+  @media screen and (max-width: 767px) {
+    font-size: 36px;
+  }
 `;
 export const FeatureCards = styled.div`
   width: 70%;
   margin-left: 30px;
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: center; */
   gap: 30px;
   @media screen and (max-width: 1279px) {
     width: 100%;
@@ -133,7 +139,6 @@ export const FeatureCard = styled.div`
   width: calc(50% - 30px);
   display: flex;
   flex-direction: column;
-  /* border: 1px solid #d6a668; */
   background-color: #e2d0b7;
   padding: 20px;
   border-radius: 12px;
@@ -179,12 +184,18 @@ export const FeatureCardTitle = styled.h3`
   font-size: 24px;
   margin: 12px 0;
   color: #8c4303;
+  @media screen and (max-width: 767px) {
+    font-size: 20px;
+  }
 `;
 export const FeatureCardText = styled.p`
   margin: 0;
   line-height: 1.5;
   color: #9c602c;
   font-size: 16px;
+  @media screen and (max-width: 767px) {
+    font-size: 14px;
+  }
 `;
 export const ArticleSection = styled(Paper)`
   width: 100%;
@@ -195,14 +206,7 @@ export const ArticleSectionTitle = styled.h1`
   font-size: 32px;
   margin: 0 0 50px;
   color: #8c4303;
-  /* text-decoration: underline; */
 `;
-// export const SectionTitleDivider = styled.div`
-//   height: 1px;
-//   width: 80%;
-//   background-color: #070707;
-//   margin: 20px auto;
-// `;
 export const ArticleCards = styled.div`
   width: 70%;
   display: flex;
@@ -214,17 +218,6 @@ export const ArticleCards = styled.div`
     width: auto;
   }
 `;
-// export const ArticleCard = styled.div`
-//   background-color: #e2d0b7;
-//   display: flex;
-//   flex-direction: column;
-//   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-//     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-//   border-radius: 12px;
-//   &.hover {
-//     opacity: 0.7;
-//   }
-// `;
 export const ArticleCardImgDiv = styled.div<backgroundImgUrlProps>`
   background-image: url(${(props) => props.$backgroundImageUrl});
   background-size: cover;
@@ -246,6 +239,9 @@ export const ArticleCardTitle = styled.h3`
   font-size: 20px;
   color: #8c4303;
   font-weight: 500;
+  @media screen and (max-width: 767px) {
+    font-size: 16px;
+  }
 `;
 export const ArticleCardText = styled.p``;
 export const ArticlesLink = styled.button`
@@ -276,7 +272,7 @@ export const ProductCardsWrapper = styled.div`
   gap: 30px;
 `;
 export const ProductCard = styled.div`
-  width: 70%;
+  width: 80%;
   height: 550px;
   background-color: #e9e7e0;
   display: flex;
@@ -301,11 +297,15 @@ export const ProductCardImg = styled.img`
 `;
 export const ProductCardInfoDiv = styled.div`
   width: 45%;
-  margin-left: 50px;
   @media screen and (max-width: 1279px) {
     margin: 0;
     width: 100%;
     text-align: center;
+  }
+  @media screen and (max-width: 767px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `;
 
@@ -316,17 +316,28 @@ export const ProductCardTitle = styled.h1`
   margin: 80px 0;
   @media screen and (max-width: 1279px) {
     margin: 40px 0;
+    font-size: 28px;
+  }
+  @media screen and (max-width: 767px) {
+    font-size: 24px;
+  }
+  @media screen and (max-width: 575px) {
+    margin: 30px 0;
   }
 `;
 
 export const ProductCardText = styled.p`
-  width: 85%;
+  width: 90%;
   color: #5e3106;
   line-height: 1.5;
   font-size: 18px;
   height: 40%;
   @media screen and (max-width: 1279px) {
     margin: 0 auto;
+    font-size: 16px;
+  }
+  @media screen and (max-width: 767px) {
+    font-size: 14px;
   }
 `;
 export const ProductCardAuthorDiv = styled.div`

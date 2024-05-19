@@ -1,3 +1,10 @@
 :root {
     --swiper-theme-color: #b66d00;
 }
+
+.swiper-button-prev,
+.swiper-button-next {
+    @media screen and (max-width:767px) {
+        display: none;
+    }
+}
