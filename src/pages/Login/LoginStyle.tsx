@@ -9,10 +9,10 @@ export const InputField = styled.input`
   background-color: #f7f7f7;
 `;
 export const LoginButton = styled.button`
-  width: 100%;
+  width: 80%;
   height: 30px;
   text-align: center;
-  margin-top: 40px;
+  margin: 40px auto 0;
   background-color: #a5550b;
   border: none;
   color: #f7f7f7;
@@ -50,6 +50,9 @@ export const Wrapper = styled.div`
   background-color: #f7f7f7;
   border-radius: 12px;
   margin: 0 auto;
+  @media screen and (max-width: 1279px){
+    width: 100%;
+  }
 `;
 export const BannerDiv = styled.div`
   height: 300px;
@@ -57,10 +60,6 @@ export const BannerDiv = styled.div`
   background-position: center;
   border-radius: 12px 12px 0 0;
 `;
-// export const BannerImg = styled.img`
-//   width: 100%;
-//   height: 100%;
-// `
 export const LoginSection = styled.section`
   width: 100%;
   height: 450px;
@@ -74,10 +73,13 @@ export const LoginSectionTitle = styled.h2`
 `;
 export const InputDiv = styled.div`
   display: flex;
-  margin: 40px 0;
+  margin: 40px auto;
+  @media screen and (max-width: 575px){
+    width: 90%;
+  }
 `;
 export const LoginForm = styled.form`
-  width: 30%;
+  text-align: center;
 `;
 export const InputLabel = styled.label`
   width: 20%;
