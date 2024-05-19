@@ -53,7 +53,7 @@ const Products = () => {
     };
     fetchProductsData();
   }, []);
-  // console.log(productsData);
+
 
   useEffect(() => {
     cardRefs.current.forEach((cardRef, index) => {

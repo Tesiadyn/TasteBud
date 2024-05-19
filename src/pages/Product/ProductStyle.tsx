@@ -56,6 +56,9 @@ export const ProductImgDiv = styled.div`
     justify-content: center;
     margin: 0 auto;
   }
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  }
 `;
 export const ProductImg = styled.img`
   height: 100%;
@@ -63,13 +66,17 @@ export const ProductImg = styled.img`
   @media screen and (max-width: 1279px) {
     width: 50%;
   }
+  @media screen and (max-width: 659px) {
+    width: 70%;
+  }
 `;
 export const ProductIntroTitleDiv = styled.div`
-  width: 100%;
+  width: 50%;
   color: #5e3106;
   padding: 20px;
   @media screen and (max-width: 1279px) {
     text-align: center;
+    width: 100%;
   }
 `;
 export const ProductIntroText = styled.p`
@@ -145,6 +152,17 @@ export const BtnText = styled.p`
 export const WheelDiv = styled.div`
   display: flex;
   justify-content: center;
+  @media screen and (max-width: 659px) {
+    display: none;
+  }
+`;
+export const NoWheelHintMsg = styled.p`
+  display: none;
+  @media screen and (max-width: 659px) {
+    display: inline-block;
+    text-align: center;
+    font-size: 12px;
+  }
 `;
 export const InfoSection = styled.div`
   width: 100%;
@@ -215,6 +233,9 @@ export const CommentWrapper = styled.div`
   border-radius: 12px;
   padding: 20px;
   box-shadow: 3px 3px 5px 2px rgba(89, 89, 89, 0.3);
+  @media screen and (max-width: 659px) {
+    text-align: center;
+  }
 `;
 export const UserNameText = styled.h3`
   text-align: center;

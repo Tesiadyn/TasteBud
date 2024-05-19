@@ -33,6 +33,9 @@ export const CardWrapper = styled.div`
   @media screen and (max-width: 991px) {
     width: 50%;
   }
+  @media screen and (max-width: 575px){
+    width: 90%;
+  }
 `;
 
 export const Container = styled.div`
@@ -57,7 +60,6 @@ export const SectionTitle = styled.h2`
 export const Cards = styled.section`
   margin: 0 auto;
   display: flex;
-  /* gap: 30px; */
   flex-wrap: wrap;
   justify-content: center;
 `;
@@ -74,7 +76,6 @@ export const CardImgBg = styled.div`
   width: 70%;
   height: 70%;
   position: absolute;
-  /* background-color: #dfe2df; */
   background-color: #e6cc85;
   top: 50%;
   left: 50%;
@@ -106,7 +107,6 @@ export const CardImg = styled.img`
   transform: translate(-50%, -50%);
 `;
 export const CardInfoDiv = styled.div`
-  /* background-color: burlywood; */
 `;
 export const CardInfos = styled.div``;
 export const CardInfoTitle = styled.h3`

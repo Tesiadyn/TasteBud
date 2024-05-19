@@ -27,6 +27,7 @@ import {
   ProductInfoDiv,
   CommentTitleDiv,
   CommentTitle,
+  NoWheelHintMsg,
 } from "./ProductStyle";
 import { useParams } from "react-router-dom";
 import { firestore } from "../../utilities/firebase";
@@ -179,6 +180,10 @@ const Product = () => {
                     <WheelDiv>
                       <MiniFlavourWheel data={comment.wheelData as WheelData} />
                     </WheelDiv>
+                    <NoWheelHintMsg>
+                      Sorry , Flavour Wheel needs more space to display , please
+                      use device than having larger screen space.
+                    </NoWheelHintMsg>
                     <CommentCard key={index}>
                       <UserNameText>{comment.authorName}</UserNameText>
                       <CommentCardDivider />
@@ -188,14 +193,9 @@ const Product = () => {
                 </>
               ))
             ) : (
-              <>
-                <NoCommentsHint>
-                  No one has left comments here, wanna be the first one?
-                </NoCommentsHint>
-                {/* <PostCommentBtn className="noCommentsBtn" to={`./post`}>
-                  Post a new comment
-                </PostCommentBtn> */}
-              </>
+              <NoCommentsHint>
+                No one has left comments here, wanna be the first one?
+              </NoCommentsHint>
             )}
           </CommentDiv>
         </Wrapper>
