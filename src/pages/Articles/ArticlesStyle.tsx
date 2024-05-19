@@ -138,7 +138,8 @@ export const ArticleInfoTag = styled.li`
 export const ArticleInfoTitle = styled.h2`
   padding: 0 30px;
   color: #5e3106;
-  @media screen and (max-width: 576px) {
+  @media screen and (max-width: 767px) {
+    font-size: 20px;
   }
 `;
 export const ArticleInfoText = styled.p``;
