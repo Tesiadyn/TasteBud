@@ -1,8 +1,10 @@
 import styled from "styled-components";
-import { TextInput } from "evergreen-ui";
 import SignupBanner from "../../assets/signup-banner.jpg";
-export const InputField = styled(TextInput)`
+export const InputField = styled.input`
   width: 70%;
+  @media screen and (max-width: 575px) {
+    width: 50%;
+  }
 `;
 export const SignUpButton = styled.button`
   width: 100%;
@@ -30,6 +32,9 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
   width: 1280px;
   margin: 0 auto;
+  @media screen and (max-width: 1279px) {
+    width: 100%;
+  }
 `;
 export const SignUpSection = styled.section`
   width: 100%;
@@ -44,20 +49,30 @@ export const SignUpSection = styled.section`
 export const SignUpSectionTitle = styled.h2`
   color: #5e3106;
 `;
-export const InputDiv = styled.div`
+export const InputWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin: 20px 0;
+  margin: 40px 0;
   position: relative;
   align-items: center;
+  justify-content: center;
 `;
 export const SignUpForm = styled.form`
   width: 30%;
+  @media screen and (max-width: 1279px) {
+    width: 60%;
+  }
+  @media screen and (max-width: 575px) {
+    width: 90%;
+  }
 `;
 
 export const InputLabel = styled.label`
   width: 30%;
   color: #5e3106;
+  @media screen and (max-width: 1279px) {
+    width: 20%;
+  }
 `;
 export const HintMessage = styled.p`
   width: 100%;
@@ -65,9 +80,27 @@ export const HintMessage = styled.p`
   color: #b84b4b;
   position: absolute;
   left: 105%;
+  @media screen and (max-width: 1279px) {
+    left: 30%;
+    top: 70%;
+    width: 80%;
+  }
+  @media screen and (max-width: 575px) {
+    width: 70%;
+    left: 40%;
+  }
 `;
 export const BannerDiv = styled.div`
   background-image: url(${SignupBanner});
   height: 350px;
   border-radius: 12px 12px 0 0;
+`;
+export const InputDiv = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  @media screen and (max-width: 575px) {
+    justify-content: center;
+    gap: 30px;
+  }
 `;

@@ -6,10 +6,11 @@ import {
   SignUpSection,
   SignUpSectionTitle,
   InputLabel,
-  InputDiv,
+  InputWrapper,
   InputField,
   HintMessage,
   BannerDiv,
+  InputDiv,
 } from "./SignUpStyle";
 import { auth, firestore } from "../../utilities/firebase";
 import {
@@ -646,46 +647,52 @@ const SignUp = () => {
         <SignUpSection>
           <SignUpSectionTitle>Sign Up</SignUpSectionTitle>
           <SignUpForm onSubmit={handleSubmit}>
-            <InputDiv>
-              <InputLabel htmlFor="email">Email</InputLabel>
-              <InputField
-                id="email"
-                type="email"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-              />
+            <InputWrapper>
+              <InputDiv>
+                <InputLabel htmlFor="email">Email</InputLabel>
+                <InputField
+                  id="email"
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                />
+              </InputDiv>
               {getHint("email") && (
                 <HintMessage>{getHint("email")}</HintMessage>
               )}
-            </InputDiv>
+            </InputWrapper>
 
-            <InputDiv>
-              <InputLabel htmlFor="userName">UserName</InputLabel>
-              <InputField
-                id="userName"
-                type="text"
-                name="userName"
-                value={form.userName}
-                onChange={handleChange}
-              />
+            <InputWrapper>
+              <InputDiv>
+                <InputLabel htmlFor="userName">UserName</InputLabel>
+                <InputField
+                  id="userName"
+                  type="text"
+                  name="userName"
+                  value={form.userName}
+                  onChange={handleChange}
+                />
+              </InputDiv>
               {getHint("userName") && (
                 <HintMessage>{getHint("userName")}</HintMessage>
               )}
-            </InputDiv>
-            <InputDiv>
-              <InputLabel htmlFor="password">Password</InputLabel>
-              <InputField
-                id="password"
-                type="password"
-                name="password"
-                value={form.password}
-                onChange={handleChange}
-              />
+            </InputWrapper>
+            <InputWrapper>
+              <InputDiv>
+                <InputLabel htmlFor="password">Password</InputLabel>
+                <InputField
+                  id="password"
+                  type="password"
+                  name="password"
+                  value={form.password}
+                  onChange={handleChange}
+                />
+              </InputDiv>
               {getHint("password") && (
                 <HintMessage>{getHint("password")}</HintMessage>
               )}
-            </InputDiv>
+            </InputWrapper>
             <SignUpButton type="submit">Sign Up</SignUpButton>
           </SignUpForm>
         </SignUpSection>
