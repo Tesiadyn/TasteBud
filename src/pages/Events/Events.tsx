@@ -71,7 +71,7 @@ const Events = () => {
     const handleResize = () => {
       if (window.innerWidth < 616) {
         setMasonryConfig({ columns: 1, spacing: 2 });
-      } else if (window.innerWidth < 900) {
+      } else if (window.innerWidth < 1081) {
         setMasonryConfig({ columns: 2, spacing: 2 });
       } else if (window.innerWidth < 1235) {
         setMasonryConfig({ columns: 3, spacing: 2 });

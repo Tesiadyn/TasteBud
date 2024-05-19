@@ -86,7 +86,7 @@ export const EventCards = styled.div`
   flex-wrap: wrap;
 `;
 export const EventCard = styled.div`
-  width: 300px;
+  width: 100%;
   border-radius: 12px;
   background-color: #b9a79a;
   display: flex;
@@ -151,6 +151,7 @@ export const PageLink = styled(Link)`
   cursor: pointer;
   display: inline-block;
   text-decoration: none;
+  margin-left: 8px;
   &.newEventBtn {
     @media screen and (max-width: 1279px) {
       margin: 0 auto;
