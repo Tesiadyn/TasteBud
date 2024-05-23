@@ -23,10 +23,21 @@ TasteBud is a community forum designed for whiskey enthusiasts to share and exch
 3. **MUI, GSAP, and Evergreen-UI**: To enhance the visual experience and provide a polished and dynamic user interface.
 4. **Firebase & Firestore**: Firebase is used for hosting the website, and Firestore serves as the database to manage user data and whiskey information.
 
-## Contact
-[![amemifta@gmail.com](https://img.shields.io/badge/Gmail-EA4335.svg?style=for-the-badge&logo=Gmail&logoColor=white)](mailto:amemifta@gmail.com)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2.svg?style=for-the-badge&logo=LinkedIn&logoColor=white)](https://www.linkedin.com/in/marcehsu/)
-
 ## Flow chart
 ![Logo](https://i.imgur.com/Xa8R5am.png)
 
+## Demo
+
+-  Feature: Filtering Articles by Topic
+You can filter articles on specific topics by clicking on the topic tags on the left side of the screen.
+
+![feature1](https://imgur.com/g5HlnyX.gif)
+
+-  Feature: Unique Flavor Wheel Charts
+Collect users' tasting experiences into a unique flavor wheel chart.
+
+![feature2](https://imgur.com/0FgjAUb.gif)
+
+## Contact
+[![amemifta@gmail.com](https://img.shields.io/badge/Gmail-EA4335.svg?style=for-the-badge&logo=Gmail&logoColor=white)](mailto:amemifta@gmail.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2.svg?style=for-the-badge&logo=LinkedIn&logoColor=white)](https://www.linkedin.com/in/marcehsu/)
