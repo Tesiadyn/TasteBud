@@ -107,7 +107,7 @@ const NewEvent = () => {
       try {
         if (!user) {
           console.error("User not authenticated.");
-          navigate("/login");
+          // navigate("/login");
         }
         const tags = selectedTags;
         let coverImageUrl = "";
@@ -145,15 +145,15 @@ const NewEvent = () => {
     updateEventData();
   };
 
-  useEffect(() => {
-    const user = getAuth();
-    const unsubscribe = onAuthStateChanged(user, (user) => {
-      if (!user) {
-        navigate("/login");
-      }
-    });
-    return unsubscribe;
-  }, [navigate]);
+  // useEffect(() => {
+  //   const user = getAuth();
+  //   const unsubscribe = onAuthStateChanged(user, (user) => {
+  //     if (!user) {
+  //       navigate("/login");
+  //     }
+  //   });
+  //   return unsubscribe;
+  // }, [navigate]);
 
   return (
     <Container>

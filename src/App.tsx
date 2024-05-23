@@ -3,8 +3,10 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
+  Navigate,
+  Outlet,
 } from "react-router-dom";
-
+import { useAuth } from "./utilities/useAuth.tsx";
 import Home from "./pages/Home/Home.tsx";
 import Articles from "./pages/Articles/Articles.tsx";
 import Layout from "./pages/Layout/Layout.tsx";
@@ -19,6 +21,23 @@ import NewEvent from "./pages/NewEvent/NewEvent.tsx";
 import Event from "./pages/Event/Event.tsx";
 import Article from "./pages/Article/Article.tsx";
 
+// interface ProtectedRouteProps{
+//   children: ReactNode;
+// }
+
+const ProtectedRoute: React.FC = () => {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (!user) {
+    console.log("user not existed");
+    return <Navigate to="/login" replace></Navigate>;
+  }
+  return <Outlet />;
+};
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
@@ -27,11 +46,13 @@ const router = createBrowserRouter(
       <Route path="products" element={<Products />} />
       <Route path="events" element={<Events />} />
       <Route path="login" element={<Login />} />
-      <Route path="member" element={<Member />} />
       <Route path="product/:id" element={<Product />} />
-      <Route path="product/:id/post" element={<Post />} />
       <Route path="signup" element={<SignUp />} />
-      <Route path="newEvent" element={<NewEvent />} />
+      <Route element={<ProtectedRoute />}>
+        <Route path="member" element={<Member />} />
+        <Route path="newEvent" element={<NewEvent />} />
+        <Route path="product/:id/post" element={<Post />} />
+      </Route>
       <Route path="event/:id" element={<Event />} />
       <Route path="article/:id" element={<Article />} />
     </Route>

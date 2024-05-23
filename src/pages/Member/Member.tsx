@@ -150,9 +150,10 @@ const Member = () => {
         fetchWheelData(user.uid);
         fetchEventsData(user.uid);
         fetchOrganizedEventsData(user.uid);
-      } else {
-        navigate("/login");
-      }
+      } 
+      // else {
+      //   navigate("/login");
+      // }
     });
     return unsubscribe;
   }, [navigate]);

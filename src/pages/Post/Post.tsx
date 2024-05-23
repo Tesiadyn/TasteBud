@@ -230,18 +230,18 @@ const Post: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    const user = getAuth();
+  // useEffect(() => {
+  //   const user = getAuth();
 
-    const unsubscribe = onAuthStateChanged(user, (user) => {
-      if (user) {
-        fetchWheelData(user.uid);
-      } else {
-        navigate("/login");
-      }
-    });
-    return unsubscribe;
-  }, [navigate]);
+  //   const unsubscribe = onAuthStateChanged(user, (user) => {
+  //     if (user) {
+  //       fetchWheelData(user.uid);
+  //     } else {
+  //       navigate("/login");
+  //     }
+  //   });
+  //   return unsubscribe;
+  // }, [navigate]);
 
   const LoadingContainer = {
     display: "flex",
