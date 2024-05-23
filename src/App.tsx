@@ -3,10 +3,8 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
-  Navigate,
-  Outlet,
 } from "react-router-dom";
-import { useAuth } from "./utilities/useAuth.tsx";
+
 import Home from "./pages/Home/Home.tsx";
 import Articles from "./pages/Articles/Articles.tsx";
 import Layout from "./pages/Layout/Layout.tsx";
@@ -20,23 +18,8 @@ import SignUp from "./pages/Signup/SignUp.tsx";
 import NewEvent from "./pages/NewEvent/NewEvent.tsx";
 import Event from "./pages/Event/Event.tsx";
 import Article from "./pages/Article/Article.tsx";
-
-// interface ProtectedRouteProps{
-//   children: ReactNode;
-// }
-
-const ProtectedRoute: React.FC = () => {
-  const { user, loading } = useAuth();
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-  if (!user) {
-    console.log("user not existed");
-    return <Navigate to="/login" replace></Navigate>;
-  }
-  return <Outlet />;
-};
+import { UserProvider } from "./utilities/useContext.tsx";
+import { ProtectedRoute } from "./utilities/ProtectedRoute.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -62,7 +45,9 @@ const router = createBrowserRouter(
 const App = () => {
   return (
     <>
-      <RouterProvider router={router} />
+      <UserProvider>
+        <RouterProvider router={router} />
+      </UserProvider>
     </>
   );
 };

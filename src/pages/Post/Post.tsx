@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   query,
   collection,
@@ -9,10 +9,10 @@ import {
   addDoc,
   arrayUnion,
 } from "firebase/firestore";
-
+import { UserContext } from "../../utilities/useContext";
 import { firestore } from "../../utilities/firebase";
 import { useParams } from "react-router-dom";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import {
   CheckboxTreeWrapper,
@@ -92,10 +92,9 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
       };
       const commentRef = await addDoc(collection(db, "Comments"), commentData);
       const commentUid = commentRef.id;
-      // console.log("Document written with ID: ", commentRef.id);
       updateFirestoreData(parsedData, commentUid);
     } catch (err) {
-      console.error("Error when writing new doc : ", err);
+      // console.error("Error when writing new doc : ", err);
     }
   };
 
@@ -113,10 +112,9 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
             wheelData: JSON.stringify(parsedData),
             commentsUid: arrayUnion(commentUid),
           });
-          // console.log(`Data updated in Firestore in uid : ${userUid}`);
         }
       } catch (err) {
-        console.error("Error when updating data:", err);
+        // console.error("Error when updating data:", err);
       }
     }
   };
@@ -143,7 +141,7 @@ const CheckboxTree: React.FC<Props> = ({ data }) => {
         updateNodeValueInData(parsedInitData.children || [], checkbox.id);
       }
     });
-    // console.log(parsedData);
+
     addCommentDoc(parsedData, parsedInitData);
     toaster.success("Submit Success!");
     navigate(`/product/${id}`);
@@ -209,7 +207,7 @@ const Post: React.FC = () => {
     value: 0,
   });
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
+  const { user } = useContext(UserContext);
 
   const fetchWheelData = async (userUid: string) => {
     try {
@@ -230,18 +228,11 @@ const Post: React.FC = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const user = getAuth();
-
-  //   const unsubscribe = onAuthStateChanged(user, (user) => {
-  //     if (user) {
-  //       fetchWheelData(user.uid);
-  //     } else {
-  //       navigate("/login");
-  //     }
-  //   });
-  //   return unsubscribe;
-  // }, [navigate]);
+  useEffect(() => {
+    if (user) {
+      fetchWheelData(user.uid);
+    }
+  }, []);
 
   const LoadingContainer = {
     display: "flex",

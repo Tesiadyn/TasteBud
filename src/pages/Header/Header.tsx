@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../../utilities/firebase";
 import { signOut } from "firebase/auth";
 import { toaster } from "evergreen-ui";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   User,
   Menu,
@@ -33,12 +33,13 @@ import ListItemText from "@mui/material/ListItemText";
 import Drawer from "@mui/material/Drawer";
 import HeaderLogo from "../../assets/header-logo.png";
 import Divider from "@mui/material/Divider";
+import { UserContext } from "../../utilities/useContext";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isMemberIconHovered, setIsMemberIconHovered] = useState(false);
   const navigate = useNavigate();
-  const user = auth.currentUser;
+  const { user } = useContext(UserContext);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
