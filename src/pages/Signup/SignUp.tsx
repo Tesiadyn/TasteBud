@@ -631,15 +631,6 @@ const SignUp = () => {
 
     gettingEmailAndPassword();
   };
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("User logged in:", user);
-      } else {
-        console.log("User logged out");
-      }
-    });
-  });
   return (
     <Container>
       <Wrapper>
