@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Banner from "../../assets/comments-Banner.jpg";
+import Banner from "@images/comments-Banner.jpg";
 
 export interface CardImgDivProps {
   $bgImage: string;
@@ -33,7 +33,7 @@ export const CardWrapper = styled.div`
   @media screen and (max-width: 991px) {
     width: 50%;
   }
-  @media screen and (max-width: 575px){
+  @media screen and (max-width: 575px) {
     width: 90%;
   }
 `;
@@ -106,8 +106,7 @@ export const CardImg = styled.img`
   left: 50%;
   transform: translate(-50%, -50%);
 `;
-export const CardInfoDiv = styled.div`
-`;
+export const CardInfoDiv = styled.div``;
 export const CardInfos = styled.div``;
 export const CardInfoTitle = styled.h3`
   text-align: center;

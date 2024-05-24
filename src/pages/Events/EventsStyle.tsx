@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import SearchIcon from "../../assets/search.png";
-import Banner from "../../assets/events-Banner.jpg";
+import Banner from "@images/events-Banner.jpg";
 
 export const BannerSection = styled.section`
   height: 300px;

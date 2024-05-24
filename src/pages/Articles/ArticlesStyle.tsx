@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Banner from "../../assets/articles-Banner.jpg";
+import Banner from "@images/articles-Banner.jpg";
 export const PageLink = styled(Link)`
   text-decoration: none;
 `;
