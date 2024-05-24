@@ -16,13 +16,12 @@ import { auth, firestore } from "../../utilities/firebase";
 import {
   createUserWithEmailAndPassword,
   getAuth,
-  onAuthStateChanged,
   updateProfile,
 } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { toaster } from "evergreen-ui";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface InputRule {
   rule: RegExp;

@@ -15,9 +15,8 @@ import {
 import { addDoc, collection, updateDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { auth, firestore, storage } from "../../utilities/firebase";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import imageCompression from "browser-image-compression";
 import { toaster } from "evergreen-ui";
 
@@ -37,8 +36,6 @@ const NewEvent = () => {
     const files = e.target.files;
     if (files && files.length > 0) {
       const imageFile = files[0];
-      // console.log("originalFile instanceof Blob", imageFile instanceof Blob);
-      // console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
 
       const options = {
         maxSizeMB: 1,
@@ -47,15 +44,6 @@ const NewEvent = () => {
       };
       try {
         const compressedFile = await imageCompression(imageFile, options);
-        // console.log(
-        //   "compressedFile instanceof Blob",
-        //   compressedFile instanceof Blob
-        // );
-        // console.log(
-        //   `compressedFile size ${compressedFile.size / 1024 / 1024} MB`
-        // );
-
-        // await uploadCoverImg(compressedFile);
         setCoverImage(compressedFile);
       } catch (error) {
         console.log(error);
@@ -107,7 +95,6 @@ const NewEvent = () => {
       try {
         if (!user) {
           console.error("User not authenticated.");
-          // navigate("/login");
         }
         const tags = selectedTags;
         let coverImageUrl = "";
@@ -137,23 +124,12 @@ const NewEvent = () => {
         await updateDoc(eventDocRef, updatedEventData);
         navigate(`/event/${eventUid}`);
         toaster.success("Event created!");
-        // console.log("Doc written with ID : ", eventDocRef.id);
       } catch (err) {
         console.error("Error adding event data : ", err);
       }
     };
     updateEventData();
   };
-
-  // useEffect(() => {
-  //   const user = getAuth();
-  //   const unsubscribe = onAuthStateChanged(user, (user) => {
-  //     if (!user) {
-  //       navigate("/login");
-  //     }
-  //   });
-  //   return unsubscribe;
-  // }, [navigate]);
 
   return (
     <Container>
