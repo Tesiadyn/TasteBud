@@ -9,7 +9,7 @@ export const InputField = styled.input`
   background-color: #f7f7f7;
 `;
 export const LoginButton = styled.button`
-  width: 80%;
+  width: 100%;
   height: 30px;
   text-align: center;
   margin: 40px auto 0;
@@ -20,6 +20,18 @@ export const LoginButton = styled.button`
   border-radius: 12px;
   box-shadow: 2px 3px 6px 1px rgb(202, 91, 0, 0.55);
   transition: all 0.2s;
+  &.testAccount {
+    box-shadow: 2px 3px 6px 1px rgb(150, 91, 0, 0.45);
+    background-color: #d1872d;
+    margin-top: 25px;
+    width: 30%;
+    &:hover {
+      background-color: #eaa64d;
+    }
+    @media screen and (max-width: 1279px){
+      width: 70%;
+    }
+  }
   &:hover {
     background-color: #be722c;
   }
@@ -50,7 +62,7 @@ export const Wrapper = styled.div`
   background-color: #f7f7f7;
   border-radius: 12px;
   margin: 0 auto;
-  @media screen and (max-width: 1279px){
+  @media screen and (max-width: 1279px) {
     width: 100%;
   }
 `;
@@ -74,12 +86,16 @@ export const LoginSectionTitle = styled.h2`
 export const InputDiv = styled.div`
   display: flex;
   margin: 40px auto;
-  @media screen and (max-width: 575px){
+  @media screen and (max-width: 575px) {
     width: 90%;
   }
 `;
 export const LoginForm = styled.form`
+  width: 30%;
   text-align: center;
+  @media screen and (max-width: 1279px){
+    width: 70%;
+  }
 `;
 export const InputLabel = styled.label`
   width: 20%;

@@ -21,6 +21,23 @@ import { toaster } from "evergreen-ui";
 const Login = () => {
   const navigate = useNavigate();
   const auth = getAuth();
+
+  const handleGuestLogin = () => {
+    const email = "guest@guest.com";
+    const password = "112233aA";
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        toaster.success(`Welcome back! ${user.displayName}`);
+        navigate("/member");
+      })
+      .catch((err) => {
+        console.error("Error when signing in : ", err.message);
+        toaster.danger("Error signing in with guest account!");
+      });
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const emailInput = e.currentTarget.elements.namedItem(
@@ -35,7 +52,6 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
         toaster.success(`Welcome back! ${user.displayName}`);
         navigate("/member");
       })
@@ -68,6 +84,12 @@ const Login = () => {
             </SignupLinkDiv>
             <LoginButton type="submit">Login</LoginButton>
           </LoginForm>
+          <LoginButton
+            className="testAccount"
+            onClick={() => handleGuestLogin()}
+          >
+            Login with Guest Account
+          </LoginButton>
         </LoginSection>
       </Wrapper>
     </Container>
