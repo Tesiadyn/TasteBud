@@ -1,6 +1,26 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+export const SwiperContainer = styled.div`
+  max-width: 650px;
+  width: 100%;
+  height: 300px;
+  margin-bottom: 40px;
+
+  .swiper-slide {
+    width: auto;
+  }
+
+  .swiper-pagination-bullet-active {
+    background-color: #5e3106;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: #5e3106;
+  }
+`;
+
 export const PageLink = styled(Link)`
   text-decoration: none;
   &.eventLink {

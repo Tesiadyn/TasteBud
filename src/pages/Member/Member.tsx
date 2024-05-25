@@ -21,6 +21,7 @@ import {
   BtnText,
   SectionTitleDiv,
   WheelWrapper,
+  SwiperContainer,
 } from "./MemberStyle";
 import { pulsar } from "ldrs";
 import {
@@ -30,9 +31,11 @@ import {
   Lifebelt,
   HelpCircleSolid,
 } from "iconoir-react";
-
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 import { Tooltip } from "react-tooltip";
 import { WheelData, UserProfileData, UserEventsData } from "@/interface";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 pulsar.register();
 
 const Member = () => {
@@ -51,7 +54,7 @@ const Member = () => {
     try {
       const q = query(
         collection(db, "Members"),
-        where("__name__", "==", userUid)
+        where("__name__", "==", userUid),
       );
       const querySnapshot = await getDocs(q);
       const doc = querySnapshot.docs[0];
@@ -68,7 +71,7 @@ const Member = () => {
     try {
       const q = query(
         collection(db, "Members"),
-        where("__name__", "==", userUid)
+        where("__name__", "==", userUid),
       );
       const querySnapshot = await getDocs(q);
 
@@ -87,7 +90,7 @@ const Member = () => {
     const eventsRef = collection(db, "Events");
     const q = query(
       eventsRef,
-      where("participantsUid", "array-contains", userUid)
+      where("participantsUid", "array-contains", userUid),
     );
     const querySnapshot = await getDocs(q);
 
@@ -124,7 +127,7 @@ const Member = () => {
         fetchWheelData(user.uid);
         fetchEventsData(user.uid);
         fetchOrganizedEventsData(user.uid);
-      } 
+      }
       // else {
       //   navigate("/login");
       // }
@@ -169,41 +172,59 @@ const Member = () => {
                 <SectionTitle>Organized Events</SectionTitle>
               </SectionTitleDiv>
               <SectionDivider />
-
-              {organizedEventsData.length > 0 ? (
-                organizedEventsData.map((event, index) => (
-                  <PageLink
-                    to={`/event/${event.eventUid}`}
-                    key={index}
-                    className="eventLink"
-                  >
-                    <EventCard>
-                      <InfoText className="eventCardText">
-                        {event.title}
-                      </InfoText>
-                      <InfoText className="eventCardText">
-                        {event.date}
-                      </InfoText>
-                      <InfoText className="eventCardText">
-                        {event.time}
-                      </InfoText>
-                      <InfoText className="eventCardText">
-                        {event.location}
-                      </InfoText>
-                    </EventCard>
-                  </PageLink>
-                ))
-              ) : (
-                <>
-                  <NoEventDiv>
-                    <InfoText>No events yet, go to </InfoText>
-                    <PageLink className="noEventText" to="/events">
-                      <List color="#f7f7f7" height={28} width={28} />
-                      <BtnText>Events list</BtnText>
-                    </PageLink>
-                  </NoEventDiv>
-                </>
-              )}
+              <SwiperContainer>
+                <Swiper
+                  spaceBetween={30}
+                  centeredSlides={true}
+                  autoplay={{
+                    delay: 6000,
+                    disableOnInteraction: false,
+                  }}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  navigation={true}
+                  modules={[Autoplay, Pagination, Navigation]}
+                  className="mySwiper"
+                >
+                  {organizedEventsData.length > 0 ? (
+                    organizedEventsData.map((event, index) => (
+                      <PageLink
+                        to={`/event/${event.eventUid}`}
+                        key={index}
+                        className="eventLink"
+                      >
+                        <SwiperSlide>
+                          <EventCard>
+                            <InfoText className="eventCardText">
+                              {event.title}
+                            </InfoText>
+                            <InfoText className="eventCardText">
+                              {event.date}
+                            </InfoText>
+                            <InfoText className="eventCardText">
+                              {event.time}
+                            </InfoText>
+                            <InfoText className="eventCardText">
+                              {event.location}
+                            </InfoText>
+                          </EventCard>
+                        </SwiperSlide>
+                      </PageLink>
+                    ))
+                  ) : (
+                    <>
+                      <NoEventDiv>
+                        <InfoText>No events yet, go to </InfoText>
+                        <PageLink className="noEventText" to="/events">
+                          <List color="#f7f7f7" height={28} width={28} />
+                          <BtnText>Events list</BtnText>
+                        </PageLink>
+                      </NoEventDiv>
+                    </>
+                  )}
+                </Swiper>
+              </SwiperContainer>
             </EventsSection>
 
             <EventsSection>
@@ -212,40 +233,56 @@ const Member = () => {
                 <SectionTitle>Participated Events</SectionTitle>
               </SectionTitleDiv>
               <SectionDivider />
-              {eventData.length > 0 ? (
-                eventData.map((event, index) => (
-                  <PageLink
-                    to={`/event/${event.eventUid}`}
-                    key={index}
-                    className="eventLink"
-                  >
-                    <EventCard>
-                      <InfoText className="eventCardText">
-                        {event.title}
-                      </InfoText>
-                      <InfoText className="eventCardText">
-                        {event.date}
-                      </InfoText>
-                      <InfoText className="eventCardText">
-                        {event.time}
-                      </InfoText>
-                      <InfoText className="eventCardText">
-                        {event.location}
-                      </InfoText>
-                    </EventCard>
-                  </PageLink>
-                ))
-              ) : (
-                <>
-                  <NoEventDiv>
-                    <InfoText>No events yet, go to </InfoText>
-                    <PageLink className="noEventText" to="/events">
-                      <List color="#f7f7f7" height={28} width={28} />
-                      <BtnText>Events list</BtnText>
-                    </PageLink>
-                  </NoEventDiv>
-                </>
-              )}
+              <SwiperContainer>
+                <Swiper
+                  spaceBetween={30}
+                  centeredSlides={true}
+                  autoplay={{
+                    delay: 6000,
+                    disableOnInteraction: false,
+                  }}
+                  navigation={true}
+                  modules={[Autoplay, Navigation]}
+                  className="mySwiper"
+                >
+                  {eventData.length > 0 ? (
+                    eventData.map((event, index) => (
+                      <SwiperSlide>
+                        <PageLink
+                          to={`/event/${event.eventUid}`}
+                          key={index}
+                          className="eventLink"
+                        >
+                          <EventCard>
+                            <InfoText className="eventCardText">
+                              {event.title}
+                            </InfoText>
+                            <InfoText className="eventCardText">
+                              {event.date}
+                            </InfoText>
+                            <InfoText className="eventCardText">
+                              {event.time}
+                            </InfoText>
+                            <InfoText className="eventCardText">
+                              {event.location}
+                            </InfoText>
+                          </EventCard>
+                        </PageLink>
+                      </SwiperSlide>
+                    ))
+                  ) : (
+                    <>
+                      <NoEventDiv>
+                        <InfoText>No events yet, go to </InfoText>
+                        <PageLink className="noEventText" to="/events">
+                          <List color="#f7f7f7" height={28} width={28} />
+                          <BtnText>Events list</BtnText>
+                        </PageLink>
+                      </NoEventDiv>
+                    </>
+                  )}
+                </Swiper>
+              </SwiperContainer>
             </EventsSection>
           </InfoDiv>
 
