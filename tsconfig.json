@@ -28,7 +28,9 @@
       "@": ["./src"],
       "@/*": ["./src/*"],
       "@images": ["./src/assets"],
-      "@images/*": ["./src/assets/*"]
+      "@images/*": ["./src/assets/*"],
+      "@utilities": ["./src/utilities"],
+      "@utilities/*": ["./src/utilities/*"]
     }
   },
   "include": ["src/**/*", "src"],
