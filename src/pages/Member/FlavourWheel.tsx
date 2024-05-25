@@ -1,33 +1,9 @@
 import React, { useEffect } from "react";
 import * as d3 from "d3";
+import { WheelData } from "@/interface";
+import { NodeWheelBounds } from "@/interface";
 
-interface Data {
-  name: string;
-  value?: number;
-  children?: Data[];
-  current?: any;
-}
-
-interface NodeData {
-  x0: number;
-  x1: number;
-  y0: number;
-  y1: number;
-  current?: {
-    x0: number;
-    x1: number;
-    y0: number;
-    y1: number;
-  };
-  target?: {
-    x0: number;
-    x1: number;
-    y0: number;
-    y1: number;
-  };
-}
-
-const FlavourWheel: React.FC<{ data: Data }> = ({ data }) => {
+const FlavourWheel: React.FC<{ data: WheelData }> = ({ data }) => {
   const svgRef = React.useRef<SVGSVGElement>(null);
 
   useEffect(() => {
@@ -42,19 +18,19 @@ const FlavourWheel: React.FC<{ data: Data }> = ({ data }) => {
       )
     );
 
-    const hierarchy: d3.HierarchyNode<Data> = d3
-      .hierarchy<Data>(data)
+    const hierarchy: d3.HierarchyNode<WheelData> = d3
+      .hierarchy<WheelData>(data)
       .sum((d) => d.value ?? 0)
       .sort((a, b) => b.value! - a.value!);
 
-    const root = d3.partition<Data>().size([2 * Math.PI, hierarchy.height + 1])(
-      hierarchy
-    );
+    const root = d3
+      .partition<WheelData>()
+      .size([2 * Math.PI, hierarchy.height + 1])(hierarchy);
 
     root.each((d) => ((d as any).current = d));
 
     const arc = d3
-      .arc<d3.HierarchyRectangularNode<Data>>()
+      .arc<d3.HierarchyRectangularNode<WheelData>>()
       .startAngle((d) => d.x0)
       .endAngle((d) => d.x1)
       .padAngle((d) => Math.min((d.x1 - d.x0) / 2, 0.005))
@@ -156,7 +132,7 @@ const FlavourWheel: React.FC<{ data: Data }> = ({ data }) => {
         .attr("pointer-events", (d) =>
           arcVisible((d as any).target) ? "auto" : "none"
         )
-        .attrTween("d", function (d: d3.HierarchyRectangularNode<Data>) {
+        .attrTween("d", function (d: d3.HierarchyRectangularNode<WheelData>) {
           const interpolate = d3.interpolate(
             (d as any).current as any,
             (d as any).target as any
@@ -184,15 +160,15 @@ const FlavourWheel: React.FC<{ data: Data }> = ({ data }) => {
         });
     }
 
-    function arcVisible(d: NodeData) {
+    function arcVisible(d: NodeWheelBounds) {
       return d.y1 <= 3 && d.y0 >= 1 && d.x1 > d.x0;
     }
 
-    function labelVisible(d: NodeData) {
+    function labelVisible(d: NodeWheelBounds) {
       return d.y1 <= 3 && d.y0 >= 1 && (d.y1 - d.y0) * (d.x1 - d.x0) > 0.03;
     }
 
-    function labelTransform(d: NodeData) {
+    function labelTransform(d: NodeWheelBounds) {
       const x = (((d.x0 + d.x1) / 2) * 180) / Math.PI;
       const y = ((d.y0 + d.y1) / 2) * radius;
       return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;

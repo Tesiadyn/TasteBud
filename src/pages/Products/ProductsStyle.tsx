@@ -2,10 +2,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Banner from "@images/comments-Banner.jpg";
 
-export interface CardImgDivProps {
-  $bgImage: string;
-}
-
 export const BannerSection = styled.section`
   height: 300px;
   width: 100%;

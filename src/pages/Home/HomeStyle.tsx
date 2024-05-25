@@ -1,10 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Paper from "@mui/material/Paper";
-
-interface backgroundImgUrlProps {
-  $backgroundImageUrl: string;
-}
+import { backgroundImgUrlProps } from "@/interface";
 
 export const PageLink = styled(Link)`
   cursor: pointer;

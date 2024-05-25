@@ -55,7 +55,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styled from "styled-components";
 import { Community, Lifebelt, ChatLines, EditPencil } from "iconoir-react";
-
+import { ArticleData, ProductsData } from "@/interface";
 gsap.registerPlugin(ScrollTrigger);
 
 /* ---------------------------- feature animation --------------------------- */
@@ -82,7 +82,7 @@ const FeatureSection = styled(({ ...props }) => {
           end: "bottom 20%",
           toggleActions: "play none none reverse",
         },
-      }
+      },
     );
   }, []);
 
@@ -115,7 +115,7 @@ const ArticleCard = styled(({ ...props }) => {
           end: "bottom 20%",
           toggleActions: "play none none reverse",
         },
-      }
+      },
     );
   }, []);
   return <ArticleCardWrapper ref={cardRef} {...props} />;
@@ -123,8 +123,10 @@ const ArticleCard = styled(({ ...props }) => {
   background-color: #e2d0b7;
   display: flex;
   flex-direction: column;
-  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
   border-radius: 12px;
   &.hover {
     opacity: 0.7;
@@ -142,26 +144,6 @@ const theme = createTheme({
     },
   },
 });
-
-interface ArticleData {
-  picture: string;
-  text: string;
-  title: string;
-  tags: (string | null)[];
-  articleUid: string;
-}
-
-interface ProductsData {
-  bottler: string;
-  caskType: string;
-  distillery: string;
-  picture: string;
-  size: string;
-  strength: string;
-  title: string;
-  productUid: string;
-  introText: string;
-}
 
 const Home = () => {
   const [articleData, setArticleData] = useState<Array<ArticleData>>([]);

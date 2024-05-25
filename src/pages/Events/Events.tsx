@@ -28,19 +28,7 @@ import { collection, getDocs, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Community } from "iconoir-react";
 import Masonry from "@mui/lab/Masonry";
-
-interface EventData {
-  coverImage: string;
-  location: string;
-  maxParticipants: number;
-  organizerUid: string;
-  text: string;
-  title: string;
-  date: string;
-  eventUid: string;
-  tags: (string | null)[];
-  participantsUid: (string | null)[];
-}
+import { EventData } from "@/interface";
 
 const Events = () => {
   const [eventData, setEventData] = useState<Array<EventData>>([]);

@@ -41,19 +41,9 @@ import { Tooltip } from "react-tooltip";
 pulsar.register();
 const db = firestore;
 const auth = getAuth();
+import { TreeNode, TreeNodeProps } from "@/interface";
 
-interface TreeNode {
-  id: number;
-  name: string;
-  value: number;
-  children?: TreeNode[];
-}
-
-interface Props {
-  data: TreeNode;
-}
-
-const CheckboxTree: React.FC<Props> = ({ data }) => {
+const CheckboxTree: React.FC<TreeNodeProps> = ({ data }) => {
   const [commentText, setCommentText] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();

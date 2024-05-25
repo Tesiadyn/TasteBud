@@ -31,29 +31,8 @@ import {
 import { getAuth } from "firebase/auth";
 import { useNavigate, useBlocker } from "react-router-dom";
 import { toaster } from "evergreen-ui";
+import { EventData, EditEventFormProps } from "@/interface";
 
-interface EventData {
-  coverImage: string;
-  date: string;
-  eventUid: string;
-  location: string;
-  maxParticipants: number;
-  organizerUid: string;
-  participantsUid: (string | null)[];
-  text: string;
-  title: string;
-  time: string;
-}
-interface EditEventFormProps {
-  eventId?: string;
-  initTitle?: string;
-  initLocation?: string;
-  initParticipants?: number;
-  initText?: string;
-  initDate?: string;
-  initTime?: string;
-  onFormClose?: () => void;
-}
 const EditEventForm = ({
   initTitle = "",
   initLocation = "",

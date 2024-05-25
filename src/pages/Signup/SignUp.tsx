@@ -22,24 +22,17 @@ import { setDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { toaster } from "evergreen-ui";
 import { useState } from "react";
+import { SignUpInputRule, SignUpFormState } from "@/interface";
 
-interface InputRule {
-  rule: RegExp;
-  message: string;
-}
-interface FormState {
-  email: string;
-  userName: string;
-  password: string;
-}
+
 const SignUp = () => {
   const navigate = useNavigate();
-  const [form, setForm] = useState<FormState>({
+  const [form, setForm] = useState<SignUpFormState>({
     email: "",
     userName: "",
     password: "",
   });
-  const inputRules: { [key: string]: InputRule } = {
+  const inputRules: { [key: string]: SignUpInputRule } = {
     email: {
       rule: /^\S+@\S+\.\S+$/,
       message: `Please input email address with '@'`,
@@ -54,7 +47,7 @@ const SignUp = () => {
         "Please enter password at least 6 characters including uppercase and lowercase",
     },
   };
-  const getHint = (inputField: keyof FormState) => {
+  const getHint = (inputField: keyof SignUpFormState) => {
     const hint = inputRules[inputField];
     const value = form[inputField];
     if (hint && typeof value === "string" && !hint.rule.test(value)) {

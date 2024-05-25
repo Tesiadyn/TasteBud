@@ -1,10 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
-
-interface backgroundImgUrlProps {
-  $backgroundImageUrl: string;
-}
+import { backgroundImgUrlProps } from "@/interface";
 
 export const Container = styled.div`
   width: 100%;

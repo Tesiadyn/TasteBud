@@ -35,32 +35,7 @@ import { query, where, getDocs, collection } from "firebase/firestore";
 import MiniFlavourWheel from "./MiniFlavourWheel";
 import { DesignNib, InfoCircle } from "iconoir-react";
 import { Tooltip } from "react-tooltip";
-
-interface ProductData {
-  bottler: string;
-  caskType: string;
-  distillery: string;
-  picture: string;
-  size: string;
-  strength: string;
-  title: string;
-  productUid: string;
-  introText: string;
-}
-interface WheelData {
-  name: string;
-  value?: number;
-  children?: WheelData[];
-}
-
-interface CommentData {
-  authorUid: string;
-  commentText: string;
-  productUid: string;
-  quillValue: string;
-  authorName: string;
-  wheelData: WheelData | WheelData[];
-}
+import { ProductData, WheelData, CommentData } from "@/interface";
 
 const Product = () => {
   const { id } = useParams();

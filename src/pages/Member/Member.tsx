@@ -32,48 +32,22 @@ import {
 } from "iconoir-react";
 
 import { Tooltip } from "react-tooltip";
-
+import { WheelData, UserProfileData, UserEventsData } from "@/interface";
 pulsar.register();
-
-interface WheelData {
-  name: string;
-  value?: number;
-  children?: WheelData[];
-}
-interface UserData {
-  userUid: string;
-  userName: string;
-  email: string;
-  organizedEvents: (string | null)[];
-  attendedEvents: (string | null)[];
-}
-interface EventData {
-  coverImage: string;
-  date: string;
-  eventUid: string;
-  location: string;
-  maxParticipants: number;
-  organizerUid: string;
-  participantsUid: (string | null)[];
-  tags: (string | null)[];
-  text: string;
-  title: string;
-  time: string;
-}
 
 const Member = () => {
   const [wheelData, setWheelData] = useState<WheelData | null>(null);
-  const [userData, setUserData] = useState<UserData | null>(null);
+  const [userData, setUserProfileData] = useState<UserProfileData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [eventData, setEventData] = useState<Array<EventData>>([]);
+  const [eventData, setUserEventsData] = useState<Array<UserEventsData>>([]);
   const [organizedEventsData, setOrganizedEventsData] = useState<
-    Array<EventData>
+    Array<UserEventsData>
   >([]);
 
   const navigate = useNavigate();
   const db = firestore;
 
-  const fetchUserData = async (userUid: string) => {
+  const fetchUserProfileData = async (userUid: string) => {
     try {
       const q = query(
         collection(db, "Members"),
@@ -81,8 +55,8 @@ const Member = () => {
       );
       const querySnapshot = await getDocs(q);
       const doc = querySnapshot.docs[0];
-      const docFromFirestore = doc.data() as UserData;
-      setUserData(docFromFirestore);
+      const docFromFirestore = doc.data() as UserProfileData;
+      setUserProfileData(docFromFirestore);
     } catch (err: any) {
       console.error("Error when fetching user data : ", err.message);
     }
@@ -118,11 +92,11 @@ const Member = () => {
     const querySnapshot = await getDocs(q);
 
     const newData = querySnapshot.docs.map((doc) => {
-      const eventDataFromFirestore = doc.data() as EventData;
+      const eventDataFromFirestore = doc.data() as UserEventsData;
       return eventDataFromFirestore;
     });
 
-    setEventData(newData);
+    setUserEventsData(newData);
   };
 
   const fetchOrganizedEventsData = async (userUid: string) => {
@@ -132,7 +106,7 @@ const Member = () => {
       const querySnapshot = await getDocs(q);
 
       const newData = querySnapshot.docs.map((doc) => {
-        const eventDataFromFirestore = doc.data() as EventData;
+        const eventDataFromFirestore = doc.data() as UserEventsData;
         return eventDataFromFirestore;
       });
       setOrganizedEventsData(newData);
@@ -146,7 +120,7 @@ const Member = () => {
 
     const unsubscribe = onAuthStateChanged(user, (user) => {
       if (user) {
-        fetchUserData(user.uid);
+        fetchUserProfileData(user.uid);
         fetchWheelData(user.uid);
         fetchEventsData(user.uid);
         fetchOrganizedEventsData(user.uid);

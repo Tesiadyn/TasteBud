@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { firestore } from "../../utilities/firebase";
 import { query, where, getDocs, collection } from "firebase/firestore";
 import { useState, useEffect } from "react";
-import { Undo } from "iconoir-react";
 import {
   Container,
   Wrapper,
@@ -18,14 +17,8 @@ import {
   Tags,
   Tag,
 } from "./ArticleStyle";
-
-interface ArticleData {
-  picture: string;
-  text: string;
-  title: string;
-  tags: (string | null)[];
-  articleUid: string;
-}
+import { Undo } from "iconoir-react";
+import { ArticleData } from "@/interface";
 
 const Article = () => {
   const { id } = useParams();
@@ -38,11 +31,11 @@ const Article = () => {
       try {
         const q = query(
           collection(db, "Articles"),
-          where("articleUid", "==", id)
+          where("articleUid", "==", id),
         );
         const querySnapshot = await getDocs(q);
         const articleData = querySnapshot.docs.map(
-          (doc) => doc.data() as ArticleData
+          (doc) => doc.data() as ArticleData,
         );
         setArticleData(articleData[0]);
       } catch (err) {
