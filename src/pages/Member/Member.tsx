@@ -128,9 +128,6 @@ const Member = () => {
         fetchEventsData(user.uid);
         fetchOrganizedEventsData(user.uid);
       }
-      // else {
-      //   navigate("/login");
-      // }
     });
     return unsubscribe;
   }, [navigate]);

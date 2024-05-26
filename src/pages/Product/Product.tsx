@@ -49,20 +49,20 @@ const Product = () => {
       try {
         const productQuery = query(
           collection(db, "Products"),
-          where("productUid", "==", id)
+          where("productUid", "==", id),
         );
         const commentQuery = query(
           collection(db, "Comments"),
-          where("productUid", "==", id)
+          where("productUid", "==", id),
         );
         const commentQuerySnapshot = await getDocs(commentQuery);
         const productQuerySnapshot = await getDocs(productQuery);
         const productData = productQuerySnapshot.docs.map(
-          (doc) => doc.data() as ProductData
+          (doc) => doc.data() as ProductData,
         );
         setProductData(productData[0]);
         const commentData = commentQuerySnapshot.docs.map(
-          (doc) => doc.data() as CommentData
+          (doc) => doc.data() as CommentData,
         );
 
         setCommentData(commentData);

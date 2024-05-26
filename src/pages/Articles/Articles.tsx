@@ -59,7 +59,7 @@ const ArticleCard = styled(({ ...props }) => {
           once: true,
           toggleActions: "play none none reverse",
         },
-      }
+      },
     );
   }, []);
   return <ArticleCardWrapper ref={cardRef} {...props} />;
@@ -104,68 +104,24 @@ const Articles = () => {
     };
     fetchArticleData();
   }, []);
-  // console.log(articleData);
-  // const handleTagClick = (e:React.MouseEvent<HTMLButtonElement>) => {
-  //   const searchTagArticle = async (target:string) => {
-  //     try{
-  //       const articleRef = collection(firestore, "Articles");
-  //       const articleQuery = query(
-  //         articleRef,
-  //         where("tags", "array-contains", target)
-  //       );
-  //       const articleSnapshot = await getDocs(articleQuery);
-  //       const resultArticles = articleSnapshot.docs.map((doc)=>{
-  //         const articleDataFromDoc = doc.data() as ArticleData;
-  //         return articleDataFromDoc ;
-  //       })
-  //       setArticleData(resultArticles);
-  //     } catch (err:any) {
-  //       console.error("Error when getting article data : ", err.message)
-  //     }
-  //   }
-  //   const getTagValue = async (e:React.MouseEvent<HTMLButtonElement>) => {
-  //     try{
-  //       const target = e.currentTarget.value;
-  //       searchTagArticle(target);
-  //     } catch (err:any){
-  //       console.error("Error when searching Tag related article : ", err.message)
-  //     }
-  //   }
-  //   getTagValue(e);
 
-  //  }
-  // const handleTagClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-  //   try {
-  //     const target = e.currentTarget.value;
-  //     const articleRef = collection(firestore, "Articles");
-  //     const articleQuery = query(articleRef, where("tags", "array-contains", target));
-  //     const articleSnapshot = await getDocs(articleQuery);
-  //     const resultArticles = articleSnapshot.docs.map((doc) => {
-  //       const articleDataFromDoc = doc.data() as ArticleData;
-  //       return articleDataFromDoc;
-  //     });
-  //     setArticleData(resultArticles);
-  //   } catch (err: any) {
-  //     console.error("Error when getting article data : ", err.message);
-  //   }
-  // };
   const filterArticlesByTags = (articles: ArticleData[], tags: string[]) => {
     if (tags.length === 0) return articles;
     return articles.filter((article) =>
-      article.tags.some((tag) => tags.includes(tag!))
+      article.tags.some((tag) => tags.includes(tag!)),
     );
   };
 
   const filteredArticles: ArticleData[] = filterArticlesByTags(
     articleData,
-    selectedTags
+    selectedTags,
   );
 
   const handleTagClick = (tag: string) => {
     setSelectedTags((prevTags) =>
       prevTags.includes(tag)
         ? prevTags.filter((t) => t !== tag)
-        : [...prevTags, tag]
+        : [...prevTags, tag],
     );
   };
 

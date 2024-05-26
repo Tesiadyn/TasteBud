@@ -54,9 +54,9 @@ const EditEventForm = ({
   const navigate = useNavigate();
   const today = new Date().toISOString().split("T")[0];
 
-  let blocker = useBlocker(
+  const blocker = useBlocker(
     ({ currentLocation, nextLocation }) =>
-      isFormModified && currentLocation.pathname !== nextLocation.pathname
+      isFormModified && currentLocation.pathname !== nextLocation.pathname,
   );
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -79,7 +79,7 @@ const EditEventForm = ({
       onFormClose && onFormClose();
       navigate("/events");
     } catch (err) {
-      // console.error("Error when submitting edited event data");
+      console.error("Error when submitting edited event data");
     }
   };
   return (
@@ -177,7 +177,7 @@ const Event = () => {
         const q = query(collection(db, "Events"), where("eventUid", "==", id));
         const querySnapshot = await getDocs(q);
         const eventData = querySnapshot.docs.map(
-          (doc) => doc.data() as EventData
+          (doc) => doc.data() as EventData,
         );
         setEventData(eventData[0]);
       } catch (err) {
@@ -228,7 +228,7 @@ const Event = () => {
   }, []);
   const handleCancelClick = () => {
     const confirmCancel: boolean = window.confirm(
-      "Are you sure to cancel participate this event? This can not be undo."
+      "Are you sure to cancel participate this event? This can not be undo.",
     );
     if (confirmCancel) {
       const handleCancelEvent = async () => {
@@ -271,7 +271,7 @@ const Event = () => {
   };
   const handleDeleteClick = () => {
     const confirmDelete: boolean = window.confirm(
-      "Are you sure to delete this event? This can not be undo."
+      "Are you sure to delete this event? This can not be undo.",
     );
 
     if (confirmDelete) {
@@ -300,7 +300,7 @@ const Event = () => {
           const participantsCollectionRef = collection(firestore, "Member");
           const participantsQuery = query(
             participantsCollectionRef,
-            where("attendedEvents", "array-contains", id)
+            where("attendedEvents", "array-contains", id),
           );
           const participantsSnapshot = await getDocs(participantsQuery);
 
@@ -334,7 +334,6 @@ const Event = () => {
   const handleParticipateClick = () => {
     const updateParticipateDoc = async () => {
       if (!firestore || !currentUserUid || !id) {
-        console.error("firestore or currentUserUid is undefined.");
         return;
       }
       try {

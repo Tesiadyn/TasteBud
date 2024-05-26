@@ -49,7 +49,6 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      console.log("user logged out");
       toaster.notify("Log out succeed!");
       navigate("/");
     } catch (err: any) {

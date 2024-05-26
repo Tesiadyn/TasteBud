@@ -28,7 +28,7 @@ export const LoginButton = styled.button`
     &:hover {
       background-color: #eaa64d;
     }
-    @media screen and (max-width: 1279px){
+    @media screen and (max-width: 1279px) {
       width: 70%;
     }
   }
@@ -93,7 +93,7 @@ export const InputDiv = styled.div`
 export const LoginForm = styled.form`
   width: 30%;
   text-align: center;
-  @media screen and (max-width: 1279px){
+  @media screen and (max-width: 1279px) {
     width: 70%;
   }
 `;

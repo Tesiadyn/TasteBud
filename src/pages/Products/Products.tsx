@@ -54,7 +54,6 @@ const Products = () => {
     fetchProductsData();
   }, []);
 
-
   useEffect(() => {
     cardRefs.current.forEach((cardRef, index) => {
       if (cardRef) {
@@ -69,7 +68,7 @@ const Products = () => {
               start: "top 80%",
             },
             delay: index * 0.2,
-          }
+          },
         );
       }
     });

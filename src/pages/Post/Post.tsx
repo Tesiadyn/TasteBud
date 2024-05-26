@@ -50,7 +50,7 @@ const CheckboxTree: React.FC<TreeNodeProps> = ({ data }) => {
   const updateNodeValueInTree = (
     nodes: TreeNode[],
     nodeName: string,
-    incrementValue: number
+    incrementValue: number,
   ): TreeNode[] => {
     return nodes.map((node) => {
       const updatedNode = { ...node };
@@ -60,7 +60,7 @@ const CheckboxTree: React.FC<TreeNodeProps> = ({ data }) => {
         updatedNode.children = updateNodeValueInTree(
           node.children,
           nodeName,
-          incrementValue
+          incrementValue,
         );
       }
       return updatedNode;
@@ -84,13 +84,13 @@ const CheckboxTree: React.FC<TreeNodeProps> = ({ data }) => {
       const commentUid = commentRef.id;
       updateFirestoreData(parsedData, commentUid);
     } catch (err) {
-      // console.error("Error when writing new doc : ", err);
+      console.error("Error when writing new doc : ", err);
     }
   };
 
   const updateFirestoreData = async (
     parsedData: object,
-    commentUid: string
+    commentUid: string,
   ) => {
     if (parsedData) {
       try {
@@ -104,7 +104,7 @@ const CheckboxTree: React.FC<TreeNodeProps> = ({ data }) => {
           });
         }
       } catch (err) {
-        // console.error("Error when updating data:", err);
+        console.error("Error when updating data:", err);
       }
     }
   };
@@ -123,7 +123,7 @@ const CheckboxTree: React.FC<TreeNodeProps> = ({ data }) => {
     };
 
     const checkboxes = document.querySelectorAll<HTMLInputElement>(
-      'input[type="checkbox"]'
+      'input[type="checkbox"]',
     );
     checkboxes.forEach((checkbox) => {
       if (checkbox.checked) {
@@ -203,7 +203,7 @@ const Post: React.FC = () => {
     try {
       const q = query(
         collection(db, "Members"),
-        where("__name__", "==", userUid)
+        where("__name__", "==", userUid),
       );
       const querySnapshot = await getDocs(q);
 

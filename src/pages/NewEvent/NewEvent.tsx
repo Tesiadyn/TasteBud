@@ -73,7 +73,7 @@ const NewEvent = () => {
         async () => {
           const downloadUrl = await getDownloadURL(uploadTask.snapshot.ref);
           resolve(downloadUrl);
-        }
+        },
       );
     });
   };
@@ -117,7 +117,7 @@ const NewEvent = () => {
         };
         const eventDocRef = await addDoc(
           collection(firestore, "Events"),
-          eventData
+          eventData,
         );
         const eventUid = eventDocRef.id;
         const updatedEventData = { ...eventData, eventUid };

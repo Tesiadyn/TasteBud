@@ -38,8 +38,8 @@ const router = createBrowserRouter(
       </Route>
       <Route path="event/:id" element={<Event />} />
       <Route path="article/:id" element={<Article />} />
-    </Route>
-  )
+    </Route>,
+  ),
 );
 
 const App = () => {

@@ -24,7 +24,6 @@ import { toaster } from "evergreen-ui";
 import { useState } from "react";
 import { SignUpInputRule, SignUpFormState } from "@/interface";
 
-
 const SignUp = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState<SignUpFormState>({
@@ -65,16 +64,14 @@ const SignUp = () => {
   };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("handleSubmit running...");
 
     const register = async (email: string, password: string) => {
       try {
         const user = await createUserWithEmailAndPassword(
           auth,
           email,
-          password
+          password,
         );
-        console.log("user created", user);
         return user;
       } catch (err: any) {
         const errorCode = err.code;
@@ -88,25 +85,24 @@ const SignUp = () => {
     const gettingEmailAndPassword = async () => {
       try {
         const emailInput = e.currentTarget.elements.namedItem(
-          "email"
+          "email",
         ) as HTMLInputElement | null;
         const email = emailInput?.value;
         const passwordInput = e.currentTarget.elements.namedItem(
-          "password"
+          "password",
         ) as HTMLInputElement | null;
         const password = passwordInput?.value;
         const userNameInput = e.currentTarget.elements.namedItem(
-          "userName"
+          "userName",
         ) as HTMLInputElement | null;
         const userName = userNameInput?.value;
         if (email && password) {
           const userObj = await register(email, password);
           if (userObj && userObj.user) {
             const userUid = userObj?.user.uid;
-            console.log(userUid);
             writingMemberDoc(email, userUid, userName!);
             toaster.success(
-              "Sing up success! Please login with email & password"
+              "Sing up success! Please login with email & password",
             );
             navigate("/login");
           }
@@ -119,7 +115,7 @@ const SignUp = () => {
     const writingMemberDoc = async (
       email: string,
       userUid: string,
-      userName: string
+      userName: string,
     ) => {
       const memberData = {
         attendedEvents: [],
