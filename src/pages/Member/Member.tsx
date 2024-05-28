@@ -177,21 +177,18 @@ const Member = () => {
                     delay: 6000,
                     disableOnInteraction: false,
                   }}
-                  pagination={{
-                    clickable: true,
-                  }}
                   navigation={true}
                   modules={[Autoplay, Pagination, Navigation]}
                   className="mySwiper"
                 >
                   {organizedEventsData.length > 0 ? (
                     organizedEventsData.map((event, index) => (
-                      <PageLink
-                        to={`/event/${event.eventUid}`}
-                        key={index}
-                        className="eventLink"
-                      >
-                        <SwiperSlide>
+                      <SwiperSlide>
+                        <PageLink
+                          to={`/event/${event.eventUid}`}
+                          key={index}
+                          className="eventLink"
+                        >
                           <EventCard>
                             <InfoText className="eventCardText">
                               {event.title}
@@ -206,8 +203,8 @@ const Member = () => {
                               {event.location}
                             </InfoText>
                           </EventCard>
-                        </SwiperSlide>
-                      </PageLink>
+                        </PageLink>
+                      </SwiperSlide>
                     ))
                   ) : (
                     <>
