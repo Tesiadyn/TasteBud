@@ -138,7 +138,9 @@ const NewEvent = () => {
         <FormSection onSubmit={handleSubmit}>
           <FormTitle>NEW EVENT</FormTitle>
           <InputForm>
-            <InputLabel htmlFor="title">Event Title</InputLabel>
+            <InputLabel htmlFor="title" className="inputFormLabel">
+              Event Title
+            </InputLabel>
             <InputField
               id="title"
               placeholder="Enter the title of event.(Max: 150 characters)"
@@ -147,7 +149,9 @@ const NewEvent = () => {
               required
               maxLength={150}
             />
-            <InputLabel htmlFor="text">Event Content</InputLabel>
+            <InputLabel htmlFor="text" className="inputFormLabel">
+              Event Content
+            </InputLabel>
             <InputField
               id="text"
               placeholder="Enter the content.(Max: 250 characters)"
@@ -156,7 +160,9 @@ const NewEvent = () => {
               required
               maxLength={250}
             />
-            <InputLabel htmlFor="date">Event Date</InputLabel>
+            <InputLabel htmlFor="date" className="inputFormLabel">
+              Event Date
+            </InputLabel>
             <InputField
               id="date"
               placeholder="Enter the event Date"
@@ -165,7 +171,9 @@ const NewEvent = () => {
               onChange={(e) => setDate(e.target.value)}
               required
             />
-            <InputLabel htmlFor="time">Event Time</InputLabel>
+            <InputLabel htmlFor="time" className="inputFormLabel">
+              Event Time
+            </InputLabel>
             <InputField
               id="time"
               placeholder="Enter the event time"
@@ -173,7 +181,9 @@ const NewEvent = () => {
               onChange={(e) => setTime(e.target.value)}
               required
             />
-            <InputLabel htmlFor="location">Location</InputLabel>
+            <InputLabel htmlFor="location" className="inputFormLabel">
+              Location
+            </InputLabel>
             <InputField
               id="location"
               placeholder="Enter the location (Max: 150 characters)"
@@ -182,7 +192,9 @@ const NewEvent = () => {
               required
               maxLength={150}
             />
-            <InputLabel htmlFor="number">Maximum Guests</InputLabel>
+            <InputLabel htmlFor="number" className="inputFormLabel">
+              Maximum Guests
+            </InputLabel>
             <InputField
               id="number"
               placeholder="Enter maximum guests (Max: 200)"
@@ -192,13 +204,14 @@ const NewEvent = () => {
               required
               max={200}
             />
-            <InputLabel htmlFor="pic">Cover Image</InputLabel>
+            <InputLabel htmlFor="pic" className="inputFormLabel">
+              Cover Image
+            </InputLabel>
             <InputField
               id="pic"
               placeholder="Upload a cover image"
               type="file"
               accept="image/*"
-              // onChange={(e) => setCoverImage(e.target.files?.[0] || null)}
               onChange={(e) => handleImageChange(e)}
             />
 
