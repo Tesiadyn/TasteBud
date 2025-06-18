@@ -5,7 +5,7 @@
 # TasteBud
 TasteBud is a community forum designed for whiskey enthusiasts to share and exchange knowledge and experiences related to whiskey.
 <div align="center">
-  <a href="https://tastebud-2dd90.web.app/">Website</a> | <a href="https://youtu.be/568I7s0xg1U">Demo</a>
+  <a href="https://tastebud-2dd90.web.app/" target="_blank">Website</a> | <a href="https://youtu.be/568I7s0xg1U">Demo</a>
 </div>
 
 ## About
